@@ -17,3 +17,19 @@ ability to buy a ticket
 - [ ] Pull user information from DB (use placeholder first)
 - [ ] Use email API to send confirmation email upon successful purchase
 - [ ] Dockerize the application (afterwards)
+
+## To Do (frontend)
+- [ ] Initialise a Svelte project with Bootstrap and other necessary dependencies
+- [ ] Create a layout using HTML to represent the ticket purchasing page
+- [ ] Display seating categories
+- [ ] Create interactive components to allow users to select seats
+- [ ] Implement a shopping cart where selected seats are displayed
+- [ ] Implement a login/user authentication feature to link purchases with user accounts
+- [ ] Integrate a payment gateway or simulate a payment process for testing
+- [ ] Confirm purchase with user
+- [ ] Integrate an email service (eg. SendGrid) to send confirmation emails
+- [ ] Customise the appearance of the UI elements (perhaps use swal)
+- [ ] Test whole process of buying
+- [ ] Implement error handling for scenarios like failed payments or network errors (provide error messages)
+- [ ] Make sure app is accessible by following WCAG guidelines
+- [ ] Deploy Svelte app to the production environment
