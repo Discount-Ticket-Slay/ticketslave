@@ -8,7 +8,8 @@ ability to buy a ticket
 
 ## To Do (backend)
 - [x] Initialise Spring Boot Project w mySQL DB access
-- [ ] Initialise a mySQL DB
+- [x] Initialise a mySQL DB
+- [ ] ER Diagram for DB
 - [ ] Update application.properties to connect to mySQL DB
 - [ ] Update DB using update.sql (after purchase)
 - [ ] Use placeholder user (to connect to actual users afterwards)
