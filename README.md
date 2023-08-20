@@ -16,3 +16,4 @@ ability to buy a ticket
 - [ ] Create a TicketPurchase Entity, Repository, Service, Controller
 - [ ] Pull user information from DB (use placeholder first)
 - [ ] Use email API to send confirmation email upon successful purchase
+- [ ] Dockerize the application (afterwards)
