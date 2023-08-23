@@ -3,6 +3,7 @@
 <script>
     // Import any required data or logic here
     import * as feather from 'feather-icons';
+    import InfoCard from './InfoCard.svelte';
 </script>
 
 <style>
@@ -11,7 +12,7 @@
         background-color: #4A6EEB;
         color: white;
         padding: 1rem;
-        justify-content: center;
+        justify-content: space-between;
     }
 
     .navbar a {
@@ -21,6 +22,7 @@
     }
 
     .search-bar {
+        width: 30%;
         display: inline-block;
         background-color: white;
         border: none;
@@ -30,16 +32,35 @@
         font-family: inherit;
     }
 
+    .wrapper1 {
+        display: flex;
+        width: 40%;
+        justify-content: space-around;
+    }
+
+    .icon {
+        margin-left: 64px;
+        font-weight: bold;
+        cursor: pointer;
+        color: brown !important;
+    }
+
     /* Customize other navbar styles as needed */
 </style>
 
 <main>
     <div class="navbar navbar-expand nav-line">
-        <!-- Navbar content -->
-        <a href="/">TixHelp</a>
-        <a href="/">About</a>
-        <a href="/">Events</a>
-        <a href="/">FAQ</a>
+        <a href="/" class="icon">
+            Tix
+        </a>
+
+        <div class="wrapper1">
+            <!-- Navbar content -->
+            <a href="/">Help</a>
+            <a href="/">About</a>
+            <a href="/">Events</a>
+            <a href="/">FAQ</a>
+        </div>
     
         <!-- Search bar input -->
         <input type="text" class="search-bar" placeholder="Search...">
