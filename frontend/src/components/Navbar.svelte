@@ -4,11 +4,13 @@
     // Import any required data or logic here
     import * as feather from 'feather-icons';
     import InfoCard from './InfoCard.svelte';
+    import InputBox from './InputBox.svelte';
 </script>
 
 <style>
     /* Apply CSS styles for the navbar */
     .navbar {
+        display: flex;
         background-color: #4A6EEB;
         color: white;
         padding: 1rem;
@@ -39,10 +41,15 @@
     }
 
     .icon {
+        position: relative;
         margin-left: 64px;
         font-weight: bold;
         cursor: pointer;
         color: brown !important;
+    }
+
+    main {
+        min-width: 800px;
     }
 
     /* Customize other navbar styles as needed */
@@ -67,4 +74,5 @@
     
         <a href="/">Sign up/Log in</a>
     </div>
+
 </main>
