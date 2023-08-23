@@ -12,3 +12,7 @@ npm-debug.log*
 
 # Ignore the build folder
 /public/build/ 
+
+# Ignore the bundle file
+/public/bundle.js
+/public/bundle.js.map
