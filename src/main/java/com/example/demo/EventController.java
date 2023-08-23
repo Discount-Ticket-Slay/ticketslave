@@ -18,7 +18,10 @@ public class EventController {
     @GetMapping
     public List<Event> getAllEvents() {
         System.out.println(EventService.getAllEvents());
+        
+        // convert get event object into json list
         return EventService.getAllEvents();
+
     }
 
     // enter data into database
