@@ -1,6 +1,7 @@
 <!--
     Reusable single button component, which comes in small, medium, and large sizes.
     Default size is medium.
+	edit styles where needed
 -->
 
 

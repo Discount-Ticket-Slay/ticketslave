@@ -1,6 +1,6 @@
 <!--
     Resuable card component that displays event and venue details
-
+	edit styles where needed
 -->
 
 <script>
