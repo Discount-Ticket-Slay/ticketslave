@@ -4,7 +4,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.Date;
 
 @Entity
 @Table(name = "Event")
@@ -16,16 +15,16 @@ public class Event {
 
     private String EventName;
     private String EventDescription;
-    private Date StartDateTime;
+    private String StartDateTime;
     private String Venue;
     private String Artist;
-
 
     // Getters, Setters, Constructors, etc.
     public Event() {
     }
 
-    public Event(int eventId, String eventName, String eventDescription, Date startDateTime, String venue, String artist) {
+    public Event(int eventId, String eventName, String eventDescription, String startDateTime, String venue, String artist) {
+
         EventId = eventId;
         EventName = eventName;
         EventDescription = eventDescription;
@@ -58,11 +57,11 @@ public class Event {
         EventDescription = eventDescription;
     }
 
-    public Date getStartDateTime() {
+    public String getStartDateTime() {
         return StartDateTime;
     }
 
-    public void setStartDateTime(Date startDateTime) {
+    public void setStartDateTime(String startDateTime) {
         StartDateTime = startDateTime;
     }
 
