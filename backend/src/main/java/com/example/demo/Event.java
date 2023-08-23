@@ -23,9 +23,9 @@ public class Event {
     public Event() {
     }
 
-    public Event(int eventId, String eventName, String eventDescription, String startDateTime, String venue, String artist) {
+    public Event(String eventName, String eventDescription, String startDateTime, String venue, String artist) {
 
-        EventId = eventId;
+        //EventId = eventId;
         EventName = eventName;
         EventDescription = eventDescription;
         StartDateTime = startDateTime;
