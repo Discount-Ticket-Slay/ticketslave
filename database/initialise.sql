@@ -14,3 +14,12 @@ create table if not exists TicketTransaction (
 );
 
 -- drop table TicketTransaction; 
+
+create table if not exists Event (
+	EventID int primary key not null,
+    EventName varchar(100),
+    StartDateTime datetime,
+    Venue varchar(100),
+	Artist varchar(100),
+    EventDescription varchar(1000)
+);
