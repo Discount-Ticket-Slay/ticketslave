@@ -4,6 +4,11 @@ import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+
+import java.util.*;
+
 
 @Entity
 @Table(name = "Event")
@@ -18,12 +23,16 @@ public class Event {
     private String StartDateTime;
     private String Venue;
     private String Artist;
+    private int Capacity = -1;
+
+    // @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    // private List<Ticket> tickets;
 
     // Getters, Setters, Constructors, etc.
     public Event() {
     }
 
-    public Event(String eventName, String eventDescription, String startDateTime, String venue, String artist) {
+    public Event(String eventName, String eventDescription, String startDateTime, String venue, String artist, int capacity) {
 
         //EventId = eventId;
         EventName = eventName;
@@ -31,6 +40,8 @@ public class Event {
         StartDateTime = startDateTime;
         Venue = venue;
         Artist = artist;
+        Capacity = capacity;
+        //tickets = new ArrayList<Ticket>();
     }
 
     public int getEventId() {
@@ -80,5 +91,21 @@ public class Event {
     public void setArtist(String artist) {
         Artist = artist;
     }
+
+    public int getCapacity() {
+        return Capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        Capacity = capacity;
+    }
+
+    // public List<Ticket> getTickets() {
+    //     return tickets;
+    // }
+
+    // public void setTickets(List<Ticket> tickets) {
+    //     this.tickets = tickets;
+    // }
 
 }
