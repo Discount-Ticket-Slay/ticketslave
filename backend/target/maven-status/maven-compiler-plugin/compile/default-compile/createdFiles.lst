@@ -1,4 +1,8 @@
 com\example\demo\TicketService.class
+com\example\demo\TicketCategoryRepository.class
 com\example\demo\TicketController.class
+com\example\demo\TicketCategoryController.class
 com\example\demo\TicketRepository.class
+com\example\demo\TicketCategory.class
 com\example\demo\Ticket.class
+com\example\demo\TicketCategoryService.class

@@ -44,6 +44,9 @@ public class Ticket {
 
     // }
     
+    public int getTicketId() {
+        return TicketId;
+    }
 
     public int getSeatNo() {
         return SeatNo;
