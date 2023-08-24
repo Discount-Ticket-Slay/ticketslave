@@ -1,3 +1,9 @@
+# How to Run App (Ensure npm dependencies are installed for frontend AND backend
+)
+cd backend
+npm start
+^c twice when done
+
 # buyTicket
 ability to buy a ticket
 
