@@ -1,11 +1,10 @@
-# How to Run App (Ensure npm dependencies are installed for frontend AND backend
-)
-cd backend
-npm start
-^c twice when done
-
 # buyTicket
 ability to buy a ticket
+
+# How to Run App (Ensure npm dependencies are installed for frontend AND backend)
+cd backend <br />
+npm start <br />
+^c twice when done
 
 ## User Stories to Tackle (sprint 0)
 - [ ] As a ticket buyer, I want to receive a confirmation email after a successful purchase.
@@ -19,7 +18,7 @@ ability to buy a ticket
 - [x] Update application.properties to connect to mySQL DB
 - [x] Update DB using update.sql (after purchase)
 - [x] Use placeholder user (to connect to actual users afterwards)
-- [ ] Create a Ticket Entity, Repository, Service, Controller
+- [x] Create a Ticket Entity, Repository, Service, Controller
 - [ ] Create a TicketPurchase Entity, Repository, Service, Controller
 - [ ] Pull user information from DB (use placeholder first)
 - [ ] Use email API to send confirmation email upon successful purchase
