@@ -25,7 +25,7 @@ npm start <br />
 - [ ] Dockerize the application (afterwards)
 
 ## To Do (frontend)
-- [ ] Initialise a Svelte project with Bootstrap and other necessary dependencies
+- [x] Initialise a Svelte project with Bootstrap and other necessary dependencies
 - [ ] Create a layout using HTML to represent the ticket purchasing page
 - [ ] Display seating categories
 - [ ] Create interactive components to allow users to select seats
@@ -34,7 +34,7 @@ npm start <br />
 - [ ] Integrate a payment gateway or simulate a payment process for testing
 - [ ] Confirm purchase with user
 - [ ] Integrate an email service (eg. SendGrid) to send confirmation emails
-- [ ] Customise the appearance of the UI elements (perhaps use swal)
+- [x] Customise the appearance of the UI elements (perhaps use swal)
 - [ ] Test whole process of buying
 - [ ] Implement error handling for scenarios like failed payments or network errors (provide error messages)
 - [ ] Make sure app is accessible by following WCAG guidelines
