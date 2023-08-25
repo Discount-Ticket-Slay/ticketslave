@@ -6,7 +6,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.CascadeType;
+import java.util.*;
 
 @Entity
 @Table(name = "TicketCategory")
@@ -19,8 +22,12 @@ public class TicketCategory {
     private String Name;
     private double Price;
 
-    // @OneToMany(mappedBy = "TicketCategory", cascade = CascadeType.ALL)
-    // private List<Ticket> tickets;
+    @OneToMany(mappedBy = "TicketCategory", cascade = CascadeType.ALL)
+    private List<Ticket> tickets;
+
+    @ManyToOne
+    @JoinColumn(name = "eventId")
+    private Event Event;
 
     // Getters, Setters, Constructors, etc.
     public TicketCategory() {
@@ -51,6 +58,22 @@ public class TicketCategory {
 
     public double getPrice() {
         return Price;
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public Event getEvent() {
+        return Event;
+    }
+
+    public void setEvent(Event event) {
+        Event = event;
     }
 
     public void setPrice(double price) {

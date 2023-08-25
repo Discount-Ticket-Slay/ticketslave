@@ -25,8 +25,8 @@ public class Event {
     private String Artist;
     private int Capacity = -1;
 
-    // @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    // private List<Ticket> tickets;
+    @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL)
+    private List<TicketCategory> TicketCategory;
 
     // Getters, Setters, Constructors, etc.
     public Event() {
@@ -100,12 +100,12 @@ public class Event {
         Capacity = capacity;
     }
 
-    // public List<Ticket> getTickets() {
-    //     return tickets;
-    // }
+    public List<TicketCategory> getTicketCategory() {
+        return TicketCategory;
+    }
 
-    // public void setTickets(List<Ticket> tickets) {
-    //     this.tickets = tickets;
-    // }
+    public void setTicketCategory(List<TicketCategory> ticketCategory) {
+        TicketCategory = ticketCategory;
+    }
 
 }

@@ -29,6 +29,7 @@ public class EventController {
     public Event createEvent(@RequestBody Event Event) {
 
         System.out.println(Event);
+        
         return EventService.createEvent(Event);
     }
 

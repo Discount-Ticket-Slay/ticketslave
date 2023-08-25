@@ -16,6 +16,7 @@ public class EventService {
 
     public Event createEvent(Event Event) {
         //loadTickets(Event);
+        
         return EventRepository.save(Event);
     }
 
