@@ -21,7 +21,7 @@ npm start <br />
 - [x] Create a Ticket Entity, Repository, Service, Controller
 - [ ] Create a TicketPurchase Entity, Repository, Service, Controller
 - [ ] Pull user information from DB (use placeholder first)
-- [ ] Use email API to send confirmation email upon successful purchase
+- [X] Use email API to send confirmation email upon successful purchase
 - [ ] Dockerize the application (afterwards)
 
 ## To Do (frontend)
@@ -33,7 +33,7 @@ npm start <br />
 - [ ] Implement a login/user authentication feature to link purchases with user accounts
 - [ ] Integrate a payment gateway or simulate a payment process for testing
 - [ ] Confirm purchase with user
-- [X] Integrate an email service (eg. SendGrid) to send confirmation emails
+- [ ] Integrate an email service (eg. SendGrid) to send confirmation emails
 - [x] Customise the appearance of the UI elements (perhaps use swal)
 - [ ] Test whole process of buying
 - [ ] Implement error handling for scenarios like failed payments or network errors (provide error messages)
