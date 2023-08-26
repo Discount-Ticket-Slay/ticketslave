@@ -33,7 +33,7 @@ npm start <br />
 - [ ] Implement a login/user authentication feature to link purchases with user accounts
 - [ ] Integrate a payment gateway or simulate a payment process for testing
 - [ ] Confirm purchase with user
-- [ ] Integrate an email service (eg. SendGrid) to send confirmation emails
+- [X] Integrate an email service (eg. SendGrid) to send confirmation emails
 - [x] Customise the appearance of the UI elements (perhaps use swal)
 - [ ] Test whole process of buying
 - [ ] Implement error handling for scenarios like failed payments or network errors (provide error messages)
