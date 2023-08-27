@@ -26,7 +26,7 @@ public class Event {
     private int Capacity = -1;
 
     @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL)
-    private List<TicketCategory> TicketCategory;
+    private List<TicketCategory> TicketCategories = new ArrayList<>();
 
     // Getters, Setters, Constructors, etc.
     public Event() {
@@ -100,12 +100,12 @@ public class Event {
         Capacity = capacity;
     }
 
-    public List<TicketCategory> getTicketCategory() {
-        return TicketCategory;
+    public List<TicketCategory> getTicketCategories() {
+        return TicketCategories;
     }
 
-    public void setTicketCategory(List<TicketCategory> ticketCategory) {
-        TicketCategory = ticketCategory;
+    public void setTicketCategories(List<TicketCategory> ticketCategories) {
+        TicketCategories = ticketCategories;
     }
 
 }

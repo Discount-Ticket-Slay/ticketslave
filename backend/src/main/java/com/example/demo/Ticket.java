@@ -26,6 +26,10 @@ public class Ticket {
     @JoinColumn(name = "ticketCategoryId")
     private TicketCategory TicketCategory;
 
+    @ManyToOne
+    @JoinColumn(name = "purchaseId")
+    private Purchase Purchase;
+
     public Ticket () {
 
     }
