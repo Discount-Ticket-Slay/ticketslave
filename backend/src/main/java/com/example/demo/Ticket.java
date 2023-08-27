@@ -22,9 +22,9 @@ public class Ticket {
     private String TicketDescription;
     private boolean Status = false;
 
-    // @ManyToOne
-    // @JoinColumn(name = "eventId")
-    // private Event Event;
+    @ManyToOne
+    @JoinColumn(name = "ticketCategoryId")
+    private TicketCategory TicketCategory;
 
     public Ticket () {
 
@@ -38,11 +38,9 @@ public class Ticket {
 
     }
 
-    // public Ticket(int seatNo, Event event) {
-    //     SeatNo = seatNo;
-    //     //Event = event;
-
-    // }
+    public void setTicketId(int ticketId) {
+        TicketId = ticketId;
+    }
     
     public int getTicketId() {
         return TicketId;
@@ -80,6 +78,12 @@ public class Ticket {
         Status = status;
     }
 
-    
+    public TicketCategory getTicketCategory() {
+        return TicketCategory;
+    }
+
+    public void setTicketCategory(TicketCategory ticketCategory) {
+        TicketCategory = ticketCategory;
+    }
 
 }

@@ -16,6 +16,7 @@ public class TicketCategoryService {
 
     public TicketCategory createTicketCategory(TicketCategory TicketCategory) {
         //loadTickets(TicketCategory);
+        
         return TicketCategoryRepository.save(TicketCategory);
     }
 }
