@@ -8,5 +8,6 @@ com\example\demo\TicketService.class
 com\example\demo\PurchaseController.class
 com\example\demo\PurchaseRepository.class
 com\example\demo\PurchaseService.class
+com\example\demo\EmailRequest.class
 com\example\demo\Ticket.class
 com\example\demo\TicketCategoryService.class

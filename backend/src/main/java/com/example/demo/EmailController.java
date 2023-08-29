@@ -18,7 +18,7 @@ public class EmailController {
     private EmailService emailService;
  
     @PostMapping("/email")
-    public void sendEmail(@RequestBody EmailService email, String to, String subject, String body) {
-        email.sendEmail(to, subject, body);
+    public void sendEmail(@RequestBody EmailRequest email) {
+        emailService.sendEmail(email.getTo(), email.getSubject(), email.getBody());
     }
 }
