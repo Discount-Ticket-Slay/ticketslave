@@ -72,7 +72,7 @@
         <!-- Search bar input -->
         <input type="text" class="search-bar" placeholder="Search...">
     
-        <a href="/">Sign up/Log in</a>
+        <a href="/#/login">Sign up/Log in</a>
     </div>
 
 </main>

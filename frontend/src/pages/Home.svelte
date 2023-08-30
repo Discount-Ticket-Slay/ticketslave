@@ -8,7 +8,9 @@
 
 <!-- Rest of app content -->
 <main>
-    <h1>This is the homepage.</h1>
-
     <Navbar />
+
+    <div class="container py-2">
+        <h1>This is the homepage.</h1>
+    </div>
 </main>
