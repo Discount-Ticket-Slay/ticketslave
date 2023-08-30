@@ -21,7 +21,8 @@
         <h1>Sign up</h1>
         <br><br><br><br>
         <SignupInput />
-    
+
+        <br>
         <a href="/#/login">Log in here!</a>
     </div>
 </main>

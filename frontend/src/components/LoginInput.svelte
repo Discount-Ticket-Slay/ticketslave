@@ -38,10 +38,12 @@
             labelText="Password"
             placeholder="Enter password..."
         />
+
     </FluidForm>
 
     <Checkbox labelText="Keep me logged in"/>
 
+    <br><br>
     <ButtonSet stacked>
         <Button>Log in</Button>
     </ButtonSet>

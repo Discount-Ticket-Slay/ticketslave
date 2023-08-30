@@ -22,11 +22,11 @@
         <br><br><br><br>
         <LoginInput />
 
+        <br>
         <p>Don't have an account?</p>
         <a href='/#/signup'>Sign up</a>
 
         <br><br>
-
         <a href='/#/signup'>Forgot password?</a>
     </div>
 </main>
