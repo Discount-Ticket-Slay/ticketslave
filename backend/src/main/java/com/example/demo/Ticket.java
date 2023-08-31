@@ -15,7 +15,7 @@ public class Ticket {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int TicketId;
+    private Long TicketId;
 
     private int SeatNo;
     private int RowNo;
@@ -42,11 +42,11 @@ public class Ticket {
 
     }
 
-    public void setTicketId(int ticketId) {
+    public void setTicketId(Long ticketId) {
         TicketId = ticketId;
     }
     
-    public int getTicketId() {
+    public Long getTicketId() {
         return TicketId;
     }
 

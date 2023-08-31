@@ -17,7 +17,7 @@ public class TicketCategory {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int TicketCategoryId;
+    private Long TicketCategoryId;
 
     private String Name;
     private double Price;
@@ -40,11 +40,11 @@ public class TicketCategory {
         Price = price;
     }
 
-    public int getTicketCategoryId() {
+    public Long getTicketCategoryId() {
         return TicketCategoryId;
     }
 
-    public void setTicketCategoryId(int ticketCategoryId) {
+    public void setTicketCategoryId(Long ticketCategoryId) {
         TicketCategoryId = ticketCategoryId;
     }
 

@@ -16,7 +16,7 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int EventId;
+    private Long EventId;
 
     private String EventName;
     private String EventDescription;
@@ -44,11 +44,11 @@ public class Event {
         //tickets = new ArrayList<Ticket>();
     }
 
-    public int getEventId() {
+    public Long getEventId() {
         return EventId;
     }
 
-    public void setEventId(int eventId) {
+    public void setEventId(Long eventId) {
         EventId = eventId;
     }
 

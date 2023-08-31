@@ -16,7 +16,7 @@ public class Purchase {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int PurchaseId;
+    private Long PurchaseId;
 
     @OneToMany(mappedBy = "Purchase", cascade = CascadeType.ALL)
     private List<Ticket> Tickets = new ArrayList<>();
@@ -25,11 +25,11 @@ public class Purchase {
 
     }
 
-    public int getPurchaseId() {
+    public Long getPurchaseId() {
         return PurchaseId;
     }
 
-    public void setPurchaseId(int purchaseId) {
+    public void setPurchaseId(Long purchaseId) {
         PurchaseId = purchaseId;
     }
 

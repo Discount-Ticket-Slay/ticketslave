@@ -21,11 +21,12 @@ public class TicketController {
     @GetMapping
     public List<Ticket> getAllTickets() {
         System.out.println(TicketService.getAllTickets());
-        
         // convert get Ticket object into json list
         return TicketService.getAllTickets();
-
     }
+
+    // @PutMapping
+    // public Ticket setCategory(){};
 
     // enter data into database
     @PostMapping
