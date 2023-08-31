@@ -17,8 +17,13 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
  
-    @PostMapping("/email")
+    @PostMapping
     public void sendEmail(@RequestBody EmailRequest email) {
         emailService.sendEmail(email.getTo(), email.getSubject(), email.getBody());
+    }
+
+    @GetMapping
+    public void doStuff(){
+        System.out.println("get request sent and received");
     }
 }
