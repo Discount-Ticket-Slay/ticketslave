@@ -6,6 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.*;
 
@@ -26,6 +28,7 @@ public class Event {
     private int Capacity = -1;
 
     @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL)
+    
     private List<TicketCategory> TicketCategories = new ArrayList<>();
 
     // Getters, Setters, Constructors, etc.
@@ -100,12 +103,19 @@ public class Event {
         Capacity = capacity;
     }
 
+    @JsonManagedReference
     public List<TicketCategory> getTicketCategories() {
         return TicketCategories;
+    }
+    public void addTicketCategory(TicketCategory ticketCategory) {
+        TicketCategories.add(ticketCategory);
     }
 
     public void setTicketCategories(List<TicketCategory> ticketCategories) {
         TicketCategories = ticketCategories;
+    }
+    public String toString() {
+        return EventName;
     }
 
 }

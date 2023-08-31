@@ -20,12 +20,9 @@ public class EventService {
         return EventRepository.save(Event);
     }
 
-    // public void loadTickets(Event Event) {
-    //     List<Ticket> tickets = Event.getTickets(); 
-    //     for (int i = 0; i < Event.getCapacity(); i++) {
-    //         tickets.add(new Ticket(i, Event));
-    //     }
-    // }
+    public Event findEvent(Long eventId) {
+        return EventRepository.findById(eventId).orElse(null);
+    }
 
     // Other service methods...
 }

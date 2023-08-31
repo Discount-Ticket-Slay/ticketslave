@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/ticketcategory")
@@ -33,6 +35,10 @@ public class TicketCategoryController {
     }
 
     // Other controller methods...
+    @PutMapping("/{id}/update-event")
+    public TicketCategory updateEvent (@PathVariable Long id, @RequestParam Long eventId) {
+        return TicketCategoryService.updateEvent(id, eventId);
+    }
 
 }
 
