@@ -7,7 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.*;
 
 @Entity
@@ -33,6 +34,7 @@ public class Purchase {
         PurchaseId = purchaseId;
     }
 
+    @JsonManagedReference
     public List<Ticket> getTickets() {
         return Tickets;
     }

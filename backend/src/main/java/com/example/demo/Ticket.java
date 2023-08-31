@@ -7,7 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "Ticket")
@@ -81,13 +82,22 @@ public class Ticket {
     public void setStatus(boolean status) {
         Status = status;
     }
-
+    @JsonBackReference
     public TicketCategory getTicketCategory() {
         return TicketCategory;
     }
 
     public void setTicketCategory(TicketCategory ticketCategory) {
         TicketCategory = ticketCategory;
+    }
+
+    @JsonBackReference
+    public Purchase getPurchase() {
+        return Purchase;
+    }
+
+    public void setPurchase(Purchase purchase) {
+        Purchase = purchase;
     }
 
 }

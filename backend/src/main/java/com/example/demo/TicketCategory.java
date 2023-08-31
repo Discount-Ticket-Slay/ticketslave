@@ -62,6 +62,7 @@ public class TicketCategory {
         return Price;
     }
 
+    @JsonManagedReference
     public List<Ticket> getTickets() {
         return tickets;
     }
