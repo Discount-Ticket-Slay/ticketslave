@@ -13,6 +13,10 @@ public class PurchaseService {
         return PurchaseRepository.findAll();
     }
 
+    public Purchase findPurchase(Long id) {
+        return PurchaseRepository.findById(id).orElse(null);
+    }
+
     public Purchase createPurchase(Purchase Purchase) {
         
         return PurchaseRepository.save(Purchase);
