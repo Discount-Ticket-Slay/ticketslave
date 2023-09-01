@@ -6,7 +6,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.util.*;
@@ -28,7 +29,7 @@ public class Event {
     private int Capacity = -1;
 
     @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL)
-    
+    //@JsonIgnore
     private List<TicketCategory> TicketCategories = new ArrayList<>();
 
     // Getters, Setters, Constructors, etc.

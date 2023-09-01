@@ -12,6 +12,7 @@ import jakarta.persistence.CascadeType;
 import java.util.*;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
 @Table(name = "TicketCategory")
@@ -62,7 +63,7 @@ public class TicketCategory {
         return Price;
     }
 
-    @JsonManagedReference
+    //@JsonManagedReference
     public List<Ticket> getTickets() {
         return tickets;
     }

@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 
 @Entity
 @Table(name = "Ticket")
@@ -25,6 +26,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "ticketCategoryId")
+    //@JsonIgnoreProperties("tickets")
     private TicketCategory TicketCategory;
 
     @ManyToOne
@@ -33,6 +35,10 @@ public class Ticket {
 
     public Ticket () {
 
+    }
+
+    public Ticket (TicketCategory ticketCategory) {
+        TicketCategory = ticketCategory;
     }
 
     public Ticket(int seatNo, int rowNo, String ticketDescription) {
@@ -82,7 +88,7 @@ public class Ticket {
     public void setStatus(boolean status) {
         Status = status;
     }
-    @JsonBackReference
+    //@JsonBackReference
     public TicketCategory getTicketCategory() {
         return TicketCategory;
     }
@@ -91,7 +97,7 @@ public class Ticket {
         TicketCategory = ticketCategory;
     }
 
-    @JsonBackReference
+    //@JsonBackReference
     public Purchase getPurchase() {
         return Purchase;
     }

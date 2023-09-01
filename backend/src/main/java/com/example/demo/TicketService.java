@@ -9,8 +9,8 @@ public class TicketService {
     @Autowired
     private TicketRepository TicketRepository;
 
-    @Autowired
-    private TicketCategoryService TicketCategoryService;
+    // @Autowired
+    // private TicketCategoryService TicketCategoryService;
     @Autowired
     private PurchaseService PurchaseService;
 
@@ -22,19 +22,23 @@ public class TicketService {
         
         return TicketRepository.save(Ticket);
     }
+    public Ticket createTicketUsingCategory(TicketCategory TicketCategory) {
+        Ticket ticket = new Ticket(TicketCategory);
+        return TicketRepository.save(ticket);
+    }
     public Ticket findTicket(Long id) {
         return TicketRepository.findById(id).orElse(null);
     }
 
-    public Ticket updateTicketCategory (Long id, Long ticketCategoryId) {
-        TicketCategory ticketCategory = TicketCategoryService.findTicketCategory(ticketCategoryId);
-        Ticket ticket = findTicket(id);
-        if (ticket == null || ticketCategory == null) {
-            return null;
-        }
-        ticket.setTicketCategory(ticketCategory);
-        return TicketRepository.save(ticket);
-    }
+    // public Ticket updateTicketCategory (Long id, Long ticketCategoryId) {
+    //     TicketCategory ticketCategory = TicketCategoryService.findTicketCategory(ticketCategoryId);
+    //     Ticket ticket = findTicket(id);
+    //     if (ticket == null || ticketCategory == null) {
+    //         return null;
+    //     }
+    //     ticket.setTicketCategory(ticketCategory);
+    //     return TicketRepository.save(ticket);
+    // }
 
     public Ticket updatePurchase (Long id, Long purchaseId) {
         Purchase purchase = PurchaseService.findPurchase(purchaseId);

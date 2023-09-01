@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/tickets")
@@ -25,8 +26,11 @@ public class TicketController {
         return TicketService.getAllTickets();
     }
 
-    // @PutMapping
-    // public Ticket setCategory(){};
+    // @PutMapping("/{id}/update-ticketcategory")
+    // public Ticket updateTicketCategory(@PathVariable Long id, @RequestParam Long ticketCategoryId){
+    //     return TicketService.updateTicketCategory(id, ticketCategoryId);
+    // };
+    
 
     // enter data into database
     @PostMapping

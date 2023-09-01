@@ -34,7 +34,7 @@ public class Purchase {
         PurchaseId = purchaseId;
     }
 
-    @JsonManagedReference
+    //@JsonManagedReference
     public List<Ticket> getTickets() {
         return Tickets;
     }

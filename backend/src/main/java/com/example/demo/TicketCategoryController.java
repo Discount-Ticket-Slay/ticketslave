@@ -31,14 +31,19 @@ public class TicketCategoryController {
     public TicketCategory createTicketCategory(@RequestBody TicketCategory TicketCategory) {
 
         System.out.println(TicketCategory);
-        return TicketCategoryService.createTicketCategory(TicketCategory);
+        return TicketCategoryService.createTicketCategory(TicketCategory, null);
     }
 
     // Other controller methods...
-    @PutMapping("/{id}/update-event")
-    public TicketCategory updateEvent (@PathVariable Long id, @RequestParam Long eventId) {
-        return TicketCategoryService.updateEvent(id, eventId);
+    @PutMapping("/{id}/make-tickets")
+    public TicketCategory makeTickets (@PathVariable Long id, @RequestParam int count) {
+        return TicketCategoryService.makeTickets(id, count);
     }
+
+    // @PutMapping("/{id}/update-event")
+    // public TicketCategory updateEvent (@PathVariable Long id, @RequestParam Long eventId) {
+    //     return TicketCategoryService.updateEvent(id, eventId);
+    // }
 
 }
 
