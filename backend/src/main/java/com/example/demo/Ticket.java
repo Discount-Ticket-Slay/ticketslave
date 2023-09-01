@@ -88,7 +88,7 @@ public class Ticket {
     public void setStatus(boolean status) {
         Status = status;
     }
-    //@JsonBackReference
+    @JsonBackReference
     public TicketCategory getTicketCategory() {
         return TicketCategory;
     }

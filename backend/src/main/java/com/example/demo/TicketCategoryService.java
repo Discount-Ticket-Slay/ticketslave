@@ -54,9 +54,10 @@ public class TicketCategoryService {
             return null;
         }
         int capacity = event.getCapacity();
-        if (capacity > count) {
+        if (capacity < count) {
             return null;
         }
+//System.out.println(event.getName());
         for (int i = 0; i < count; i++) {
             TicketService.createTicketUsingCategory(ticketCategory);
         }

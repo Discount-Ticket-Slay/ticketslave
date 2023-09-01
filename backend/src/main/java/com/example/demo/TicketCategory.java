@@ -63,7 +63,7 @@ public class TicketCategory {
         return Price;
     }
 
-    //@JsonManagedReference
+    @JsonManagedReference
     public List<Ticket> getTickets() {
         return tickets;
     }
