@@ -20,8 +20,8 @@ public class Ticket {
     private Long TicketId;
 
     private int SeatNo;
-    private int RowNo;
-    private String TicketDescription;
+    private char RowChar;
+    //private String TicketDescription;
     private boolean Status = false;
 
     @ManyToOne
@@ -41,10 +41,10 @@ public class Ticket {
         TicketCategory = ticketCategory;
     }
 
-    public Ticket(int seatNo, int rowNo, String ticketDescription) {
+    public Ticket(int seatNo, char rowChar) {
         SeatNo = seatNo;
-        RowNo = rowNo;
-        TicketDescription = ticketDescription;
+        RowChar = rowChar;
+        // TicketDescription = ticketDescription;
         //Event = event;
 
     }
@@ -65,21 +65,21 @@ public class Ticket {
         SeatNo = seatNo;
     }
 
-    public int getRowNo() {
-        return RowNo;
+    public char getRowChar() {
+        return RowChar;
     }
 
-    public void setRowNo(int rowNo) {
-        RowNo = rowNo;
+    public void setRowChar(char rowChar) {
+        RowChar = rowChar;
     }
 
-    public String getTicketDescription() {
-        return TicketDescription;
-    }
+    // public String getTicketDescription() {
+    //     return TicketDescription;
+    // }
 
-    public void setTicketDescription(String ticketDescription) {
-        TicketDescription = ticketDescription;
-    }
+    // public void setTicketDescription(String ticketDescription) {
+    //     TicketDescription = ticketDescription;
+    // }
 
     public boolean getStatus() {
         return Status;
