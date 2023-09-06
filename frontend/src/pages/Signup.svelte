@@ -1,6 +1,5 @@
 <script>
-    import Checkbox from '../components/Checkbox.svelte';
-    import SignupInput from '../components/SignupInput.svelte';
+    import SignupInput from '../components/Login/SignupInput.svelte';
 </script>
 
 <style>

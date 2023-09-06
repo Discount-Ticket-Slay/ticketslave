@@ -3,11 +3,13 @@
 	import Login from './pages/Login.svelte';
 	import Signup from './pages/Signup.svelte';
     import Home from './pages/Home.svelte';
+	import Feed from './pages/Feed.svelte';
 
 	const routes = {
 		'/': Home,
 		'/signup': Signup,
-		'/login': Login
+		'/login': Login,
+		'/feed': Feed,
 	}
 </script>
 
