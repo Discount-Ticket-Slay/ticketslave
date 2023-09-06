@@ -2,9 +2,6 @@
 
 <script>
     // Import any required data or logic here
-    import * as feather from 'feather-icons';
-    import InfoCard from './InfoCard.svelte';
-    import InputBox from './InputBox.svelte';
 </script>
 
 <style>

@@ -7,7 +7,7 @@
 	<div class="card-body">
 		<h5 class="card-title">Taylor Swift | The Eras Tour</h5>
 	</div>
-	<Button href='/Event'>Event Details</Button>
+	<Button href='/#/Event'>Event Details</Button>
 </div>
 
 <style>
