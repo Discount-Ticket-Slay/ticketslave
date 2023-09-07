@@ -28,6 +28,9 @@ public class Event {
     private String Venue;
     private String Artist;
     private int Capacity = -1;
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] image;
 
     @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL)
     //@JsonIgnore
@@ -118,6 +121,14 @@ public class Event {
     }
     public String toString() {
         return EventName;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
 }

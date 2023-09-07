@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.ticketcategory.*;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.*;
 
 @RestController
 @RequestMapping("/events")
@@ -28,6 +29,22 @@ public class EventController {
         return EventService.getAllEvents();
 
     }
+
+    @GetMapping("/{id}/image")
+    public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
+        Event event = EventService.findEvent(id);
+
+        if (event != null && event.getImage() != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG); // Set the content type to image/jpeg or appropriate format
+
+            return new ResponseEntity<>(event.getImage(), headers, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+
     @PostMapping("/{id}/add")
     public Event addTicketCategory(@PathVariable Long id, @RequestBody TicketCategory ticketCategory){
         return EventService.addTicketCategory(id, ticketCategory);
@@ -41,7 +58,11 @@ public class EventController {
         
         return EventService.createEvent(Event);
     }
-
+    @PostMapping("/{id}/image")
+    public Event addImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        
+        return EventService.addImage(id, file);
+    }
     // Other controller methods...
 
 }
