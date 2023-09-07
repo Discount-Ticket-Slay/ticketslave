@@ -3,7 +3,7 @@
 </script>
 
 <div class="card text-center">
-	<img src="../images/concert-general.jpg" class="card-img-top" alt="No pic found" />
+	<img src="" class="card-img-top" alt="No pic found" />
 	<div class="card-body">
 		<h5 class="card-title">Taylor Swift | The Eras Tour</h5>
 	</div>
