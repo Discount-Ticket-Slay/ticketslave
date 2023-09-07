@@ -1,14 +1,9 @@
 package com.example.demo.event;
 
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.ticketcategory.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,9 +54,12 @@ public class EventController {
         return EventService.createEvent(Event);
     }
     @PostMapping("/{id}/image")
-    public Event addImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
-        
-        return EventService.addImage(id, file);
+    public ResponseEntity<String> addImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        if (EventService.findEvent(id) == null){
+            return new ResponseEntity<String>("Event not found", HttpStatus.NOT_FOUND);
+        }
+        EventService.addImage(id, file);
+        return new ResponseEntity<>("Image added to the event", HttpStatus.OK);
     }
     // Other controller methods...
 

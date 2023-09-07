@@ -43,12 +43,12 @@ public class Event {
     public Event(String eventName, String eventDescription, String startDateTime, String venue, String artist, int capacity) {
 
         //EventId = eventId;
-        EventName = eventName;
-        EventDescription = eventDescription;
-        StartDateTime = startDateTime;
-        Venue = venue;
-        Artist = artist;
-        Capacity = capacity;
+            EventName = eventName;
+            EventDescription = eventDescription;
+            StartDateTime = startDateTime;
+            Venue = venue;
+            Artist = artist;
+            Capacity = capacity;
         //tickets = new ArrayList<Ticket>();
     }
 
