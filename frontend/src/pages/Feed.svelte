@@ -2,20 +2,30 @@
     import { Button } from "carbon-components-svelte";
     import Navbar from "../components/Essentials/Navbar.svelte";
     import EventCard from "../components/Events/EventCard.svelte";
+    import { empty } from "svelte/internal";
 
+    //event details for every event from json file will go here
+    let eventList = [];
+
+    //get event details from backend using Fetch API
     fetch("http://localhost:8080/events", {
         method: "GET",
         "Content-Type": "application/json",
     })
+        //checks for response from backend
         .then((response) => {
             if (!response.ok) {
                 throw new Error("Network response failed");
             }
             return response.json();
         })
-        .then((data) => {
-            console.log(data);
+        //adds events to the array above
+        .then((json_data) => {
+            for (let i in json_data) {
+                eventList.push(json_data[i]);
+            }
         })
+        //error handler
         .catch((error) => {
             console.error(error);
         });
@@ -27,10 +37,13 @@
     <h3>Popular Events</h3>
 </div>
 
-<!--this will eventually become the area where backend data is displayed-->
-<EventCard />
+<!--this will eventually become the area where backend json_data is displayed-->
 
-<!--this will eventually become the area where backend data is displayed-->
+{#if !eventList.empty}
+    <div>{eventList[0]}</div>
+{/if}
+
+<!--this will eventually become the area where backend json_data is displayed-->
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Advent+Pro:wght@500&family=Pacifico&display=swap");
