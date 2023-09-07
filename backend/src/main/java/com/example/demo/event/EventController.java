@@ -41,9 +41,14 @@ public class EventController {
 
 
     @PostMapping("/{id}/add")
-    public Event addTicketCategory(@PathVariable Long id, @RequestBody TicketCategory ticketCategory){
-        return EventService.addTicketCategory(id, ticketCategory);
+    public ResponseEntity<String> addTicketCategory(@PathVariable Long id, @RequestBody TicketCategory ticketCategory){
+        if (EventService.findEvent(id) == null){
+            return new ResponseEntity<String>("Event not found", HttpStatus.NOT_FOUND);
+        }
+        EventService.addTicketCategory(id, ticketCategory);
+        return new ResponseEntity<String>("Ticket Category added", HttpStatus.OK);
     };
+    //original function body was just return EventService.addTicketCategory(id, ticketCategory); , revert if there are any errors
 
     // enter data into database
     @PostMapping
