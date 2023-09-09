@@ -26,6 +26,11 @@ public class TicketController {
         return TicketService.getAllTickets();
     }
 
+    @GetMapping("/{ticketCategoryId}/find")
+    public Ticket findBySeatNoAndRowChar(@PathVariable Long ticketCategoryId, @RequestParam int seatNo, @RequestParam char rowChar) {
+        return TicketService.findBySeatNoAndRowChar(seatNo, rowChar, ticketCategoryId);
+    }
+
     // @PutMapping("/{id}/update-ticketcategory")
     // public Ticket updateTicketCategory(@PathVariable Long id, @RequestParam Long ticketCategoryId){
     //     return TicketService.updateTicketCategory(id, ticketCategoryId);

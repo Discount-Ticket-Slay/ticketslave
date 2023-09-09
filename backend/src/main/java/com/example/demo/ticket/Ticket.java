@@ -1,6 +1,6 @@
 package com.example.demo.ticket;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,7 +24,9 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long TicketId;
 
+    @Column(name = "seatNo")
     private int SeatNo;
+    @Column(name = "rowChar", columnDefinition = "CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci")
     private char RowChar;
     //private String TicketDescription;
     private boolean Status = false;

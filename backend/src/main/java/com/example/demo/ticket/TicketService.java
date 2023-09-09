@@ -39,6 +39,10 @@ public class TicketService {
         return TicketRepository.save(ticket);
     }
 
+    public Ticket findBySeatNoAndRowChar(int seatNo, char rowChar, Long ticketCategoryId) {
+        return TicketRepository.findBySeatNoAndRowChar(seatNo, (rowChar), ticketCategoryId).get(0);
+    }
+
     // public Ticket updateTicketCategory (Long id, Long ticketCategoryId) {
     //     TicketCategory ticketCategory = TicketCategoryService.findTicketCategory(ticketCategoryId);
     //     Ticket ticket = findTicket(id);
