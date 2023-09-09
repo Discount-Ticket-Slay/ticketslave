@@ -54,8 +54,11 @@ console.log(eventList[0]);
 
 <!--this will eventually become the area where backend json_data is displayed-->
 
-{#if eventList !== null}
-    <div>{eventList[0].eventName}</div>
+{#if eventList}
+    {#each eventList as event} 
+    {#if event} 
+        <EventCard {event}/>
+    {/if}
 {/if}
 
 <!--this will eventually become the area where backend json_data is displayed-->
