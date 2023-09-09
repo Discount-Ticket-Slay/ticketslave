@@ -30,19 +30,19 @@
     //         console.error(error);
     //     });
 
-        async function fetchData() {
-            try {
-                const response = await fetch("http://localhost:8080/events");
-                const json_data = await response.json();
-                eventList = [];
-                for (let i in json_data) {
-                    eventList.push(json_data[i]);
-                }
-console.log(eventList[0]);
-        }   catch (error) {
-                console.error(error);
+    async function fetchData() {
+        try {
+            const response = await fetch("http://localhost:8080/events");
+            const json_data = await response.json();
+            eventList = [];
+            for (let i in json_data) {
+                eventList.push(json_data[i]);
+            }
+            console.log(eventList[0]);
+        } catch (error) {
+            console.error(error);
         }
-        }
+    }
     onMount(fetchData);
 </script>
 
@@ -54,8 +54,14 @@ console.log(eventList[0]);
 
 <!--this will eventually become the area where backend json_data is displayed-->
 
-{#if eventList !== null}
-    <div>{eventList[0].eventName}</div>
+{#if eventList}
+    {#each eventList as event}
+    {#if event}
+        <EventCard {event}/>
+    {:else}
+        <p>Unable to load event</p>
+    {/if}
+    {/each}
 {/if}
 
 <!--this will eventually become the area where backend json_data is displayed-->
