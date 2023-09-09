@@ -16,6 +16,9 @@ import java.util.*;
 
 @Entity
 @Table(name = "Event")
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "eventId")
 public class Event {
 
     @Id
@@ -108,7 +111,7 @@ public class Event {
         Capacity = capacity;
     }
 
-    @JsonManagedReference
+    //@JsonManagedReference
     public List<TicketCategory> getTicketCategories() {
         return TicketCategories;
     }

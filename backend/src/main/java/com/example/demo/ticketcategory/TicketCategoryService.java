@@ -16,8 +16,8 @@ public class TicketCategoryService {
 
     // @Autowired
     // private EventService EventService;
-    @Autowired
-    private TicketService TicketService;
+    // @Autowired
+    // private TicketService TicketService;
 
     public List<TicketCategory> getAllTicketCategorys() {
         return TicketCategoryRepository.findAll();
@@ -59,10 +59,28 @@ public class TicketCategoryService {
             return null;
         }
 //System.out.println(event.getName());
+        List<Ticket> tickets = new ArrayList<>();
+        int counter = 0;
+        int seatNo = 1;
+        char rowChar = 'A';
         for (int i = 0; i < count; i++) {
-            TicketService.createTicketUsingCategory(ticketCategory);
+            Ticket ticket = new Ticket(seatNo, rowChar);
+            counter++;
+            seatNo++;
+            if (counter >= 10) {
+                rowChar++;
+                counter = 0;
+            }
+            if (seatNo > 10) {
+                seatNo = 1;
+            }
+            if (rowChar >= 'Z') {
+                rowChar = 'A';
+            }
+            tickets.add(ticket);
+            ticket.setTicketCategory(ticketCategory);
         }
-        
+        ticketCategory.setTickets(tickets);
         return TicketCategoryRepository.save(ticketCategory);
     }
 }

@@ -1,6 +1,6 @@
 package com.example.demo.purchase;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,19 +8,22 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.*;
 import java.util.*;
 import com.example.demo.ticket.*;
 
 @Entity
 @Table(name = "Purchase")
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "purchaseId")
 public class Purchase {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long PurchaseId;
 
-    @OneToMany(mappedBy = "Purchase", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "Purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ticket> Tickets = new ArrayList<>();
 
     public Purchase () {
@@ -35,17 +38,13 @@ public class Purchase {
         PurchaseId = purchaseId;
     }
 
-    @JsonManagedReference
+    //@JsonManagedReference
     public List<Ticket> getTickets() {
         return Tickets;
     }
 
     public void setTickets(List<Ticket> tickets) {
         Tickets = tickets;
-    }
-
-    public void addTicket(Ticket ticket) {
-        Tickets.add(ticket);
     }
 
     

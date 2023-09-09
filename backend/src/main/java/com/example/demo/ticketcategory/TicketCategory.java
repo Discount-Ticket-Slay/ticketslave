@@ -1,6 +1,6 @@
 package com.example.demo.ticketcategory;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +18,9 @@ import com.example.demo.ticket.*;
 
 @Entity
 @Table(name = "TicketCategory")
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "ticketCategoryId")
 public class TicketCategory {
     
     @Id
@@ -27,8 +30,8 @@ public class TicketCategory {
     private String Name;
     private double Price;
 
-    @OneToMany(mappedBy = "TicketCategory", cascade = CascadeType.ALL)
-    private List<Ticket> tickets;
+    @OneToMany(mappedBy = "TicketCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Ticket> tickets = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "eventId")
@@ -65,7 +68,7 @@ public class TicketCategory {
         return Price;
     }
 
-    @JsonManagedReference
+    //@JsonManagedReference
     public List<Ticket> getTickets() {
         return tickets;
     }
@@ -74,7 +77,11 @@ public class TicketCategory {
         this.tickets = tickets;
     }
 
-    @JsonBackReference
+    public void addTicket(Ticket ticket) {
+        tickets.add(ticket);
+    }
+
+    //@JsonBackReference
     public Event getEvent() {
         return Event;
     }

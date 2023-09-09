@@ -15,6 +15,9 @@ import com.example.demo.ticketcategory.*;
 
 @Entity
 @Table(name = "Ticket")
+@JsonIdentityInfo(
+  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  property = "ticketId")
 public class Ticket {
     
     @Id
@@ -90,7 +93,7 @@ public class Ticket {
     public void setStatus(boolean status) {
         Status = status;
     }
-    @JsonBackReference
+    //@JsonBackReference
     public TicketCategory getTicketCategory() {
         return TicketCategory;
     }
@@ -99,7 +102,8 @@ public class Ticket {
         TicketCategory = ticketCategory;
     }
 
-    @JsonBackReference
+    //@JsonBackReference
+    //@JsonIgnore
     public Purchase getPurchase() {
         return Purchase;
     }
