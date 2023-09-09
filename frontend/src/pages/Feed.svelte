@@ -59,6 +59,7 @@ console.log(eventList[0]);
     {#if event} 
         <EventCard {event}/>
     {/if}
+    {/each}
 {/if}
 
 <!--this will eventually become the area where backend json_data is displayed-->
