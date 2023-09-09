@@ -35,13 +35,17 @@ public class Purchase {
         PurchaseId = purchaseId;
     }
 
-    //@JsonManagedReference
+    @JsonManagedReference
     public List<Ticket> getTickets() {
         return Tickets;
     }
 
     public void setTickets(List<Ticket> tickets) {
         Tickets = tickets;
+    }
+
+    public void addTicket(Ticket ticket) {
+        Tickets.add(ticket);
     }
 
     

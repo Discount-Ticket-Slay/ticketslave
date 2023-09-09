@@ -52,9 +52,12 @@ public class TicketService {
     public Ticket updatePurchase (Long id, Long purchaseId) {
         Purchase purchase = PurchaseService.findPurchase(purchaseId);
         Ticket ticket = findTicket(id);
-        if (ticket == null || purchase == null) {
+
+        //function aborts if ticket does not exist, purchase does not exist, or if ticket is already reserved by someone else
+        if (ticket == null || purchase == null || ticket.getStatus() == true) {
             return null;
         }
+        ticket.setStatus(true);
         ticket.setPurchase(purchase);
         return TicketRepository.save(ticket);
     }

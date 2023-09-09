@@ -99,7 +99,7 @@ public class Ticket {
         TicketCategory = ticketCategory;
     }
 
-    //@JsonBackReference
+    @JsonBackReference
     public Purchase getPurchase() {
         return Purchase;
     }
