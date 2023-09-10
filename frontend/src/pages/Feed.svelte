@@ -6,43 +6,19 @@
 
     //event details for every event from json file will go here
     let eventList = null;
-
-    //get event details from backend using Fetch API
-    // fetch("http://localhost:8080/events", {
-    //     method: "GET",
-    //     "Content-Type": "application/json",
-    // })
-    //     //checks for response from backend
-    //     .then((response) => {
-    //         if (!response.ok) {
-    //             throw new Error("Network response failed");
-    //         }
-    //         return response.json();
-    //     })
-    //     //adds events to the array above
-    //     .then((json_data) => {
-    //         for (let i in json_data) {
-    //             eventList.push(json_data[i]);
-    //         }
-    //     })
-    //     //error handler
-    //     .catch((error) => {
-    //         console.error(error);
-    //     });
-
-        async function fetchData() {
-            try {
-                const response = await fetch("http://localhost:8080/events");
-                const json_data = await response.json();
-                eventList = [];
-                for (let i in json_data) {
-                    eventList.push(json_data[i]);
-                }
-console.log(eventList[0]);
-        }   catch (error) {
-                console.error(error);
+    async function fetchData() {
+        try {
+            const response = await fetch("http://localhost:8080/events");
+            const json_data = await response.json();
+            eventList = [];
+            for (let i in json_data) {
+                eventList.push(json_data[i]);
+            }
+            console.log(eventList[0]);
+        } catch (error) {
+            console.error(error);
         }
-        }
+    }
     onMount(fetchData);
 </script>
 
@@ -55,10 +31,10 @@ console.log(eventList[0]);
 <!--this will eventually become the area where backend json_data is displayed-->
 
 {#if eventList}
-    {#each eventList as event} 
-    {#if event} 
-        <EventCard {event}/>
-    {/if}
+    {#each eventList as event}
+        {#if event}
+            <EventCard {event} />
+        {/if}
     {/each}
 {/if}
 
