@@ -89,18 +89,26 @@
         }
     }
 
+    window.addEventListener('keydown', (event) => {
+        // Check if the key pressed is the spacebar (key code 32)
+        if (event.keyCode === 32) {
+            // Call the jump function
+            jump();
+        }
+    });
+
     function play() {
         d3.select(startOverlay).transition().duration(250).style("opacity", 1);
         d3.select(startOverlay)
             .transition()
-            .delay(speed / 2)
+            .delay(10)
             .duration(250)
             .style("opacity", 0);
         d3.select(overlay).attr("opacity", 0);
         d3.select(scoreOverlay).attr("opacity", 0);
         intervals.push(
             setInterval(() => {
-                repeat(obstacle, speed);
+                repeat(obstacle, speed + 10);
             }, speed)
         );
         intervals.push(
