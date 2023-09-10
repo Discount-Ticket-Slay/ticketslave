@@ -25,6 +25,9 @@
         margin: 1vh;
     }
 
+    .card-body {
+        font-family: "Amaranth", sans-serif;
+    }
 
     .card-title {
         width: full;
