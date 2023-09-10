@@ -1,10 +1,10 @@
 <script>
-    import 'bootstrap/dist/css/bootstrap.min.css';
+    import "bootstrap/dist/css/bootstrap.min.css";
     import { Button } from "carbon-components-svelte";
     export let event;
 </script>
 
-<div class="card" style="border-radius: 1vh;">
+<div class="card text-center">
     <img
         src="public/images/concert.jpg"
         class="card-img-top"
@@ -19,15 +19,15 @@
 </div>
 
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Amaranth&display=swap");
     .card {
-        font-family: "Amaranth", sans-serif;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
         max-width: 18rem;
         margin: 1vh;
+        border-radius: 1vh;
     }
 
     .card-body {
-        font-family: "Amaranth", sans-serif;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
 
     .card-title {
