@@ -46,16 +46,16 @@ System.out.println(event.getTicketCategories());
         return EventRepository.findById(eventId).orElse(null);
     }
 
-    public Event addImage(Long id, MultipartFile file) {
-        Event event = findEvent(id);
-        if (event == null || file == null) {
-            return null;
-        }
-        try {
-            event.setImage(file.getBytes());
-        } catch (IOException e) {
-            return null;
-        }
-        return EventRepository.save(event);
-    }
+    // public Event addImage(Long id, MultipartFile file) {
+    //     Event event = findEvent(id);
+    //     if (event == null || file == null) {
+    //         return null;
+    //     }
+    //     try {
+    //         event.setImage(file.getBytes());
+    //     } catch (IOException e) {
+    //         return null;
+    //     }
+    //     return EventRepository.save(event);
+    // }
 }
