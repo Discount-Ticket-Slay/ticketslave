@@ -1,4 +1,5 @@
 <script>
+    import 'bootstrap/dist/css/bootstrap.min.css';
     import { Button } from "carbon-components-svelte";
     export let event;
 </script>
