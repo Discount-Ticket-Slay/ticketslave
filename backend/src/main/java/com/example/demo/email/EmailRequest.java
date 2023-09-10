@@ -2,16 +2,15 @@ package com.example.demo.email;
 
 public class EmailRequest {
     private String to;
-    private String subject;
-    private String body;
+    private String purchaseID;
 
     public EmailRequest() {
     }
 
-    public EmailRequest(String to, String subject, String body) {
+    public EmailRequest(String to, String purchaseID) {
         this.to = to;
-        this.subject = subject;
-        this.body = body;
+        this.purchaseID = purchaseID;
+
     }
 
     public String getTo() {
@@ -22,20 +21,14 @@ public class EmailRequest {
         this.to = to;
     }
 
-    public String getSubject() {
-        return subject;
+    public void setPurchaseID(String purchaseID){
+        this.purchaseID = purchaseID;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public String getPurchaseID(){
+        return this.purchaseID;
     }
 
-    public String getBody() {
-        return body;
-    }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
 }
 
