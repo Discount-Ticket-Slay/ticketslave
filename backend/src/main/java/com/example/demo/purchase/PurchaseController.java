@@ -1,6 +1,7 @@
 package com.example.demo.purchase;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +20,10 @@ public class PurchaseController {
     private PurchaseService PurchaseService;
 
     @GetMapping
-    public List<Purchase> getAllPurchases() {
+    public ResponseEntity<List<Purchase>> getAllPurchases() {
         System.out.println(PurchaseService.getAllPurchases());
-        
         // convert get Purchase object into json list
-        return PurchaseService.getAllPurchases();
+        return ResponseEntity.ok(PurchaseService.getAllPurchases());
 
     }
 
