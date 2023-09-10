@@ -9,7 +9,6 @@
     const handleClick = () => {
         alert("clicked")
         buyingEvent.push(event1);
-        
     }
 </script>
 

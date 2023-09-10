@@ -1,6 +1,6 @@
 <script>
     let svg, main, obstacle, overlay, scoreOverlay, startOverlay;
-    let width = 500,
+    let width = 1000,
         height = 350;
     let mw = 50,
         mh = 50;
@@ -29,14 +29,14 @@
                 mainUp = d3.select(main);
                 mainUp
                     .transition()
-                    .duration(500)
+                    .duration(300)
                     .ease(d3.easeCubicOut)
                     .attr("y", height / 3 - mh / 2);
                 mainDown = d3.select(main);
                 mainDown
                     .transition()
-                    .delay(500)
-                    .duration(500)
+                    .delay(300)
+                    .duration(300)
                     .ease(d3.easeCubicIn)
                     .attr("y", (height / 3) * 2 - mh / 2);
                 isJump = true;
@@ -185,7 +185,7 @@
 </svg>
 <br />
 <button style:width="{width}px" on:click={jump} bind:this={button}>
-    Jump
+    Press to Start!!
 </button>
 
 <style>
