@@ -20,8 +20,6 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping("/email")
 public class EmailController {
 
-    @Autowired
-    private EmailService emailService;
 
     @Autowired
     private RestTemplate restTemplate;

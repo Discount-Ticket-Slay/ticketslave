@@ -7,6 +7,7 @@
 	import Event from './pages/Event.svelte';
 	import BuyTicket from './pages/BuyTicket.svelte';
 	import Payment from './pages/Payment.svelte';
+	import Queue from './pages/Queue.svelte';
 
 	const routes = {
 		'/': Home,
@@ -16,6 +17,7 @@
 		'/event': Event,
 		'/buy-ticket': BuyTicket,
 		'/payment': Payment,
+		'/queue': Queue
 	}
 </script>
 

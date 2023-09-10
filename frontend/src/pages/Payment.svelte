@@ -53,6 +53,7 @@
     <div class="order-summary">
         <div class="order-heading">
             <h4><strong>Order Summary</strong></h4>
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
             <p class="edit-button" on:click={handleEdit}>Edit</p>
         </div>
         <div class="order-details">
