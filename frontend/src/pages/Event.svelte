@@ -13,7 +13,7 @@
     <strong>Ticket Pricing</strong>
     <strong>Exchange & Refund Policy</strong>
     <strong>Admission Policy</strong>
-    <Button href="/#/buy-ticket">Buy Tickets</Button>
+    <Button href="/#/queue">Queue for Tickets</Button>
 </div>
 
 <style>
