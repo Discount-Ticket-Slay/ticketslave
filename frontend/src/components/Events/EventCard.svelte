@@ -3,23 +3,28 @@
     export let event;
 </script>
 
-<div class="card text-center">
-    <img src="public/images/testpic.jpg" class="card-img-top" alt="No pic found" />
+<div class="card" style="border-radius: 1vh;">
+    <img
+        src="public/images/concert.jpg"
+        class="card-img-top"
+        alt="No pic found"
+        style="max-width: 100%;"
+    />
     <div class="card-body">
         <h5 class="card-title">{event.eventName}</h5>
         <p>{event.eventDescription}</p>
+        <Button href="/#/Event" style="min-width: 100%;">Event Details</Button>
     </div>
-    <Button href="/#/Event">Event Details</Button>
 </div>
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Amaranth&display=swap");
-
     .card {
-        margin-left: 5%;
         font-family: "Amaranth", sans-serif;
-        width: 18rem;
+        max-width: 18rem;
+        margin: 1vh;
     }
+
 
     .card-title {
         width: full;
