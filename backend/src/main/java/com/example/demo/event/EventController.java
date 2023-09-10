@@ -25,19 +25,19 @@ public class EventController {
 
     }
 
-    @GetMapping("/{id}/image")
-    public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
-        Event event = EventService.findEvent(id);
+    // @GetMapping("/{id}/image")
+    // public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
+    //     Event event = EventService.findEvent(id);
 
-        if (event != null && event.getImage() != null) {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_JPEG); // Set the content type to image/jpeg or appropriate format
+    //     if (event != null && event.getImage() != null) {
+    //         HttpHeaders headers = new HttpHeaders();
+    //         headers.setContentType(MediaType.IMAGE_JPEG); // Set the content type to image/jpeg or appropriate format
 
-            return new ResponseEntity<>(event.getImage(), headers, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+    //         return new ResponseEntity<>(event.getImage(), headers, HttpStatus.OK);
+    //     } else {
+    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //     }
+    // }
 
 
     @PostMapping("/{id}/add")
@@ -58,14 +58,14 @@ public class EventController {
         
         return EventService.createEvent(Event);
     }
-    @PostMapping("/{id}/image")
-    public ResponseEntity<String> addImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
-        if (EventService.findEvent(id) == null){
-            return new ResponseEntity<String>("Event not found", HttpStatus.NOT_FOUND);
-        }
-        EventService.addImage(id, file);
-        return new ResponseEntity<>("Image added to the event", HttpStatus.OK);
-    }
+    // @PostMapping("/{id}/image")
+    // public ResponseEntity<String> addImage(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+    //     if (EventService.findEvent(id) == null){
+    //         return new ResponseEntity<String>("Event not found", HttpStatus.NOT_FOUND);
+    //     }
+    //     EventService.addImage(id, file);
+    //     return new ResponseEntity<>("Image added to the event", HttpStatus.OK);
+    // }
     // Other controller methods...
 
      
