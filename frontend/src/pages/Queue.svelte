@@ -1,16 +1,24 @@
 <script>
-    import Navbar from '../components/Essentials/Navbar.svelte';
-    import DinoGame from '../components/Boing/DinoGame.svelte';
-    import LoadingBar from '../components/Misc/LoadingBar.svelte';
-
+    import Navbar from "../components/Essentials/Navbar.svelte";
+    import DinoGame from "../components/Boing/DinoGame.svelte";
+    import LoadingBar from "../components/Misc/LoadingBar.svelte";
+    import { Button } from "carbon-components-svelte";
 
     const waitTime = () => {
-        alert("clicked")
-    }
+        alert("clicked");
+    };
 </script>
 
+<main>
+    <Navbar />
+    <Button href="/#/buy-ticket">Go to: Ticketing</Button>
+    <div class="centered-div">
+        <DinoGame />
+    </div>
+</main>
+
 <style>
-	@import 'bootstrap/dist/css/bootstrap.css';
+    @import "bootstrap/dist/css/bootstrap.css";
 
     .centered-div {
         position: absolute;
@@ -19,11 +27,3 @@
         padding: 10px;
     }
 </style>
-
-
-<main>        
-    <Navbar />
-    <div class="centered-div">
-        <DinoGame />
-    </div>
-</main>
