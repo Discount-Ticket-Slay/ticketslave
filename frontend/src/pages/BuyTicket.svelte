@@ -4,8 +4,12 @@
     import TicketButton from "../components/Ticketing/TicketButton.svelte";
     import {Button} from 'carbon-components-svelte'
 
+    let buyingEvent = [];
+
     const handleClick = () => {
         alert("clicked")
+        buyingEvent.push(event1);
+        
     }
 </script>
 
