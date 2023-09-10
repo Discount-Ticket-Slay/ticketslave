@@ -1,14 +1,6 @@
 package com.example.demo.event;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.example.demo.ticketcategory.*;
 
 import java.util.*;
@@ -26,6 +18,8 @@ public class Event {
     private Long EventId;
 
     private String EventName;
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String EventDescription;
     private String StartDateTime;
     private String Venue;
