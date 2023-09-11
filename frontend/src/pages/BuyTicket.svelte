@@ -1,7 +1,7 @@
 <script>
     import Navbar from "../components/Essentials/Navbar.svelte";
     import ProgressTracker from '../components/Misc/ProgressTracker.svelte'
-    import TicketButton from "../components/Ticketing/TicketButton.svelte";
+    import SeatSection from "../components/Ticketing/SeatSection.svelte";
     import {Button} from 'carbon-components-svelte'
 
     let buyingEvent = [];
@@ -23,9 +23,13 @@
 <div class="container">
 	<h4>Available Seats:</h4>
 	<div class="ticket-options">
-        <TicketButton text="Cat 1 | Row 42 | Col 69" onClick={handleClick}/>
-        <TicketButton text="Cat 1 | Row 42 | Col 69" onClick={handleClick}/>
-        <TicketButton text="Cat 1 | Row 42 | Col 69" onClick={handleClick}/>
+        <SeatSection number="227" availability="Available" category='1'/>
+        <SeatSection number="229" availability="Unavailable" category="2"/>
+        <SeatSection number="231" availability="Unavailable" category="3"/>
+        <SeatSection number="233" availability="Available" category="4"/>
+        <SeatSection number="235" availability="Available" category="5"/>
+        <SeatSection number="237" availability="Unavailable" category="6"/>
+        <SeatSection number="239" availability="Available" category="standing"/>
 	</div>
 </div>
 
