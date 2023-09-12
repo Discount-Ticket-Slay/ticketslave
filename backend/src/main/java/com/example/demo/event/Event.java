@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.*;
 import com.example.demo.ticketcategory.*;
 
 import java.util.*;
-
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "Event")
@@ -16,13 +16,17 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long EventId;
-
+    @NotNull(message = "eventName cannot be null")
     private String EventName;
     @Lob
     @Column(columnDefinition = "TEXT")
+    @NotNull(message = "EventDescription cannot be null")
     private String EventDescription;
+    @NotNull(message = "startDateTime cannot be null")
     private String StartDateTime;
+    @NotNull(message = "venue cannot be null")
     private String Venue;
+    @NotNull(message = "artist cannot be null")
     private String Artist;
     private int Capacity = -1;
     // @Lob

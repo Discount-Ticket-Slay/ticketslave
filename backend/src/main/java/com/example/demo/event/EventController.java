@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.ticketcategory.*;
+
+import jakarta.validation.Valid;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.*;
 
@@ -52,7 +55,7 @@ public class EventController {
 
     // enter data into database
     @PostMapping
-    public Event createEvent(@RequestBody Event Event) {
+    public Event createEvent(@Valid @RequestBody Event Event) {
 
         System.out.println(Event);
         
