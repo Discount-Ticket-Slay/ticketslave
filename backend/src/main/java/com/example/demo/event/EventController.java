@@ -54,6 +54,7 @@ public class EventController {
     //original function body was just return EventService.addTicketCategory(id, ticketCategory); , revert if there are any errors
 
     // enter data into database
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Event createEvent(@Valid @RequestBody Event Event) {
 
@@ -71,6 +72,14 @@ public class EventController {
     // }
     // Other controller methods...
 
-     
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
+        try {
+            EventService.deleteEvent(id);
+            return new ResponseEntity<String>("Event of ID:" + id + " deleted. ", HttpStatus.OK);
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<String>("Event does not exist", HttpStatus.NOT_FOUND);
+        }
+    }
 
 }

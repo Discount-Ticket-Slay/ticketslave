@@ -1,13 +1,7 @@
 package com.example.demo.purchase;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.fasterxml.jackson.annotation.*;
 import java.util.*;
 import com.example.demo.ticket.*;

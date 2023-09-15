@@ -1,3 +1,52 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\email\EmailRequest.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketService.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\event\EventService.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\event\Event.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\email\RestTemplateConfig.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\ticket\Ticket.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketController.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketRepository.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\purchase\PurchaseRepository.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryService.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\App.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\event\EventRepository.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryController.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\purchase\PurchaseController.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryRepository.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\event\EventController.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategory.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\purchase\PurchaseService.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\purchase\Purchase.java
+C:\Users\ryanl\OneDrive\Desktop\GitHub Tix\BuyTicket\backend\src\main\java\com\example\demo\email\EmailController.java
+=======
+<<<<<<< HEAD
+>>>>>>> 164d5c2b35e265022df8dfb800ea1ef4f8c85303
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryRepository.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\purchase\PurchaseController.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\ticket\Ticket.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\event\EventRepository.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\purchase\PurchaseService.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryService.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketRepository.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\event\EventController.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryController.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\App.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\event\EventService.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\email\EmailRequest.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\purchase\Purchase.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketController.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketService.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\email\RestTemplateConfig.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\email\EmailController.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\event\Event.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategory.java
+C:\Users\Mikhail\Documents\GitHub\BuyTicket\backend\src\main\java\com\example\demo\purchase\PurchaseRepository.java
+<<<<<<< HEAD
+=======
+=======
 C:\Users\linus\OneDrive\Desktop\Git-Got\BuyTicket\backend\src\main\java\com\example\demo\event\EventService.java
 C:\Users\linus\OneDrive\Desktop\Git-Got\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketRepository.java
 C:\Users\linus\OneDrive\Desktop\Git-Got\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryRepository.java
@@ -18,3 +67,6 @@ C:\Users\linus\OneDrive\Desktop\Git-Got\BuyTicket\backend\src\main\java\com\exam
 C:\Users\linus\OneDrive\Desktop\Git-Got\BuyTicket\backend\src\main\java\com\example\demo\event\EventController.java
 C:\Users\linus\OneDrive\Desktop\Git-Got\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryService.java
 C:\Users\linus\OneDrive\Desktop\Git-Got\BuyTicket\backend\src\main\java\com\example\demo\ticket\Ticket.java
+>>>>>>> 2ddc02a039fe8bd29eaa708f9fe813223228a34a
+>>>>>>> 4da2297e3a7defcb91317552044fde5bf84adcc7
+>>>>>>> 164d5c2b35e265022df8dfb800ea1ef4f8c85303

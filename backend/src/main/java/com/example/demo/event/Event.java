@@ -32,8 +32,8 @@ public class Event {
     // @Column(columnDefinition = "LONGBLOB")
     // private byte[] image;
 
-    @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL)
-    // @JsonIgnore
+    @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL, orphanRemoval = true)
+    //@JsonIgnore
     private List<TicketCategory> TicketCategories = new ArrayList<>();
 
     // Getters, Setters, Constructors, etc.

@@ -28,6 +28,10 @@ public class EventService {
         
         return EventRepository.save(Event);
     }
+    public void deleteEvent(Long eventId) throws IllegalArgumentException{
+        //loadTickets(Event);
+        EventRepository.deleteById(eventId);
+    }
 
     //@Transactional
     public Event addTicketCategory(Long id, TicketCategory ticketCategory) {

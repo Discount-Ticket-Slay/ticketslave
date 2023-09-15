@@ -1,9 +1,11 @@
 <!--
     Configurable section component
 
-    takes in section number as a string
-    takes in category as a string, from 1-6 and standing
-    takes in availability as a string: "Available" indicates available, anything else indicates unavailable (for now)
+    the component takes in 4 parameters:
+    1) section number as a string
+    2) category as a string, from 1-7 and standing
+    3) availability as a string: "Available" indicates available, anything else indicates unavailable (for now)
+    4) a click handler as a function, which can be implemented in the file this component is called in
 
     returns a (currently) rectangular clickable field
 
@@ -55,7 +57,7 @@
         case "6":
             bg = "#c7ceea";
             break;
-        default:
+        default: //this handles cat 7 as well for now
             bg = "#fdffb6";
     }
 
@@ -71,6 +73,9 @@
                 , false, true, false, false, true, false, false, true, false];
 
 </script>
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="section" {style} on:click={onClick}>{number}</div>
 
 <style>
     .section {

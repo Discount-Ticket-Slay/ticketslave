@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Lazy;
 import com.example.demo.event.*;
 import com.example.demo.ticket.*;
 
+import jakarta.transaction.Transactional;
+
 @Service
 @Lazy
 public class TicketCategoryService {
@@ -44,43 +46,39 @@ public class TicketCategoryService {
         TicketCategory.setEvent(Event);
         return TicketCategoryRepository.save(TicketCategory);
     }
-
-    public TicketCategory makeTickets (Long id, int count) {
-        TicketCategory ticketCategory = findTicketCategory(id);
-        if (ticketCategory == null) {
-            return null;
-        }
-        Event event = ticketCategory.getEvent();
-        if (event == null) {
-            return null;
-        }
-        int capacity = event.getCapacity();
-        if (capacity < count) {
-            return null;
-        }
-//System.out.println(event.getName());
-        List<Ticket> tickets = new ArrayList<>();
-        int counter = 0;
-        int seatNo = 1;
-        char rowChar = 'A';
-        for (int i = 0; i < count; i++) {
-            Ticket ticket = new Ticket(seatNo, rowChar);
-            counter++;
-            seatNo++;
-            if (counter >= 10) {
-                rowChar++;
-                counter = 0;
+    @Transactional
+    public TicketCategory makeTickets (Long id, int count) throws IllegalArgumentException {
+        
+            TicketCategory ticketCategory = findTicketCategory(id);
+            Event event = ticketCategory.getEvent();
+            int capacity = event.getCapacity();
+            if (capacity < count) {
+                throw new IllegalArgumentException("Count exceeds capacity");
             }
-            if (seatNo > 10) {
-                seatNo = 1;
+    //System.out.println(event.getName());
+            List<Ticket> tickets = new ArrayList<>();
+            int counter = 0;
+            int seatNo = 1;
+            char rowChar = 'A';
+            for (int i = 0; i < count; i++) {
+                Ticket ticket = new Ticket(seatNo, rowChar);
+                counter++;
+                seatNo++;
+                if (counter >= 10) {
+                    rowChar++;
+                    counter = 0;
+                }
+                if (seatNo > 10) {
+                    seatNo = 1;
+                }
+                if (rowChar >= 'Z') {
+                    rowChar = 'A';
+                }
+                tickets.add(ticket);
+                ticket.setTicketCategory(ticketCategory);
             }
-            if (rowChar >= 'Z') {
-                rowChar = 'A';
-            }
-            tickets.add(ticket);
-            ticket.setTicketCategory(ticketCategory);
-        }
-        ticketCategory.setTickets(tickets);
-        return TicketCategoryRepository.save(ticketCategory);
+            ticketCategory.setTickets(tickets);
+            return TicketCategoryRepository.save(ticketCategory);
+    
     }
 }

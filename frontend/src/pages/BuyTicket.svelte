@@ -1,8 +1,21 @@
 <script>
     import Navbar from "../components/Essentials/Navbar.svelte";
-    import ProgressTracker from '../components/Misc/ProgressTracker.svelte';
-    import {Button} from 'carbon-components-svelte';
+    import ProgressTracker from '../components/Misc/ProgressTracker.svelte'
     import SeatSection from "../components/Ticketing/SeatSection.svelte";
+    import {Button} from 'carbon-components-svelte'
+    import Seat from "../components/Ticketing/Seat.svelte";
+    import Ticket from "../components/Ticketing/Ticket.svelte";
+
+    let buyingEvent = [];
+
+    // const handleClick = (event) => {
+    //     alert("clicked")
+    //     buyingEvent.push(event);
+    // }
+
+    const handleClick = () => {
+        alert("clicked")
+    }
 </script>
 
 <Navbar />
@@ -27,8 +40,10 @@
     </div>
 </div>
 
-<div class="selection">
-    Selected seat shows here
+<div class="section-ticketing">
+    {#each {length: 15} as _, i}
+        <Ticket />
+    {/each}
 </div>
 
 <style>
@@ -48,9 +63,15 @@
 		justify-content: center;
 	}
 
-    .selection {
-        background-color: #ebebeb;
-        margin-top: 5%;
-        height: 256px;
+    .section-ticketing {
+        display: flex;
+        flex-direction: column;
+        background-color: pink; /*pink used for debugging will change later*/
+        align-items: center;
+        margin: 3vh;
+        padding: 3vh;
+        border-radius: 0.5rem;
+        height: 60vh;
+        overflow-y: scroll;
     }
 </style>

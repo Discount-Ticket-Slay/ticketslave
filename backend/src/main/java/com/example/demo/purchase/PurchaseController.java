@@ -1,14 +1,15 @@
 package com.example.demo.purchase;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import java.util.List;
-import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.event.EventService;
 import com.example.demo.ticket.*;
 
 
@@ -28,6 +29,7 @@ public class PurchaseController {
     }
 
     // enter data into database
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Purchase createPurchase(@RequestBody Purchase Purchase) {
 
@@ -39,4 +41,14 @@ public class PurchaseController {
     // public Purchase addPurchase (@PathVariable Long id, @RequestParam Long ticketId) {
     //     return PurchaseService.addPurchase(id, ticketId);
     // }
+
+    @DeleteMapping("/{id}/delete")
+    public ResponseEntity<String> deletePurchase(@PathVariable Long id) {
+        try {
+            PurchaseService.deletePurchase(id);
+            return new ResponseEntity<String>("Purchase of ID:" + id + " deleted. ", HttpStatus.OK);
+        } catch (IllegalArgumentException e){
+            return new ResponseEntity<String>("Purchase does not exist", HttpStatus.NOT_FOUND);
+        }
+    }
 }
