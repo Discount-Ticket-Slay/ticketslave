@@ -2,7 +2,7 @@
     import Navbar from "../components/Essentials/Navbar.svelte";
     import ProgressTracker from '../components/Misc/ProgressTracker.svelte';
     import {Button} from 'carbon-components-svelte';
-    import Section from "../components/Ticketing/Section.svelte";
+    import SeatSection from "../components/Ticketing/SeatSection.svelte";
 </script>
 
 <Navbar />
@@ -16,13 +16,15 @@
 <div class="container"> 
 	<h4>Available Seats:</h4>
 
-	<div class="ticket-options">
-        <Section cate="cat 1"/>
-        <Section cate="cat 2"/>
-        <Section cate="cat 3"/>
-        <Section cate="cat 4"/>
-        <Section cate="cat 5"/>
-	</div>
+    <div class="ticket-options">
+        <SeatSection number="227" availability="Available" category='1'/>
+        <SeatSection number="229" availability="Unavailable" category="2"/>
+        <SeatSection number="231" availability="Unavailable" category="3"/>
+        <SeatSection number="233" availability="Available" category="4"/>
+        <SeatSection number="235" availability="Available" category="5"/>
+        <SeatSection number="237" availability="Unavailable" category="6"/>
+        <SeatSection number="239" availability="Available" category="standing"/>
+    </div>
 </div>
 
 <div class="selection">

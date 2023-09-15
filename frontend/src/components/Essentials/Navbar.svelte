@@ -8,7 +8,7 @@
     /* Apply CSS styles for the navbar */
     .navbar {
         display: flex;
-        background-color: #4A6EEB;
+        background-color: #000000;
         color: white;
         padding: 1rem;
         justify-content: space-between;
