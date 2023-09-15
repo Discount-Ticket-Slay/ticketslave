@@ -3,7 +3,6 @@
     import ProgressTracker from '../components/Misc/ProgressTracker.svelte'
     import SeatSection from "../components/Ticketing/SeatSection.svelte";
     import {Button} from 'carbon-components-svelte'
-    import Seat from "../components/Ticketing/Seat.svelte";
     import Ticket from "../components/Ticketing/Ticket.svelte";
 
     let buyingEvent = [];
@@ -13,9 +12,6 @@
     //     buyingEvent.push(event);
     // }
 
-    const handleClick = () => {
-        alert("clicked")
-    }
 </script>
 
 <Navbar />

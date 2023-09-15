@@ -74,9 +74,6 @@
 
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="section" {style} on:click={onClick}>{number}</div>
-
 <style>
     .section {
         color: white;
