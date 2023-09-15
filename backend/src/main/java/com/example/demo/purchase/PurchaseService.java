@@ -3,7 +3,6 @@ package com.example.demo.purchase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
-import com.example.demo.ticket.*;
 
 @Service
 public class PurchaseService {
@@ -19,6 +18,11 @@ public class PurchaseService {
 
     public Purchase findPurchase(Long id) {
         return PurchaseRepository.findById(id).orElse(null);
+    }
+
+    public void deletePurchase(Long id) throws IllegalArgumentException{
+        //loadTickets(Event);
+        PurchaseRepository.deleteById(id);
     }
 
     public Purchase createPurchase(Purchase Purchase) {

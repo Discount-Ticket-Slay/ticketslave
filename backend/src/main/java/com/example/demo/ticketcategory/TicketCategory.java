@@ -1,17 +1,8 @@
 package com.example.demo.ticketcategory;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.CascadeType;
+
 import java.util.*;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.*;
 import com.example.demo.event.*;
 import com.example.demo.ticket.*;
