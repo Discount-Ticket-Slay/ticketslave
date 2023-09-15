@@ -1,6 +1,5 @@
 <script>
     import Navbar from "../components/Essentials/Navbar.svelte";
-<<<<<<< HEAD
     import ProgressTracker from '../components/Misc/ProgressTracker.svelte'
     import SeatSection from "../components/Ticketing/SeatSection.svelte";
     import {Button} from 'carbon-components-svelte'
@@ -16,11 +15,6 @@
     const handleClick = () => {
         alert("clicked")
     }
-=======
-    import ProgressTracker from '../components/Misc/ProgressTracker.svelte';
-    import {Button} from 'carbon-components-svelte';
-    import Section from "../components/Ticketing/Section.svelte";
->>>>>>> 2ddc02a039fe8bd29eaa708f9fe813223228a34a
 </script>
 
 <Navbar />
@@ -35,7 +29,6 @@
 	<h4>Available Seats:</h4>
 
 	<div class="ticket-options">
-<<<<<<< HEAD
         <SeatSection number="227" availability="Available" category='1' onClick={handleClick}/>
         <SeatSection number="229" availability="Unavailable" category="2" onClick={handleClick}/>
         <SeatSection number="231" availability="Unavailable" category="3" onClick={handleClick}/>
@@ -43,13 +36,11 @@
         <SeatSection number="235" availability="Available" category="5" onClick={handleClick}/>
         <SeatSection number="237" availability="Unavailable" category="6" onClick={handleClick}/>
         <SeatSection number="239" availability="Available" category="standing" onClick={handleClick}/>
-=======
         <Section cate="cat 1"/>
         <Section cate="cat 2"/>
         <Section cate="cat 3"/>
         <Section cate="cat 4"/>
         <Section cate="cat 5"/>
->>>>>>> 2ddc02a039fe8bd29eaa708f9fe813223228a34a
 	</div>
 
     <Seat />
