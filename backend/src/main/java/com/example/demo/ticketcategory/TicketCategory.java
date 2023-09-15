@@ -1,11 +1,19 @@
 package com.example.demo.ticketcategory;
 
 import jakarta.persistence.*;
-
+import jakarta.persistence.Table;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.CascadeType;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
 import com.example.demo.event.*;
 import com.example.demo.ticket.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "TicketCategory")
@@ -18,6 +26,7 @@ public class TicketCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long TicketCategoryId;
 
+    @NotNull(message = "ticketCategory name cannot be null")
     private String Name;
     private double Price;
 
