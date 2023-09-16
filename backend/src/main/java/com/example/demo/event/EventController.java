@@ -44,7 +44,7 @@ public class EventController {
 
 
     @PostMapping("/{id}/add")
-    public ResponseEntity<String> addTicketCategory(@PathVariable Long id, @RequestBody TicketCategory ticketCategory){
+    public ResponseEntity<String> addTicketCategory(@PathVariable Long id, @Valid @RequestBody TicketCategory ticketCategory){
         if (EventService.findEvent(id) == null){
             return new ResponseEntity<String>("Event not found", HttpStatus.NOT_FOUND);
         }

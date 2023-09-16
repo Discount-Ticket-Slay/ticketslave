@@ -9,6 +9,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/ticketcategory")
@@ -29,7 +31,7 @@ public class TicketCategoryController {
     // enter data into database
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public TicketCategory createTicketCategory(@RequestBody TicketCategory TicketCategory) {
+    public TicketCategory createTicketCategory(@Valid @RequestBody TicketCategory TicketCategory) {
 
         System.out.println(TicketCategory);
         return TicketCategoryService.createTicketCategory(TicketCategory, null);

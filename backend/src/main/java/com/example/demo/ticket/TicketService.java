@@ -6,6 +6,9 @@ import java.util.*;
 import com.example.demo.purchase.*;
 import com.example.demo.ticketcategory.*;
 
+import jakarta.persistence.OptimisticLockException;
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class TicketService {
@@ -65,13 +68,23 @@ public class TicketService {
         ticket.setPurchase(purchase);
         return TicketRepository.save(ticket);
     }
-
-    public void reserveTicket(Ticket ticket) {
+    @Transactional
+    public boolean reserveTicket(Long ticketId) throws OptimisticLockException {
+        Ticket ticket = findTicket(ticketId);
+        if (ticket.isSold() || ticket.getStatus()) {
+            return false;
+        }
             ticket.setStatus(true);
             TicketRepository.save(ticket);
-        // Implement logic to reserve the seat
+        return true;
     }
 
+    @Transactional
+    public void purchaseTicket(Ticket ticket) {
+        ticket.setSold(true);
+    }
+
+    @Transactional
     public void undoReserveTicket(Ticket ticket) {
         ticket.setStatus(false);
         TicketRepository.save(ticket);

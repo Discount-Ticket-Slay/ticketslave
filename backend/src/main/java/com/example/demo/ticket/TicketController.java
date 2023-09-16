@@ -2,6 +2,7 @@ package com.example.demo.ticket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
+
+import jakarta.persistence.OptimisticLockException;
 
 @RestController
 @RequestMapping("/tickets")
@@ -50,5 +53,19 @@ public class TicketController {
     }
 
     // Other controller methods...
+    @PostMapping("/{id}/reserve")
+    public ResponseEntity<String> reserveTicket (@PathVariable Long id) {
+        try {
+            boolean result = TicketService.reserveTicket(id);
+            if (result) {
+                return new ResponseEntity<String>("Ticket successfully reserved", HttpStatus.OK);
+            }
+            return new ResponseEntity<String>("Ticket was already reserved by another user", HttpStatus.CONFLICT);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<String>("Ticket does not exist", HttpStatus.NOT_FOUND);
+        } catch (OptimisticLockException e) {
+            return new ResponseEntity<String>("Ticket was already reserved by another user", HttpStatus.CONFLICT);
 
+        }
+    }
 }

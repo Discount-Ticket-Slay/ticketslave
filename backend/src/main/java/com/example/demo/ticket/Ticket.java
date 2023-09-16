@@ -28,6 +28,10 @@ public class Ticket {
     private char RowChar;
     //private String TicketDescription;
     private boolean Status = false;
+    private boolean Sold = false;
+
+    @Version
+    private Long version;
 
     @ManyToOne
     @JoinColumn(name = "ticketCategoryId")
@@ -110,6 +114,14 @@ public class Ticket {
 
     public void setPurchase(Purchase purchase) {
         Purchase = purchase;
+    }
+
+    public boolean isSold() {
+        return Sold;
+    }
+
+    public void setSold(boolean sold) {
+        Sold = sold;
     }
 
 }
