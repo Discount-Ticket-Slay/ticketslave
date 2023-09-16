@@ -12,6 +12,9 @@ import jakarta.validation.Valid;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.*;
 
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
 @RestController
 @RequestMapping("/events")
 public class EventController {
@@ -27,6 +30,13 @@ public class EventController {
         return EventService.getAllEvents();
 
     }
+
+    // @GetMapping("/redir")
+    // public ModelAndView eventRedirect(){
+    //     RedirectView redirectView = new RedirectView("/purchase");
+    //     System.out.println("you're being redirected lmao");
+    //     return new ModelAndView(redirectView);
+    // }
 
     // @GetMapping("/{id}/image")
     // public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
