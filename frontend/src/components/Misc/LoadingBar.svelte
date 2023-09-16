@@ -7,9 +7,6 @@
         width: 500px;
     }
 
-    .container-large {
-        width: 1170px;
-    }
 </style>
 
 <div class="container-fluid py-5 container-small">

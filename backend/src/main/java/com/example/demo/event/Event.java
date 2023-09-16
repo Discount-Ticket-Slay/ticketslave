@@ -1,4 +1,5 @@
 package com.example.demo.event;
+
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.*;
 import com.example.demo.ticketcategory.*;
@@ -8,9 +9,7 @@ import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "Event")
-@JsonIdentityInfo(
-  generator = ObjectIdGenerators.PropertyGenerator.class, 
-  property = "eventId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "eventId")
 public class Event {
 
     @Id
@@ -41,16 +40,17 @@ public class Event {
     public Event() {
     }
 
-    public Event(String eventName, String eventDescription, String startDateTime, String venue, String artist, int capacity) {
+    public Event(String eventName, String eventDescription, String startDateTime, String venue, String artist,
+            int capacity) {
 
-        //EventId = eventId;
-            EventName = eventName;
-            EventDescription = eventDescription;
-            StartDateTime = startDateTime;
-            Venue = venue;
-            Artist = artist;
-            Capacity = capacity;
-        //tickets = new ArrayList<Ticket>();
+        // EventId = eventId;
+        EventName = eventName;
+        EventDescription = eventDescription;
+        StartDateTime = startDateTime;
+        Venue = venue;
+        Artist = artist;
+        Capacity = capacity;
+        // tickets = new ArrayList<Ticket>();
     }
 
     public Long getEventId() {
@@ -109,10 +109,11 @@ public class Event {
         Capacity = capacity;
     }
 
-    //@JsonManagedReference
+    // @JsonManagedReference
     public List<TicketCategory> getTicketCategories() {
         return TicketCategories;
     }
+
     public void addTicketCategory(TicketCategory ticketCategory) {
         TicketCategories.add(ticketCategory);
     }
@@ -120,16 +121,17 @@ public class Event {
     public void setTicketCategories(List<TicketCategory> ticketCategories) {
         TicketCategories = ticketCategories;
     }
+
     public String toString() {
         return EventName;
     }
 
     // public byte[] getImage() {
-    //     return image;
+    // return image;
     // }
 
     // public void setImage(byte[] image) {
-    //     this.image = image;
+    // this.image = image;
     // }
 
 }
