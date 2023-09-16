@@ -1,5 +1,6 @@
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\email\EmailRequest.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketService.java
+C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\booking\BookingController.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\purchase\Purchase.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\purchase\PurchaseService.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategory.java
@@ -14,6 +15,7 @@ C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\ticket\TicketController.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\purchase\PurchaseController.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\ticketcategory\TicketCategoryController.java
+C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\booking\BookingService.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\event\EventController.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\App.java
 C:\Users\pipio\Downloads\Buying\BuyTicket\backend\src\main\java\com\example\demo\event\EventRepository.java
