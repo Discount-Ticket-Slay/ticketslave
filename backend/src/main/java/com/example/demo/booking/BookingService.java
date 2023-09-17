@@ -14,9 +14,11 @@ public class BookingService {
     public void startTimer() {
         // Start the timer by setting a flag or using a timer thread
         // For simplicity, we'll use a timer flag here
+        System.out.println("timer has started");
         new Thread(() -> {
             try {
                 Thread.sleep(TIMER_DURATION);
+                System.out.println("timer has expired bro");
                 timerExpired = true;
             } catch (InterruptedException e) {
                 // Handle any exceptions that may occur during sleep

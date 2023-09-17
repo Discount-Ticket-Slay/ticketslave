@@ -29,6 +29,7 @@ public class BookingController {
 
         // Check if the timer has expired and redirect accordingly
         if (bookingService.isTimerExpired()) {
+            System.out.println("timer has expired");
             RedirectView redirectView = new RedirectView("/booking/timeout");
             return new ModelAndView(redirectView);
         }
