@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.event.EventService;
 import com.example.demo.ticket.*;
 
+import reactor.netty.channel.AbortedException;
+
 
 @RestController
 @RequestMapping("/purchases")
@@ -41,6 +43,18 @@ public class PurchaseController {
     // public Purchase addPurchase (@PathVariable Long id, @RequestParam Long ticketId) {
     //     return PurchaseService.addPurchase(id, ticketId);
     // }
+    @PostMapping("/{id}/add")
+    public ResponseEntity<String> addTicket(@PathVariable Long id, @RequestParam Long ticketId) {
+        try {       
+            PurchaseService.addTicket(id, ticketId);
+            return new ResponseEntity<String>("Ticket successfully added to purchase", HttpStatus.OK); 
+        } catch (NullPointerException e) {
+            return new ResponseEntity<String>("Ticket does not exist", HttpStatus.BAD_REQUEST);
+        } catch (AbortedException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+
+        }
+    }
 
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<String> deletePurchase(@PathVariable Long id) {

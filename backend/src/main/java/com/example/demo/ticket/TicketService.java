@@ -17,8 +17,8 @@ public class TicketService {
 
     // @Autowired
     // private TicketCategoryService TicketCategoryService;
-    @Autowired
-    private PurchaseService PurchaseService;
+    // @Autowired
+    // private PurchaseService PurchaseService;
 
     public List<Ticket> getAllTickets() {
         return TicketRepository.findAll();
@@ -55,19 +55,19 @@ public class TicketService {
     //     ticket.setTicketCategory(ticketCategory);
     //     return TicketRepository.save(ticket);
     // }
+    // @Transactional
+    // public Ticket updatePurchase (Long id, Long purchaseId) {
+    //     Purchase purchase = PurchaseService.findPurchase(purchaseId);
+    //     Ticket ticket = findTicket(id);
 
-    public Ticket updatePurchase (Long id, Long purchaseId) {
-        Purchase purchase = PurchaseService.findPurchase(purchaseId);
-        Ticket ticket = findTicket(id);
-
-        //function aborts if ticket does not exist, purchase does not exist, or if ticket is already reserved by someone else
-        if (ticket == null || purchase == null || ticket.getStatus() == true) {
-            return null;
-        }
-        ticket.setStatus(true);
-        ticket.setPurchase(purchase);
-        return TicketRepository.save(ticket);
-    }
+    //     //function aborts if ticket does not exist, purchase does not exist, or if ticket is already reserved by someone else
+    //     if (ticket == null || purchase == null || ticket.getStatus() == true) {
+    //         return null;
+    //     }
+    //     ticket.setStatus(true);
+    //     ticket.setPurchase(purchase);
+    //     return TicketRepository.save(ticket);
+    // }
     @Transactional
     public boolean reserveTicket(Long ticketId) throws OptimisticLockException {
         Ticket ticket = findTicket(ticketId);

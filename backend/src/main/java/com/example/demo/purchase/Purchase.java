@@ -41,5 +41,9 @@ public class Purchase {
         Tickets = tickets;
     }
 
+    public void addTicket(Ticket ticket) {
+        Tickets.add(ticket);
+    }
+
     
 }
