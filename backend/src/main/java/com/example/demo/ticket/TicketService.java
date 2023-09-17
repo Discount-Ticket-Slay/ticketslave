@@ -3,8 +3,9 @@ package com.example.demo.ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
-import com.example.demo.purchase.*;
+//import com.example.demo.purchase.*;
 import com.example.demo.ticketcategory.*;
+import com.example.demo.booking.*;
 
 import jakarta.persistence.OptimisticLockException;
 import jakarta.transaction.Transactional;
@@ -19,6 +20,8 @@ public class TicketService {
     // private TicketCategoryService TicketCategoryService;
     // @Autowired
     // private PurchaseService PurchaseService;
+    @Autowired
+    private BookingService BookingService;
 
     public List<Ticket> getAllTickets() {
         return TicketRepository.findAll();
@@ -88,6 +91,12 @@ public class TicketService {
     @Transactional
     public void undoReserveTicket(Ticket ticket) {
         ticket.setStatus(false);
+        TicketRepository.save(ticket);
+    }
+
+    @Transactional
+    public void removePurchase(Ticket ticket) {
+        ticket.setPurchase(null);
         TicketRepository.save(ticket);
     }
 }
