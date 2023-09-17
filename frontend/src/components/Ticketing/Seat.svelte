@@ -1,30 +1,38 @@
 <!--
-    Individual seat and ticket details component
+    Individual seat and seat details component
 
     This component is used to display the details of an individual seat
-    Currently this component is completely static
+    Deatils included: 
+    Seat number (char + 2 digit string)
+    Concert name
+    Ticket number
+    Section
+    Category
+    Price
+
+    For now, refer to the 'seats' array in BuyTicket.svelte for dummy seat values
 
     Features to be added/updated:
-    Passing in ticket info as parameters
 -->
 
 <script>
-    // export let section;
     import "bootstrap/dist/css/bootstrap.min.css"
     import { Button } from "carbon-components-svelte";
+
+    export let seat;
 </script>
 
 <div class="container">
     <div class="details">
-        <div class="seat">A69</div>
-        <div class="title">Taylor Swift | The Eras Tour</div>
-        <div class="number">Ticket Number: <strong>4206969</strong></div>
-        <div>Section: <strong class="section">233</strong></div>
-        <div class="category-wrapper">Category: <strong class="category">4</strong></div>
+        <div class="seat">{`${seat.rowChar}${seat.seatNo}`}</div>
+        <div class="title">{seat.name}</div>
+        <div class="number">seat Number: <strong>{seat.number}</strong></div>
+        <div>Section: <strong class="section">{seat.section}</strong></div>
+        <div class="category-wrapper">Category: <strong class="category">{seat.category}</strong></div>
     </div>
     <Button>
         <div class="button-info">
-            Buy for $208
+            Buy for {seat.price}
         </div>
     </Button>
 </div>
