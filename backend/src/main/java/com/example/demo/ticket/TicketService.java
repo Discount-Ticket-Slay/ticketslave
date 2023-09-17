@@ -82,6 +82,7 @@ public class TicketService {
     @Transactional
     public void purchaseTicket(Ticket ticket) {
         ticket.setSold(true);
+        TicketRepository.save(ticket);
     }
 
     @Transactional

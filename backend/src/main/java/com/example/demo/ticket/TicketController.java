@@ -47,10 +47,10 @@ public class TicketController {
         return TicketService.createTicket(Ticket);
     }
     //used when user selects ticket for purchase. It assigns the ticket object to the purchase object
-    @PutMapping("/{id}/update-purchase")
-    public Ticket updatePurchase(@PathVariable Long id, @RequestParam Long purchaseId) {
-        return TicketService.updatePurchase(id, purchaseId);
-    }
+    // @PutMapping("/{id}/update-purchase")
+    // public Ticket updatePurchase(@PathVariable Long id, @RequestParam Long purchaseId) {
+    //     return TicketService.updatePurchase(id, purchaseId);
+    // }
 
     // Other controller methods...
     @PostMapping("/{id}/reserve")

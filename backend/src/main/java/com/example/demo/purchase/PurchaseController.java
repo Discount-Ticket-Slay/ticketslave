@@ -56,6 +56,18 @@ public class PurchaseController {
         }
     }
 
+    @PutMapping("/{id}/complete")
+    public ResponseEntity<String> completePurchase(@PathVariable Long id) {
+        try {
+            PurchaseService.completePurchase(id);
+            return new ResponseEntity<String>("Purchase completed", HttpStatus.OK); 
+        } catch (AbortedException e){
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT); 
+        } catch (NullPointerException e) {
+            return new ResponseEntity<String>("Purchase does not exist", HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<String> deletePurchase(@PathVariable Long id) {
         try {

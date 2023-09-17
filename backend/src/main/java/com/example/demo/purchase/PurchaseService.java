@@ -48,7 +48,20 @@ public class PurchaseService {
         PurchaseRepository.save(purchase);
     }
 
-    
+    @Transactional
+    public void completePurchase(Long id) throws AbortedException{
+        Purchase purchase = findPurchase(id);
+        List<Ticket> tickets = purchase.getTickets();
+        for (Ticket t: tickets) {
+            if (t.isSold() || !t.getStatus()) {
+                throw new AbortedException("Purchase aborted, one of your tickets timed out");
+            }
+        }
+        for (Ticket t: tickets) {
+            TicketService.purchaseTicket(t);
+        }
+
+    }
 
     // public Purchase addPurchase ( Long id, Long ticketId) {
     //     Purchase purchase = findPurchase(id);
