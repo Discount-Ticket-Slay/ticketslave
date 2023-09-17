@@ -2,7 +2,15 @@
     Individual seat and seat details component
 
     This component is used to display the details of an individual seat
-    Currently this component is completely static
+    Deatils included: 
+    Seat number (char + 2 digit string)
+    Concert name
+    Ticket number
+    Section
+    Category
+    Price
+
+    For now, refer to the 'seats' array in BuyTicket.svelte for dummy seat values
 
     Features to be added/updated:
 -->

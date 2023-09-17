@@ -8,6 +8,7 @@
     let buyingEvent = [];
 
     //For now, this is an array of fake seat values to test components. Will be replaced with actual JSON data.
+    //Used seat 233 of category 4
     let seats = [
         {
             id: 1,
@@ -140,6 +141,10 @@
     </div>
 </div>
 
+<!--
+    Generate a seat details component for every seat in seats array.
+    additionally pass in the seat entity as a parameter to display respective values
+-->
 <div class="section-ticketing">
     {#each seats as seat}
         <Seat {seat}/>
