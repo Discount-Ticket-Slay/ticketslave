@@ -25,8 +25,16 @@ public class PurchaseService {
         return PurchaseRepository.findById(id).orElse(null);
     }
 
-    public void deletePurchase(Long id) throws IllegalArgumentException{
+    @Transactional
+    public void deletePurchase(Long id) {
         //loadTickets(Event);
+        Purchase purchase = findPurchase(id);
+        List<Ticket> tickets = purchase.getTickets();
+        for (Ticket t: tickets) {
+            TicketService.undoReserveTicket(t);
+            TicketService.removePurchase(t);
+        }
+        purchase.setTickets(null);
         PurchaseRepository.deleteById(id);
     }
 
