@@ -38,9 +38,9 @@ public class PurchaseService {
         PurchaseRepository.deleteById(id);
     }
 
-    public Purchase createPurchase(Purchase Purchase) {
-        
-        return PurchaseRepository.save(Purchase);
+    public Purchase createPurchase() {
+        Purchase purchase = new Purchase();
+        return PurchaseRepository.save(purchase);
     }
     @Transactional
     public void addTicket(Long id, Long ticketId) throws AbortedException{

@@ -36,11 +36,11 @@ public class PurchaseController {
     // enter data into database
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Purchase createPurchase(@RequestBody Purchase Purchase) {
+    public Purchase createPurchase() {
 
-        System.out.println(Purchase);
+        //System.out.println(Purchase);
         timerService.startTimer();
-        return PurchaseService.createPurchase(Purchase);
+        return PurchaseService.createPurchase();
     }
     // @PutMapping("/{id}/add-purchase")
     // public Purchase addPurchase (@PathVariable Long id, @RequestParam Long ticketId) {
