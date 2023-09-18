@@ -22,6 +22,9 @@ public class PurchaseController {
     @Autowired
     private PurchaseService PurchaseService;
 
+    @Autowired
+    private TimerService timerService;
+
     @GetMapping
     public ResponseEntity<List<Purchase>> getAllPurchases() {
         System.out.println(PurchaseService.getAllPurchases());
@@ -36,7 +39,7 @@ public class PurchaseController {
     public Purchase createPurchase(@RequestBody Purchase Purchase) {
 
         System.out.println(Purchase);
-        
+        timerService.startTimer();
         return PurchaseService.createPurchase(Purchase);
     }
     // @PutMapping("/{id}/add-purchase")
@@ -58,6 +61,10 @@ public class PurchaseController {
 
     @PutMapping("/{id}/complete")
     public ResponseEntity<String> completePurchase(@PathVariable Long id) {
+        if (timerService.isTimerExpired()){
+            System.out.println("you timed out, purchase unable to be completed");
+            PurchaseService.deletePurchase(id);
+        }
         try {
             PurchaseService.completePurchase(id);
             return new ResponseEntity<String>("Purchase completed", HttpStatus.OK); 
