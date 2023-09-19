@@ -1,4 +1,4 @@
-version: '2'
+version: '1'
 services:
 
   # building the database
@@ -7,18 +7,22 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: TicketDB
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql  # Persist MySQL data (so it survives container restarts)
+    healthcheck: # adding healthcheck to make sure the database container is up and running
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # building the app using the Dockerfile
-  app:
+  buyticketapp:
     build: .
     depends_on:
-      - mysqldb
+      mysqldb: 
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:

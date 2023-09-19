@@ -9,17 +9,20 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src src
 
-# run the application
-RUN mvn clean package
+# Run the application (-DskipTests to skip database test as it would not be available yet)
+RUN mvn clean package -DskipTests
+
+# for debugging
+RUN ls -l /workspace/app/target/
 
 # Runtime Stage
-FROM eclipse-temurin:11
+FROM eclipse-temurin:17
 
-# create a directory to hold the application
+# Create a directory to hold the application
 WORKDIR /opt/app
 
-# copy the jar file from the build stage
-COPY --from=build /workspace/app/target/buyticket.jar .
+# Copy the JAR file from the build stage
+COPY --from=build /workspace/app/target/buyticketapp-1.0.jar .
 
-# run the application
-CMD ["java", "-jar", "buyticket.jar"]
+# Run database before running the Java application
+CMD ["java", "-jar", "buyticketapp-1.0.jar"]
