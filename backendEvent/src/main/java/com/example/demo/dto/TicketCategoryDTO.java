@@ -1,5 +1,10 @@
 package com.example.demo.dto;
 import java.util.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class TicketCategoryDTO {
     private Long id;
     private String name;

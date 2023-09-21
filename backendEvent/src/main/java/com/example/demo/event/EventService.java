@@ -31,10 +31,10 @@ public class EventService {
 
     public List<TicketCategoryDTO> getTicketCategoriesByEventId(Long eventId) {
         List<TicketCategoryDTO> ticketCategories = WebClientBuilder
-            .baseUrl("http://localhost:8080")
+            .baseUrl("http://localhost:8081")
             .build()
             .get()
-            .uri("/ticketcategory/{eventId}", eventId)
+            .uri("/ticketcategory/{eventId}/getcategories", eventId)
             .retrieve()
             .bodyToFlux(TicketCategoryDTO.class)
             .collectList()

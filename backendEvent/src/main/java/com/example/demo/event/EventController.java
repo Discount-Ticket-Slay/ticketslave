@@ -36,13 +36,13 @@ public class EventController {
     }
 
     @GetMapping("/{eventId}/ticketcategory")
-    public ResponseEntity<List<TicketCategoryDTO>> getTicketCategoriesByEventId(@PathVariable Long eventId) {
-        List<TicketCategoryDTO> ticketCategories = EventService.getTicketCategoriesByEventId(eventId);
-        if (ticketCategories != null && !ticketCategories.isEmpty()) {
-            return ResponseEntity.ok(ticketCategories);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public List<TicketCategoryDTO> getTicketCategoriesByEventId(@PathVariable Long eventId) {
+        return EventService.getTicketCategoriesByEventId(eventId);
+        // if (ticketCategories != null && !ticketCategories.isEmpty()) {
+        //     return ResponseEntity.ok(ticketCategories);
+        // } else {
+        //     return ResponseEntity.notFound().build();
+        // }
     }
 
     @GetMapping("/{ticketCategoryId}/eventDTO")
