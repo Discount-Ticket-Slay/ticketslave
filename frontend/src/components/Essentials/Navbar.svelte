@@ -37,14 +37,6 @@
         justify-content: space-around;
     }
 
-    .icon {
-        position: relative;
-        margin-left: 64px;
-        font-weight: bold;
-        cursor: pointer;
-        color: brown !important;
-    }
-
     main {
         min-width: 800px;
     }
@@ -54,9 +46,12 @@
 
 <main>
     <div class="navbar navbar-expand nav-line">
-        <a href="/" class="icon">
-            Tix
-        </a>
+
+        <a href="/"><img
+            src="public/images/logo.png"
+            alt="No pic found"
+            style="width: 50px;"
+            /></a>
 
         <div class="wrapper1">
             <!-- Navbar content -->
