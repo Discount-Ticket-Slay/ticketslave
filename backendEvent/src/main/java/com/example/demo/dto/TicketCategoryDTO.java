@@ -5,5 +5,5 @@ public class TicketCategoryDTO {
     private String name;
     private double price;
     private List<Long> ticketIds;
-    private Long evendId;
+    private Long eventId;
 }
