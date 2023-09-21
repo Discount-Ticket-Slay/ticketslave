@@ -12,6 +12,27 @@ variable "ecr_repo_url" {
   type        = string
 }
 
+# Define variables to be populated for the container
+variable "my_sql_root_password" {
+  description = "MySQL root password"
+  type        = string
+}
+
+variable "my_sql_database" {
+  description = "MySQL database name"
+  type        = string
+}
+
+variable "spring_datasource_username" {
+  description = "spring datasource username"
+  type        = string
+}
+
+variable "spring_datasource_password" {
+  description = "spring datasource password"
+  type        = string
+}
+
 # Define ecr repository we are going to use
 data "aws_ecr_repository" "ecr_repo_url" {
   name = "buyticketapp" # name of ECR repository
@@ -35,6 +56,8 @@ provider "aws" {
 # Create a VPC
 resource "aws_vpc" "ticket_slave_VPC" {
   cidr_block = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
   tags = {
     Name = "ticket_slave_VPC"
   }
@@ -104,10 +127,27 @@ resource "aws_security_group" "ticket_slave_security_group" {
   vpc_id      = aws_vpc.ticket_slave_VPC.id
 
   # define ingress and egress rules
+  # define ingress using SSH
+  ingress {
+    description = "SSH from VPC"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Database Access from VPC"
+    from_port   = 22
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   ingress {
     description = "HTTP from VPC"
     from_port   = 80
-    to_port     = 80
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -115,7 +155,7 @@ resource "aws_security_group" "ticket_slave_security_group" {
   ingress {
     description = "HTTPS from VPC"
     from_port   = 443
-    to_port     = 443
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -190,6 +230,15 @@ resource "aws_ecs_task_definition" "my_task" {
     portMappings = [{
       containerPort = 8080
     }]
+
+    environment = [
+      { "name" : "MYSQL_ROOT_PASSWORD", "value" : "${var.my_sql_root_password}" },
+      { "name" : "MYSQL_DATABASE", "value" : "${var.my_sql_database}" },
+      { "name" : "SPRING_DATASOURCE_URL", "value" : "jdbc:mysql://${aws_db_instance.ticket_slave_db.endpoint}/${var.my_sql_database}" },
+      { "name" : "SPRING_DATASOURCE_USERNAME", "value" : "${var.spring_datasource_username}" },
+      { "name" : "SPRING_DATASOURCE_PASSWORD", "value" : "${var.spring_datasource_password}" }
+    ]
+
     logConfiguration = {
       logDriver = "awslogs"
       options = {
@@ -198,8 +247,16 @@ resource "aws_ecs_task_definition" "my_task" {
         "awslogs-stream-prefix" = "ecs"
       }
     }
+
   }])
 
+  runtime_platform {
+    #Valid Values: WINDOWS_SERVER_2019_FULL | WINDOWS_SERVER_2019_CORE | WINDOWS_SERVER_2016_FULL | WINDOWS_SERVER_2004_CORE | WINDOWS_SERVER_2022_CORE | WINDOWS_SERVER_2022_FULL | WINDOWS_SERVER_20H2_CORE | LINUX
+    operating_system_family = "LINUX"
+
+    #Valid Values: X86_64 | ARM64
+    cpu_architecture = "ARM64"
+  }
 
 }
 
@@ -247,7 +304,13 @@ resource "aws_iam_role_policy" "ecs_execution_inline_policy" {
           "ecr:GetDownloadUrlForLayer",
           "ecr:BatchCheckLayerAvailability",
           "logs:CreateLogStream",
-          "logs:PutLogEvents"
+          "logs:PutLogEvents",
+          "rds:CreateDBInstance",
+          "rds:DescribeDBInstances",
+          "rds:ModifyDBInstance",
+          "rds:DeleteDBInstance",
+          "rds:StartDBInstance",
+          "rds:StopDBInstance",
         ],
         Effect   = "Allow",
         Resource = "*"
@@ -275,8 +338,9 @@ resource "aws_ecs_service" "ticket_slave_service" {
   desired_count   = 1
 
   network_configuration {
-    subnets         = [aws_subnet.ticket_slave_subnet_1.id, aws_subnet.ticket_slave_subnet_2.id]
-    security_groups = [aws_security_group.ticket_slave_security_group.id]
+    subnets          = [aws_subnet.ticket_slave_subnet_1.id, aws_subnet.ticket_slave_subnet_2.id]
+    security_groups  = [aws_security_group.ticket_slave_security_group.id]
+    assign_public_ip = true
   }
 
   load_balancer {
@@ -286,4 +350,42 @@ resource "aws_ecs_service" "ticket_slave_service" {
   }
 
   depends_on = [aws_lb_listener.my_listener]
+}
+
+# Configure an RDS database instance to host the data
+resource "aws_db_instance" "ticket_slave_db" {
+  allocated_storage      = 20
+  storage_type           = "gp2"
+  engine                 = "mysql"
+  engine_version         = "5.7"
+  instance_class         = "db.t2.micro"
+  identifier             = "ticket-slave-db"
+  username               = "root"
+  password               = var.my_sql_root_password
+  parameter_group_name   = "default.mysql5.7"
+  skip_final_snapshot    = true
+  vpc_security_group_ids = [aws_security_group.ticket_slave_security_group.id]
+  publicly_accessible    = true
+  db_subnet_group_name = aws_db_subnet_group.ticket_slave_db_subnet_group.name
+  depends_on = [aws_db_subnet_group.ticket_slave_db_subnet_group]
+}
+
+# Create a DB subnet group
+resource "aws_db_subnet_group" "ticket_slave_db_subnet_group" {
+  name       = "ticket_slave_db_subnet_group"
+  subnet_ids = [aws_subnet.ticket_slave_subnet_1.id, aws_subnet.ticket_slave_subnet_2.id]
+
+  tags = {
+    Name = "My DB subnet group"
+  }
+}
+
+# Update Security Group to allow MySQL traffic from ECS
+resource "aws_security_group_rule" "allow_mysql_from_ecs" {
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  security_group_id = aws_security_group.ticket_slave_security_group.id
+  self              = true
 }
