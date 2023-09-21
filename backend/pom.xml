@@ -12,7 +12,7 @@
 
 	<!-- define name of jar file created -->
 	<artifactId>buyticketapp</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 	<name>BuyTicket</name>
 	<description>Allow user to buy ticket</description>
 	<properties>

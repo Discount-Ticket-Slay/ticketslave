@@ -55,7 +55,7 @@ provider "aws" {
 
 # Create a VPC
 resource "aws_vpc" "ticket_slave_VPC" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
@@ -194,6 +194,19 @@ resource "aws_lb_target_group" "my_target_group" {
   protocol    = "HTTP"
   vpc_id      = aws_vpc.ticket_slave_VPC.id
   target_type = "ip"
+
+  # Health check settings
+  health_check {
+    enabled             = true
+    interval            = 60
+    path                = "/health"
+    port                = "8080"
+    protocol            = "HTTP"
+    timeout             = 10
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    matcher             = "200"
+  }
 }
 
 # Listener for the load balancer
@@ -207,6 +220,17 @@ resource "aws_lb_listener" "my_listener" {
     target_group_arn = aws_lb_target_group.my_target_group.arn
   }
 }
+
+# Health check for the load balancer to application
+resource "aws_security_group_rule" "allow_health_check" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ticket_slave_security_group.id
+}
+
 
 /* ECS RELATED RESOURCES 
     ECS Task Definition
@@ -366,8 +390,8 @@ resource "aws_db_instance" "ticket_slave_db" {
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.ticket_slave_security_group.id]
   publicly_accessible    = true
-  db_subnet_group_name = aws_db_subnet_group.ticket_slave_db_subnet_group.name
-  depends_on = [aws_db_subnet_group.ticket_slave_db_subnet_group]
+  db_subnet_group_name   = aws_db_subnet_group.ticket_slave_db_subnet_group.name
+  depends_on             = [aws_db_subnet_group.ticket_slave_db_subnet_group]
 }
 
 # Create a DB subnet group

@@ -19,7 +19,7 @@ services:
   # building the app using the Dockerfile
   buyticketapp:
     build: .
-    image: buyticketapp:1.1 # Tag the image
+    image: buyticketapp:1.2 # Tag the image
     # depends_on:
     #   mysqldb: 
     #     condition: service_healthy
