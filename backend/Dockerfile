@@ -22,7 +22,7 @@ FROM eclipse-temurin:17
 WORKDIR /opt/app
 
 # Copy the JAR file from the build stage
-COPY --from=build /workspace/app/target/buyticketapp-1.0.jar .
+COPY --from=build /workspace/app/target/buyticketapp-1.3.jar .
 
 # Run database before running the Java application
-CMD ["java", "-jar", "buyticketapp-1.0.jar"]
+CMD ["java", "-jar", "buyticketapp-1.3.jar"]

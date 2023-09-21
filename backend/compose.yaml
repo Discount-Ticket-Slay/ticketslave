@@ -1,12 +1,11 @@
-version: '1'
+version: '3.1' # version of dockercompose (need >3.1 for healthcheck)
 services:
 
   # building the database
   mysqldb:
     image: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: TicketDB
+    env_file:
+      - .env
     ports:
       - "3306:3306"
     volumes:
@@ -20,16 +19,14 @@ services:
   # building the app using the Dockerfile
   buyticketapp:
     build: .
-    image: buyticketapp:1.0 # Tag the image
+    image: buyticketapp:1.1 # Tag the image
     depends_on:
       mysqldb: 
         condition: service_healthy
     ports:
       - "8080:8080"
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/TicketDB
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
+    env_file:
+      - .env
 
 volumes:
   mysql-data:  # Define the volume (so it survives container restarts) --> currently using the default volume driver (local)
