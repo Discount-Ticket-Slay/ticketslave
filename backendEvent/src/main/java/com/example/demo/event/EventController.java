@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
-import com.example.demo.ticketcategory.*;
+import com.example.demo.config.*;
+import com.example.demo.dto.*;
+import org.springframework.web.reactive.function.client.*;
+
 
 import jakarta.validation.Valid;
 
@@ -21,6 +24,8 @@ public class EventController {
 
     @Autowired
     private EventService EventService;
+    @Autowired
+    private WebClient.Builder WebClientBuilder;
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -28,8 +33,35 @@ public class EventController {
         
         // convert get event object into json list
         return EventService.getAllEvents();
-
     }
+
+    @GetMapping("/{eventId}/ticketcategory")
+    public ResponseEntity<List<TicketCategoryDTO>> getTicketCategoriesByEventId(@PathVariable Long eventId) {
+        List<TicketCategoryDTO> ticketCategories = EventService.getTicketCategoriesByEventId(eventId);
+        if (ticketCategories != null && !ticketCategories.isEmpty()) {
+            return ResponseEntity.ok(ticketCategories);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{ticketCategoryId}/eventDTO")
+    public EventDTO getEventDTO(@PathVariable Long ticketCategoryId) {
+        return EventService.getEventDTO(ticketCategoryId);
+    }
+
+    @PutMapping("/{eventId}/update")
+    public ResponseEntity<String> updateTicketCategory(@PathVariable Long eventId, @RequestParam Long ticketCategoryId) {
+        try {
+            EventService.updateTicketCategory(eventId, ticketCategoryId);
+            return new ResponseEntity<String>("Ticket Category updated", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("Failed to update", HttpStatus.CONFLICT);
+        }
+    }
+
+    // @PostMapping("/{eventId}/ticketcategory")
+    // public ResponseEntity<String> createTicketCategories
 
     // @GetMapping("/redir")
     // public ModelAndView eventRedirect(){
@@ -53,14 +85,14 @@ public class EventController {
     // }
 
 
-    @PostMapping("/{id}/add")
-    public ResponseEntity<String> addTicketCategory(@PathVariable Long id, @Valid @RequestBody TicketCategory ticketCategory){
-        if (EventService.findEvent(id) == null){
-            return new ResponseEntity<String>("Event not found", HttpStatus.NOT_FOUND);
-        }
-        EventService.addTicketCategory(id, ticketCategory);
-        return new ResponseEntity<String>("Ticket Category added", HttpStatus.OK);
-    };
+    // @PostMapping("/{id}/add")
+    // public ResponseEntity<String> addTicketCategory(@PathVariable Long id, @Valid @RequestBody TicketCategory ticketCategory){
+    //     if (EventService.findEvent(id) == null){
+    //         return new ResponseEntity<String>("Event not found", HttpStatus.NOT_FOUND);
+    //     }
+    //     EventService.addTicketCategory(id, ticketCategory);
+    //     return new ResponseEntity<String>("Ticket Category added", HttpStatus.OK);
+    // };
     //original function body was just return EventService.addTicketCategory(id, ticketCategory); , revert if there are any errors
 
     // enter data into database

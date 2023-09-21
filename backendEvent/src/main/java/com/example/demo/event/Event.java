@@ -1,8 +1,10 @@
 package com.example.demo.event;
 
 import jakarta.persistence.*;
+
+import com.example.demo.dto.EventDTO;
+import com.example.demo.dto.TicketCategoryDTO;
 import com.fasterxml.jackson.annotation.*;
-import com.example.demo.ticketcategory.*;
 
 import java.util.*;
 import jakarta.validation.constraints.*;
@@ -32,9 +34,11 @@ public class Event {
     // @Column(columnDefinition = "LONGBLOB")
     // private byte[] image;
 
-    @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL, orphanRemoval = true)
+    // @OneToMany(mappedBy = "Event", cascade = CascadeType.ALL, orphanRemoval = true)
     //@JsonIgnore
-    private List<TicketCategory> TicketCategories = new ArrayList<>();
+    // @ElementCollection
+    // @CollectionTable(name = "ticketCategoryIds")
+    private List<Long> TicketCategoryIds = new ArrayList<>();
 
     // Getters, Setters, Constructors, etc.
     public Event() {
@@ -51,6 +55,20 @@ public class Event {
         Artist = artist;
         Capacity = capacity;
         // tickets = new ArrayList<Ticket>();
+    }
+
+    public EventDTO toDTO() {
+        EventDTO dto = new EventDTO();
+        dto.setEventId(EventId);
+        dto.setArtist(Artist);
+        dto.setCapacity(Capacity);
+        dto.setEventDescription(EventDescription);
+        dto.setEventName(EventName);
+        dto.setStartDateTime(StartDateTime);
+        dto.setVenue(Venue);
+        dto.setTicketCategoryIds(TicketCategoryIds);
+
+        return dto;
     }
 
     public Long getEventId() {
@@ -110,20 +128,29 @@ public class Event {
     }
 
     // @JsonManagedReference
-    public List<TicketCategory> getTicketCategories() {
-        return TicketCategories;
-    }
+    // public List<TicketCategory> getTicketCategories() {
+    //     return TicketCategories;
+    // }
 
-    public void addTicketCategory(TicketCategory ticketCategory) {
-        TicketCategories.add(ticketCategory);
-    }
+    // public void addTicketCategory(TicketCategory ticketCategory) {
+    //     TicketCategories.add(ticketCategory);
+    // }
 
-    public void setTicketCategories(List<TicketCategory> ticketCategories) {
-        TicketCategories = ticketCategories;
-    }
+    // public void setTicketCategories(List<TicketCategory> ticketCategories) {
+    //     TicketCategories = ticketCategories;
+    // }
+    
 
     public String toString() {
         return EventName;
+    }
+
+    public List<Long> getTicketCategoryIds() {
+        return TicketCategoryIds;
+    }
+
+    public void setTicketCategoryIds(List<Long> ticketCategoryIds) {
+        TicketCategoryIds = ticketCategoryIds;
     }
 
     // public byte[] getImage() {
