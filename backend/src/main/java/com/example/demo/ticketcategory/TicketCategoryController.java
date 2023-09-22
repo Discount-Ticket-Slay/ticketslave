@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-
+import com.example.demo.dto.*;
 
 @RestController
 @RequestMapping("/ticketcategory")
@@ -25,17 +25,39 @@ public class TicketCategoryController {
         
         // convert get TicketCategory object into json list
         return TicketCategoryService.getAllTicketCategorys();
+    }
+
+    @GetMapping("/{ticketCategoryId}/getevent")
+    public EventDTO getEvent(@PathVariable Long ticketCategoryId) {
+//System.out.println("Let's go!");
+        return TicketCategoryService.getEvent(ticketCategoryId);
+    }
+
+    @GetMapping("/{eventId}/getcategories") 
+    public List<TicketCategoryDTO> getTicketCategoryFromEventId (@PathVariable Long eventId) {
+        return TicketCategoryService.getTicketCategoryFromEventId(eventId);
 
     }
+    @PostMapping
+    public TicketCategory createTicketCategory(@Valid @RequestBody TicketCategory ticketCategory) {
+        return TicketCategoryService.createTicketCategory(ticketCategory);
+    }
+
 
     // enter data into database
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public TicketCategory createTicketCategory(@Valid @RequestBody TicketCategory TicketCategory) {
-
-        System.out.println(TicketCategory);
-        return TicketCategoryService.createTicketCategory(TicketCategory, null);
-    }
+    //@ResponseStatus(HttpStatus.CREATED)
+    // @PostMapping
+    // public ResponseEntity<TicketCategory> createTicketCategory(@Valid @RequestBody CreateTicketCategoryDTO createTicketCategoryDTO) {
+    //     TicketCategory createdTicketCategory = TicketCategoryService.createTicketCategory(createTicketCategoryDTO);
+    //     if (createdTicketCategory != null) {
+    //         return ResponseEntity.status(HttpStatus.CREATED).body(createdTicketCategory);
+    //     } else {
+    //         return ResponseEntity.badRequest().build();
+ 
+    //     }
+    //     // System.out.println(TicketCategory);
+    //     // return TicketCategoryService.createTicketCategory(TicketCategory, null);
+    // }
 
     // Other controller methods...
     @ResponseStatus(HttpStatus.CREATED)

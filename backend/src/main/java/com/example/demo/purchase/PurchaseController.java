@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.event.EventService;
+//import com.example.demo.event.EventService;
 import com.example.demo.ticket.*;
 
 import reactor.netty.channel.AbortedException;

@@ -11,7 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.CascadeType;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import com.example.demo.event.*;
+import com.example.demo.dto.TicketCategoryDTO;
 import com.example.demo.ticket.*;
 import jakarta.validation.constraints.*;
 
@@ -29,23 +29,41 @@ public class TicketCategory {
     @NotNull(message = "ticketCategory name cannot be null")
     private String Name;
     private double Price;
+    private Long EventId;
 
     @OneToMany(mappedBy = "TicketCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "eventId")
-    private Event Event;
+    // @ManyToOne
+    // @JoinColumn(name = "eventId")
+    // private Event Event;
+    
 
     // Getters, Setters, Constructors, etc.
     public TicketCategory() {
     }
 
-    public TicketCategory(String name, double price) {
+    public TicketCategory(String name, double price, Long eventId) {
 
         //TicketCategoryId = TicketCategoryId;
         Name = name;
         Price = price;
+        EventId = eventId;
+    }
+
+    public TicketCategoryDTO toDTO() {
+        TicketCategoryDTO dto = new TicketCategoryDTO();
+        dto.setEventId(EventId);
+        dto.setId(TicketCategoryId);
+        dto.setName(Name);
+        dto.setPrice(Price);
+        List<Long> ticketIds = new ArrayList<>();
+        for (Ticket t: tickets) {
+            ticketIds.add(t.getTicketId());
+        }
+        dto.setTicketIds(ticketIds);
+
+        return dto;
     }
 
     public Long getTicketCategoryId() {
@@ -82,13 +100,13 @@ public class TicketCategory {
     }
 
     //@JsonBackReference
-    public Event getEvent() {
-        return Event;
-    }
+    // public Event getEvent() {
+    //     return Event;
+    // }
 
-    public void setEvent(Event event) {
-        Event = event;
-    }
+    // public void setEvent(Event event) {
+    //     Event = event;
+    // }
 
     public void setPrice(double price) {
         Price = price;
@@ -96,5 +114,13 @@ public class TicketCategory {
 
     public String toString() {
         return Name;
+    }
+
+    public Long getEventId() {
+        return EventId;
+    }
+
+    public void setEventId(Long eventId) {
+        EventId = eventId;
     }
 }
