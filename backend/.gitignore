@@ -9,3 +9,6 @@ terraform.tfvars
 .terraform.lock.hcl
 terraform.tfstate.backup
 terraform.tfstate
+
+bundle.js
+bundle.js.map
