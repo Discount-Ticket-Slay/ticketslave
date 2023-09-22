@@ -22,10 +22,10 @@ FROM eclipse-temurin:17
 WORKDIR /opt/app
 
 # Copy the JAR file from the build stage
-COPY --from=build /workspace/app/target/buyticketapp-1.2.jar .
+COPY --from=build /workspace/app/target/purchaseapp-1.0.jar .
 
 # Copy the .env file into the container
 COPY .env .env
 
 # run the application
-CMD ["java", "-jar", "buyticketapp-1.2.jar"]
+CMD ["java", "-jar", "purchaseapp-1.0.jar"]

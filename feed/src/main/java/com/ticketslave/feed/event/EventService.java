@@ -1,4 +1,4 @@
-package com.ticketslave.demo.event;
+package com.ticketslave.feed.event;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +10,8 @@ import java.util.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ticketslave.demo.config.RestTemplateConfig;
-import com.ticketslave.demo.dto.*;
+import com.ticketslave.feed.config.RestTemplateConfig;
+import com.ticketslave.feed.dto.*;
 
 @Service
 public class EventService {

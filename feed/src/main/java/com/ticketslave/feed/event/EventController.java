@@ -1,12 +1,12 @@
-package com.ticketslave.demo.event;
+package com.ticketslave.feed.event;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
-import com.ticketslave.demo.config.*;
-import com.ticketslave.demo.dto.*;
+import com.ticketslave.feed.config.*;
+import com.ticketslave.feed.dto.*;
 import org.springframework.web.reactive.function.client.*;
 
 

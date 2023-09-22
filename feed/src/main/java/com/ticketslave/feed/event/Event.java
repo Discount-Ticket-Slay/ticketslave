@@ -1,9 +1,9 @@
-package com.ticketslave.demo.event;
+package com.ticketslave.feed.event;
 
 import jakarta.persistence.*;
 
-import com.ticketslave.demo.dto.EventDTO;
-import com.ticketslave.demo.dto.TicketCategoryDTO;
+import com.ticketslave.feed.dto.EventDTO;
+import com.ticketslave.feed.dto.TicketCategoryDTO;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.*;

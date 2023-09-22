@@ -2,16 +2,13 @@ version: '3.1' # version of dockercompose (need >3.1 for healthcheck)
 services:
 
   # building the app using the Dockerfile
-  buyticketapp:
+  purchaseapp:
     build: .
-    image: buyticketapp:1.2 # Tag the image
-    # depends_on:
-    #   mysqldb: 
-    #     condition: service_healthy
+    image: purchase:1.0 # Tag the image
     ports:
       - "8080:8080"
     env_file:
-      - .env
+      - ../.env
 
 volumes:
                 # use RDS instead of local mysql

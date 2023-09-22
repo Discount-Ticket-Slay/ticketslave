@@ -344,13 +344,7 @@ resource "aws_iam_role_policy" "ecs_execution_inline_policy" {
           "ecr:GetDownloadUrlForLayer",
           "ecr:BatchCheckLayerAvailability",
           "logs:CreateLogStream",
-          "logs:PutLogEvents",
-          "rds:CreateDBInstance",
-          "rds:DescribeDBInstances",
-          "rds:ModifyDBInstance",
-          "rds:DeleteDBInstance",
-          "rds:StartDBInstance",
-          "rds:StopDBInstance",
+          "logs:PutLogEvents"
         ],
         Effect   = "Allow",
         Resource = "*"

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Prompt for service to push
+read -p "Enter the service to deploy (e.g., buyticketapp): " SERVICE
+
 # Prompt for version number
 read -p "Enter the version number (e.g., 1.1): " VERSION
 
@@ -8,7 +11,7 @@ source .env
 
 # Export the container URL as a Terraform variable
 export TF_VAR_image_version=$VERSION
-export TF_VAR_ecr_repo_url=$ECR_REPO_URL
+export TF_VAR_ecr_repo_url=$ECR_REPO_URL$SERVICE
 
 # Export the database information to AWS as a Terraform variable
 export TF_VAR_my_sql_root_password=$MYSQL_ROOT_PASSWORD

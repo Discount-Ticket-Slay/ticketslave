@@ -1,5 +1,4 @@
-package com.ticketslave.feed.dto;
-
+package com.ticketslave.purchase.dto;
 import java.util.*;
 import lombok.Getter;
 import lombok.Setter;

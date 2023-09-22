@@ -1,4 +1,4 @@
-package com.ticketslave.feed.config;
+package com.ticketslave.purchase.email;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
