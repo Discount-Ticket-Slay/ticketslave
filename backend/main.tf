@@ -209,7 +209,7 @@ resource "aws_lb_target_group" "my_target_group" {
   }
 }
 
-# Listener for the load balancer
+# HTTP Listener for the load balancer
 resource "aws_lb_listener" "my_listener" {
   load_balancer_arn = aws_lb.ticket_lb.arn
   port              = "80"
@@ -220,6 +220,22 @@ resource "aws_lb_listener" "my_listener" {
     target_group_arn = aws_lb_target_group.my_target_group.arn
   }
 }
+
+# # HTTPS Listener for the load balancer
+# resource "aws_lb_listener" "my_https_listener" {
+#   load_balancer_arn = aws_lb.ticket_lb.arn
+#   port              = "443"
+#   protocol          = "HTTPS"
+#   ssl_policy        = "ELBSecurityPolicy-2016-08"
+
+#   # to be updated once we actually get an ARN for the certificate
+#   certificate_arn = "arn:aws:acm:ap-southeast-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
+
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.my_target_group.arn
+#   }
+# }
 
 # Health check for the load balancer to application
 resource "aws_security_group_rule" "allow_health_check" {
@@ -413,3 +429,5 @@ resource "aws_security_group_rule" "allow_mysql_from_ecs" {
   security_group_id = aws_security_group.ticket_slave_security_group.id
   self              = true
 }
+
+# login security: use cognito to login
