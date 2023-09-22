@@ -1,4 +1,5 @@
 import { spawn } from 'child_process';
+import { createInterface } from 'readline';
 import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
@@ -29,50 +30,52 @@ function serve() {
 	};
 }
 
-export default {
-	input: 'src/main.js',
-	output: {
-		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		file: '../backendEvent/src/main/resources/static/public/build/bundle.js'
-	},
-	plugins: [
-		svelte({
-			compilerOptions: {
-				// enable run-time checks when not in production
-				dev: !production
-			}
-		}),
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
-		css({ output: 'bundle.css' }),
+// additional configuration to prompt for the service name
+async function getServiceName() {
+    return new Promise((resolve) => {
+        const rl = createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
 
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
-		resolve({
-			browser: true,
-			dedupe: ['svelte'],
-			exportConditions: ['svelte']
-		}),
-		commonjs(),
+        rl.question('Enter the name of the service: ', (serviceName) => {
+            rl.close();
+            resolve(serviceName);
+        });
+    });
+}
 
-		// In dev mode, call `npm run start` once
-		// the bundle has been generated
-		!production && serve(),
-
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
-		!production && livereload('public'),
-
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
-		production && terser()
-	],
-	watch: {
-		clearScreen: false
-	}
-};
+// Make the entire configuration a promise
+export default (async () => {
+    const serviceName = await getServiceName();
+    
+    return {
+        input: 'src/main.js',
+        output: {
+            sourcemap: true,
+            format: 'iife',
+            name: 'app',
+            file: `../${serviceName}/src/main/resources/static/public/build/bundle.js`
+        },
+        plugins: [
+            svelte({
+                compilerOptions: {
+                    dev: !production
+                }
+            }),
+            css({ output: 'bundle.css' }),
+            resolve({
+                browser: true,
+                dedupe: ['svelte'],
+                exportConditions: ['svelte']
+            }),
+            commonjs(),
+            !production && serve(),
+            !production && livereload('public'),
+            production && terser()
+        ],
+        watch: {
+            clearScreen: false
+        }
+    };
+})();
