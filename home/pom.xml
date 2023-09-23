@@ -12,7 +12,7 @@
 
 	<!-- define name of jar file created -->
 	<artifactId>home</artifactId>
-	<version>1.0</version>
+	<version>1.2</version>
 	<name>home</name>
 	<description>Home Page</description>
 	<properties>
@@ -41,6 +41,13 @@
 			<artifactId>java-dotenv</artifactId>
 			<version>5.2.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.8.0</version>
+		</dependency>
+
 
 		
 		<!-- allow for automatic running of compose.yaml -->
@@ -90,11 +97,11 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.12.5</version>
 		</dependency> -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
-		</dependency> -->
+		</dependency>
 		<dependency>
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-amqp</artifactId>

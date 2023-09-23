@@ -20,6 +20,18 @@ export TF_VAR_spring_datasource_url=$SPRING_DATASOURCE_URL
 export TF_VAR_spring_datasource_username=$SPRING_DATASOURCE_USERNAME
 export TF_VAR_spring_datasource_password=$SPRING_DATASOURCE_PASSWORD
 
+# Export the AWS credentials as Terraform variables
+export TF_VAR_aws_account_id=$AWS_ACCOUNT_ID
+export TF_VAR_aws_access_key_id=$AWS_ACCESS_KEY_ID
+export TF_VAR_aws_secret_access_key=$AWS_SECRET_ACCESS_KEY
+
+# Export the Google credentials as Terraform variables
+export TF_VAR_google_client_id=$GOOGLE_CLIENT_ID
+export TF_VAR_google_client_secret=$GOOGLE_CLIENT_SECRET
+
+# Export AWS Certificate Manager ARN as Terraform variable
+export TF_VAR_aws_certificate_arn=$AWS_CERTIFICATE_ARN
+
 # Echo the image version for validation (tmp debugging tool)
 echo "Using image version: $TF_VAR_image_version"
 echo "Using ECR repo URL: $TF_VAR_ecr_repo_url"

@@ -1,20 +1,23 @@
 <script>
     import "carbon-components-svelte/css/white.css";
     const loginButtonStyle = "text-decoration: none;";
+    function redirectToCognito() {
+        const cognitoURL =
+            "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/login?client_id=4ash60bkicla7a4tdjdkob3pqu&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+profile&redirect_uri=https%3A%2F%2Fwww.ticketslave.org";
+        window.location.href = cognitoURL;
+    }
 </script>
 
 <div class="content">
     <p class="logo">ticketSlave</p>
-    <a href="/#/feed" class="button" style="text-decoration: none;"
+    <a href="/feed" class="button" style="text-decoration: none;"
         >Browse Events</a
     >
     <div class="login-buttons">
-        <a href="/#/login" class="button login-button" style={loginButtonStyle}
-            >Log In</a
-        >
-        <a href="/#/signup" class="button login-button" style={loginButtonStyle}
+        <button on:click={redirectToCognito} class="button login-button" style={loginButtonStyle}>Log In / Sign Up</button>
+        <!-- <a href="/#/signup" class="button login-button" style={loginButtonStyle}
             >Sign up</a
-        >
+        > -->
     </div>
 </div>
 

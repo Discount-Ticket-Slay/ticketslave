@@ -1,41 +1,6 @@
-/* ECR IMAGE PULL POLICY */
-
-# Define image version
-variable "image_version" {
-  description = "Docker image version from ECR"
-  default     = "latest"
-}
-
-# Define ecr repository we are going to use
-variable "ecr_repo_url" {
-  description = "ECR repository URL"
-  type        = string
-}
-
-# Define variables to be populated for the container
-variable "my_sql_root_password" {
-  description = "MySQL root password"
-  type        = string
-}
-
-variable "my_sql_database" {
-  description = "MySQL database name"
-  type        = string
-}
-
-variable "spring_datasource_username" {
-  description = "spring datasource username"
-  type        = string
-}
-
-variable "spring_datasource_password" {
-  description = "spring datasource password"
-  type        = string
-}
-
-# Define ecr repository we are going to use
-data "aws_ecr_repository" "ecr_repo_url" {
-  name = "buyticketapp" # name of ECR repository
+# Extract the repository name from the ECR URL
+data "aws_ecr_repository" "dynamic_ecr_repo" {
+  name = element(split("/", var.ecr_repo_url), length(split("/", var.ecr_repo_url)) - 1)
 }
 
 /* VPC RELATED RESOURCES 
@@ -198,7 +163,7 @@ resource "aws_lb_target_group" "my_target_group" {
   # Health check settings
   health_check {
     enabled             = true
-    interval            = 60
+    interval            = 90
     path                = "/health"
     port                = "8080"
     protocol            = "HTTP"
@@ -209,33 +174,37 @@ resource "aws_lb_target_group" "my_target_group" {
   }
 }
 
-# HTTP Listener for the load balancer
+# HTTP Listener for the load balancer (redirect HTTP traffic to HTTPS)
 resource "aws_lb_listener" "my_listener" {
   load_balancer_arn = aws_lb.ticket_lb.arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
+    type = "redirect"
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301"
+    }
+  }
+}
+
+# HTTPS Listener for the load balancer
+resource "aws_lb_listener" "my_https_listener" {
+  load_balancer_arn = aws_lb.ticket_lb.arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+
+  # certificate ARN for HTTPS
+  certificate_arn = "${var.aws_certificate_arn}"
+
+  default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.my_target_group.arn
   }
 }
-
-# # HTTPS Listener for the load balancer
-# resource "aws_lb_listener" "my_https_listener" {
-#   load_balancer_arn = aws_lb.ticket_lb.arn
-#   port              = "443"
-#   protocol          = "HTTPS"
-#   ssl_policy        = "ELBSecurityPolicy-2016-08"
-
-#   # to be updated once we actually get an ARN for the certificate
-#   certificate_arn = "arn:aws:acm:ap-southeast-1:123456789012:certificate/12345678-1234-1234-1234-123456789012"
-
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.my_target_group.arn
-#   }
-# }
 
 # Health check for the load balancer to application
 resource "aws_security_group_rule" "allow_health_check" {
@@ -265,7 +234,7 @@ resource "aws_ecs_task_definition" "my_task" {
   execution_role_arn       = aws_iam_role.ecs_execution_role.arn # IAM role that allows ECS to pull images from ECR
 
   container_definitions = jsonencode([{
-    name  = "buyticketapp" # name of the container in ECS
+    name  = "home" # name of the container in ECS
     image = "${var.ecr_repo_url}:${var.image_version}"
     portMappings = [{
       containerPort = 8080
@@ -379,7 +348,7 @@ resource "aws_ecs_service" "ticket_slave_service" {
 
   load_balancer {
     target_group_arn = aws_lb_target_group.my_target_group.arn
-    container_name   = "buyticketapp"
+    container_name   = "home"
     container_port   = 8080
   }
 
@@ -424,4 +393,80 @@ resource "aws_security_group_rule" "allow_mysql_from_ecs" {
   self              = true
 }
 
-# login security: use cognito to login
+# Create cognito user pool
+resource "aws_cognito_user_pool" "ticket_slave_user_pool" {
+  name = "ticket_slave_user_pool"
+}
+
+# Identity pool with google as the provider
+resource "aws_cognito_identity_pool" "ticket_slave_identity_pool" {
+  identity_pool_name               = "ticket_slave_identity_pool"
+  allow_unauthenticated_identities = false
+
+  cognito_identity_providers {
+    client_id               = aws_cognito_user_pool_client.client.id
+    provider_name           = aws_cognito_user_pool.ticket_slave_user_pool.endpoint
+    server_side_token_check = false # required for Google
+  }
+}
+
+# Define identity pool roles attachment
+resource "aws_cognito_identity_pool_roles_attachment" "ticket_slave_identity_pool_roles" {
+  identity_pool_id = aws_cognito_identity_pool.ticket_slave_identity_pool.id
+
+  # Roles to be attached to authenticated and unauthenticated users
+  roles = {
+    "authenticated" = "arn:aws:iam::${var.aws_account_id}:role/authenticated"
+    "unauthenticated" = "arn:aws:iam::${var.aws_account_id}:role/unauthenticated"
+  }
+}
+
+# Define user pool client
+resource "aws_cognito_user_pool_client" "client" {
+  name = "ticket_slave_user_pool_client"
+
+  # callback to application home page
+  callback_urls = ["https://www.ticketslave.org"]
+
+  user_pool_id = aws_cognito_user_pool.ticket_slave_user_pool.id
+
+  generate_secret = true
+
+}
+
+# Configure google as identity provider in user pool
+resource "aws_cognito_identity_provider" "google" {
+  user_pool_id  = aws_cognito_user_pool.ticket_slave_user_pool.id
+  provider_name = "Google"
+  provider_type = "Google"
+
+  provider_details = {
+    client_id     = "${var.google_client_id}"
+    client_secret = "${var.google_client_secret}"
+    authorize_scopes = "profile email openid"
+  }
+
+  attribute_mapping = {
+    email    = "email"
+    username = "sub"
+  }
+}
+
+# define the domain name for cognito authentication
+# temporary (would configure custom domain change once SSL is available)
+resource "aws_cognito_user_pool_domain" "ticket_slave_domain" {
+  domain       = "ticketslave"
+  user_pool_id = aws_cognito_user_pool.ticket_slave_user_pool.id
+}
+
+# commented out since it's easier to use the UI version to customise
+# # UI customization for cognito authentication
+# resource "aws_cognito_user_pool_ui_customization" "ticket_slave_ui_customization" {
+#   client_id = aws_cognito_user_pool_client.client.id
+
+#   # css        = ".label-customizable {font-weight: 400;}"
+#   # image_file = filebase64("logo.png")
+
+#   # Refer to the aws_cognito_user_pool's id attribute for the user pool
+#   user_pool_id = aws_cognito_user_pool.ticket_slave_user_pool.id
+# }

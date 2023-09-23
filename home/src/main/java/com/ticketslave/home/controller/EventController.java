@@ -1,4 +1,4 @@
-package com.ticketslave.home.event;
+package com.ticketslave.home.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,9 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import com.ticketslave.home.config.*;
 import com.ticketslave.home.dto.*;
+import com.ticketslave.home.event.Event;
+import com.ticketslave.home.service.EventService;
+
 import org.springframework.web.reactive.function.client.*;
 
 
