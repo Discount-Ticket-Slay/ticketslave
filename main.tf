@@ -426,7 +426,7 @@ resource "aws_cognito_user_pool_client" "client" {
   name = "ticket_slave_user_pool_client"
 
   # callback to application home page
-  callback_urls = ["https://www.ticketslave.org"]
+  callback_urls = ["https://www.ticketslave.org/cognito-callback"]
 
   user_pool_id = aws_cognito_user_pool.ticket_slave_user_pool.id
 

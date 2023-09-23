@@ -3,7 +3,7 @@
     const loginButtonStyle = "text-decoration: none;";
     function redirectToCognito() {
         const cognitoURL =
-            "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/login?client_id=4ash60bkicla7a4tdjdkob3pqu&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+profile&redirect_uri=https%3A%2F%2Fwww.ticketslave.org";
+            "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/login?client_id=4ash60bkicla7a4tdjdkob3pqu&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+profile&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Fcognito-callback";
         window.location.href = cognitoURL;
     }
 </script>
