@@ -1,6 +1,7 @@
 <script>
     import "bootstrap/dist/css/bootstrap.min.css";
     export let event;
+console.log(event.eventId)
 </script>
 
 <div class="card text-center">

@@ -14,7 +14,7 @@
     <strong>Ticket Pricing</strong>
     <strong>Exchange & Refund Policy</strong>
     <strong>Admission Policy</strong>
-    <Button href="/#/queue">Queue for Tickets</Button>
+    <Button href="/#/queue?id={event.eventId}">Queue for Tickets</Button>
 </div>
 
 {#each event.ticketCategories as cat}
