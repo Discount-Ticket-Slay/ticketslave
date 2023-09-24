@@ -3,14 +3,14 @@
     const loginButtonStyle = "text-decoration: none;";
     function redirectToCognito() {
         const cognitoURL =
-            "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/login?client_id=4ash60bkicla7a4tdjdkob3pqu&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+profile&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Fcognito-callback";
+            "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=4ash60bkicla7a4tdjdkob3pqu&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+profile&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcognito-callback";
         window.location.href = cognitoURL;
     }
 </script>
 
 <div class="content">
-    <p class="logo">ticketSlave</p>
-    <a href="/feed" class="button" style="text-decoration: none;"
+    <p class="logo">ticketSlave</p> 
+    <a href="#/feed" class="button" style="text-decoration: none;"
         >Browse Events</a
     >
     <div class="login-buttons">

@@ -30,9 +30,12 @@ public class AuthenticationController {
     private final String userPoolClientSecret;
 
     @Autowired
+    private JwtService jwtService;
+
+    @Autowired
     public AuthenticationController(
-        @Value("${user_pool_client_clientid}") String userPoolClientId, 
-        @Value("${user_pool_client_secret}") String userPoolClientSecret) {
+            @Value("${user_pool_client_clientid}") String userPoolClientId,
+            @Value("${user_pool_client_secret}") String userPoolClientSecret) {
         this.userPoolClientId = userPoolClientId;
         this.userPoolClientSecret = userPoolClientSecret;
     }
@@ -46,7 +49,9 @@ public class AuthenticationController {
 
         // populate the required parameters for the token exchange
         String cognitoTokenUrl = "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/token";
-        String redirectUri = "https://www.ticketslave.org";
+        // String redirectUri = "https://www.ticketslave.org/auth/cognito-callback"; //
+        // for production
+        String redirectUri = "http://localhost:8080/auth/cognito-callback"; // for development
         String grantType = "authorization_code";
 
         // create the headers for the token exchange
@@ -80,14 +85,26 @@ public class AuthenticationController {
 
             System.out.println("jwtToken: " + jwtToken);
 
-            // httpServletResponse.setHeader("Authorisation", jwtToken);
+            // verify the jwt token
+            if (jwtService.verifyToken(jwtToken)) {
 
-            Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
-            jwtCookie.setPath("/"); // set to persist across all paths
-            httpServletResponse.addCookie(jwtCookie);
+                // Successfully verified
+                System.out.println("Successfully verified token");
 
-            // Redirect to home page (not fully implemented yet)
-            httpServletResponse.sendRedirect("https://www.ticketslave.org");
+                Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
+                jwtCookie.setPath("/"); // set to persist across all paths
+                httpServletResponse.addCookie(jwtCookie);
+
+                // Redirect to home page (not fully implemented yet)
+                httpServletResponse.sendRedirect("http://localhost:8080/index.html");
+
+            } else {
+                // Failed to verify token
+                System.out.println("Failed to verify token: " + response.getStatusCode());
+
+                // Redirect or handle error as needed
+                httpServletResponse.sendRedirect("https://www.google.com");
+            }
 
         } else {
             // Failed to exchange code for tokens
