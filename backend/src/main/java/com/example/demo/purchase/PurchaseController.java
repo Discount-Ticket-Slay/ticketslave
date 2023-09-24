@@ -30,7 +30,13 @@ public class PurchaseController {
         System.out.println(PurchaseService.getAllPurchases());
         // convert get Purchase object into json list
         return ResponseEntity.ok(PurchaseService.getAllPurchases());
+    }
 
+    @GetMapping("{id}/get")
+    public Purchase getPurchase(@PathVariable Long id) {
+//System.out.println(PurchaseService.getAllPurchases());
+        // convert get Purchase object into json list
+        return PurchaseService.findPurchase(id);
     }
 
     // enter data into database
