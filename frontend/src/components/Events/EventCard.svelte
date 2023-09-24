@@ -4,7 +4,7 @@
 </script>
 
 <div class="card text-center">
-    <a href="/#/Event" style="text-decoration: none;">    
+    <a href="/#/Event?id={event.eventId}" style="text-decoration: none;">
         <img
             src="public/images/concert.jpg"
             class="card-img-top"
@@ -15,7 +15,6 @@
             <h5 class="card-title">{event.eventName}</h5>
         </div>
     </a>
-
 </div>
 
 <style>
@@ -35,6 +34,6 @@
     }
 
     .card-title {
-        width: full;
+        width: full
     }
 </style>

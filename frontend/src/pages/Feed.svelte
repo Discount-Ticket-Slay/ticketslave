@@ -20,6 +20,7 @@
         }
     }
     onMount(fetchData);
+
 </script>
 
 <Navbar />

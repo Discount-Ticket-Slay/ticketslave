@@ -63,6 +63,15 @@ public class EventController {
         }
     }
 
+    @GetMapping("/{id}/get")
+    public Event getEvent(@PathVariable Long id) {
+//System.out.println(EventService.getAllEvents());
+        
+        // convert get event object into json list
+        return EventService.findEvent(id);
+
+    }
+
     // @PostMapping("/{eventId}/ticketcategory")
     // public ResponseEntity<String> createTicketCategories
 

@@ -10,7 +10,7 @@
 
 <div class="content">
     <p class="logo">ticketSlave</p>
-    <a href="/feed" class="button" style="text-decoration: none;"
+    <a href="/#/feed" class="button" style="text-decoration: none;"
         >Browse Events</a
     >
     <div class="login-buttons">
