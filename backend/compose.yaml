@@ -1,0 +1,34 @@
+version: '3.1' # version of dockercompose (need >3.1 for healthcheck)
+services:
+
+  # # building the database
+  # mysqldb:
+  #   image: mysql
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - mysql-data:/var/lib/mysql  # Persist MySQL data (so it survives container restarts)
+  #   healthcheck: # adding healthcheck to make sure the database container is up and running
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+
+  # building the app using the Dockerfile
+  buyticketapp:
+    build: .
+    image: buyticketapp:1.1 # Tag the image
+    # depends_on:
+    #   mysqldb: 
+    #     condition: service_healthy
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+
+volumes:
+  # use RDS instead of local mysql
+  mysql-data:  # Define the volume (so it survives container restarts) --> currently using the default volume driver (local)
+    external: true
