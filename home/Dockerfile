@@ -22,10 +22,10 @@ FROM eclipse-temurin:17
 WORKDIR /opt/app
 
 # Copy the JAR file from the build stage
-COPY --from=build /workspace/app/target/home-1.2.jar .
+COPY --from=build /workspace/app/target/home-1.6.jar .
 
 # Copy the .env file into the container
 COPY .env .env
 
 # run the application
-CMD ["java", "-jar", "home-1.2.jar"]
+CMD ["java", "-jar", "home-1.6.jar"]

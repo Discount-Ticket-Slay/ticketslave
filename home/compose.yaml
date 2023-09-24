@@ -4,7 +4,7 @@ services:
   # building the app using the Dockerfile
   homeapp:
     build: .
-    image: home:1.2 # Tag the image
+    image: home:1.6 # Tag the image
     ports:
       - "8080:8080"
     env_file:
