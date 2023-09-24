@@ -1,11 +1,12 @@
 <script>
-    import {Button} from 'carbon-components-svelte'
-    export let event
+    import { Button } from "carbon-components-svelte";
+    export let event;
 </script>
 
 <div class="header">
     <h5>{event.eventName}</h5>
-    <h6>{event.startDateTime} | {event.venue}</h6><br>
+    <h6>{event.startDateTime} | {event.venue}</h6>
+    <br />
 </div>
 
 <div class="info-bar">
@@ -16,11 +17,11 @@
     <Button href="/#/queue">Queue for Tickets</Button>
 </div>
 
-<p>{event.eventDescription}</p>
-
 {#each event.ticketCategories as cat}
-    <p>{cat.name}</p>
-    <p>{cat.price}</p>
+    <div class="ticket">
+        <strong>{cat.name}</strong>
+        <p>{cat.price}</p>
+    </div>
 {/each}
 
 <style>
@@ -37,12 +38,23 @@
         justify-content: space-evenly;
         align-items: center;
         background-color: blanchedalmond;
-        padding: 0.1rem;
+        padding: 1rem;
         overflow: hidden;
     }
 
     .info-bar > strong {
         display: table-cell;
         vertical-align: middle;
+    }
+
+    .ticket {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5rem;
+        background-color: cornsilk;
+        width: 20vw;
+        height: 12.5vw;
+        padding: 1rem;
+        margin: 1rem;
     }
 </style>
