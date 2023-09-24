@@ -14,7 +14,6 @@
 </head>
 
 <main>
-    <body>
         <div class="preview">
             <div class="nav-bar">
                 <svg
@@ -35,9 +34,9 @@
 
                 <div class="nav-links">
                     <a href="/" class="nav">About</a>
-                    <a href="/events" class="nav">Events</a>
+                    <a href="/#/event" class="nav">Events</a>
                     <a href="/" class="nav">FAQ</a>
-                    <a href="/login" class="nav">Sign up/Log in</a>
+                    <a href="/#/login" class="nav">Sign up/Log in</a>
                 </div>
 
                 <form class="d-flex">
@@ -63,18 +62,17 @@
                 </form>
             </div>
         </div>
-    </body>
 </main>
 
 <style>
     @import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@700&family=Work+Sans:wght@300;500&display=swap");
     @import url("https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&display=swap");
 
-    body {
+    /* body {
         background: #f6f5f7;
         justify-content: center;
         font-family: "Work Sans", sans-serif;
-    }
+    } */
 
     :root {
         --clr-bg: #272829;
@@ -202,6 +200,8 @@
         flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
+
+        width: 100%;
     }
 
     #logo:hover path {
