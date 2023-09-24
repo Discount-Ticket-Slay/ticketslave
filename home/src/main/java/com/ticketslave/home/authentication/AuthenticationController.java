@@ -96,7 +96,7 @@ public class AuthenticationController {
                 httpServletResponse.addCookie(jwtCookie);
 
                 // Redirect to home page (not fully implemented yet)
-                httpServletResponse.sendRedirect("http://localhost:8080/index.html");
+                httpServletResponse.sendRedirect("http://localhost:8080/#/feed");
 
             } else {
                 // Failed to verify token

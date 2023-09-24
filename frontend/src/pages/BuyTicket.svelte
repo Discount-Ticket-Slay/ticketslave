@@ -5,6 +5,16 @@
     import {Button} from 'carbon-components-svelte'
     import Seat from "../components/Ticketing/Seat.svelte";
 
+    // security measure to prevent unauthorized access (authenticate when page loads)
+    let authenticated = false;
+    import { onMount } from 'svelte';
+    import { changeRoute } from '../utils/routeUtils.js'; 
+
+    onMount(() => {
+        changeRoute('/#/buy-ticket');
+        authenticated = true;
+    });
+
     let buyingEvent = [];
 
     //For now, this is an array of fake seat values to test components. Will be replaced with actual JSON data.
@@ -180,3 +190,15 @@
         overflow-y: scroll;
     }
 </style>
+
+<!-- conditional rendering based on authentication status
+{#if authenticated}
+    <Navbar />
+    {/* Rest of your component content */}
+    <Button href="/#/payment">Go to: Payment</Button>
+    {/* ... */}
+{/if}
+
+<style>
+    /* Your styles */
+</style> -->
