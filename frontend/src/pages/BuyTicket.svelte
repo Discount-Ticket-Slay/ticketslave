@@ -6,7 +6,7 @@
     import Seat from "../components/Ticketing/Seat.svelte";
     import { onMount } from "svelte";
 
-    let buyingEvent = []; //MAKE PURCHASE POST REQUEST TO DB HERE
+    let buyingEvent = []; // MAKE PURCHASE POST REQUEST TO DB HERE
 
     let eventId = null;
 
