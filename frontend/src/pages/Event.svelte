@@ -25,7 +25,8 @@
             const response = await fetch(`http://localhost:8080/events/${eventId}/get`);
             const event_data = await response.json();
             event = event_data;
-            console.log(event);
+            console.log(event); 
+
         }
     } catch {
             console.error(error)

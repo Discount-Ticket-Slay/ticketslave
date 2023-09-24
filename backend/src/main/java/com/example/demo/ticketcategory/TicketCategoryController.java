@@ -28,6 +28,15 @@ public class TicketCategoryController {
 
     }
 
+    @GetMapping("{id}/get")
+    public TicketCategory getTicketCategory(@PathVariable Long id) {
+//System.out.println(TicketCategoryService.getAllTicketCategorys());
+        
+        // convert get TicketCategory object into json list
+        return TicketCategoryService.findTicketCategory(id);
+
+    }
+
     // enter data into database
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
