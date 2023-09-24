@@ -59,9 +59,9 @@
         margin: 5vh;
     }
 
-    .search-bar {
+    /* .search-bar {
         max-width: 50%;
-    }
+    } */
 
     h3 {
         font-family: "Advent Pro", sans-serif;
