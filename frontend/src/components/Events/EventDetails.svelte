@@ -1,9 +1,10 @@
 <script>
     import {Button} from 'carbon-components-svelte'
+    export let event
 </script>
 
-<h5>Taylor Swift | The Eras Tour</h5>
-<h6>March 2, 3, 4 & 7, 8, 9, 2024 | National Stadium</h6><br>
+<h5>{event.name}</h5>
+<h6>{event.startDateTime} | {event.venue}</h6><br>
 
 <div class="info-bar">
     <strong>Event Details</strong>
@@ -12,6 +13,8 @@
     <strong>Admission Policy</strong>
     <Button href="/#/queue">Queue for Tickets</Button>
 </div>
+
+<p>{event.description}</p>
 
 <style>
     .info-bar {
