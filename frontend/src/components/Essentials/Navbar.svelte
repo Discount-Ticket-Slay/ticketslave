@@ -183,18 +183,20 @@
         margin-left: auto;
         margin-right: auto;
         height: 100vh;
-        padding: 50px 0 100px;
     }
 
     .preview {
-        margin: 50px 0;
+        margin: 0;
         background-color: #272829;
         padding: 25px;
-        border-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
         box-shadow: 0 5px 20px -17px rgba(0, 0, 0, 0.34);
     }
 
     .nav-bar {
+        top: 0%;
+        position: relative;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
