@@ -23,27 +23,44 @@
 </script>
 
 <Navbar />
-<Button kind="primary" href="/">Go to: Home</Button>
 <div class="events">
     <h3>Popular Events</h3>
 </div>
 
 <!--this will eventually become the area where backend json_data is displayed-->
 
-{#if eventList}
-    {#each eventList as event}
-        {#if event}
-            <EventCard {event} />
-        {/if}
-    {/each}
-{/if}
+<div class="main">
+    {#if eventList}
+        {#each eventList as event}
+            {#if event}
+                <EventCard {event} />
+            {/if}
+        {/each}
+    {/if}
+</div>
 
 <!--this will eventually become the area where backend json_data is displayed-->
 
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=Advent+Pro:wght@500&family=Pacifico&display=swap");
-    .events {
-        margin: 3%;
+    .main {
+        margin: 5vh;
+        max-width: 52rem; /**12(3rem) + 4(5vh)*/
+        max-height: 80vh;
+        overflow-y: auto;
+        background-color: #ccc;
+        border-radius: 0.5rem;
+    }
+
+    .top-menu {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 52rem;
+        margin: 5vh;
+    }
+
+    .search-bar {
+        max-width: 50%;
     }
 
     h3 {

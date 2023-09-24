@@ -16,6 +16,11 @@
 
 <p>{event.eventDescription}</p>
 
+{#each event.ticketCategories as cat}
+    <p>{cat.name}</p>
+    <p>{cat.price}</p>
+{/each}
+
 <style>
     .info-bar {
         display: flex;
