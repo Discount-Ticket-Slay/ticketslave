@@ -3,7 +3,7 @@
     export let event
 </script>
 
-<h5>{event.name}</h5>
+<h5>{event.eventName}</h5>
 <h6>{event.startDateTime} | {event.venue}</h6><br>
 
 <div class="info-bar">
@@ -14,7 +14,7 @@
     <Button href="/#/queue">Queue for Tickets</Button>
 </div>
 
-<p>{event.description}</p>
+<p>{event.eventDescription}</p>
 
 <style>
     .info-bar {
