@@ -14,7 +14,7 @@
             for (let i in json_data) {
                 eventList.push(json_data[i]);
             }
-            console.log(eventList[0]);
+            // console.log(eventList[0]);
         } catch (error) {
             console.error(error);
         }

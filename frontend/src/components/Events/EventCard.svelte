@@ -4,7 +4,7 @@
 </script>
 
 <div class="card text-center">
-    <a href="/#/Event?data={event.id}" style="text-decoration: none;">
+    <a href="/#/Event?id={event.eventId}" style="text-decoration: none;">
         <img
             src="public/images/concert.jpg"
             class="card-img-top"
