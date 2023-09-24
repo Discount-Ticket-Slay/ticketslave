@@ -6,7 +6,7 @@
     import Seat from "../components/Ticketing/Seat.svelte";
     import { onMount } from "svelte";
 
-    let buyingEvent = [];
+    let buyingEvent = []; //MAKE PURCHASE POST REQUEST TO DB HERE
 
     let eventId = null;
 
@@ -26,129 +26,28 @@
                 if (receivedId) {
                     eventId = Number(receivedId);
                 }
+
+                const response = await fetch(
+                    `http://localhost:8080/events/${eventId}/get`
+                );
+                const event_data = await response.json();
+                event = event_data;
+                console.log(event);
             }
         } catch {
             console.error(error);
         }
     }
     onMount(fetchEvent);
-
-    //For now, this is an array of fake seat values to test components. Will be replaced with actual JSON data.
-    //Used seat 233 of category 4
-    let seats = [
-        {
-            id: 1,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000001,
-            section: 233,
-            rowChar: "G",
-            seatNo: "01",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 2,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000002,
-            section: 233,
-            rowChar: "A",
-            seatNo: "02",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 3,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000003,
-            section: 233,
-            rowChar: "Y",
-            seatNo: "03",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 4,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000004,
-            section: 233,
-            rowChar: "B",
-            seatNo: "13",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 5,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000005,
-            section: 233,
-            rowChar: "C",
-            seatNo: "21",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 6,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000006,
-            section: 233,
-            rowChar: "D",
-            seatNo: "06",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 7,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000007,
-            section: 233,
-            rowChar: "E",
-            seatNo: "24",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 8,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000008,
-            section: 233,
-            rowChar: "F",
-            seatNo: "01",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 9,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000009,
-            section: 233,
-            rowChar: "H",
-            seatNo: "41",
-            category: 4,
-            price: "$208",
-        },
-        {
-            id: 10,
-            name: "Taylor Swift | The Eras Tour",
-            number: 10000010,
-            section: 233,
-            rowChar: "K",
-            seatNo: "69",
-            category: 4,
-            price: "$208",
-        },
-    ];
-
-    // const handleClick = (event) => {
-    //     alert("clicked")
-    //     buyingEvent.push(event);
-    // }
 </script>
 
 <Navbar />
 
 <Button href="/#/payment">Go to: Payment</Button>
 
-<h3>Taylor Swift | The Eras Tour</h3>
+{#if event}
+    <h3>{event.eventName}</h3>
+{/if}
 
 <ProgressTracker />
 
@@ -175,9 +74,15 @@
     additionally pass in the seat entity as a parameter to display respective values
 -->
 <div class="section-ticketing">
-    {#each seats as seat}
-        <Seat {seat} />
-    {/each}
+    {#if event && event.ticketCategories}
+        {#each event.ticketCategories as cat}
+            {#if cat.tickets}
+                {#each cat.tickets as seat}
+                    <Seat {seat} />
+                {/each}
+            {/if}
+        {/each}
+    {/if}
 </div>
 
 <style>

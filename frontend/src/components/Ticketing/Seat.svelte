@@ -16,26 +16,36 @@
 -->
 
 <script>
-    import "bootstrap/dist/css/bootstrap.min.css"
+    import "bootstrap/dist/css/bootstrap.min.css";
     import { Button } from "carbon-components-svelte";
 
     export let seat;
 </script>
 
-<div class="container">
-    <div class="details">
-        <div class="seat">{`${seat.rowChar}${seat.seatNo}`}</div>
-        <div class="title">{seat.name}</div>
-        <div class="number">seat Number: <strong>{seat.number}</strong></div>
-        <div>Section: <strong class="section">{seat.section}</strong></div>
-        <div class="category-wrapper">Category: <strong class="category">{seat.category}</strong></div>
-    </div>
-    <Button>
-        <div class="button-info">
-            Buy for {seat.price}
+{#if seat}
+    <div class="container">
+        <div class="details">
+            <div class="seat">{`${seat.rowChar}${seat.seatNo}`}</div>
+            <!-- <div class="title">{seat.name}</div> -->
+            <!-- <div class="number">
+                seat Number: <strong>{seat.number}</strong>
+            </div> -->
+            <!-- <div>Section: <strong class="section">{seat.section}</strong></div> -->
+            <div class="category-wrapper">
+                Category: <strong class="category">{seat.ticketCategory}</strong>
+            </div>
         </div>
-    </Button>
-</div>
+        <Button>
+            <div class="button-info">
+                Buy
+            </div>
+        </Button>
+    </div>
+{:else}
+    <div class="details">
+        Cannot find seat
+    </div>
+{/if}
 
 <style>
     .container {
