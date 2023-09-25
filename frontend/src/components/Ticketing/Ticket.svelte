@@ -12,13 +12,7 @@
 
 <script>
     import "bootstrap/dist/css/bootstrap.min.css";
-    import { Button } from "carbon-components-svelte";
-
     export let ticket;
-
-    const submitPurchase = () => {
-        console.log(ticket.ticketId)
-    }
 </script>
 
 {#if ticket}
@@ -29,12 +23,6 @@
                 Category: <strong class="category">{ticket.ticketCategory}</strong>
             </div>
         </div>
-        <Button on:click={submitPurchase}>
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <div class="button-info">
-                Buy <!--when this button is clicked, create a pull request that adds the ticket to the Purchase object -->
-            </div>
-        </Button>
     </div>
 {:else}
     <div class="details">
@@ -45,11 +33,10 @@
 <style>
     .container {
         display: flex;
-        flex-direction: column;
         background-color: #e1e1e1;
         margin: 0.35vw;
         padding: 1em;
-        width: 100%;
+        width: 50%;
         border-radius: 0.5rem;
     }
 
