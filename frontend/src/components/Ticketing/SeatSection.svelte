@@ -16,15 +16,22 @@
 -->
 
 <script>
-    export let number;
-    export let category;
-    export let availability;
-    export let width = 5;               //int for the width of the area
-
     import Modal from "./Modal.svelte";
     import Chair from "./Chair.svelte";
+
+    export let number;
+    export let category;
+    // export let availability;
+    export let width = 5; //int for the width of the area
+
+// tickets.forEach(ticket => {
+//     console.log(ticket.ticketId)
+// });
+
     //dont open overlay first
     let showModal = false;
+
+let availability = "Available";
 
     //If fully booked, the section will be faded out
     let opacity = availability === "Available" ? "1" : "0.45";
@@ -54,21 +61,20 @@
         case "5":
             bg = "#b5ead7";
             break;
-            case "6":
+        case "6":
             bg = "#c7ceea";
             break;
-            default: //this handles cat 7 as well for now
+        default: //this handles cat 7 as well for now
             bg = "#964b00";
-        }
-        
-        let style = `
+    }
+
+    let style = `
         opacity: ${opacity};
         cursor: ${cursor};
         background-color: ${bg};
         pointer-events: ${clickable};
         `;
-        
-    </script>
+</script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="section" {style} on:click={() => (showModal = true)}>
@@ -81,11 +87,13 @@
 
         <div class="Stage"><h3>Stage</h3></div>
 
-        <div class="seatMap" style="grid-template-columns: repeat({width}, 1em)">
+        <div
+            class="seatMap"
+            style="grid-template-columns: repeat({width}, 1em)"
+        >
             <!-- put seat plan per cat here -->
-            
             {#each category.tickets as ticket}
-                <Chair isAvail={ticket.status}></Chair>
+                <Chair {ticket} />
             {/each}
         </div>
     </h2>
@@ -108,10 +116,9 @@
         transition: box-shadow 0.45s ease-in-out;
     }
 
-    .seatMap{
+    .seatMap {
         display: grid;
         grid-template-columns: repeat(auto-fit, 1em);
-
 
         position: absolute;
         top: 50%;
@@ -119,13 +126,10 @@
         transform: translate(-50%, -50%);
     }
 
-    .Stage{
+    .Stage {
         width: 100%;
         justify-content: center;
         align-items: center;
-        border: 1px solid black
+        border: 1px solid black;
     }
 </style>
-
-
-

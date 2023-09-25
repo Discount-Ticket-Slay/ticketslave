@@ -55,11 +55,11 @@
 
         <div class="seat-options">
             {#if event && event.ticketCategories}
-                {#each event.ticketCategories as cat}
+                {#each event.ticketCategories as category}
                     <SeatSection
-                        number={cat.ticketCategoryId}
+                        number={category.ticketCategoryId}
                         availability="Available"
-                        category={cat}
+                        {category}
                     />
                 {/each}
             {/if}
@@ -71,9 +71,9 @@
     -->
     <div class="section-ticketing">
         {#if event && event.ticketCategories}
-            {#each event.ticketCategories as cat}
-                {#if cat.tickets}
-                    {#each cat.tickets as ticket}
+            {#each event.ticketCategories as category}
+                {#if category.tickets}
+                    {#each category.tickets as ticket}
                         <Seat {ticket} />
                     {/each}
                 {/if}
