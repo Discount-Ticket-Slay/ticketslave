@@ -43,23 +43,25 @@
 
 <Navbar />
 
-<Button href="/#/payment">Go to: Payment</Button>
-
 {#if event}
-    <h3>{event.eventName}</h3>
+    <h3><strong>{event.eventName}</strong></h3>
 {/if}
 
 <ProgressTracker />
 
-<div class="wrapper">
+<div class="wrapper1">
     <div class="section-available-seats">
         <h4>Available Seats:</h4>
-    
+
         <div class="seat-options">
             {#if event && event.ticketCategories}
-            {#each event.ticketCategories as cat}
-                <SeatSection number={cat.ticketCategoryId} availability="Available" category={cat} />
-            {/each}
+                {#each event.ticketCategories as cat}
+                    <SeatSection
+                        number={cat.ticketCategoryId}
+                        availability="Available"
+                        category={cat}
+                    />
+                {/each}
             {/if}
         </div>
     </div>
@@ -78,9 +80,11 @@
             {/each}
         {/if}
     </div>
+
 </div>
-
-
+<div class="checkout">
+    <Button style="text-align:center;" href="/#/payment">Checkout</Button>
+</div>
 
 <style>
     h3 {
@@ -92,7 +96,7 @@
         margin: 5%;
     }
 
-    .wrapper {
+    .wrapper1 {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -105,7 +109,8 @@
         justify-content: center;
     }
 
-    .section-ticketing, .section-available-seats {
+    .section-ticketing,
+    .section-available-seats {
         display: flex;
         flex-direction: column;
         background-color: pink; /*pink used for debugging will change later*/
@@ -116,5 +121,13 @@
         width: 30vw;
         height: 48vw;
         overflow-y: scroll;
+    }
+
+    .checkout {
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
     }
 </style>
