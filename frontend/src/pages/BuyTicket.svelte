@@ -3,10 +3,10 @@
     import ProgressTracker from "../components/Misc/ProgressTracker.svelte";
     import SeatSection from "../components/Ticketing/SeatSection.svelte";
     import { Button } from "carbon-components-svelte";
-    import Ticket from "../components/Ticketing/Ticket.svelte";
+    import Seat from "../components/Ticketing/Ticket.svelte";
     import { onMount } from "svelte";
 
-    let purchasedTicketsArray = []; // MAKE PURCHASE POST REQUEST TO DB HERE
+    let buyingEvent = []; // MAKE PURCHASE POST REQUEST TO DB HERE
 
     let eventId = null;
 
@@ -32,39 +32,32 @@
                 );
                 const event_data = await response.json();
                 event = event_data;
-                // console.log(event);
+                console.log(event);
             }
         } catch {
             console.error(error);
         }
     }
     onMount(fetchEvent);
-
-console.log(purchasedTicketsArray + ": buyticket")
 </script>
 
 <Navbar />
 
 {#if event}
-    <h3><strong>{event.eventName}</strong></h3>
+    <h3>{event.eventName}</h3>
 {/if}
 
 <ProgressTracker />
 
-<div class="wrapper1">
+<div class="wrapper">
     <div class="section-available-seats">
         <h4>Available Seats:</h4>
-
+    
         <div class="seat-options">
             {#if event && event.ticketCategories}
-                {#each event.ticketCategories as category}
-                    <SeatSection
-                        number={category.ticketCategoryId}
-                        availability="Available"
-                        {category}
-                        {purchasedTicketsArray}
-                    />
-                {/each}
+            {#each event.ticketCategories as cat}
+                <SeatSection number={cat.ticketCategoryId} availability="Available" category={cat} />
+            {/each}
             {/if}
         </div>
     </div>
@@ -73,15 +66,26 @@ console.log(purchasedTicketsArray + ": buyticket")
         additionally pass in the seat entity as a parameter to display respective values
     -->
     <div class="section-ticketing">
-        {#each purchasedTicketsArray as purchasedTicket}
-            <Ticket ticket={purchasedTicket}/>
-        {/each}
+        {#if event && event.ticketCategories}
+            {#each event.ticketCategories as cat}
+                {#if cat.tickets}
+                    {#each cat.tickets as ticket}
+                        {#if ticket}
+                            <Seat {ticket} />
+                        {/if}
+                    {/each}
+                {/if}
+            {/each}
+        {/if}
     </div>
 
+    <div class="checkout">
+        <Button style="text-align:center;" href="/#/payment">Checkout</Button>
+    </div>
+    
 </div>
-<div class="checkout">
-    <Button style="text-align:center;" href="/#/payment">Checkout</Button>
-</div>
+
+
 
 <style>
     h3 {
@@ -93,7 +97,7 @@ console.log(purchasedTicketsArray + ": buyticket")
         margin: 5%;
     }
 
-    .wrapper1 {
+    .wrapper {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -106,8 +110,7 @@ console.log(purchasedTicketsArray + ": buyticket")
         justify-content: center;
     }
 
-    .section-ticketing,
-    .section-available-seats {
+    .section-ticketing, .section-available-seats {
         display: flex;
         flex-direction: column;
         background-color: pink; /*pink used for debugging will change later*/

@@ -127,8 +127,9 @@ console.log(purchasedTicketsArray + ": seatsection")
         >
             <!-- put seat plan per cat here -->
             {#each category.tickets as ticket}
-                <p>{ticket.ticketId}</p>
-                <Chair {ticket} {purchasedTicketsArray} {purchase}/>
+                {#if ticket}
+                    <Chair {ticket} {purchasedTicketsArray} {purchase}/>
+                {/if}
             {/each}
         </div>
     </h2>

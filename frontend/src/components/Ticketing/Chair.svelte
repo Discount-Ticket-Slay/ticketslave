@@ -1,5 +1,6 @@
 <script>
     import { Checkbox } from "carbon-components-svelte";
+    import {onMount} from "svelte/internal"
 
     export let ticket;
     export let purchase;
@@ -35,8 +36,8 @@
         } 
     };
 
-    //pass in the necessary HTTP request as 'method'
-    function updateDatabase(method) {
+            //pass in the necessary HTTP request as 'method'
+    async function updateDatabase(method) {
 console.log(ticket)
 console.log(ticket.ticketId)
         fetch(
@@ -66,3 +67,7 @@ console.log(ticket);
 </script>
 
 <Checkbox {style} on:check={handleCheck} />
+
+
+<style>
+</style>
