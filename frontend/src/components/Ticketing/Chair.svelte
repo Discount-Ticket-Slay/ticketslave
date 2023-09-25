@@ -1,9 +1,7 @@
 <script>
     import { Checkbox } from "carbon-components-svelte";
-    import {onMount} from "svelte/internal"
 
     export let ticket;
-    export let purchase;
     export let purchasedTicketsArray;
 
     let reservationStatus = ticket.status;
@@ -15,13 +13,13 @@
 
     /********************STYLING*********************/
     //If fully booked, the section will be faded out
-    let opacity = buyable ? "1" : "0.45";
+    let color = buyable ? "#111" : "#ff0000";
     //If fully booked, the section will not be clickable
     let cursor = buyable ? "pointer" : "default";
     let clickable = buyable ? "auto" : "none";
 
     let style = `
-    opacity: ${opacity};
+    color: ${color};
     cursor: ${cursor};
     pointer-events: ${clickable};
     `;
@@ -33,15 +31,15 @@
         if (reservationStatus) {
             updateDatabase("POST");
             purchasedTicketsArray.push(ticket);
-        } 
+        }
     };
 
-            //pass in the necessary HTTP request as 'method'
+    //pass in the necessary HTTP request as 'method'
     async function updateDatabase(method) {
 console.log(ticket)
 console.log(ticket.ticketId)
         fetch(
-            `http://localhost:8080/purchases/${purchase.purchaseId}/add?ticketId=${ticket.ticketId}`,
+            `http://localhost:8080/tickets/${ticket.ticketId}/reserve`,
             {
                 method: method,
             }
@@ -63,7 +61,7 @@ console.log(ticket);
 
 
 
-    console.log(purchasedTicketsArray + ": chair")
+console.log(purchasedTicketsArray + ": chair")
 </script>
 
 <Checkbox {style} on:check={handleCheck} />

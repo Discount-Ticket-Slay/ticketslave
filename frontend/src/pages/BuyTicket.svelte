@@ -79,10 +79,10 @@
         {/if}
     </div>
 
-    <div class="checkout">
-        <Button style="text-align:center;" href="/#/payment">Checkout</Button>
-    </div>
-    
+</div>
+
+<div class="checkout">
+    <Button style="text-align:center;" href="/#/payment">Checkout</Button>
 </div>
 
 

@@ -76,38 +76,10 @@ let availability = "Available";
         background-color: ${bg};
         pointer-events: ${clickable};
         `;
-
-
-    //creates a Purcahse object on land on this page
-    //this object will be deleted if the timer runs out
-    let purchase = null
-
-    const requestOptions = {
-        method: "POST",
-        headers: {},
+    
+    const updatePurchasedArray = () => {
+        
     }
-
-    fetch("http://localhost:8080/purchases", requestOptions)
-        .then(response => {
-            if(!response.ok) {
-                throw new Error("Failed to get response")
-            }
-            return response.json()
-        })
-        .then(purchaseData => {
-// console.log("Purchase Data: " + purchaseData)
-            purchase = purchaseData
-// console.log("Purchase ID: " + purchase.purchaseId)
-        })
-        .catch(error => {
-            console.error(error)
-        })
-
-        const updatePurchasedArray = () => {
-            console.log("we close modal")
-        }
-
-console.log(purchasedTicketsArray + ": seatsection")
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -128,7 +100,7 @@ console.log(purchasedTicketsArray + ": seatsection")
             <!-- put seat plan per cat here -->
             {#each category.tickets as ticket}
                 {#if ticket}
-                    <Chair {ticket} {purchasedTicketsArray} {purchase}/>
+                    <Chair {ticket} {purchasedTicketsArray}/>
                 {/if}
             {/each}
         </div>
