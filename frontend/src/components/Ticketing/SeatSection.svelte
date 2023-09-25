@@ -54,26 +54,58 @@
         case "5":
             bg = "#b5ead7";
             break;
-        case "6":
+            case "6":
             bg = "#c7ceea";
             break;
-        default: //this handles cat 7 as well for now
-            bg = "#fdffb6";
-    }
-
-    let style = `
+            default: //this handles cat 7 as well for now
+            bg = "#964b00";
+        }
+        
+        let style = `
         opacity: ${opacity};
         cursor: ${cursor};
         background-color: ${bg};
         pointer-events: ${clickable};
-    `;
+        `;
+        
+    </script>
 
-</script>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="section" {style} on:click={() => (showModal = true)}>
+    <strong>Section&nbsp;{number}</strong>
+</div>
+
+<Modal bind:showModal>
+    <h2 slot="header">
+        <h2>Category : {category.ticketCategoryId}</h2>
+
+        <div class="Stage"><h3>Stage</h3></div>
+
+        <div class="seatMap" style="grid-template-columns: repeat({width}, 1em)">
+            <!-- put seat plan per cat here -->
+            
+            {#each category.tickets as ticket}
+                <Chair isAvail={ticket.status}></Chair>
+            {/each}
+        </div>
+    </h2>
+</Modal>
 
 <style>
     .section {
         color: white;
         padding: 0.5em;
+        width: 16vh;
+        height: 10vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section:hover {
+        box-shadow: 0px 0px 10px 3px #999;
+        transition: box-shadow 0.45s ease-in-out;
     }
 
     .seatMap{
@@ -96,22 +128,4 @@
 </style>
 
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="section" {style} on:click={() => (showModal = true)}>{number}</div>
-
-<Modal bind:showModal>
-	<h2 slot="header">
-		<h2>Category : {category.ticketCategoryId}</h2>
-
-        <div class="Stage"><h3>Stage</h3></div>
-
-        <div class="seatMap" style="grid-template-columns: repeat({width}, 1em)">
-            <!-- put seat plan per cat here -->
-            
-            {#each category.tickets as ticket}
-                <Chair notAvail={ticket.status}></Chair>
-            {/each}
-        </div>
-	</h2>
-</Modal>
 

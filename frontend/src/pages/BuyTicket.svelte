@@ -3,7 +3,7 @@
     import ProgressTracker from "../components/Misc/ProgressTracker.svelte";
     import SeatSection from "../components/Ticketing/SeatSection.svelte";
     import { Button } from "carbon-components-svelte";
-    import Seat from "../components/Ticketing/Seat.svelte";
+    import Seat from "../components/Ticketing/Ticket.svelte";
     import { onMount } from "svelte";
 
     let buyingEvent = []; // MAKE PURCHASE POST REQUEST TO DB HERE
@@ -51,33 +51,36 @@
 
 <ProgressTracker />
 
-<div class="container">
-    <h4>Available Seats:</h4>
-
-    <div class="seat-options">
+<div class="wrapper">
+    <div class="section-available-seats">
+        <h4>Available Seats:</h4>
+    
+        <div class="seat-options">
+            {#if event && event.ticketCategories}
+            {#each event.ticketCategories as cat}
+                <SeatSection number={cat.ticketCategoryId} availability="Available" category={cat} />
+            {/each}
+            {/if}
+        </div>
+    </div>
+    <!--
+        Generate a seat details component for every seat in seats array.
+        additionally pass in the seat entity as a parameter to display respective values
+    -->
+    <div class="section-ticketing">
         {#if event && event.ticketCategories}
-        {#each event.ticketCategories as cat}
-            <SeatSection number={cat.ticketCategoryId} availability="Available" category={cat} />
-        {/each}
+            {#each event.ticketCategories as cat}
+                {#if cat.tickets}
+                    {#each cat.tickets as ticket}
+                        <Seat {ticket} />
+                    {/each}
+                {/if}
+            {/each}
         {/if}
     </div>
 </div>
 
-<!--
-    Generate a seat details component for every seat in seats array.
-    additionally pass in the seat entity as a parameter to display respective values
--->
-<div class="section-ticketing">
-    {#if event && event.ticketCategories}
-        {#each event.ticketCategories as cat}
-            {#if cat.tickets}
-                {#each cat.tickets as seat}
-                    <Seat {seat} />
-                {/each}
-            {/if}
-        {/each}
-    {/if}
-</div>
+
 
 <style>
     h3 {
@@ -89,6 +92,12 @@
         margin: 5%;
     }
 
+    .wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
     .seat-options {
         display: flex;
         flex-direction: row;
@@ -96,7 +105,7 @@
         justify-content: center;
     }
 
-    .section-ticketing {
+    .section-ticketing, .section-available-seats {
         display: flex;
         flex-direction: column;
         background-color: pink; /*pink used for debugging will change later*/
@@ -104,7 +113,8 @@
         margin: 3vh;
         padding: 3vh;
         border-radius: 0.5rem;
-        height: 60vh;
+        width: 30vw;
+        height: 48vw;
         overflow-y: scroll;
     }
 </style>

@@ -27,7 +27,7 @@ public class Ticket {
     @Column(name = "rowChar", columnDefinition = "CHAR(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci")
     private char RowChar;
     //private String TicketDescription;
-    private boolean Status = false;
+    private boolean Status = false; //stores whether a seat has been reserved by another user
     private boolean Sold = false;
 
     @Version
@@ -97,6 +97,7 @@ public class Ticket {
     public void setStatus(boolean status) {
         Status = status;
     }
+
     //@JsonBackReference
     public TicketCategory getTicketCategory() {
         return TicketCategory;
