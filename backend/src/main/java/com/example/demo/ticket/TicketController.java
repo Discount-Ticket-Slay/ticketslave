@@ -6,7 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
+import jakarta.servlet.http.HttpServletRequest;
+import java.net.http.HttpRequest;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +55,8 @@ public class TicketController {
 
     // Other controller methods...
     @PostMapping("/{id}/reserve")
-    public ResponseEntity<String> reserveTicket (@PathVariable Long id, @RequestParam String userEmail) {
+    public ResponseEntity<String> reserveTicket (@PathVariable Long id, HttpServletRequest request) {
+        String userEmail = getEmailFromToken(request);
         try {
             boolean result = TicketService.reserveTicket(id,userEmail);
             if (result) {
