@@ -72,12 +72,13 @@ public class TicketService {
     //     return TicketRepository.save(ticket);
     // }
     @Transactional
-    public boolean reserveTicket(Long ticketId) throws OptimisticLockException {
+    public boolean reserveTicket(Long ticketId, String userEmail) throws OptimisticLockException {
         Ticket ticket = findTicket(ticketId);
         if (ticket.isSold() || ticket.getStatus()) {
             return false;
         }
             ticket.setStatus(true);
+            ticket.setUserEmail(userEmail);
             TicketRepository.save(ticket);
         return true;
     }
@@ -89,20 +90,23 @@ public class TicketService {
             return false;
         }
         ticket.setStatus(false);
+        ticket.setUserEmail(null);
         TicketRepository.save(ticket);
         return true;
     }
 
-    @Transactional
-    public void purchaseTicket(Ticket ticket) {
-        ticket.setSold(true);
-        TicketRepository.save(ticket);
-    }
+    // @Transactional
+    // public void purchaseTicket(Ticket ticket) {
+    //     ticket.setSold(true);
+    //     TicketRepository.save(ticket);
+    // }
 
-    @Transactional
-    public void removePurchase(Ticket ticket) {
-        ticket.setPurchase(null);
-        TicketRepository.save(ticket);
-    }
+    // @Transactional
+    // public void removePurchase(Ticket ticket) {
+    //     ticket.setPurchase(null);
+    //     TicketRepository.save(ticket);
+    // }
+
+
 }
 

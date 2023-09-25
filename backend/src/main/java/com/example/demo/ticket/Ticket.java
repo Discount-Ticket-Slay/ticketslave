@@ -38,9 +38,11 @@ public class Ticket {
     //@JsonIgnoreProperties("tickets")
     private TicketCategory TicketCategory;
 
-    @ManyToOne
-    @JoinColumn(name = "purchaseId")
-    private Purchase Purchase;
+    // @ManyToOne
+    // @JoinColumn(name = "purchaseId")
+    // private Purchase Purchase;
+
+    private String userEmail = null;
 
     public Ticket () {
 
@@ -109,13 +111,13 @@ public class Ticket {
 
     //@JsonBackReference
     //@JsonIgnore
-    public Purchase getPurchase() {
-        return Purchase;
-    }
+    // public Purchase getPurchase() {
+    //     return Purchase;
+    // }
 
-    public void setPurchase(Purchase purchase) {
-        Purchase = purchase;
-    }
+    // public void setPurchase(Purchase purchase) {
+    //     Purchase = purchase;
+    // }
 
     public boolean isSold() {
         return Sold;
@@ -124,5 +126,14 @@ public class Ticket {
     public void setSold(boolean sold) {
         Sold = sold;
     }
+
+    public void setUserEmail(String userEmail){
+        this.userEmail = userEmail;
+    }
+
+    public String getUserEmail(){
+        return this.userEmail;
+    }
+
 
 }

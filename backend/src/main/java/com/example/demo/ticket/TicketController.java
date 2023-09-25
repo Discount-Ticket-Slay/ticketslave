@@ -54,9 +54,9 @@ public class TicketController {
 
     // Other controller methods...
     @PostMapping("/{id}/reserve")
-    public ResponseEntity<String> reserveTicket (@PathVariable Long id) {
+    public ResponseEntity<String> reserveTicket (@PathVariable Long id, @RequestParam String userEmail) {
         try {
-            boolean result = TicketService.reserveTicket(id);
+            boolean result = TicketService.reserveTicket(id,userEmail);
             if (result) {
                 return new ResponseEntity<String>("Ticket successfully reserved", HttpStatus.OK);
             }
@@ -65,6 +65,22 @@ public class TicketController {
             return new ResponseEntity<String>("Ticket does not exist", HttpStatus.NOT_FOUND);
         } catch (OptimisticLockException e) {
             return new ResponseEntity<String>("Ticket was already reserved by another user", HttpStatus.CONFLICT);
+
+        }
+    }
+
+    @PutMapping("/{id}/undoReserve")
+    public ResponseEntity<String> undoReserveTicket (@PathVariable Long id) {
+        try {
+            boolean result = TicketService.undoReserveTicket(id);
+            if (result) {
+                return new ResponseEntity<String>("Ticket successfully unreserved", HttpStatus.OK);
+            }
+            return new ResponseEntity<String>("unreserve function failed", HttpStatus.CONFLICT);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<String>("Ticket does not exist", HttpStatus.NOT_FOUND);
+        } catch (OptimisticLockException e) {
+            return new ResponseEntity<String>("unreserve function failed", HttpStatus.CONFLICT);
 
         }
     }
