@@ -3,10 +3,10 @@
     import ProgressTracker from "../components/Misc/ProgressTracker.svelte";
     import SeatSection from "../components/Ticketing/SeatSection.svelte";
     import { Button } from "carbon-components-svelte";
-    import Seat from "../components/Ticketing/Ticket.svelte";
+    import Ticket from "../components/Ticketing/Ticket.svelte";
     import { onMount } from "svelte";
 
-    let buyingEvent = []; // MAKE PURCHASE POST REQUEST TO DB HERE
+    let purchasedTicketsArray = []; // MAKE PURCHASE POST REQUEST TO DB HERE
 
     let eventId = null;
 
@@ -32,13 +32,15 @@
                 );
                 const event_data = await response.json();
                 event = event_data;
-                console.log(event);
+                // console.log(event);
             }
         } catch {
             console.error(error);
         }
     }
     onMount(fetchEvent);
+
+console.log(purchasedTicketsArray + ": buyticket")
 </script>
 
 <Navbar />
@@ -60,6 +62,7 @@
                         number={category.ticketCategoryId}
                         availability="Available"
                         {category}
+                        {purchasedTicketsArray}
                     />
                 {/each}
             {/if}
@@ -70,15 +73,9 @@
         additionally pass in the seat entity as a parameter to display respective values
     -->
     <div class="section-ticketing">
-        {#if event && event.ticketCategories}
-            {#each event.ticketCategories as category}
-                {#if category.tickets}
-                    {#each category.tickets as ticket}
-                        <Seat {ticket} />
-                    {/each}
-                {/if}
-            {/each}
-        {/if}
+        {#each purchasedTicketsArray as purchasedTicket}
+            <Ticket ticket={purchasedTicket}/>
+        {/each}
     </div>
 
 </div>

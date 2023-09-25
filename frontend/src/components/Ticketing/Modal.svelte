@@ -1,6 +1,5 @@
 <script>
 	export let showModal; // boolean
-    import {Button} from 'carbon-components-svelte';
 
 	let dialog; // HTMLDialogElement
 

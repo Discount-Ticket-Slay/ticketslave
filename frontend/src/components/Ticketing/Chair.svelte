@@ -1,11 +1,16 @@
 <script>
     import { Checkbox } from "carbon-components-svelte";
-    export let ticket
 
-    let reservationStatus = ticket.status
-    let sold = ticket.sold
+    export let ticket;
+    export let purchase;
+    export let purchasedTicketsArray;
 
-    let buyable = !reservationStatus && !sold
+    let reservationStatus = ticket.status;
+    let sold = ticket.sold;
+    let ticketId = ticket.ticketId
+console.log(ticketId)
+
+    let buyable = !reservationStatus && !sold;
 
     /********************STYLING*********************/
     //If fully booked, the section will be faded out
@@ -21,16 +26,43 @@
     `;
     /********************STYLING*********************/
 
-
-
-    /*ADDS PURCHASE OBJECT TO BACKEND*/
     const handleCheck = () => {
-        
+        //change the reservation status. if ticket becomes reserved by the user, add it to their cart.
+        reservationStatus = !reservationStatus;
+        if (reservationStatus) {
+            updateDatabase("POST");
+            purchasedTicketsArray.push(ticket);
+        } 
+    };
+
+    //pass in the necessary HTTP request as 'method'
+    function updateDatabase(method) {
+console.log(ticket)
+console.log(ticket.ticketId)
+        fetch(
+            `http://localhost:8080/purchases/${purchase.purchaseId}/add?ticketId=${ticket.ticketId}`,
+            {
+                method: method,
+            }
+        )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error("bad response");
+                }
+                return response.json();
+            })
+            .then((ticket) => {
+console.log(ticket);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
+
+
+
+    console.log(purchasedTicketsArray + ": chair")
 </script>
 
-
-<Checkbox {style} checked={!buyable} on:check={handleCheck} />
-
-
+<Checkbox {style} on:check={handleCheck} />

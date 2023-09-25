@@ -18,11 +18,13 @@
 <script>
     import Modal from "./Modal.svelte";
     import Chair from "./Chair.svelte";
+    import {onMount} from "svelte/internal";
 
     export let number;
     export let category;
     // export let availability;
     export let width = 5; //int for the width of the area
+    export let purchasedTicketsArray
 
 // tickets.forEach(ticket => {
 //     console.log(ticket.ticketId)
@@ -74,10 +76,42 @@ let availability = "Available";
         background-color: ${bg};
         pointer-events: ${clickable};
         `;
+
+
+    //creates a Purcahse object on land on this page
+    //this object will be deleted if the timer runs out
+    let purchase = null
+
+    const requestOptions = {
+        method: "POST",
+        headers: {},
+    }
+
+    fetch("http://localhost:8080/purchases", requestOptions)
+        .then(response => {
+            if(!response.ok) {
+                throw new Error("Failed to get response")
+            }
+            return response.json()
+        })
+        .then(purchaseData => {
+// console.log("Purchase Data: " + purchaseData)
+            purchase = purchaseData
+// console.log("Purchase ID: " + purchase.purchaseId)
+        })
+        .catch(error => {
+            console.error(error)
+        })
+
+        const updatePurchasedArray = () => {
+            console.log("we close modal")
+        }
+
+console.log(purchasedTicketsArray + ": seatsection")
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="section" {style} on:click={() => (showModal = true)}>
+<div class="section" {style} on:click={() => (showModal = true)} on:close={updatePurchasedArray}>
     <strong>Section&nbsp;{number}</strong>
 </div>
 
@@ -93,7 +127,8 @@ let availability = "Available";
         >
             <!-- put seat plan per cat here -->
             {#each category.tickets as ticket}
-                <Chair {ticket} />
+            
+                <Chair ticket={ticket} {purchasedTicketsArray} {purchase}/>
             {/each}
         </div>
     </h2>
