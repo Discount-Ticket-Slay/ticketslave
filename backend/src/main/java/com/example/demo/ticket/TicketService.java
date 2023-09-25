@@ -106,7 +106,13 @@ public class TicketService {
     //     ticket.setPurchase(null);
     //     TicketRepository.save(ticket);
     // }
-
+    
+    public void completePurchase(List<Ticket> tickets){
+        for (Ticket t:tickets){
+            t.setSold(true);
+            TicketRepository.save(t);
+        }
+    }
 
 }
 

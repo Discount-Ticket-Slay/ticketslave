@@ -86,4 +86,9 @@ public class TicketController {
 
         }
     }
+
+    @PostMapping("/completePurchase")
+    public void completePurchase(@RequestBody List<Ticket> tickets){
+        TicketService.completePurchase(tickets);
+    }
 }
