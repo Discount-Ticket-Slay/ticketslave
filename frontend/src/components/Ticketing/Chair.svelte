@@ -1,7 +1,7 @@
 <script>
     export let notAvail; //boolean
     import { Checkbox } from "carbon-components-svelte";
-
+console.log(notAvail)
     //If fully booked, the section will be faded out
     let opacity = notAvail === false ? "1" : "0.45";
 

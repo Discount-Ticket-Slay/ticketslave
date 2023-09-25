@@ -55,17 +55,11 @@
     <h4>Available Seats:</h4>
 
     <div class="seat-options">
-        <SeatSection number="227" availability="Available" category="1" />
-        <SeatSection number="229" availability="Unavailable" category="2" />
-        <SeatSection number="231" availability="Unavailable" category="3" />
-        <SeatSection number="233" availability="Available" category="4" />
-        <SeatSection number="235" availability="Available" category="5" />
-        <SeatSection number="237" availability="Unavailable" category="6" />
-        <SeatSection
-            number="239"
-            availability="Available"
-            category="standing"
-        />
+        {#if event && event.ticketCategories}
+        {#each event.ticketCategories as cat}
+            <SeatSection number={cat.ticketCategoryId} availability="Available" category={cat} />
+        {/each}
+        {/if}
     </div>
 </div>
 

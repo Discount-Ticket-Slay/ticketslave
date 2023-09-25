@@ -1,7 +1,7 @@
 GET http://localhost:8080/books
 
 ###
-get http://localhost:8080/events/4/get
+get http://localhost:8080/events
 
 ###
 GET http://localhost:8080/ticketcategory
@@ -32,9 +32,8 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/ticketcategory/7/make-tickets
+POST http://localhost:8080/ticketcategory/2/make-tickets?count=10
 Content-Type: application/json
 
 {
-    "count": 3,
 }

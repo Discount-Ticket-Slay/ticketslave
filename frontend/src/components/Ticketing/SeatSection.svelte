@@ -19,7 +19,7 @@
     export let number;
     export let category;
     export let availability;
-    export let width = 4;               //int for the width of the area
+    export let width = 5;               //int for the width of the area
 
     import Modal from "./Modal.svelte";
     import Chair from "./Chair.svelte";
@@ -35,7 +35,7 @@
 
     //Colors corresponding to the seat category
     let bg = "";
-    switch (category) {
+    switch (category.ticketCategoryId) {
         case "standing":
             bg = "#f6c2f3";
             break;
@@ -67,10 +67,6 @@
         background-color: ${bg};
         pointer-events: ${clickable};
     `;
-
-    //get a seatArr from backend
-    let seatArr = [false, true, false, false, true, false, false, true, false
-                , false, true, false, false, true, false, false, true, false];
 
 </script>
 
@@ -105,15 +101,15 @@
 
 <Modal bind:showModal>
 	<h2 slot="header">
-		<h2>Category : {category}</h2>
+		<h2>Category : {category.ticketCategoryId}</h2>
 
         <div class="Stage"><h3>Stage</h3></div>
 
         <div class="seatMap" style="grid-template-columns: repeat({width}, 1em)">
             <!-- put seat plan per cat here -->
             
-            {#each seatArr as seats}
-                <Chair notAvail={seats}></Chair>
+            {#each category.tickets as ticket}
+                <Chair notAvail={ticket.status}></Chair>
             {/each}
         </div>
 	</h2>
