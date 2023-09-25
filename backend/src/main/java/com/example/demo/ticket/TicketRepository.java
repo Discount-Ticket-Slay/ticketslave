@@ -14,3 +14,5 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findBySeatNoAndRowChar(@Param("seatNo") int seatNo, @Param("rowChar") char rowChar, @Param("ticketCategoryId") Long ticketCategoryId);
 
 }
+
+

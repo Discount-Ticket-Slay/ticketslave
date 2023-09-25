@@ -2,6 +2,7 @@ package com.example.demo.ticket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -103,6 +104,18 @@ public class TicketController {
         } catch (OptimisticLockException e) {
             return new ResponseEntity<String>("unreserve function failed", HttpStatus.CONFLICT);
 
+        }
+    }
+
+    @PostMapping("/completePurchase")
+    public ResponseEntity<String> completePurchase(@RequestBody List<Ticket> tickets){
+        try{
+            TicketService.completePurchase(tickets);
+            return new ResponseEntity<String>("purchase successfully comple",HttpStatus.OK);
+        } catch (NullPointerException e){
+            return new ResponseEntity<String>("list of tickets is null", HttpStatus.NOT_FOUND);
+        } catch (OptimisticLockException e){
+            return new ResponseEntity<String>("completePurchase function failed", HttpStatus.CONFLICT);
         }
     }
 }
