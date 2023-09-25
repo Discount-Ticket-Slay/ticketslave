@@ -57,6 +57,21 @@ public class PurchaseService {
     }
 
     @Transactional
+    public void removeTicket(Long id, Long ticketId) throws AbortedException{
+        Purchase purchase = findPurchase(id);
+        Ticket ticket = TicketService.findTicket(ticketId);
+        List<Ticket> tickets = purchase.getTickets();
+        boolean result = TicketService.undoReserveTicket(ticketId);
+        if (!result) {
+            throw new AbortedException("Ticket reserve could not be undone");
+        }
+        tickets.remove(ticket);
+//purchase.setTickets(tickets);
+    ticket.setPurchase(null);
+        PurchaseRepository.save(purchase);
+    }
+
+    @Transactional
     public void completePurchase(Long id) throws AbortedException{
         Purchase purchase = findPurchase(id);
         List<Ticket> tickets = purchase.getTickets();

@@ -83,14 +83,19 @@ public class TicketService {
     }
 
     @Transactional
-    public void purchaseTicket(Ticket ticket) {
-        ticket.setSold(true);
+    public boolean undoReserveTicket(Long ticketId) throws OptimisticLockException{
+        Ticket ticket = findTicket(ticketId);
+        if (ticket.isSold() || !ticket.getStatus()) {
+            return false;
+        }
+        ticket.setStatus(false);
         TicketRepository.save(ticket);
+        return true;
     }
 
     @Transactional
-    public void undoReserveTicket(Ticket ticket) {
-        ticket.setStatus(false);
+    public void purchaseTicket(Ticket ticket) {
+        ticket.setSold(true);
         TicketRepository.save(ticket);
     }
 

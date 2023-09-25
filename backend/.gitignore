@@ -1,1 +1,14 @@
 /node_modules/
+
+npm-debug.log*
+
+public/build/*
+
+frontend/node_modules/
+
+bundle.js
+
+bundle.js.map
+
+.env
+.terraform/

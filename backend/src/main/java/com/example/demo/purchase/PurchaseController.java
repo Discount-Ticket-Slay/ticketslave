@@ -65,6 +65,19 @@ public class PurchaseController {
         }
     }
 
+    @PutMapping("/{id}/remove")
+    public ResponseEntity<String> removeTicket(@PathVariable Long id, @RequestParam Long ticketId) {
+        try {       
+            PurchaseService.removeTicket(id, ticketId);
+            return new ResponseEntity<String>("Ticket successfully removed from purchase", HttpStatus.OK); 
+        } catch (NullPointerException e) {
+            return new ResponseEntity<String>("Ticket does not exist", HttpStatus.BAD_REQUEST);
+        } catch (AbortedException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
+
+        }
+    }
+
     @PutMapping("/{id}/complete")
     public ResponseEntity<String> completePurchase(@PathVariable Long id) {
         if (timerService.isTimerExpired()){
