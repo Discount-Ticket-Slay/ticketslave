@@ -8,7 +8,7 @@
     let reservationStatus = ticket.status;
     let sold = ticket.sold;
     let ticketId = ticket.ticketId
-console.log(ticketId)
+    $:console.log(ticketId)
 
     let buyable = !reservationStatus && !sold;
 
