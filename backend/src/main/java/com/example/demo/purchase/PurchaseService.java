@@ -31,7 +31,7 @@ public class PurchaseService {
         Purchase purchase = findPurchase(id);
         List<Ticket> tickets = purchase.getTickets();
         for (Ticket t: tickets) {
-            TicketService.undoReserveTicket(t);
+            TicketService.undoReserveTicket(t.getTicketId());
             TicketService.removePurchase(t);
         }
         purchase.setTickets(null);
