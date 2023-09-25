@@ -12,6 +12,8 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
+import com.example.demo.authentication.JwtService;
+
 import jakarta.persistence.OptimisticLockException;
 
 @RestController
@@ -20,6 +22,13 @@ public class TicketController {
 
     @Autowired
     private TicketService TicketService;
+
+    private final JwtService jwtService;
+
+    @Autowired
+    public TicketController(JwtService jwtService) {
+        this.jwtService = jwtService;
+    }
 
     @GetMapping
     public List<Ticket> getAllTickets() {
@@ -56,7 +65,17 @@ public class TicketController {
     // Other controller methods...
     @PostMapping("/{id}/reserve")
     public ResponseEntity<String> reserveTicket (@PathVariable Long id, HttpServletRequest request) {
-        String userEmail = getEmailFromToken(request);
+
+        String jwt = jwtService.extractTokenFromCookies(request);
+
+        if (jwt == null) {
+            return new ResponseEntity<String>("JWT token not found in cookies", HttpStatus.BAD_REQUEST);
+        }
+        
+        String userEmail = jwtService.getEmailFromToken(jwt);
+
+        System.out.println("extracted! userEmail: " + userEmail);
+
         try {
             boolean result = TicketService.reserveTicket(id,userEmail);
             if (result) {
@@ -85,10 +104,5 @@ public class TicketController {
             return new ResponseEntity<String>("unreserve function failed", HttpStatus.CONFLICT);
 
         }
-    }
-
-    @PostMapping("/completePurchase")
-    public void completePurchase(@RequestBody List<Ticket> tickets){
-        TicketService.completePurchase(tickets);
     }
 }
