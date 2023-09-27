@@ -16,24 +16,15 @@
 -->
 
 <script>
-    import Modal from "./Modal.svelte";
-    import Chair from "./Chair.svelte";
-    import {onMount} from "svelte/internal";
-
     export let number;
     export let category;
-    // export let availability;
-    export let width = 5; //int for the width of the area
-    export let purchasedTicketsArray
+    export let availability;
+    export let width = 4;               //int for the width of the area
 
-// tickets.forEach(ticket => {
-//     console.log(ticket.ticketId)
-// });
-
+    import Modal from "./Modal.svelte";
+    import Chair from "./Chair.svelte";
     //dont open overlay first
     let showModal = false;
-
-let availability = "Available";
 
     //If fully booked, the section will be faded out
     let opacity = availability === "Available" ? "1" : "0.45";
@@ -44,7 +35,7 @@ let availability = "Available";
 
     //Colors corresponding to the seat category
     let bg = "";
-    switch (category.ticketCategoryId) {
+    switch (category) {
         case "standing":
             bg = "#f6c2f3";
             break;
@@ -67,7 +58,7 @@ let availability = "Available";
             bg = "#c7ceea";
             break;
         default: //this handles cat 7 as well for now
-            bg = "#964b00";
+            bg = "#fdffb6";
     }
 
     let style = `
@@ -75,58 +66,24 @@ let availability = "Available";
         cursor: ${cursor};
         background-color: ${bg};
         pointer-events: ${clickable};
-        `;
-    
-    const updatePurchasedArray = () => {
-        
-    }
+    `;
+
+    //get a seatArr from backend
+    let seatArr = [false, true, false, false, true, false, false, true, false
+                , false, true, false, false, true, false, false, true, false];
+
 </script>
-
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="section" {style} on:click={() => (showModal = true)} on:close={updatePurchasedArray}>
-    <strong>Section&nbsp;{number}</strong>
-</div>
-
-<Modal bind:showModal>
-    <h2 slot="header">
-        <h2>Category : {category.ticketCategoryId}</h2>
-
-        <div class="Stage"><h3>Stage</h3></div>
-
-        <div
-            class="seatMap"
-            style="grid-template-columns: repeat({width}, 1em)"
-        >
-            <!-- put seat plan per cat here -->
-            {#each category.tickets as ticket}
-                {#if ticket}
-                    <Chair {ticket} {purchasedTicketsArray}/>
-                {/if}
-            {/each}
-        </div>
-    </h2>
-</Modal>
 
 <style>
     .section {
         color: white;
         padding: 0.5em;
-        width: 16vh;
-        height: 10vh;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
-    .section:hover {
-        box-shadow: 0px 0px 10px 3px #999;
-        transition: box-shadow 0.45s ease-in-out;
-    }
-
-    .seatMap {
+    .seatMap{
         display: grid;
         grid-template-columns: repeat(auto-fit, 1em);
+
 
         position: absolute;
         top: 50%;
@@ -134,10 +91,31 @@ let availability = "Available";
         transform: translate(-50%, -50%);
     }
 
-    .Stage {
+    .Stage{
         width: 100%;
         justify-content: center;
         align-items: center;
-        border: 1px solid black;
+        border: 1px solid black
     }
 </style>
+
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="section" {style} on:click={() => (showModal = true)}>{number}</div>
+
+<Modal bind:showModal>
+	<h2 slot="header">
+		<h2>Category : {category}</h2>
+
+        <div class="Stage"><h3>Stage</h3></div>
+
+        <div class="seatMap" style="grid-template-columns: repeat({width}, 1em)">
+            <!-- put seat plan per cat here -->
+            
+            {#each seatArr as seats}
+                <Chair notAvail={seats}></Chair>
+            {/each}
+        </div>
+	</h2>
+</Modal>
+

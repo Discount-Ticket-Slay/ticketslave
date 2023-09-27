@@ -1,4 +1,5 @@
 <script>
+    import { Search } from "carbon-components-svelte";
     import Navbar from "../components/Essentials/Navbar.svelte";
     import EventCard from "../components/Events/EventCard.svelte";
     import { empty, onMount } from "svelte/internal";
@@ -13,56 +14,62 @@
             for (let i in json_data) {
                 eventList.push(json_data[i]);
             }
-            // console.log(eventList[0]);
+            console.log(eventList[0]);
         } catch (error) {
             console.error(error);
         }
     }
     onMount(fetchData);
+
 </script>
 
 <Navbar />
-<div class="events">
-    <h3>Popular Events</h3>
+<div class="top-menu">
+	<h3>Popular Events</h3>
+	<div class="search-bar"><Search placeholder="Find an event..."/></div>
 </div>
-
-<!--this will eventually become the area where backend json_data is displayed-->
-
 <div class="main">
-    {#if eventList}
-        {#each eventList as event}
-            {#if event}
-                <EventCard {event} />
-            {/if}
-        {/each}
-    {/if}
+	<div class="events">
+        <!--this will eventually become the area where backend json_data is displayed-->
+
+        {#if eventList}
+            {#each eventList as event}
+                {#if event}
+                    <EventCard {event} />
+                {/if}
+            {/each}
+        {/if}
+
+        <!--this will eventually become the area where backend json_data is displayed-->
+	</div>
 </div>
 
-<!--this will eventually become the area where backend json_data is displayed-->
+
 
 <style>
-    .main {
-        margin: 5vh;
-        max-width: 52rem; /**12(3rem) + 4(5vh)*/
-        max-height: 80vh;
-        overflow-y: auto;
-        background-color: #ccc;
-        border-radius: 0.5rem;
-    }
+    @import url("https://fonts.googleapis.com/css2?family=Advent+Pro:wght@500&family=Pacifico&display=swap");
+	.main {
+		margin: 5vh;
+		max-width: 52rem; /**12(3rem) + 4(5vh)*/
+		max-height: 80vh;
+		overflow-y: auto;
+		background-color: #ccc;
+		border-radius: 0.5rem;
+	}
 
-    .top-menu {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 52rem;
-        margin: 5vh;
-    }
+	.top-menu {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		max-width: 52rem;
+		margin: 5vh;
+	}
 
-    /* .search-bar {
-        max-width: 50%;
-    } */
+	.search-bar {
+		max-width: 50%;
+	}
 
-    h3 {
-        font-family: "Advent Pro", sans-serif;
-    }
+	h3 {
+		font-family: 'Advent Pro', sans-serif;
+	}
 </style>

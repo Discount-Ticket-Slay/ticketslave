@@ -1,0 +1,30 @@
+GET http://localhost:8080/books
+
+###
+
+DELETE http://localhost:8080/books/3
+
+###
+GET http://localhost:8080/books/3
+
+###
+POST http://localhost:8080/events
+Content-Type: application/json
+
+{
+    "eventName" : "fuck",
+    "eventDescription": "me",
+    "startDateTime": "09/11/2001",
+    "venue": "world trade centre",
+    "artist": "obama bin laden",
+    "capacity": 100
+}
+###
+POST http://localhost:8081/ticketcategory
+Content-Type: application/json
+
+{
+    "name": "Fucker",
+    "price": 6.99,
+    "eventId": 1
+}

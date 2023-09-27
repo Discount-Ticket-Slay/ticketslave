@@ -1,7 +1,6 @@
 <script>
     import "bootstrap/dist/css/bootstrap.min.css";
     export let event;
-console.log(event.eventId)
 </script>
 
 <div class="card text-center">
@@ -35,6 +34,6 @@ console.log(event.eventId)
     }
 
     .card-title {
-        width: full;
+        width: full
     }
 </style>

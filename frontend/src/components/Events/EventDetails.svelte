@@ -1,11 +1,6 @@
 <script>
     import { Button } from "carbon-components-svelte";
-    import {changeRoute} from "./../../../scripts/changeRoute.js";
     export let event;
-
-    function goNext(){
-        changeRoute(`/#/queue?id=${event.eventId}`);
-    }
 </script>
 
 <div class="header">
@@ -19,15 +14,17 @@
     <strong>Ticket Pricing</strong>
     <strong>Exchange & Refund Policy</strong>
     <strong>Admission Policy</strong>
-    <Button on:click={goNext}>Queue for Tickets</Button>
+    <Button href="/#/queue">Queue for Tickets</Button>
 </div>
 
-{#each event.ticketCategories as cat}
-    <div class="ticket">
-        <strong>{cat.name}</strong>
-        <p>{cat.price}</p>
-    </div>
-{/each}
+{#if event.ticketCategories}
+    {#each event.ticketCategories as cat}
+        <div class="ticket">
+                <strong>{cat.name}</strong>
+                <p>{cat.price}</p>
+        </div>
+    {/each}
+{/if}
 
 <style>
     .header {
