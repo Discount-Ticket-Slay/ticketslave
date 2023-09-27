@@ -103,11 +103,11 @@ resource "aws_security_group" "ticket_slave_security_group" {
 
   ingress {
     description = "Database Access from VPC"
-    from_port   = 22
+    from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+    cidr_blocks = [aws_vpc.ticket_slave_VPC.cidr_block] # allow access from within the VPC
+}
 
   ingress {
     description = "HTTP from VPC"
@@ -368,20 +368,48 @@ resource "aws_db_instance" "ticket_slave_db" {
   parameter_group_name   = "default.mysql5.7"
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.ticket_slave_security_group.id]
-  publicly_accessible    = true
-  db_subnet_group_name   = aws_db_subnet_group.ticket_slave_db_subnet_group.name
-  depends_on             = [aws_db_subnet_group.ticket_slave_db_subnet_group]
+  publicly_accessible    = false
+  db_subnet_group_name   = aws_db_subnet_group.ticket_slave_db_private_subnet_group.name
+  depends_on             = [aws_db_subnet_group.ticket_slave_db_private_subnet_group]
+
+  multi_az               = true  # Enables Multi-AZ deployment
 }
+
 
 # Create a DB subnet group
-resource "aws_db_subnet_group" "ticket_slave_db_subnet_group" {
-  name       = "ticket_slave_db_subnet_group"
-  subnet_ids = [aws_subnet.ticket_slave_subnet_1.id, aws_subnet.ticket_slave_subnet_2.id]
+resource "aws_db_subnet_group" "ticket_slave_db_private_subnet_group" {
+  name       = "ticket_slave_db_private_subnet_group"
+  subnet_ids = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
 
   tags = {
-    Name = "My DB subnet group"
+    Name = "RDS Private Subnet Group"
   }
 }
+
+# Create Private Subnet 1 for RDS
+resource "aws_subnet" "private_subnet_1" {
+  vpc_id                  = aws_vpc.ticket_slave_VPC.id
+  cidr_block              = "10.0.3.0/24"
+  availability_zone       = "ap-southeast-1a"
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "private-subnet-1-for-rds"
+  }
+}
+
+# Create Private Subnet 2 for RDS
+resource "aws_subnet" "private_subnet_2" {
+  vpc_id                  = aws_vpc.ticket_slave_VPC.id
+  cidr_block              = "10.0.4.0/24"
+  availability_zone       = "ap-southeast-1b"
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "private-subnet-2-for-rds"
+  }
+}
+
 
 # Update Security Group to allow MySQL traffic from ECS
 resource "aws_security_group_rule" "allow_mysql_from_ecs" {
