@@ -1,0 +1,29 @@
+GET http://localhost:8080/books
+
+###
+
+DELETE http://localhost:8080/books/6
+
+###
+GET http://localhost:8080/books/5
+
+###
+POST http://localhost:8080/user/create
+Content-Type: application/json
+
+{
+"name" : "apple",
+"username" : "apple",
+"password" : "123",
+"email" : "linus.phong.2022@scis.smu.edu.sg"
+}
+
+
+###
+PUT http://localhost:8080/books/5
+Content-Type: application/json
+
+{
+    "title": "Sapiens"
+}
+
