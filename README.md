@@ -1,12 +1,12 @@
 # Organisation
 
 ## Team Members
-- [Yue Zhen]
-- [Teng Wee]
-- [Ryan]
-- [Melanie]
-- [Linus]
-- [Mikhail]
+- Yue Zhen
+- Teng Wee
+- Ryan
+- Melanie
+- Linus
+- Mikhail
 
 ### Organisation
 1. microservices (still in active development)
