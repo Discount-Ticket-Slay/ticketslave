@@ -95,17 +95,17 @@ public class TicketService {
         return true;
     }
 
-    // @Transactional
-    // public void purchaseTicket(Ticket ticket) {
-    //     ticket.setSold(true);
-    //     TicketRepository.save(ticket);
-    // }
+    @Transactional
+    public void purchaseTicket(Ticket ticket) {
+        ticket.setSold(true);
+        TicketRepository.save(ticket);
+    }
 
-    // @Transactional
-    // public void removePurchase(Ticket ticket) {
-    //     ticket.setPurchase(null);
-    //     TicketRepository.save(ticket);
-    // }
+    @Transactional
+    public void removePurchase(Ticket ticket) {
+        ticket.setPurchase(null);
+        TicketRepository.save(ticket);
+    }
     
     public void completePurchase(List<Ticket> tickets){
         for (Ticket t:tickets){
