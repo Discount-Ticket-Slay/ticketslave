@@ -107,7 +107,7 @@ resource "aws_security_group" "ticket_slave_security_group" {
     to_port     = 3306
     protocol    = "tcp"
     cidr_blocks = [aws_vpc.ticket_slave_VPC.cidr_block] # allow access from within the VPC
-}
+  }
 
   ingress {
     description = "HTTP from VPC"
@@ -372,7 +372,7 @@ resource "aws_db_instance" "ticket_slave_db" {
   db_subnet_group_name   = aws_db_subnet_group.ticket_slave_db_private_subnet_group.name
   depends_on             = [aws_db_subnet_group.ticket_slave_db_private_subnet_group]
 
-  multi_az               = true  # Enables Multi-AZ deployment
+  multi_az = true # Enables Multi-AZ deployment
 }
 
 
@@ -512,7 +512,7 @@ resource "aws_route53_zone" "ticketslave" {
 
 # create an S3 bucket to redirect traffic from ticketslave.org to www.ticketslave.org
 resource "aws_s3_bucket" "s3_bucket" {
-  bucket = "redirect.ticketslave.org"  
+  bucket = "redirect.ticketslave.org"
 }
 
 resource "aws_s3_bucket_website_configuration" "redirect_config" {
