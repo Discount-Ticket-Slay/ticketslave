@@ -29,8 +29,13 @@
         //change the reservation status. if ticket becomes reserved by the user, add it to their cart.
         reservationStatus = !reservationStatus;
         if (reservationStatus) {
+console.log("post pre")
             updateDatabase("POST");
+console.log("post post")
             purchasedTicketsArray.push(ticket);
+        }
+        else{
+            purchasedTicketsArray.remove(ticket);
         }
     };
 
@@ -39,7 +44,7 @@
 console.log(ticket)
 console.log(ticket.ticketId)
         fetch(
-            `http://localhost:8080/tickets/${ticket.ticketId}/reserve`,
+            `https://www.ticketslave.org/tickets/${ticket.ticketId}/reserve`,
             {
                 method: method,
             }
@@ -48,7 +53,7 @@ console.log(ticket.ticketId)
                 if (!response.ok) {
                     throw new Error("bad response");
                 }
-                return response.json();
+                //return response.json();
             })
             .then((ticket) => {
 console.log(ticket);
@@ -64,7 +69,7 @@ console.log(ticket);
 console.log(purchasedTicketsArray + ": chair")
 </script>
 
-<Checkbox {style} on:check={handleCheck} />
+<Checkbox {style} on:check={handleCheck} checked={!buyable}/>
 
 
 <style>

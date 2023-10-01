@@ -66,7 +66,7 @@
         <div class="seat-options">
             {#if event && event.ticketCategories}
             {#each event.ticketCategories as cat}
-                <SeatSection number={cat.ticketCategoryId} availability="Available" category={cat} />
+                <SeatSection number={cat.ticketCategoryId} availability="Available" category={cat} purchasedTicketsArray={buyingEvent}/>
             {/each}
             {/if}
         </div>
