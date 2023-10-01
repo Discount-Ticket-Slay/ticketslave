@@ -87,9 +87,13 @@ public class TicketService {
     public boolean undoReserveTicket(Long ticketId, String userEmail) throws OptimisticLockException{
         Ticket ticket = findTicket(ticketId);
         if (ticket.isSold() || !ticket.getStatus()) {
+System.out.println("sold Proc");
             return false;
         }
-        if (ticket.getUserEmail() != userEmail) {
+        if (!ticket.getUserEmail().equals(userEmail)) {
+    
+System.out.println(ticket.getUserEmail() +"VS "+userEmail );
+
             return false;
         }
         ticket.setStatus(false);
