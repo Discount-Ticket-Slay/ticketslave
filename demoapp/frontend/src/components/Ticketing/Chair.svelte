@@ -35,7 +35,7 @@ console.log("post post")
             purchasedTicketsArray.push(ticket);
         }
         else{
-            updateDatabase("POST", `http://localhost:8080/tickets/${ticket.ticketId}/undoReserve`);
+            updateDatabase("PUT", `http://localhost:8080/tickets/${ticket.ticketId}/undoReserve`);
             purchasedTicketsArray.filter(item => item !== ticket);
         }
     };
