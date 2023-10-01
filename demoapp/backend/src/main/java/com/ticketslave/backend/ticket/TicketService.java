@@ -84,9 +84,12 @@ public class TicketService {
     }
 
     @Transactional
-    public boolean undoReserveTicket(Long ticketId) throws OptimisticLockException{
+    public boolean undoReserveTicket(Long ticketId, String userEmail) throws OptimisticLockException{
         Ticket ticket = findTicket(ticketId);
         if (ticket.isSold() || !ticket.getStatus()) {
+            return false;
+        }
+        if (ticket.getUserEmail() != userEmail) {
             return false;
         }
         ticket.setStatus(false);

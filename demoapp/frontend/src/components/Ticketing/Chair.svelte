@@ -29,7 +29,9 @@
         //change the reservation status. if ticket becomes reserved by the user, add it to their cart.
         reservationStatus = !reservationStatus;
         if (reservationStatus) {
+console.log("start")
             updateDatabase("POST");
+console.log("end")
             purchasedTicketsArray.push(ticket);
         }
     };

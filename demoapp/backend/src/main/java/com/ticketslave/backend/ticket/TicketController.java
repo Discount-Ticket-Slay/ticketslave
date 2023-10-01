@@ -92,12 +92,23 @@ public class TicketController {
     }
 
     @PutMapping("/{id}/undoReserve")
-    public ResponseEntity<String> undoReserveTicket (@PathVariable Long id) {
+    public ResponseEntity<String> undoReserveTicket (@PathVariable Long id, HttpServletRequest request) {
+
+        String jwt = jwtService.extractTokenFromCookies(request);
+
+        if (jwt == null) {
+            return new ResponseEntity<String>("JWT token not found in cookies", HttpStatus.BAD_REQUEST);
+        }
+        
+        String userEmail = jwtService.getEmailFromToken(jwt);
+
+        System.out.println("extracted! userEmail: " + userEmail);
+
         try {
-            boolean result = TicketService.undoReserveTicket(id);
+            boolean result = TicketService.undoReserveTicket(id, userEmail);
             if (result) {
                 return new ResponseEntity<String>("Ticket successfully unreserved", HttpStatus.OK);
-            }
+            } 
             return new ResponseEntity<String>("unreserve function failed", HttpStatus.CONFLICT);
         } catch (NullPointerException e) {
             return new ResponseEntity<String>("Ticket does not exist", HttpStatus.NOT_FOUND);
