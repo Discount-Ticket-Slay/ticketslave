@@ -30,12 +30,12 @@
         reservationStatus = !reservationStatus;
         if (reservationStatus) {
 console.log("post pre")
-            updateDatabase("POST", `http://www.ticketslave.org/tickets/${ticket.ticketId}/reserve`);
+            updateDatabase("POST", `https://www.ticketslave.org/tickets/${ticket.ticketId}/reserve`);
 console.log("post post")
             purchasedTicketsArray.push(ticket);
         }
         else{
-            updateDatabase("PUT", `http://www.ticketslave.org/tickets/${ticket.ticketId}/undoReserve`);
+            updateDatabase("PUT", `https://www.ticketslave.org/tickets/${ticket.ticketId}/undoReserve`);
             purchasedTicketsArray.filter(item => item !== ticket);
         }
     };
