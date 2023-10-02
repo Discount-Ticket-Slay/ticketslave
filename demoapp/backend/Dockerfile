@@ -9,7 +9,7 @@ COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src src
 
-# Run the application (-DskipTests to skip database test as it would not be available yet)
+# Run the application (use external tests)
 RUN mvn clean package -DskipTests
 
 # for debugging
@@ -23,9 +23,6 @@ WORKDIR /opt/app
 
 # Copy the JAR file from the build stage
 COPY --from=build /workspace/app/target/backend-1.9.jar .
-
-# Copy the .env file into the container
-COPY .env .env
 
 # run the application
 CMD ["java", "-jar", "backend-1.9.jar"]
