@@ -12,15 +12,25 @@ public class App {
 
 	public static void main(String[] args) {
 
-		// load environment variables
-        Dotenv dotenv = Dotenv.load();
         Properties props = new Properties();
-        dotenv.entries().forEach(entry -> props.setProperty(entry.getKey(), entry.getValue()));
+    
+        // Attempt to load environment variables from .env file
+        try {
+            Dotenv dotenv = Dotenv.load();
+            dotenv.entries().forEach(entry -> props.setProperty(entry.getKey(), entry.getValue()));
+        } catch (Exception e) {
+            
+            System.out.println("If you're seeing this locally, the .env file is missing and the application will not run");
 
-		// run spring boot application
-		SpringApplication application = new SpringApplication(App.class);
+            // Load environment variables directly from the system (GHA secrets)
+            System.getenv().forEach((key, value) -> props.setProperty(key, value));
+        }
+    
+        // Run Spring Boot application
+        SpringApplication application = new SpringApplication(App.class);
         application.setDefaultProperties(props);
         application.run(args);
-	}
+    }
+    
 
 }

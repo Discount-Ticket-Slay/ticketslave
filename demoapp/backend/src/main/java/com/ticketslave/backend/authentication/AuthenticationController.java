@@ -47,8 +47,8 @@ public class AuthenticationController {
 
         // populate the required parameters for the token exchange
         String cognitoTokenUrl = "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/token";
-        String redirectUri = "http://localhost:8080/auth/cognito-callback"; // for development
-        // String redirectUri = "https://www.ticketslave.org/auth/cognito-callback"; // for production
+        // String redirectUri = "http://localhost:8080/auth/cognito-callback"; // for development
+        String redirectUri = "https://www.ticketslave.org/auth/cognito-callback"; // for production
         String grantType = "authorization_code";
 
         // create the headers for the token exchange
@@ -90,8 +90,8 @@ public class AuthenticationController {
             System.out.println("State parameter: " + state);
 
             // send redirect back to home page
-            httpServletResponse.sendRedirect("http://localhost:8080/#/feed"); // for development
-            // httpServletResponse.sendRedirect("https://www.ticketslave.org/#/feed"); // for production
+            // httpServletResponse.sendRedirect("http://localhost:8080/#/feed"); // for development
+            httpServletResponse.sendRedirect("https://www.ticketslave.org/#/feed"); // for production
 
             /* WIP FOR ROUTES */
             // // send redirect to any page where the request was called. If it was called from
