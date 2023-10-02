@@ -21,12 +21,12 @@ jobs:
 
     - name: Install frontend dependencies
       run: |
-        cd frontend
+        cd demoapp/frontend
         npm ci
 
     - name: Build the frontend into the backend
       run: |
-        cd frontend
+        cd demoapp/frontend
         npm run build
 
     - name: Set Environment Variables from Secrets
@@ -46,11 +46,11 @@ jobs:
 
     - name: Build and run the Docker image
       run: |
-        cd backend
+        cd demoapp/backend
         docker-compose up --build
 
     - name: Cleanup
       if: always()
       run: |
-        cd backend
+        cd demoapp/backend
         docker-compose down
