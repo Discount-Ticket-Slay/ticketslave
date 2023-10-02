@@ -3,6 +3,9 @@
 # Ask the user for a version of the image
 read -p "Please enter the version of the image: " version
 
+# Build frontend
+cd ../frontend && npm run build && cd ../backend
+
 # Attempt to run docker-compose down (errors are ignored)
 docker-compose down || echo "Failed to bring down containers, but continuing..."
 
