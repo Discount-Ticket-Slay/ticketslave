@@ -15,3 +15,9 @@
 
 ### Website
 www.ticketslave.org
+
+### How to run new-frontend (NOT INTEGRATED WITH BACKEND)
+    cd demoapp/frontend2
+    npm i
+    npm update
+    npm run dev
