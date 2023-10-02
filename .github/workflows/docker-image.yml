@@ -14,6 +14,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+    - name: Cache npm dependencies
+      uses: actions/cache@v3
+      with:
+        path: demoapp/frontend/node_modules
+        key: npm-${{ hashFiles('demoapp/frontend/package-lock.json') }}
+        restore-keys: |
+          npm-
+
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
@@ -29,6 +37,14 @@ jobs:
         cd demoapp/frontend
         npm run build
 
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: maven-${{ hashFiles('demoapp/backend/pom.xml') }}
+        restore-keys: |
+          maven-
+
     - name: Set Environment Variables from Secrets
       run: |
         echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> $GITHUB_ENV
@@ -41,13 +57,18 @@ jobs:
         echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> $GITHUB_ENV
         echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> $GITHUB_ENV
         echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> $GITHUB_ENV
-        echo "user_pool_client_clientid=${{ secrets.user_pool_client_clientid }}" >> $GITHUB_ENV
-        echo "user_pool_client_secret=${{ secrets.user_pool_client_secret }}" >> $GITHUB_ENV
+        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> $GITHUB_ENV
+        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> $GITHUB_ENV
 
     - name: Build and run the Docker image
       run: |
         cd demoapp/backend
-        docker-compose up --build
+        docker-compose up --build -d
+
+    - name: Check if the application is running
+      run: |
+        sleep 30  # Give some time for the application to start
+        docker-compose ps | grep "homeapp" # check if app is running
 
     - name: Cleanup
       if: always()
