@@ -21,3 +21,7 @@ www.ticketslave.org
     npm i
     npm update
     npm run dev
+
+### Libraries used
+- https://github.com/CaptainCodeman/svelte-headlessui
+- https://github.com/captaincodeman/svelte-transition
