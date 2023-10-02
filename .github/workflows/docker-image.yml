@@ -67,7 +67,7 @@ jobs:
 
     - name: Check if the application is running
       run: |
-        sleep 30  # Give some time for the application to start
+        cd demoapp/backend
         docker-compose ps | grep "homeapp" # check if app is running
 
     - name: Cleanup
