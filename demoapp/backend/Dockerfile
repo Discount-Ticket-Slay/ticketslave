@@ -22,7 +22,7 @@ FROM eclipse-temurin:17
 WORKDIR /opt/app
 
 # Copy the JAR file from the build stage
-COPY --from=build /workspace/app/target/backend-1.9.jar .
+COPY --from=build /workspace/app/target/backend-1.10.jar .
 
 # run the application
-CMD ["java", "-jar", "backend-1.9.jar"]
+CMD ["java", "-jar", "backend-1.10.jar"]
