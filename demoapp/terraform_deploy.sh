@@ -16,6 +16,7 @@ export TF_VAR_ecr_repo_url=$ECR_REPO_URL$SERVICE
 # Export the database information to AWS as a Terraform variable
 export TF_VAR_my_sql_root_password=$MYSQL_ROOT_PASSWORD
 export TF_VAR_my_sql_database=$MYSQL_DATABASE
+export TF_VAR_rds_url=$RDS_HOST_URL
 export TF_VAR_spring_datasource_url=$SPRING_DATASOURCE_URL
 export TF_VAR_spring_datasource_username=$SPRING_DATASOURCE_USERNAME
 export TF_VAR_spring_datasource_password=$SPRING_DATASOURCE_PASSWORD

@@ -125,6 +125,14 @@ resource "aws_security_group" "ticket_slave_security_group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description = "MQ Access from VPC"
+    from_port   = 5671
+    to_port     = 5671
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port   = 0 # to allow all outbound traffic
     to_port     = 0
@@ -243,7 +251,7 @@ resource "aws_ecs_task_definition" "my_task" {
     environment = [
       { "name" : "MYSQL_ROOT_PASSWORD", "value" : "${var.my_sql_root_password}" },
       { "name" : "MYSQL_DATABASE", "value" : "${var.my_sql_database}" },
-      { "name" : "SPRING_DATASOURCE_URL", "value" : "jdbc:mysql://${aws_db_instance.ticket_slave_db.endpoint}/${var.my_sql_database}" },
+      { "name" : "SPRING_DATASOURCE_URL", "value" : "jdbc:mysql://${var.rds_url}/${var.my_sql_database}" },
       { "name" : "SPRING_DATASOURCE_USERNAME", "value" : "${var.spring_datasource_username}" },
       { "name" : "SPRING_DATASOURCE_PASSWORD", "value" : "${var.spring_datasource_password}" }
     ]
@@ -356,6 +364,7 @@ resource "aws_ecs_service" "ticket_slave_service" {
 }
 
 # Configure an RDS database instance to host the data
+# should throw an error 
 resource "aws_db_instance" "ticket_slave_db" {
   allocated_storage      = 20
   storage_type           = "gp2"
@@ -368,18 +377,27 @@ resource "aws_db_instance" "ticket_slave_db" {
   parameter_group_name   = "default.mysql5.7"
   skip_final_snapshot    = true
   vpc_security_group_ids = [aws_security_group.ticket_slave_security_group.id]
-  publicly_accessible    = false
-  db_subnet_group_name   = aws_db_subnet_group.ticket_slave_db_private_subnet_group.name
-  depends_on             = [aws_db_subnet_group.ticket_slave_db_private_subnet_group]
+  publicly_accessible    = true
+  db_subnet_group_name   = aws_db_subnet_group.ticket_slave_db_subnet_group.name
+  depends_on             = [aws_db_subnet_group.ticket_slave_db_subnet_group]
 
   multi_az = true # Enables Multi-AZ deployment
 }
 
+# Create a DB public subnet group (temporary)
+resource "aws_db_subnet_group" "ticket_slave_db_subnet_group" {
+  name       = "ticket_slave_db_subnet_group"
+  subnet_ids = [aws_subnet.ticket_slave_subnet_1.id, aws_subnet.ticket_slave_subnet_2.id]
 
-# Create a DB subnet group
+  tags = {
+    Name = "RDS Public Subnet Group"
+  }
+}
+
+# Create a DB private subnet group
 resource "aws_db_subnet_group" "ticket_slave_db_private_subnet_group" {
   name       = "ticket_slave_db_private_subnet_group"
-  subnet_ids = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+  subnet_ids = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id, aws_subnet.private_subnet_3.id]
 
   tags = {
     Name = "RDS Private Subnet Group"
@@ -410,6 +428,17 @@ resource "aws_subnet" "private_subnet_2" {
   }
 }
 
+# Create Private Subnet 3 for RDS
+resource "aws_subnet" "private_subnet_3" {
+  vpc_id                  = aws_vpc.ticket_slave_VPC.id
+  cidr_block              = "10.0.5.0/24"
+  availability_zone       = "ap-southeast-1c"
+  map_public_ip_on_launch = false
+
+  tags = {
+    Name = "private-subnet-3-for-rds"
+  }
+}
 
 # Update Security Group to allow MySQL traffic from ECS
 resource "aws_security_group_rule" "allow_mysql_from_ecs" {
@@ -453,12 +482,6 @@ resource "aws_cognito_identity_pool_roles_attachment" "ticket_slave_identity_poo
 resource "aws_cognito_user_pool_client" "client" {
   name = "ticket_slave_user_pool_client"
 
-  # not sure how to configure both with preference - one above?
-  # callback to application home page
-  # callback_urls = ["https://ticketslave.org/auth/cognito-callback", # for deployment
-  #                  "http://localhost:8080/auth/cognito-callback" # for local testing
-  #                 ] 
-
   callback_urls = ["https://www.ticketslave.org/auth/cognito-callback"] # for deployment
   # callback_urls = ["http://localhost:8080/auth/cognito-callback"] # for local testing
 
@@ -493,18 +516,6 @@ resource "aws_cognito_user_pool_domain" "ticket_slave_domain" {
   user_pool_id = aws_cognito_user_pool.ticket_slave_user_pool.id
 }
 
-# commented out since it's easier to use the UI version to customise
-# # UI customization for cognito authentication
-# resource "aws_cognito_user_pool_ui_customization" "ticket_slave_ui_customization" {
-#   client_id = aws_cognito_user_pool_client.client.id
-
-#   # css        = ".label-customizable {font-weight: 400;}"
-#   # image_file = filebase64("logo.png")
-
-#   # Refer to the aws_cognito_user_pool's id attribute for the user pool
-#   user_pool_id = aws_cognito_user_pool.ticket_slave_user_pool.id
-# }
-
 # to redirect ticketslave.org to www.ticketslave.org
 resource "aws_route53_zone" "ticketslave" {
   name = "ticketslave.org"
@@ -523,3 +534,4 @@ resource "aws_s3_bucket_website_configuration" "redirect_config" {
     protocol  = "https"
   }
 }
+

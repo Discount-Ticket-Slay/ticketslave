@@ -14,7 +14,7 @@ variable "ecr_repo_url" {
 
 # Define ecr repository we are going to use
 data "aws_ecr_repository" "ecr_repo_url" {
-  name = "buyticketapp" # name of ECR repository
+  name = "backend" # name of ECR repository
 }
 
 # Define variables to be populated for the container
@@ -25,6 +25,11 @@ variable "my_sql_root_password" {
 
 variable "my_sql_database" {
   description = "MySQL database name"
+  type        = string
+}
+
+variable "rds_url" {
+  description = "value of RDS URL"
   type        = string
 }
 
