@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import jakarta.servlet.http.HttpServletRequest;
 import java.net.http.HttpRequest;
 import java.util.List;
+import javax.annotation.PostConstruct;
 
 import org.springframework.web.bind.annotation.*;
 
 import com.ticketslave.backend.authentication.JwtService;
+import com.ticketslave.backend.timer.*;
 
 import jakarta.persistence.OptimisticLockException;
 
@@ -27,12 +29,21 @@ public class TicketController {
     private final JwtService jwtService;
 
     @Autowired
+    private TimerService timerService;
+
+    @Autowired
     public TicketController(JwtService jwtService) {
         this.jwtService = jwtService;
     }
 
+    @PostConstruct
+    public void initialize() {
+        timerService.startTimer(); // Replace with your timer logic
+    }
+
     @GetMapping
     public List<Ticket> getAllTickets() {
+        //timerService.startTimer();
         System.out.println(TicketService.getAllTickets());
         // convert get Ticket object into json list
         return TicketService.getAllTickets();
@@ -118,15 +129,15 @@ public class TicketController {
         }
     }
 
-    @PostMapping("/completePurchase")
-    public ResponseEntity<String> completePurchase(@RequestBody List<Ticket> tickets){
-        try{
-            TicketService.completePurchase(tickets);
-            return new ResponseEntity<String>("purchase successfully comple",HttpStatus.OK);
-        } catch (NullPointerException e){
-            return new ResponseEntity<String>("list of tickets is null", HttpStatus.NOT_FOUND);
-        } catch (OptimisticLockException e){
-            return new ResponseEntity<String>("completePurchase function failed", HttpStatus.CONFLICT);
-        }
-    }
+    // @PostMapping("/completePurchase")
+    // public ResponseEntity<String> completePurchase(@RequestBody List<Ticket> tickets){
+    //     try{
+    //         TicketService.completePurchase(tickets);
+    //         return new ResponseEntity<String>("purchase successfully comple",HttpStatus.OK);
+    //     } catch (NullPointerException e){
+    //         return new ResponseEntity<String>("list of tickets is null", HttpStatus.NOT_FOUND);
+    //     } catch (OptimisticLockException e){
+    //         return new ResponseEntity<String>("completePurchase function failed", HttpStatus.CONFLICT);
+    //     }
+    // }
 }
