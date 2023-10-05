@@ -14,7 +14,6 @@
 		{ name: 'Hellen Schmidt' },
 	]
 
-	// TODO: type list so 'selected' isn't 'any'
 	const listbox = createListbox({ label: 'Actions', selected: people[2] })
 
 	function onSelect(e: Event) {

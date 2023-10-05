@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { createPopover } from 'svelte-headlessui'
-	import ChevronDown from './icons/ChevronDown.svelte'
-	import IconOne from './icons/IconOne.svelte'
-	import IconTwo from './icons/IconTwo.svelte'
-	import IconThree from './icons/IconThree.svelte'
-	import Transition from 'svelte-transition'
+	import { createPopover } from 'svelte-headlessui';
+	import ChevronDown from './icons/ChevronDown.svelte';
+	import IconOne from './icons/IconOne.svelte';
+	import IconTwo from './icons/IconTwo.svelte';
+	import IconThree from './icons/IconThree.svelte';
+	import Transition from 'svelte-transition';
 
-	const popover = createPopover({})
+	const popover = createPopover({});
 
 	// prettier-ignore
 	const solutions = [{
@@ -53,7 +53,11 @@
 				leaveFrom="opacity-100 translate-y-0"
 				leaveTo="opacity-0 translate-y-1"
 			>
-				<div use:popover.panel class="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl" on:click={popover.close}>
+				<div
+					use:popover.panel
+					class="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl"
+					on:click={popover.close}
+				>
 					<div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
 						<div class="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
 							{#each solutions as item}
@@ -61,7 +65,9 @@
 									href={item.href}
 									class="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
 								>
-									<div class="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12">
+									<div
+										class="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12"
+									>
 										<svelte:component this={item.icon} class="w-5 h-5 mr-2" />
 									</div>
 									<div class="ml-4">
@@ -83,7 +89,9 @@
 								<span class="flex items-center">
 									<span class="text-sm font-medium text-gray-900"> Documentation </span>
 								</span>
-								<span class="block text-sm text-gray-500"> Start integrating products and tools </span>
+								<span class="block text-sm text-gray-500">
+									Start integrating products and tools
+								</span>
 							</a>
 						</div>
 					</div>
