@@ -114,11 +114,11 @@ System.out.println(ticket.getUserEmail() +"VS "+userEmail );
     //     TicketRepository.save(ticket);
     // }
     
-    // public void completePurchase(List<Ticket> tickets){
-    //     for (Ticket t:tickets){
-    //         t.setSold(true);
-    //         TicketRepository.save(t);
-    //     }
-    // }
-    
+    public void completePurchase(List<Ticket> tickets){
+        for (Ticket t:tickets){
+            t.setSold(true);
+            TicketRepository.save(t);
+        }
+    }
+
 }
