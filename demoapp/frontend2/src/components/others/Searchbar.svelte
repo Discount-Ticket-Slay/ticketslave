@@ -1,9 +1,10 @@
 <script>
-	import Search from './icons/Search.svelte';
+	import Search from '../icons/Search.svelte';
+    import 'flowbite';
 </script>
 
 <div class="flex w-full flex-col items-center justify-center">
-	<div class="w-full px-4 py-16">
+	<div class="w-full">
 		<div class="mx-auto w-full max-w-md">
 			<form>
 				<div class="flex">

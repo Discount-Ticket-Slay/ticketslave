@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { createListbox } from 'svelte-headlessui'
 	import Transition from 'svelte-transition'
-	import Selector from './icons/Selector.svelte'
-	import Check from './icons/Check.svelte'
+	import Selector from '../icons/Selector.svelte'
+	import Check from '../icons/Check.svelte'
 
 	// prettier-ignore
 	const people = [

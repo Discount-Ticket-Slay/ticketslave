@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { createMenu } from 'svelte-headlessui'
 	import Transition from 'svelte-transition'
-	import Archive from './icons/Archive.svelte'
-	import ChevronDown from './icons/ChevronDown.svelte'
-	import Delete from './icons/Delete.svelte'
-	import Duplicate from './icons/Duplicate.svelte'
-	import Edit from './icons/Edit.svelte'
-	import Move from './icons/Move.svelte'
+	import Archive from '../icons/Archive.svelte'
+	import ChevronDown from '../icons/ChevronDown.svelte'
+	import Delete from '../icons/Delete.svelte'
+	import Duplicate from '../icons/Duplicate.svelte'
+	import Edit from '../icons/Edit.svelte'
+	import Move from '../icons/Move.svelte'
 
 	const menu = createMenu({ label: 'Actions' })
 
