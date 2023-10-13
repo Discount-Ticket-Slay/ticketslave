@@ -5,8 +5,6 @@
 
 <Navbar />
 
-div.
-
 <Footer />
 
 <style lang="postcss">
