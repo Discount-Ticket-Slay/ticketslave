@@ -1,13 +1,29 @@
 <script>
-	import Disclosure from '../components/others/Disclosure.svelte'
-	import Listbox from '../components/others/Listbox.svelte'
-	import Modal from '../components/others/Modal.svelte'
-	import Button from '../components/others/Button.svelte'
-	import Searchbar from '../components/others/Searchbar.svelte'
-	import Navbar from '../components/Navbar.svelte'
+	import Navbar from '../components/Navbar.svelte';
+	import Footer from '../components/Footer.svelte';
+
+	import Home from './home.svelte'
+	import Feed from './feed.svelte'
+	import Buy from './buy.svelte'
+	import Login from './login.svelte'
+	import Faq from './faq.svelte'
+
+	// import Router from 'svelte-spa-router'
+
+	const routes = {
+		'/': Home,
+		'/buy': Buy,
+		'/feed': Feed,
+		'/login': Login,
+		'/faq': Faq
+	};
 </script>
 
-<Navbar />
+<!-- <body>
+    <Router {routes}/>
+</body> -->
+
+<Login />
 
 <style lang="postcss">
 	:global(html) {
