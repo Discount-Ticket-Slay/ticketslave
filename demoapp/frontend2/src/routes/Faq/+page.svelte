@@ -1,9 +1,10 @@
 <script>
-
+    import Navbar from "../../components/Navbar.svelte";
 </script>
 
 <!-- To-do: Modify this so that it contains the necessary information -->
 <body>
+    <Navbar />
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
             <h2 class="mb-8 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">Frequently asked questions</h2>

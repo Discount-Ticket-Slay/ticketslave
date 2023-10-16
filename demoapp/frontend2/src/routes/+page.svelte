@@ -4,9 +4,10 @@
 
 	import Home from './home.svelte'
 	import Feed from './feed.svelte'
-	import Buy from './buy.svelte'
-	import Login from './login.svelte'
-	import Faq from './faq.svelte'
+	import Buy from './Buy/+page.svelte'
+	import Login from './Login/+page.svelte'
+	import Faq from './Faq/+page.svelte'
+	import Contact from './Contact/+page.svelte'
 
 	// import Router from 'svelte-spa-router'
 
@@ -15,7 +16,8 @@
 		'/buy': Buy,
 		'/feed': Feed,
 		'/login': Login,
-		'/faq': Faq
+		'/faq': Faq,
+		'/contact': Contact,
 	};
 </script>
 
