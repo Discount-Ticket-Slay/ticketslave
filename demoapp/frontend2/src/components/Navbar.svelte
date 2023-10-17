@@ -8,12 +8,12 @@
 
 		<!-- "TicketSlave button" -->
 		<a href="https://ticketSlave.com" class="flex items-center">
-            <img src="../img/TicketSlave Logo.png" alt="TicketSlave Logo" class="h-8 mr-3">
-			<span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-				><a href="/Home">
+            <img src="/images/logo.png" alt="Logo" class="h-8 mr-3">
+			<span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+				<a href="/">
 					TicketSlave
-				</a></span
-			>
+				</a>
+			</span>
 		</a>
 
 		<!-- Login button -->
