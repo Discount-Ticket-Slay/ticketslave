@@ -34,12 +34,12 @@ public class PurchaseService {
     public void deletePurchase(Long id) {
         //loadTickets(Event);
         Purchase purchase = findPurchase(id);
-        List<Ticket> tickets = purchase.getTickets();
+        List<Ticket> tickets = purchase.getTicketIds();
         for (Ticket t: tickets) {
             TicketService.undoReserveTicket(t);
             TicketService.removePurchase(t);
         }
-        purchase.setTickets(null);
+        purchase.setTicketIds(null);
         PurchaseRepository.deleteById(id);
     }
 
@@ -54,7 +54,7 @@ public class PurchaseService {
     public void addTicket(Long id, Long ticketId) throws AbortedException{
         Purchase purchase = findPurchase(id);
         Ticket ticket = TicketService.findTicket(ticketId);
-        List<Ticket> tickets = purchase.getTickets();
+        List<Ticket> tickets = purchase.getTicketIds();
         boolean result = TicketService.reserveTicket(ticketId);
         if (!result) {
             throw new AbortedException("Ticket already reserved by another");
@@ -68,7 +68,7 @@ public class PurchaseService {
     @Transactional
     public void completePurchase(Long id) throws AbortedException{
         Purchase purchase = findPurchase(id);
-        List<Ticket> tickets = purchase.getTickets();
+        List<Ticket> tickets = purchase.getTicketIds();
         for (Ticket t: tickets) {
             if (t.isSold() || !t.getStatus()) {
                 throw new AbortedException("Purchase aborted, one of your tickets timed out");
