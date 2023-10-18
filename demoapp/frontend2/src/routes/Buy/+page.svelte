@@ -197,6 +197,10 @@
 	];
 
 	let seatSectionAndNumberStyle = 'text-2xl';
+
+	const addToCart = () => {
+		alert("add to cart");
+	}
 </script>
 
 <Navbar />
@@ -215,7 +219,7 @@
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-11/12 mx-auto h-full mt-28">
         {#each tickets as ticket}
             <!-- Single ticket element -->
-            <div class="bg-white p-4 rounded-lg h-32 lg:h-40 relative">
+            <div class="bg-white p-4 rounded-lg h-32 lg:h-40 relative cursor-pointer">
                 <!-- Ticket Number -->
                 <div />
                 <div class="flex flex-row items-center overflow-hidden">
@@ -238,6 +242,7 @@
                     <div class="absolute bottom-2 right-2 italic">{ticket.price}</div>
                 </div>
             </div>
+
         {/each}
     </div>
 </div>
