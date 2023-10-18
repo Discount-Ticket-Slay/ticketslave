@@ -1,0 +1,97 @@
+package com.ticketslave.purchase.purchase;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.ticketslave.purchase.ticket.*;
+
+import java.util.*;
+
+import jakarta.transaction.Transactional;
+import reactor.netty.channel.AbortedException;
+
+
+@Service
+public class PurchaseService {
+    @Autowired
+    private PurchaseRepository PurchaseRepository;
+
+    @Autowired
+    private TicketService TicketService;
+
+    //return all purchases
+    public List<Purchase> getAllPurchases() {
+        return PurchaseRepository.findAll();
+    }
+
+    //return a Purchase object with corresponding Id
+    public Purchase findPurchase(Long id) {
+        return PurchaseRepository.findById(id).orElse(null);
+    }
+
+    //Deletes Purchase Object from database
+    @Transactional
+    public void deletePurchase(Long id) {
+        //loadTickets(Event);
+        Purchase purchase = findPurchase(id);
+        List<Long> tickets = purchase.getTicketIds();
+        for (Long tId: tickets) {
+            Ticket t = TicketService.findTicket(tId);
+            TicketService.undoReserveTicket(t);
+            TicketService.removePurchase(t);
+        }
+        purchase.setTicketIds(null);
+        PurchaseRepository.deleteById(id);
+    }
+
+    //create blank Purchase object and add to database
+    public Purchase createPurchase() {
+        Purchase purchase = new Purchase();
+        return PurchaseRepository.save(purchase);
+    }
+
+    //add ticketId to Purchase object, save to database
+    @Transactional
+    public void addTicketId(Long id, Long ticketId) throws AbortedException{
+        Purchase purchase = findPurchase(id);
+        Ticket ticket = TicketService.findTicket(ticketId);
+        List<Long> tickets = purchase.getTicketIds();
+        boolean result = TicketService.reserveTicket(ticketId);
+        if (!result) {
+            throw new AbortedException("Ticket already reserved by another");
+        }
+        tickets.add(ticketId);
+        ticket.setPurchaseId(id);
+        PurchaseRepository.save(purchase);
+    }
+
+    //switch all corresponding Ticket objects in Purchase object to sold = true
+    @Transactional
+    public void completePurchase(Long id) throws AbortedException{
+        Purchase purchase = findPurchase(id);
+        List<Long> tickets = purchase.getTicketIds();
+        for (Long tId: tickets) {
+            Ticket t = TicketService.findTicket(tId);
+
+            //if ticket is sold or ticket is no longer reserved, abort
+            if (t.isSold()) {
+                throw new AbortedException("Purchase aborted, ticket has already been sold");
+            } else if (!t.getStatus()) {
+                throw new AbortedException("Purchase aborted, one of your tickets timed out");
+            }
+
+            TicketService.purchaseTicket(t);
+        }
+
+    }
+
+    // public Purchase addPurchase ( Long id, Long ticketId) {
+    //     Purchase purchase = findPurchase(id);
+    //     Ticket ticket = TicketService.findTicket(ticketId);
+    //     if (purchase == null || ticket == null || ticket.getStatus() == true) {
+    //         return null;
+    //     }
+    //     purchase.addTicket(ticket);
+    //     return PurchaseRepository.save(purchase);
+    // }
+}
