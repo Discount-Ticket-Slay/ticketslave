@@ -38,6 +38,7 @@ public class PaymentController {
 		return "charge";
 	}
 
+    //INCOMPLETE: Need to configure so it can accept new input amount 
     @PostMapping("/create-charge") 
     public @ResponseBody Response createCharge(String email, String token) {
         if (token == null) {
