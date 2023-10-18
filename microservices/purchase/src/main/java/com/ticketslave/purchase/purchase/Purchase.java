@@ -19,10 +19,23 @@ public class Purchase {
     private Long PurchaseId;
 
     @OneToMany(mappedBy = "Purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Ticket> Tickets = new ArrayList<>();
+    private List<Long> TicketIds = new ArrayList<>();
+
+    private double price = -1;
 
     public Purchase () {
+    }
 
+    public void setTicketIds(List<Long> ticketIds) {
+        TicketIds = ticketIds;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Long getPurchaseId() {
@@ -34,16 +47,12 @@ public class Purchase {
     }
 
     //@JsonManagedReference
-    public List<Ticket> getTickets() {
-        return Tickets;
+    public List<Long> getTicketIds() {
+        return TicketIds;
     }
 
-    public void setTickets(List<Ticket> tickets) {
-        Tickets = tickets;
-    }
-
-    public void addTicket(Ticket ticket) {
-        Tickets.add(ticket);
+    public void addTicket(Long ticketId) {
+        TicketIds.add(ticketId);
     }
 
     
