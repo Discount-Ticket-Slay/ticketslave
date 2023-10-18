@@ -1,8 +1,14 @@
 <script>
     import Seat from "./others/Seat.svelte"
+    import Navbar from "./Navbar.svelte"
+    import Footer from "./Footer.svelte"
 </script>
 
-<Seat />
+<body>
+    <Navbar />
+    <Seat />
+    <Footer />
+</body>
 
 <style lang="postcss">
     :global(html) {
