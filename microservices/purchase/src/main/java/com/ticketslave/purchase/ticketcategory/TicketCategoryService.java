@@ -38,8 +38,8 @@ public class TicketCategoryService {
         return TicketCategoryRepository.findAll();
     }
 
+    //grabs Event object from Feed microservice
     public EventDTO getEvent(Long ticketCategoryId) {
-System.out.println("run!");
         TicketCategory ticketCategory = findTicketCategory(ticketCategoryId);
         Long eventId = ticketCategory.getEventId();
         //WebClient webClient = WebClientBuilder.baseUrl("http://localhost:8080").build();

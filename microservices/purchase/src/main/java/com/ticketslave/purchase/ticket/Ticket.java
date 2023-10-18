@@ -40,7 +40,7 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name = "purchaseId")
-    private Purchase Purchase;
+    private Long PurchaseId;
 
     public Ticket () {
 
@@ -82,14 +82,6 @@ public class Ticket {
         RowChar = rowChar;
     }
 
-    // public String getTicketDescription() {
-    //     return TicketDescription;
-    // }
-
-    // public void setTicketDescription(String ticketDescription) {
-    //     TicketDescription = ticketDescription;
-    // }
-
     public boolean getStatus() {
         return Status;
     }
@@ -106,22 +98,20 @@ public class Ticket {
         TicketCategory = ticketCategory;
     }
 
-    //@JsonBackReference
-    //@JsonIgnore
-    public Purchase getPurchase() {
-        return Purchase;
-    }
-
-    public void setPurchase(Purchase purchase) {
-        Purchase = purchase;
-    }
-
     public boolean isSold() {
         return Sold;
     }
 
     public void setSold(boolean sold) {
         Sold = sold;
+    }
+
+    public Long getPurchaseId() {
+        return PurchaseId;
+    }
+
+    public void setPurchaseId(Long purchaseId) {
+        PurchaseId = purchaseId;
     }
 
 }

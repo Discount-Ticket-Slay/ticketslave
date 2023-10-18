@@ -16,11 +16,6 @@ import jakarta.transaction.Transactional;
 public class TicketService {
     @Autowired
     private TicketRepository TicketRepository;
-
-    // @Autowired
-    // private TicketCategoryService TicketCategoryService;
-    // @Autowired
-    // private PurchaseService PurchaseService;
     @Autowired
     private BookingService BookingService;
 
@@ -28,16 +23,12 @@ public class TicketService {
         return TicketRepository.findAll();
     }
 
-    public Ticket createTicket(Ticket Ticket) {
-        
-        return TicketRepository.save(Ticket);
-    }
-    public Ticket createTicketUsingCategory(TicketCategory TicketCategory) {
-        Ticket ticket = new Ticket(TicketCategory);
-        //hardcode
-        setRowChar(ticket, 'a');
-        return TicketRepository.save(ticket);
-    }
+    //creates a blank Ticket object
+    // public Ticket createTicket(Ticket Ticket) {
+    //     return TicketRepository.save(Ticket);
+    // }
+
+    //Searches database for Ticket object that corresponds to Id, returns it
     public Ticket findTicket(Long id) {
         return TicketRepository.findById(id).orElse(null);
     }
@@ -46,6 +37,7 @@ public class TicketService {
         return TicketRepository.save(ticket);
     }
 
+    //Searches database for Ticket object that corresponds to seatNo, rowChar, ticketCategoryId, returns it
     public Ticket findBySeatNoAndRowChar(int seatNo, char rowChar, Long ticketCategoryId) {
         return TicketRepository.findBySeatNoAndRowChar(seatNo, (rowChar), ticketCategoryId).get(0);
     }
@@ -72,6 +64,8 @@ public class TicketService {
     //     ticket.setPurchase(purchase);
     //     return TicketRepository.save(ticket);
     // }
+
+    //switches Ticket object's status to true
     @Transactional
     public boolean reserveTicket(Long ticketId) throws OptimisticLockException {
         Ticket ticket = findTicket(ticketId);
@@ -83,21 +77,24 @@ public class TicketService {
         return true;
     }
 
+    //switches Ticket object's isSold to true
     @Transactional
     public void purchaseTicket(Ticket ticket) {
         ticket.setSold(true);
         TicketRepository.save(ticket);
     }
 
+    //switches Ticket object's status to false
     @Transactional
     public void undoReserveTicket(Ticket ticket) {
         ticket.setStatus(false);
         TicketRepository.save(ticket);
     }
 
+    //sets Ticket's PurchaseId to null value
     @Transactional
     public void removePurchase(Ticket ticket) {
-        ticket.setPurchase(null);
+        ticket.setPurchaseId(null);
         TicketRepository.save(ticket);
     }
 }

@@ -51,7 +51,7 @@ public class Purchase {
         return TicketIds;
     }
 
-    public void addTicket(Long ticketId) {
+    public void addTicketId(Long ticketId) {
         TicketIds.add(ticketId);
     }
 

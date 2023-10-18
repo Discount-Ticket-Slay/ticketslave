@@ -48,7 +48,7 @@ public class PurchaseController {
     @PostMapping("/{id}/add")
     public ResponseEntity<String> addTicket(@PathVariable Long id, @RequestParam Long ticketId) {
         try {       
-            PurchaseService.addTicket(id, ticketId);
+            PurchaseService.addTicketId(id, ticketId);
             return new ResponseEntity<String>("Ticket successfully added to purchase", HttpStatus.OK); 
         } catch (NullPointerException e) {
             return new ResponseEntity<String>("Ticket does not exist", HttpStatus.BAD_REQUEST);

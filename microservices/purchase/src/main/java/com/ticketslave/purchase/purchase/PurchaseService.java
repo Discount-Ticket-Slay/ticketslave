@@ -29,13 +29,14 @@ public class PurchaseService {
         return PurchaseRepository.findById(id).orElse(null);
     }
 
-    //to delete Purchase Object from database
+    //Deletes Purchase Object from database
     @Transactional
     public void deletePurchase(Long id) {
         //loadTickets(Event);
         Purchase purchase = findPurchase(id);
-        List<Ticket> tickets = purchase.getTicketIds();
-        for (Ticket t: tickets) {
+        List<Long> tickets = purchase.getTicketIds();
+        for (Long tId: tickets) {
+            Ticket t = TicketService.findTicket(tId);
             TicketService.undoReserveTicket(t);
             TicketService.removePurchase(t);
         }
@@ -49,18 +50,18 @@ public class PurchaseService {
         return PurchaseRepository.save(purchase);
     }
 
-    //add ticketId to Purchase object, save to database (INCOMPLETE)
+    //add ticketId to Purchase object, save to database
     @Transactional
-    public void addTicket(Long id, Long ticketId) throws AbortedException{
+    public void addTicketId(Long id, Long ticketId) throws AbortedException{
         Purchase purchase = findPurchase(id);
         Ticket ticket = TicketService.findTicket(ticketId);
-        List<Ticket> tickets = purchase.getTicketIds();
+        List<Long> tickets = purchase.getTicketIds();
         boolean result = TicketService.reserveTicket(ticketId);
         if (!result) {
             throw new AbortedException("Ticket already reserved by another");
         }
-        tickets.add(ticket);
-        ticket.setPurchase(purchase);
+        tickets.add(ticketId);
+        ticket.setPurchaseId(id);
         PurchaseRepository.save(purchase);
     }
 
@@ -68,13 +69,17 @@ public class PurchaseService {
     @Transactional
     public void completePurchase(Long id) throws AbortedException{
         Purchase purchase = findPurchase(id);
-        List<Ticket> tickets = purchase.getTicketIds();
-        for (Ticket t: tickets) {
-            if (t.isSold() || !t.getStatus()) {
+        List<Long> tickets = purchase.getTicketIds();
+        for (Long tId: tickets) {
+            Ticket t = TicketService.findTicket(tId);
+
+            //if ticket is sold or ticket is no longer reserved, abort
+            if (t.isSold()) {
+                throw new AbortedException("Purchase aborted, ticket has already been sold");
+            } else if (!t.getStatus()) {
                 throw new AbortedException("Purchase aborted, one of your tickets timed out");
             }
-        }
-        for (Ticket t: tickets) {
+
             TicketService.purchaseTicket(t);
         }
 

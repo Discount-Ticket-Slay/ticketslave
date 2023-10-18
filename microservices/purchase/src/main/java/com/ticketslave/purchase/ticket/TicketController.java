@@ -38,14 +38,14 @@ public class TicketController {
     // };
     
 
-    // enter data into database
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public Ticket createTicket(@RequestBody Ticket Ticket) {
+    // enter new Ticket into database
+    // @ResponseStatus(HttpStatus.CREATED)
+    // @PostMapping
+    // public Ticket createTicket(@RequestBody Ticket Ticket) {
 
-        System.out.println(Ticket);
-        return TicketService.createTicket(Ticket);
-    }
+    //     System.out.println(Ticket);
+    //     return TicketService.createTicket(Ticket);
+    // }
     //used when user selects ticket for purchase. It assigns the ticket object to the purchase object
     // @PutMapping("/{id}/update-purchase")
     // public Ticket updatePurchase(@PathVariable Long id, @RequestParam Long purchaseId) {
