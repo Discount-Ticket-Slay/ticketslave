@@ -8,7 +8,57 @@
 	let expirationDate = '';
 	let cvv = '';
 
-	function handleSubmit() {}
+    // @ts-ignore
+    let cardDetails = []
+
+    // @ts-ignore
+    function handleExpirationInput(event) {
+        const input = event.target;
+        const value = input.value;
+
+        if (value.length === 2 && !value.includes('/')) {
+            input.value = value + '/';
+        }
+    }
+
+        // Function to handle the backspace key
+        // @ts-ignore
+        function handleKeyDown(event) {
+        if (event.key === 'Backspace') {
+            let input = event.target;
+            let value = input.value;
+
+            // Remove the last character if it's a '/'
+            if (value.endsWith('/')) {
+                input.value = value.slice(0, -1);
+            }
+        }
+    }
+
+	function handleSubmit() {
+        // Create an object with the credit card details
+        let newCard = {
+            cardNumber,
+            cardHolderName,
+            expirationDate,
+            cvv,
+            total: totalPrice, // Include the total
+        };
+
+        // Add the new card to the cardDetails array
+        // @ts-ignore
+        cardDetails = [...cardDetails, newCard];
+console.log(cardDetails)
+        // Clear the form fields
+        cardNumber = '';
+        cardHolderName = '';
+        expirationDate = '';
+        cvv = '';
+
+        // Clear the cart and reset the total
+        // cart = [];
+        // totalPrice = 0;
+    }
 
 	let totalPrice = 0;
 
@@ -97,20 +147,21 @@
 			<div class="mb-4 sm:mb-6">
 				<label class="font-semibold" for="name">Name on Card</label>
 				<input
-					type="name"
+					type="text"
 					id="name"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					placeholder="Name on card"
+                    bind:value={cardHolderName}
 					required
 				/>
 			</div>
 			<div class="mb-4 sm:mb-6">
 				<label class="font-semibold" for="number">Card Number</label>
 				<input
-					type="number"
 					id="number"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 					placeholder="Card number"
+                    bind:value={cardNumber}
 					required
 				/>
 			</div>
@@ -118,20 +169,24 @@
 				<div class="relative z-0 w-full mb-4 md:mb-6 group">
 					<label class="font-semibold" for="exp">Expiry Date</label>
 					<input
-						type="exp"
 						id="exp"
+                        maxlength="5"
 						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 						placeholder="MM/YY"
+                        on:input={handleExpirationInput}
+                        on:keydown={handleKeyDown}
+                        bind:value={expirationDate}
 						required
 					/>
 				</div>
 				<div class="relative z-0 w-full mb-4 md:mb-6 group">
 					<label class="font-semibold" for="cvc">CVC/CVV</label>
 					<input
-						type="cvc"
 						id="cvc"
+                        maxlength="3"
 						class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 						placeholder="CVC"
+                        bind:value={cvv}
 						required
 					/>
 				</div>
