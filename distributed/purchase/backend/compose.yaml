@@ -1,0 +1,16 @@
+version: '3.1' # version of dockercompose (need >3.1 for healthcheck)
+services:
+
+  # building the app using the Dockerfile
+  purchaseapp:
+    build: .
+    image: purchase:1.0 # Tag the image
+    ports:
+      - "8081:8081"
+    env_file:
+      - ../.env
+
+volumes:
+                # use RDS instead of local mysql
+  mysql-data:   # Define the volume (so it survives container restarts)
+    external: true
