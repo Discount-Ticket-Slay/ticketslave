@@ -1,12 +1,15 @@
 <script>
     import Navbar from "../components/Essentials/Navbar.svelte";
     import EventCard from "../components/Events/EventCard.svelte";
-    import { empty, onMount } from "svelte/internal";
+    import { onMount } from "svelte";
+    import { userId } from "../store/store.js";
 
     //event details for every event from json file will go here
     let eventList = null;
+
     async function fetchData() {
         try {
+            // Fetch event data
             const response = await fetch("http://localhost:8080/events"); // for local testing
             // const response = await fetch("https://www.ticketslave.org/events"); // for deployment
             const json_data = await response.json();
@@ -14,16 +17,28 @@
             for (let i in json_data) {
                 eventList.push(json_data[i]);
             }
+
+            // Fetch userId
+            const userIdResponse = await fetch("http://localhost:8080/getUserId");
+            const userIdData = await userIdResponse.json();
+
+            // Set userId in store
+            $userId = userIdData.userId;
+
         } catch (error) {
             console.error(error);
         }
     }
+
     onMount(fetchData);
 </script>
 
 <Navbar />
 <div class="events">
     <h3>Popular Events</h3>
+    {#if userId}
+        <p>Your assigned user ID is: {$userId}</p>
+    {/if}
 </div>
 
 <!--this will eventually become the area where backend json_data is displayed-->
