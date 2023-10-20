@@ -1,5 +1,5 @@
 package com.example.payment;
-import com.example.dto;
+import com.example.payment.dto.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Value;
