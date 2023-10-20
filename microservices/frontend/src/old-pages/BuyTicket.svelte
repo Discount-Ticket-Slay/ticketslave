@@ -1,9 +1,9 @@
 <script>
-    import Navbar from "../components/Essentials/Navbar.svelte";
-    import ProgressTracker from '../components/Misc/ProgressTracker.svelte'
-    import SeatSection from "../components/Ticketing/SeatSection.svelte";
+    import Navbar from "../old-components/Essentials/Navbar.svelte";
+    import ProgressTracker from '../old-components/Misc/ProgressTracker.svelte'
+    import SeatSection from "../old-components/Ticketing/SeatSection.svelte";
     import {Button} from 'carbon-components-svelte'
-    import Seat from "../components/Ticketing/Seat.svelte";
+    import Seat from "../old-components/Ticketing/Seat.svelte";
 
     // security measure to prevent unauthorized access (authenticate when page loads)
     let authenticated = false;

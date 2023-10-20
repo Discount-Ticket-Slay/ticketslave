@@ -1,5 +1,5 @@
 <script>
-    import Navbar from "../components/Essentials/Navbar.svelte";
+    import Navbar from "../old-components/Essentials/Navbar.svelte";
     import {
         RadioButtonGroup,
         RadioButton,
@@ -8,7 +8,7 @@
         Button,
         Checkbox,
     } from "carbon-components-svelte";
-    import ProgressTracker from "../components/Misc/ProgressTracker.svelte";
+    import ProgressTracker from "../old-components/Misc/ProgressTracker.svelte";
 
     const handleEdit = () => {
         alert("editing order");

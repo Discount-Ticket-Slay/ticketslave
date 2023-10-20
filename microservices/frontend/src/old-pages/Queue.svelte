@@ -1,7 +1,7 @@
 <script>
-    import Navbar from "../components/Essentials/Navbar.svelte";
-    import DinoGame from "../components/Boing/DinoGame.svelte";
-    import LoadingBar from "../components/Misc/LoadingBar.svelte";
+    import Navbar from "../old-components/Essentials/Navbar.svelte";
+    import DinoGame from "../old-components/Boing/DinoGame.svelte";
+    import LoadingBar from "../old-components/Misc/LoadingBar.svelte";
     import { Button } from "carbon-components-svelte";
 
     const waitTime = () => {

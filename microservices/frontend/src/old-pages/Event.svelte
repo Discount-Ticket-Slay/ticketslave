@@ -1,6 +1,6 @@
 <script>
-    import EventDetails from "../components/Events/EventDetails.svelte";
-    import Navbar from "../components/Essentials/Navbar.svelte";
+    import EventDetails from "../old-components/Events/EventDetails.svelte";
+    import Navbar from "../old-components/Essentials/Navbar.svelte";
     import { onMount } from "svelte";
 
     let eventId = null;
