@@ -3,6 +3,7 @@ package com.ticketslave.purchase.purchase;
 import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.*;
+import com.ticketslave.purchase.dto.TicketCategoryDTO;
 import com.ticketslave.purchase.ticket.*;
 
 import java.util.*;
@@ -21,7 +22,7 @@ public class Purchase {
     @OneToMany(mappedBy = "Purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Long> TicketIds = new ArrayList<>();
 
-    private double price = -1;
+    private int price = -1;
 
     public Purchase () {
     }
@@ -30,11 +31,11 @@ public class Purchase {
         TicketIds = ticketIds;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -55,5 +56,12 @@ public class Purchase {
         TicketIds.add(ticketId);
     }
 
-    
+    public PurchaseDTO toDTO() {
+    PurchaseDTO dto = new PurchaseDTO();
+    dto.setPrice(price);
+    dto.setPurchaseId(PurchaseId);
+    dto.setTicketIds(TicketIds);
+
+    return dto;
+    }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ticketslave.purchase.ticket.*;
+import com.ticketslave.purchase.ticketcategory.*;
 
 import java.util.*;
 
@@ -13,6 +14,8 @@ import reactor.netty.channel.AbortedException;
 
 @Service
 public class PurchaseService {
+
+    private final int CENTS_IN_A_DOLLAR = 100;
     @Autowired
     private PurchaseRepository PurchaseRepository;
 
@@ -48,6 +51,28 @@ public class PurchaseService {
     public Purchase createPurchase() {
         Purchase purchase = new Purchase();
         return PurchaseRepository.save(purchase);
+    }
+
+    public int convertPrice(double price) {
+        price *= CENTS_IN_A_DOLLAR;
+        return (int)Math.round(price);
+    }
+
+    //updates the price field in accordance to Ticket costs in Purchase object
+    @Transactional
+    public void updatePrice(Long id) {
+        Purchase purchase = findPurchase(id);
+        List<Long> ticketIds = purchase.getTicketIds();
+        int updatedPrice = 0;
+        for (Long ticketId: ticketIds) {
+            Ticket t = TicketService.findTicket(ticketId);
+            TicketCategory tCat = t.getTicketCategory();
+            double price = tCat.getPrice();
+            updatedPrice += converPrice(price);
+        }
+
+        purchase.setPrice(updatedPrice);
+        PurchaseRepository.save(purchase);
     }
 
     //add ticketId to Purchase object, save to database
