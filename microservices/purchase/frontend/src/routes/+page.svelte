@@ -2,6 +2,7 @@
 	import Navbar from '../components/Essentials/Navbar.svelte';
     import Footer from '../components/Essentials/Footer.svelte';
 	import Searchbar from '../components/Others/Searchbar.svelte';
+	import Seat from '../components/Ticketing/Seat.svelte';
 
 	let tickets = [
 		{
@@ -210,6 +211,8 @@
 	<strong>Event Title Goes Here</strong>
 	<Searchbar />
 </div>
+
+<Seat />
 
 <!-- Ticket Listing -->
 <div class="flex justify-center items-center h-screen m-12 md:m-16 lg:m-24 bg-slate-200 relative rounded-2xl overflow-y-auto">
