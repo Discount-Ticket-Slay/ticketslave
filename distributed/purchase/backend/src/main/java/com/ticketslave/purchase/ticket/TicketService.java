@@ -32,9 +32,9 @@ public class TicketService {
     public Ticket findTicket(Long id) {
         return TicketRepository.findById(id).orElse(null);
     }
-    public Ticket setRowChar(Ticket ticket, char row) {
+    @Transactional
+    public void setRowChar(Ticket ticket, char row) {
         ticket.setRowChar(row);
-        return TicketRepository.save(ticket);
     }
 
     //Searches database for Ticket object that corresponds to seatNo, rowChar, ticketCategoryId, returns it

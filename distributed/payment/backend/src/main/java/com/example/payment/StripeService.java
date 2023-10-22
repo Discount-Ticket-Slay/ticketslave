@@ -1,5 +1,7 @@
 package com.example.payment;
 import com.example.payment.config.*;
+import com.example.payment.dto.*;
+
 import java.util.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -38,9 +40,9 @@ public class StripeService {
     }
 
     public String createCharge(String email, String token, Long purchaseId) {
-        //grab price from purchase microservice
-        int amount = RestTemplate.getForObject("http://localhost:8081/purchases/" + purchaseId + "/eventDTO", 
-        Integer.class);
+        //grab PurchaseDTO microservice
+        PurchaseDTO purchase = RestTemplate.getForObject("http://localhost:8081/purchases/" + purchaseId, 
+        PurchaseDTO.class);
         String chargeId = null;
         try {
             Stripe.apiKey = API_SECRET_KEY;
@@ -48,12 +50,15 @@ public class StripeService {
             Map<String, Object> chargeParams = new HashMap<>();
             chargeParams.put("description", "Charge for " + email);
             chargeParams.put("currency", "usd");
-            chargeParams.put("amount", amount);
+            chargeParams.put("amount", purchaseDTO.getPrice());
             chargeParams.put("source", token);
 
             Charge charge = Charge.create(chargeParams);
 
             chargeId = charge.getId();
+
+            //call email function from here?
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

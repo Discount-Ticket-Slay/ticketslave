@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import com.ticketslave.purchase.dto.*;
 
 import java.util.List;
 
@@ -33,10 +34,10 @@ public class PurchaseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Integer> getPurchasePrice(@RequestParam Long purchaseId) {
-        System.out.println(PurchaseService.getPurchasePrice(purchaseId));
+    public ResponseEntity<PurchaseDTO> getPurchaseDTO(@RequestParam Long purchaseId) {
+        System.out.println(PurchaseService.getPurchaseDTO(purchaseId));
         // convert get Purchase object into json list
-        return ResponseEntity.ok(PurchaseService.getPurchasePrice(purchaseId));
+        return ResponseEntity.ok(PurchaseService.getPurchaseDTO(purchaseId));
 
     }
 

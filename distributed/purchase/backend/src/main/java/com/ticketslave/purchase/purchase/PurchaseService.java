@@ -32,9 +32,9 @@ public class PurchaseService {
         return PurchaseRepository.findById(id).orElse(null);
     }
 
-    public int getPurchasePrice(Long id) {
+    public int getPurchaseDTO(Long id) {
         Purchase purchase = findPurchase(id);
-        return purchase.getPrice();
+        return purchase.toDTO();
     }
 
     //Deletes Purchase Object from database
