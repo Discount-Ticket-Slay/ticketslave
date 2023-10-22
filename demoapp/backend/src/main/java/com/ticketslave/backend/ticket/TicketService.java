@@ -31,18 +31,20 @@ public class TicketService {
         
         return TicketRepository.save(Ticket);
     }
+    
     public Ticket createTicketUsingCategory(TicketCategory TicketCategory) {
         Ticket ticket = new Ticket(TicketCategory);
         //hardcode
         setRowChar(ticket, 'a');
         return TicketRepository.save(ticket);
     }
+    
     public Ticket findTicket(Long id) {
         return TicketRepository.findById(id).orElse(null);
     }
-    public Ticket setRowChar(Ticket ticket, char row) {
+    public void setRowChar(Ticket ticket, char row) {
         ticket.setRowChar(row);
-        return TicketRepository.save(ticket);
+
     }
 
     public Ticket findBySeatNoAndRowChar(int seatNo, char rowChar, Long ticketCategoryId) {
@@ -102,17 +104,17 @@ System.out.println(ticket.getUserEmail() +"VS "+userEmail );
         return true;
     }
 
-    // @Transactional
-    // public void purchaseTicket(Ticket ticket) {
-    //     ticket.setSold(true);
-    //     TicketRepository.save(ticket);
-    // }
+    @Transactional
+    public void purchaseTicket(Ticket ticket) {
+        ticket.setSold(true);
+        TicketRepository.save(ticket);
+    }
 
-    // @Transactional
-    // public void removePurchase(Ticket ticket) {
-    //     ticket.setPurchase(null);
-    //     TicketRepository.save(ticket);
-    // }
+    @Transactional
+    public void removePurchase(Ticket ticket) {
+        ticket.setPurchase(null);
+        TicketRepository.save(ticket);
+    }
     
     public void completePurchase(List<Ticket> tickets){
         for (Ticket t:tickets){

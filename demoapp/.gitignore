@@ -39,3 +39,5 @@ target/
 
 # ignore the maven compiler plugin
 inputFiles.lst
+
+application.properties

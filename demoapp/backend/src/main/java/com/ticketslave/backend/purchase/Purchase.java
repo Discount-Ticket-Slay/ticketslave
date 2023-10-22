@@ -1,12 +1,10 @@
-package com.ticketslave.purchase.purchase;
+package com.ticketslave.backend.purchase;
 
 import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.*;
-import com.ticketslave.purchase.dto.TicketCategoryDTO;
-import com.ticketslave.purchase.ticket.*;
-
 import java.util.*;
+import com.ticketslave.backend.ticket.*;
 
 @Entity
 @Table(name = "Purchase")
@@ -20,23 +18,10 @@ public class Purchase {
     private Long PurchaseId;
 
     @OneToMany(mappedBy = "Purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Long> TicketIds = new ArrayList<>();
-
-    private double price = -1;
+    private List<Ticket> Tickets = new ArrayList<>();
 
     public Purchase () {
-    }
 
-    public void setTicketIds(List<Long> ticketIds) {
-        TicketIds = ticketIds;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public Long getPurchaseId() {
@@ -48,14 +33,17 @@ public class Purchase {
     }
 
     //@JsonManagedReference
-    public List<Long> getTicketIds() {
-        return TicketIds;
+    public List<Ticket> getTickets() {
+        return Tickets;
     }
 
-    public void addTicketId(Long ticketId) {
-        TicketIds.add(ticketId);
+    public void setTickets(List<Ticket> tickets) {
+        Tickets = tickets;
     }
 
-    return dto;
+    public void addTicket(Ticket ticket) {
+        Tickets.add(ticket);
     }
+
+    
 }

@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import com.fasterxml.jackson.annotation.*;
-//import com.ticketslave.backend.purchase.*;
+import com.ticketslave.backend.purchase.*;
 import com.ticketslave.backend.ticketcategory.*;
 
 @Entity
@@ -38,9 +38,9 @@ public class Ticket {
     //@JsonIgnoreProperties("tickets")
     private TicketCategory TicketCategory;
 
-    // @ManyToOne
-    // @JoinColumn(name = "purchaseId")
-    // private Purchase Purchase;
+    @ManyToOne
+    @JoinColumn(name = "purchaseId")
+    private Purchase Purchase;
 
     private String userEmail = null;
 
@@ -111,13 +111,13 @@ public class Ticket {
 
     //@JsonBackReference
     //@JsonIgnore
-    // public Purchase getPurchase() {
-    //     return Purchase;
-    // }
+    public Purchase getPurchase() {
+        return Purchase;
+    }
 
-    // public void setPurchase(Purchase purchase) {
-    //     Purchase = purchase;
-    // }
+    public void setPurchase(Purchase purchase) {
+        Purchase = purchase;
+    }
 
     public boolean isSold() {
         return Sold;
