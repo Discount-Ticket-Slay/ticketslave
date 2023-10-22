@@ -32,6 +32,14 @@ public class PurchaseController {
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Integer> getPurchasePrice(@RequestParam Long purchaseId) {
+        System.out.println(PurchaseService.getPurchasePrice(purchaseId));
+        // convert get Purchase object into json list
+        return ResponseEntity.ok(PurchaseService.getPurchasePrice(purchaseId));
+
+    }
+
     // enter data into database
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping

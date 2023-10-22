@@ -31,3 +31,63 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignore macOS directory metadata files
+.DS_Store
+
+# Ignore npm debug log
+npm-debug.log*
+
+# Ignore the build folder
+public/build/*
+
+# Ignore the node modules folder
+frontend/node_modules/
+
+# Ignore build files
+/bundle.js
+/bundle.js.map
+/bundle.css
+
+# Ignore for security (not pushed)
+.env
+.terraform/
+
+# for network security (not pushed)
+terraform.tfvars
+.terraform.lock.hcl
+terraform.tfstate.backup
+terraform.tfstate
+
+# ignore the target file
+target/
+
+.mvn
+
+# ignore the maven compiler plugin
+inputFiles.lst
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+replay_pid*

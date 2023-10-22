@@ -32,6 +32,11 @@ public class PurchaseService {
         return PurchaseRepository.findById(id).orElse(null);
     }
 
+    public int getPurchasePrice(Long id) {
+        Purchase purchase = findPurchase(id);
+        return purchase.getPrice();
+    }
+
     //Deletes Purchase Object from database
     @Transactional
     public void deletePurchase(Long id) {
