@@ -1,5 +1,4 @@
-package com.ticketslave.purchase.email;
-
+package com.example.payment.email;
 public class EmailRequest {
     private String to;
     private String purchaseID;
