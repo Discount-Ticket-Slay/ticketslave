@@ -49,7 +49,7 @@ public class TicketCategoryController {
     // Other controller methods...
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{id}/make-tickets")
-    public ResponseEntity<String> makeTickets (@PathVariable Long id, @RequestParam int count) {
+    public ResponseEntity<String> makeTickets(@PathVariable Long id, @RequestParam int count) {
         try {
             TicketCategoryService.makeTickets(id, count);
             return new ResponseEntity<String>("Tickets created", HttpStatus.OK);

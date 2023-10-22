@@ -40,11 +40,11 @@ public class TicketTest {
     private TicketService tServ;
     
     @Test
-    void Add_Cat(){
+    void Add_Tic(){
         // arrange ***
         Event event = new Event("last supper", "Betrayal", "01-01-0011", "Long ass table", "Big J", 14);
         TicketCategory tCat = new TicketCategory("Testing", 10);
-        Ticket tic = new Ticket(5, 'k');
+        Ticket tic = new Ticket();
 
         // mock the "save" operation 
         when(eRepo.save(any(Event.class))).thenReturn(event);
