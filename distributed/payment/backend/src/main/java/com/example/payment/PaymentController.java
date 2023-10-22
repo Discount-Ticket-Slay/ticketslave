@@ -1,6 +1,6 @@
 package com.example.payment;
 import com.example.payment.dto.*;
-
+import com.example.payment.config.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
@@ -41,12 +41,14 @@ public class PaymentController {
 
     //INCOMPLETE: Need to configure so it can accept new input amount 
     @PostMapping("/create-charge") 
-    public @ResponseBody Response createCharge(String email, String token, PurchaseDTO purchase) {
+    public @ResponseBody Response createCharge(String email, String token, Long purchaseId) {
+    
+        
         if (token == null) {
             return new Response(false, "Stripe payment token is missing. Please try again later.");
         }
         //Arbitrary amount for now, 9.99 USD
-        String chargeId = stripeService.createCharge(email, token, purchase.getPrice()); 
+        String chargeId = stripeService.createCharge(email, token, purchaseId); 
         
         if (chargeId == null) {
             return new Response(false, "Error occurred while trying to charge");
