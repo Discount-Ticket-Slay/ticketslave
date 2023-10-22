@@ -6,11 +6,10 @@
 
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/seatchart@0.1.0/dist/seatchart.css" />
 		<style>
-			body {
-				display: flex;
-				justify-content: center;
-			}
-
+            .sc-container {
+                display: flex;
+                justify-content: center;
+            }
 			.standing {
 				color: white;
 				background-color: #43aa8b;
@@ -28,7 +27,9 @@
 		</style>
 	</head>
 	<body>
-		<div id="container" />
+        <div class="sc-container">
+            <div id="container" />
+        </div>
 
 		<script
 			type="text/javascript"
