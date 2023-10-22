@@ -1,5 +1,5 @@
 <script>
-    import SignupInput from '../components/Login/SignupInput.svelte';
+    import LoginInput from '../old-components/Login/LoginInput.svelte';
 </script>
 
 <style>
@@ -16,12 +16,16 @@
 
 <!-- Rest of app content -->
 <main>
-    <div class="container">
-        <h1>Sign up</h1>
+    <div class="container py-2">
+        <h1>Log In</h1>
         <br><br><br><br>
-        <SignupInput />
+        <LoginInput />
 
         <br>
-        <a href="/#/login">Log in here!</a>
+        <p>Don't have an account?</p>
+        <a href='/#/signup'>Sign up</a>
+
+        <br><br>
+        <a href='/#/signup'>Forgot password?</a>
     </div>
 </main>

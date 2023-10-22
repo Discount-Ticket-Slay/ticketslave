@@ -1,13 +1,13 @@
 <script>
 	import Router from 'svelte-spa-router';
-	import Login from './pages/Login.svelte';
-	import Signup from './pages/Signup.svelte';
-    import Home from './pages/Home.svelte';
-	import Feed from './pages/Feed.svelte';
-	import Event from './pages/Event.svelte';
-	import BuyTicket from './pages/BuyTicket.svelte';
-	import Payment from './pages/Payment.svelte';
-	import Queue from './pages/Queue.svelte';
+	import Login from './old-pages/Login.svelte';
+	import Signup from './old-pages/Signup.svelte';
+    import Home from './old-pages/Home.svelte';
+	import Feed from './old-pages/Feed.svelte';
+	import Event from './old-pages/Event.svelte';
+	import BuyTicket from './old-pages/BuyTicket.svelte';
+	import Payment from './old-pages/Payment.svelte';
+	import Queue from './old-pages/Queue.svelte';
 
 	const routes = {
 		'/': Home,
