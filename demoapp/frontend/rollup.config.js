@@ -7,6 +7,7 @@ import livereload from 'rollup-plugin-livereload';
 import css from 'rollup-plugin-css-only';
 
 const production = !process.env.ROLLUP_WATCH;
+const microservice_name = process.env.MICROSERVICE_NAME;
 
 function serve() {
 	let server;
@@ -35,7 +36,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: '../backend/src/main/resources/static/public/build/bundle.js'
+		file: `../${microservice_name}/src/main/resources/static/public/build/bundle.js`
 	},
 	plugins: [
 		svelte({
