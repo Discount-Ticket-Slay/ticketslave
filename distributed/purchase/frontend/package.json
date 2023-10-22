@@ -26,6 +26,7 @@
 	"type": "module",
 	"dependencies": {
 		"flowbite": "^1.8.1",
-		"flowbite-svelte": "^0.44.18"
+		"flowbite-svelte": "^0.44.18",
+		"seatchart": "^0.1.0"
 	}
 }
