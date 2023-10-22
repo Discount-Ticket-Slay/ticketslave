@@ -44,7 +44,7 @@ public class EventTest {
     }
 
     @Test
-    void addEvent_ReturnNoEvent(){
+    void addNoSpaceEvent_ReturnNoEvent(){
         // arrange ***
         Event event = new Event("last supper", "Betrayal", "01-01-0011", "Long ass table", "Big J", -1);
 
@@ -55,8 +55,30 @@ public class EventTest {
         Event savedevent = eServ.createEvent(event);
         
         // assert ***
-        assertNotNull(savedevent);
+        assertNull(savedevent);
         verify(eRepo).save(event);
+    }
+
+    @Test
+    void addRepeatedEvent_ReturnOneEvent(){
+        // arrange ***
+        Event event1 = new Event("last supper", "Betrayal", "01-01-0011", "Long ass table", "Big J", 1);
+        Event event2 = new Event("last supper", "Betrayal", "01-01-0011", "Long ass table", "Big J", 1);
+
+        // mock the "save" operation 
+        when(eRepo.save(any(Event.class))).thenReturn(event1);
+        when(eRepo.save(any(Event.class))).thenReturn(event2);
+
+        // act ***
+        Event savedevent1 = eServ.createEvent(event1);
+        Event savedevent2 = eServ.createEvent(event2);
+        
+        // assert ***
+        assertNotNull(savedevent1);     //first time save event
+        verify(eRepo).save(event1);
+
+        assertNull(savedevent2);        //repeat event idw
+        verify(eRepo).save(event2);
     }
 }
 
