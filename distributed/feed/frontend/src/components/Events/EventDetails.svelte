@@ -1,17 +1,32 @@
 <script>
     import { Button } from "carbon-components-svelte";
-    export let event = { ticketCategories: [] }; // Initialize with default values
+    export let event = { ticketCategories: [] }; 
+    import { userId } from "../../store/store.js";
 
-    async function goNext(){
+    async function queueForTickets(userId) {
         try {
-            // redirect to queue microservice
-            window.location.href = `http://localhost:8081/?id=${event.eventId}`;
+            // Call backend to register user in the queue
+            const userIdString = String(userId);
+            console.log("Attempting to send userId:", userId);
+            console.log("Type of userId:", typeof userId);
+            const response = await fetch('http://localhost:8080/queue', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: userIdString })
+            });
+
+            console.log("Response:", response);
+
+            // Successful registration, redirect user to buffer service page to wait
+            if (response.ok) {
+                window.location.href = `http://localhost:8082?userId=${userId}`;  // Pass userId as URL parameter
+            }
         } catch (error) {
             console.error('An error occurred:', error);
         }
     }
-    
 </script>
+
 
 <div class="header">
     {#if event}
@@ -26,7 +41,7 @@
     <strong>Ticket Pricing</strong>
     <strong>Exchange & Refund Policy</strong>
     <strong>Admission Policy</strong>
-    <Button on:click={goNext}>Queue for Tickets</Button>
+    <Button on:click={queueForTickets($userId)}>Queue for Tickets</Button>
 </div>
 
 {#if event && event.ticketCategories}
