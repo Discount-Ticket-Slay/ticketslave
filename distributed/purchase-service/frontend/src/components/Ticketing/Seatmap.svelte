@@ -26,7 +26,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	<body> 
         <div class="sc-container">
             <div id="container" />
         </div>
