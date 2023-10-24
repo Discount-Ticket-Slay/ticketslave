@@ -24,7 +24,11 @@ public class Purchase {
 
     private int price = -1;
 
-    public Purchase () {
+    @NotNull(message = "UserEmail cannot be null")
+    private String UserEmail;
+
+    public Purchase (String UserEmail) {
+        this.UserEmail = UserEmail;
     }
 
     public void setTicketIds(List<Long> ticketIds) {
@@ -63,5 +67,14 @@ public class Purchase {
     dto.setTicketIds(TicketIds);
 
     return dto;
+    }
+
+    public String getUserEmail() {
+        return UserEmail;
+    }
+
+
+    public void setUserEmail(String userEmail) {
+        UserEmail = userEmail;
     }
 }
