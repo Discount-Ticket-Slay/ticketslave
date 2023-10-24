@@ -1,6 +1,8 @@
 package com.example.payment;
 import com.example.payment.config.*;
 import com.example.payment.dto.*;
+import com.example.payment.email.*;
+
 
 import java.util.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,9 @@ public class StripeService {
 
     @Autowired
     private RestTemplate RestTemplate;
+
+    @Autowired
+    private EmailController EmailController;
 
     public String createCustomer(String email, String token) {
         String id = null;
@@ -41,7 +46,7 @@ public class StripeService {
 
     public String createCharge(String email, String token, Long purchaseId) {
         //grab PurchaseDTO microservice
-        PurchaseDTO purchase = RestTemplate.getForObject("http://localhost:8081/purchases/" + purchaseId, 
+        PurchaseDTO purchase = RestTemplate.getForObject("http://localhost:8082/purchases/" + purchaseId, 
         PurchaseDTO.class);
         String chargeId = null;
         try {
@@ -50,7 +55,7 @@ public class StripeService {
             Map<String, Object> chargeParams = new HashMap<>();
             chargeParams.put("description", "Charge for " + email);
             chargeParams.put("currency", "usd");
-            chargeParams.put("amount", purchaseDTO.getPrice());
+            chargeParams.put("amount", purchase.getPrice());
             chargeParams.put("source", token);
 
             Charge charge = Charge.create(chargeParams);
@@ -58,8 +63,8 @@ public class StripeService {
             chargeId = charge.getId();
 
             //call email function from here
-            List<Long> ticketList = purchase.geTicketIds();
-            Long purchaseID = purchase.getPurchaseID();
+            List<Long> ticketList = purchase.getTicketIds();
+            Long purchaseID = purchase.getPurchaseId();
             String userEmail = purchase.getUserEmail();
             EmailRequest emailRequest = new EmailRequest(userEmail,purchaseID,ticketList);
             EmailController.sendEmail(emailRequest);

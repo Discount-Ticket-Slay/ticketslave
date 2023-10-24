@@ -1,13 +1,15 @@
 package com.example.payment.email;
+import java.util.*;
+
 public class EmailRequest {
     private String to;
-    private String purchaseID;
+    private Long purchaseID;
     private List<Long> ticketIdList;
 
     public EmailRequest() {
     }
 
-    public EmailRequest(String to, String purchaseID, List<Long> ticketIdList) {
+    public EmailRequest(String to, Long purchaseID, List<Long> ticketIdList) {
         this.to = to;
         this.purchaseID = purchaseID;
         this.ticketIdList = ticketIdList;
@@ -22,11 +24,11 @@ public class EmailRequest {
         this.to = to;
     }
 
-    public void setPurchaseID(String purchaseID){
+    public void setPurchaseID(Long purchaseID){
         this.purchaseID = purchaseID;
     }
 
-    public String getPurchaseID(){
+    public Long getPurchaseID(){
         return this.purchaseID;
     }
 
@@ -34,7 +36,7 @@ public class EmailRequest {
         return this.ticketIdList;
     }
 
-    public setTicketIdList(List<Long> tList){
+    public void setTicketIdList(List<Long> tList){
         this.ticketIdList = tList;
     }
 
