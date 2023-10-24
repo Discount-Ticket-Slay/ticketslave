@@ -57,7 +57,13 @@ public class StripeService {
 
             chargeId = charge.getId();
 
-            //call email function from here?
+            //call email function from here
+            List<Long> ticketList = purchase.geTicketIds();
+            Long purchaseID = purchase.getPurchaseID();
+            String userEmail = purchase.getUserEmail();
+            EmailRequest emailRequest = new EmailRequest(userEmail,purchaseID,ticketList);
+            EmailController.sendEmail(emailRequest);
+            
             
         } catch (Exception e) {
             e.printStackTrace();

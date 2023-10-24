@@ -65,7 +65,7 @@ public class Purchase {
     dto.setPrice(price);
     dto.setPurchaseId(PurchaseId);
     dto.setTicketIds(TicketIds);
-
+    dto.setUserEmail(userEmail);
     return dto;
     }
 
