@@ -5,13 +5,15 @@ public class EmailRequest {
     private String to;
     private Long purchaseID;
     private List<Long> ticketIdList;
+    private int price;
 
     public EmailRequest() {
     }
 
-    public EmailRequest(String to, Long purchaseID, List<Long> ticketIdList) {
+    public EmailRequest(String to, Long purchaseID, int price, List<Long> ticketIdList) {
         this.to = to;
         this.purchaseID = purchaseID;
+        this.price = price;
         this.ticketIdList = ticketIdList;
 
     }
@@ -38,6 +40,14 @@ public class EmailRequest {
 
     public void setTicketIdList(List<Long> tList){
         this.ticketIdList = tList;
+    }
+
+    public int getPrice(){
+        return this.price;
+    }
+
+    public void setPrice(int p){
+        this.price = p;
     }
 
 }

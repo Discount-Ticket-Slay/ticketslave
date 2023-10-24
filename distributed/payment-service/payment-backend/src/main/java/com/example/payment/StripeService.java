@@ -66,7 +66,8 @@ public class StripeService {
             List<Long> ticketList = purchase.getTicketIds();
             Long purchaseID = purchase.getPurchaseId();
             String userEmail = purchase.getUserEmail();
-            EmailRequest emailRequest = new EmailRequest(userEmail,purchaseID,ticketList);
+            int price = purchase.getPrice();
+            EmailRequest emailRequest = new EmailRequest(userEmail,purchaseID,price,ticketList);
             EmailController.sendEmail(emailRequest);
             
             
