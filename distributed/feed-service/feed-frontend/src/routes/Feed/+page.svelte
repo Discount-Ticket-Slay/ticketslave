@@ -1,13 +1,13 @@
 <script>
-    import Navbar from "../../components/Essentials/Navbar.svelte"
-    import Footer from "../../components/Essentials/Footer.svelte"
-    import Carousel from "../../components/others/Carousel.svelte"
-    import Searchbar from "../../components/others/Searchbar.svelte"
-    import Card from "../../components/others/Card.svelte"
-    import FaqCard from "../../components/others/FaqCard.svelte"
+    import Navbar from "../../components/Essentials/Navbar.svelte";
+    import Footer from "../../components/Essentials/Footer.svelte";
+    import Carousel from "../../components/Others/Carousel.svelte";
+    import Searchbar from "../../components/Others/Searchbar.svelte";
+    import Card from "../../components/Others/Card.svelte";
+    import FaqCard from "../../components/Others/FaqCard.svelte";
 </script>
 
-<body>
+<body class="bg-gray-100">
     <Navbar />
     <Searchbar />
     <Carousel />
@@ -17,7 +17,5 @@
 </body>
 
 <style lang="postcss">
-    :global(html) {
-        background-color: theme(colors.gray.100);
-    }
+    /* Additional styles */
 </style>

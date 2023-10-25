@@ -44,10 +44,10 @@
 					<h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
 					<ul class="text-gray-500 dark:text-gray-400 font-medium">
 						<li class="mb-4">
-							<a href="#" class="hover:underline">Privacy Policy</a>
+							<a href="/" class="hover:underline">Privacy Policy</a>
 						</li>
 						<li>
-							<a href="#" class="hover:underline">Terms &amp; Conditions</a>
+							<a href="/" class="hover:underline">Terms &amp; Conditions</a>
 						</li>
 					</ul>
 				</div>
@@ -60,7 +60,7 @@
 				Reserved.
 			</span>
 			<div class="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
-				<a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+				<a href="/" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
 					<svg
 						class="w-4 h-4"
 						aria-hidden="true"
@@ -76,7 +76,7 @@
 					</svg>
 					<span class="sr-only">Facebook page</span>
 				</a>
-				<a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+				<a href="/" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
 					<svg
 						class="w-4 h-4"
 						aria-hidden="true"
@@ -90,7 +90,7 @@
 					</svg>
 					<span class="sr-only">Discord community</span>
 				</a>
-				<a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+				<a href="/" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
 					<svg
 						class="w-4 h-4"
 						aria-hidden="true"
@@ -106,7 +106,7 @@
 					</svg>
 					<span class="sr-only">Twitter page</span>
 				</a>
-				<a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+				<a href="/" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
 					<svg
 						class="w-4 h-4"
 						aria-hidden="true"
@@ -122,7 +122,7 @@
 					</svg>
 					<span class="sr-only">GitHub account</span>
 				</a>
-				<a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+				<a href="/" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
 					<svg
 						class="w-4 h-4"
 						aria-hidden="true"
