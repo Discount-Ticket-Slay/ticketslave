@@ -1,13 +1,17 @@
 # ECR repository URL
-variable "ecr_repo_url" {
-  description = "ECR repository URL"
+variable "feed_service_repository_url" {
+  description = "ECR repository URL for feed service"
   type        = string
 }
 
-# Docker image version
-variable "image_version" {
-  description = "Docker image version from ECR"
-  default     = "latest"
+variable "queue_service_repository_url" {
+  description = "ECR repository URL for queue service"
+  type        = string
+}
+
+variable "buffer_service_repository_url" {
+  description = "ECR repository URL for buffer service"
+  type        = string
 }
 
 # RDS related variables (only used by feed service)
@@ -33,5 +37,43 @@ variable "spring_datasource_username" {
 
 variable "spring_datasource_password" {
   description = "spring datasource password"
+  type        = string
+}
+
+# Network related variables
+variable "subnet_1_id" {
+  description = "subnet 1 ID"
+  type        = string
+}
+
+variable "subnet_2_id" {
+  description = "subnet 2 ID"
+  type        = string
+}
+
+variable "app_security_group_id" {
+  description = "security group ID"
+  type        = string
+}
+
+# ELB related variables
+variable "feed_target_group_arn" {
+  description = "ARN of the feed target group"
+  type        = string
+}
+
+variable "queue_target_group_arn" {
+  description = "ARN of the queue target group"
+  type        = string
+}
+
+variable "buffer_target_group_arn" {
+  description = "ARN of the buffer target group"
+  type        = string
+}
+
+# MSK related variables
+variable "bootstrap_brokers" {
+  description = "Bootstrap brokers"
   type        = string
 }

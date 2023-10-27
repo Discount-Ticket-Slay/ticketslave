@@ -17,7 +17,7 @@ resource "aws_apigatewayv2_integration" "feed_integration" {
   connection_type = "VPC_LINK"
   connection_id   = aws_api_gateway_vpc_link.ticket_micro_vpc_link.id
   integration_method = "GET"
-  integration_uri  = "http://feed-service-url/"
+  integration_uri  = "https://${var.load_balancer_dns_name}/feed"
 }
 
 # queue
@@ -34,7 +34,7 @@ resource "aws_apigatewayv2_integration" "queue_integration" {
   connection_type = "VPC_LINK"
   connection_id   = aws_api_gateway_vpc_link.ticket_micro_vpc_link.id
   integration_method = "GET"
-  integration_uri  = "http://queue-service-url/"
+  integration_uri  = "https://${var.load_balancer_dns_name}/queue"
 }
 
 # buffer
@@ -51,5 +51,5 @@ resource "aws_apigatewayv2_integration" "buffer_integration" {
   connection_type = "VPC_LINK"
   connection_id   = aws_api_gateway_vpc_link.ticket_micro_vpc_link.id
   integration_method = "GET"
-  integration_uri  = "http://buffer-service-url/"
+  integration_uri  = "https://${var.load_balancer_dns_name}/buffer"
 }

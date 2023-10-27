@@ -26,11 +26,6 @@ variable "my_sql_database" {
   type        = string
 }
 
-variable "rds_url" {
-  description = "value of RDS URL"
-  type        = string
-}
-
 variable "spring_datasource_username" {
   description = "spring datasource username"
   type        = string

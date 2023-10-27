@@ -1,6 +1,6 @@
 # HTTP Listener for the load balancer (redirect HTTP traffic to HTTPS)
 resource "aws_lb_listener" "my_listener" {
-  load_balancer_arn = aws_lb.ticket_lb.arn
+  load_balancer_arn = aws_lb.ticket_micro_lb.arn
   port              = "80"
   protocol          = "HTTP"
 

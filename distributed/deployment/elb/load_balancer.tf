@@ -3,8 +3,8 @@ resource "aws_lb" "ticket_micro_lb" {
   name               = "ticket-micro-lb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.ticket_micro_security_group.id]
-  subnets            = [aws_subnet.ticket_micro_subnet_1.id, aws_subnet.ticket_micro_subnet_2.id]
+  security_groups    = [aws_security_group.elb_security_group.id]
+  subnets            = [var.ticket_micro_subnet_1_id, var.ticket_micro_subnet_2_id]
 
   enable_deletion_protection = false
 
