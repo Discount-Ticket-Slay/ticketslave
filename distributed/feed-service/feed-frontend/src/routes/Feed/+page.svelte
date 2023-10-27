@@ -1,15 +1,15 @@
 <script>
     import Navbar from "../../components/Essentials/Navbar.svelte"
     import Footer from "../../components/Essentials/Footer.svelte"
-    import Carousel from "../../components/others/Carousel.svelte"
-    import Searchbar from "../../components/others/Searchbar.svelte"
-    import Card from "../../components/others/Card.svelte"
-    import FaqCard from "../../components/others/FaqCard.svelte"
+    import Carousel from "../../components/Others/Carousel.svelte"
+    import Searchbar from "../../components/Others/Searchbar.svelte"
+    import Card from "../../components/Others/Card.svelte"
+    import FaqCard from "../../components/Others/FaqCard.svelte"
 </script>
 
 <body>
     <Navbar />
-    <Searchbar />
+    <!-- <Searchbar /> -->
     <Carousel />
     <Card />
     <FaqCard />
