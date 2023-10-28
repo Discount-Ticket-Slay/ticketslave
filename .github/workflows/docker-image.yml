@@ -109,8 +109,10 @@ jobs:
       run: cd distributed && docker-compose config
     
     - name: Docker Compose Up (Foreground)
-      run: cd distributed && docker-compose up --force-recreate
+      run: cd distributed && docker-compose up --force-recreate -d
 
+    - name: Wait for services to start
+      run: sleep 120
 
     - name: Debugging
       run: |
