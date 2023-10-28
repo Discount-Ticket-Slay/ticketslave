@@ -23,9 +23,15 @@ public class TicketCategoryController {
     @GetMapping
     public List<TicketCategory> getAllTicketCategorys() {
         System.out.println(TicketCategoryService.getAllTicketCategorys());
-        
         // convert get TicketCategory object into json list
         return TicketCategoryService.getAllTicketCategorys();
+    }
+
+    @GetMapping("/{ticketCategoryId}/get")
+    public TicketCategory getTicketCategory() {
+//System.out.println(TicketCategoryService.getAllTicketCategorys());
+        // convert get TicketCategory object into json list
+        return TicketCategoryService.findTicketCategory();
     }
 
     @GetMapping("/{ticketCategoryId}/getevent")
@@ -37,8 +43,9 @@ public class TicketCategoryController {
     @GetMapping("/{eventId}/getcategories") 
     public List<TicketCategoryDTO> getTicketCategoryFromEventId (@PathVariable Long eventId) {
         return TicketCategoryService.getTicketCategoryFromEventId(eventId);
-
     }
+
+    
     @PostMapping
     public TicketCategory createTicketCategory(@Valid @RequestBody TicketCategory ticketCategory) {
         return TicketCategoryService.createTicketCategory(ticketCategory);
