@@ -1,10 +1,14 @@
 <!--Individual Section component which represents one section in the Seatmap-->
 <script>
+	import Seatmap from "./Seatmap.svelte";
+	import Modal from "./Modal.svelte";
+
 	export let sectionNumber = '';
 	export let color = '';
     export let isInvisible = false;
 
 	let isSeatsOverlayVisible = false;
+	let showModal = false;
 
 	const showSeatsOverlay = () => {
 		isSeatsOverlayVisible = true;
@@ -14,7 +18,18 @@
 		isSeatsOverlayVisible = false;
 	};
 </script>
+<div class="section" on:click={() => (showModal = true)}>
+	<strong>V map V nice</strong>
+</div>
 
+<Modal bind:showModal>
+	<h2 slot="header">
+		<h2>test</h2>
+	</h2>
+
+	<!-- add ur element here -->
+	<div></div>
+</Modal>
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
@@ -33,7 +48,6 @@
 		<div class="flex items-center justify-center bg-white p-4 w-3/4 h-3/4 relative">
 
 			<!--This div is for testing purposes-->
-			<div>Seatmap of section will be displayed here</div>
 
 			<button
 				class="bg-red-500 text-white px-2 py-1 absolute top-2 right-2"
