@@ -2,7 +2,7 @@
 resource "aws_msk_cluster" "ticketslave_msk_cluster" {
   cluster_name = "ticketslave-msk-cluster"
   kafka_version = "3.5.1"
-  number_of_broker_nodes = 4
+  number_of_broker_nodes = 2
 
   broker_node_group_info {
     instance_type   = "kafka.t3.small"

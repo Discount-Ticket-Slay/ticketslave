@@ -26,8 +26,9 @@ echo "Debug: TF_VAR_aws_certificate_arn is $TF_VAR_aws_certificate_arn"
 
 # Run Terraform commands
 terraform init
-terraform plan > plan.txt
+# terraform plan > plan.txt
 terraform apply -auto-approve
+# terraform destroy -auto-approve
 
 # Unset exported variables
 unset TF_VAR_image_version
