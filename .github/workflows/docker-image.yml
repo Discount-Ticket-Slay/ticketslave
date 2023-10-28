@@ -81,25 +81,25 @@ jobs:
         restore-keys: |
           maven-
 
-    - name: Set Environment Variables from Secrets
+    - name: Set .env file from Secrets
       run: |
-        echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> $GITHUB_ENV
-        echo "RDS_HOST_URL=${{ secrets.RDS_HOST_URL }}" >> $GITHUB_ENV
-        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> $GITHUB_ENV
-        echo "MYSQL_DATABASE=${{ env.MYSQL_DATABASE }}" >> $GITHUB_ENV
-        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
-        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
-        echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}" >> $GITHUB_ENV
-        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> $GITHUB_ENV
-        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> $GITHUB_ENV
-        echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> $GITHUB_ENV
-        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> $GITHUB_ENV
-        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> $GITHUB_ENV
+        echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> ./distributed/feed/backend/.env
+        echo "RDS_HOST_URL=${{ secrets.RDS_HOST_URL }}" >> ./distributed/feed/backend/.env
+        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./distributed/feed/backend/.env
+        echo "MYSQL_DATABASE=${{ env.MYSQL_DATABASE }}" >> ./distributed/feed/backend/.env
+        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./distributed/feed/backend/.env
+        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./distributed/feed/backend/.env
+        echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}" >> ./distributed/feed/backend/.env
+        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> ./distributed/feed/backend/.env
+        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> ./distributed/feed/backend/.env
+        echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> ./distributed/feed/backend/.env
+        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./distributed/feed/backend/.env
+        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed/backend/.env
 
     - name: Build and run all the services
       run: |
         cd distributed
-        docker-compose up --build -d
+        docker-compose up --build -d --env-file ./feed/backend/.env
 
     - name: Check if the application is running
       run: |
