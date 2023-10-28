@@ -4,14 +4,14 @@ resource "aws_apigatewayv2_deployment" "ticket_micro_http_api_deployment" {
 
   # Trigger a new deployment on any change to the API routes or integrations
   triggers = {
-    redeployment = sha1(join(",", list(
+    redeployment = sha1(join(",", tolist([
       jsonencode(aws_apigatewayv2_route.feed_route),
       jsonencode(aws_apigatewayv2_route.queue_route),
       jsonencode(aws_apigatewayv2_route.buffer_route),
       jsonencode(aws_apigatewayv2_integration.feed_integration),
       jsonencode(aws_apigatewayv2_integration.queue_integration),
       jsonencode(aws_apigatewayv2_integration.buffer_integration)
-    )))
+    ])))
   }
 
   depends_on = [

@@ -1,7 +1,6 @@
 variable "ticket_micro_security_group_id" {
   description = "Security Group ID of the ticket microservice"
   type        = string
-  
 }
 
 variable "ticket_micro_private_subnet_1_id" {
@@ -16,6 +15,11 @@ variable "ticket_micro_private_subnet_2_id" {
 
 variable "ticket_micro_private_subnet_3_id" {
   description = "ID of the third private subnet for the ticket microservice"
+  type        = string
+}
+
+variable "ticket_micro_private_db_subnet_group_name" {
+  description = "name of the ticket micro private db subnet group"
   type        = string
 }
 

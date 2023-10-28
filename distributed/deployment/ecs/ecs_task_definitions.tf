@@ -3,7 +3,7 @@ locals {
   services = {
     "feed" : {
       port : 8080,
-      image_url : module.ecr.feed_service_repository_url,
+      image_url : var.feed_service_repository_url,
       additional_env : [
         { "name" : "MYSQL_ROOT_PASSWORD", "value" : var.my_sql_root_password },
         { "name" : "MYSQL_DATABASE", "value" : var.my_sql_database },
@@ -14,12 +14,12 @@ locals {
     },
     "queue" : {
       port : 8081,
-      image_url : module.ecr.queue_service_repository_url,
+      image_url : var.queue_service_repository_url,
       additional_env : []
     },
     "buffer" : {
       port : 8082,
-      image_url : module.ecr.buffer_service_repository_url,
+      image_url : var.buffer_service_repository_url,
       additional_env : []
     }
   }
@@ -33,7 +33,7 @@ resource "aws_ecs_task_definition" "task" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"
   memory                   = "512"
-  execution_role_arn       = aws_iam_role.ecs_execution_role.arn
+  execution_role_arn       = aws_iam_role.ecs_micro_execution_role.arn
 
   container_definitions = jsonencode([{
     name  = each.key

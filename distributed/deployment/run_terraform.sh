@@ -1,23 +1,33 @@
 #!/bin/bash
 
 # Load environment variables from .env file
-export $(grep -v '^#' .env | xargs)
+source .env
 
 # Map environment variables to Terraform variables
-export TF_VAR_image_version=$image_version
-export TF_VAR_ecr_repo_url=$ecr_repo_url
-export TF_VAR_my_sql_root_password=$my_sql_root_password
-export TF_VAR_my_sql_database=$my_sql_database
-export TF_VAR_spring_datasource_username=$spring_datasource_username
-export TF_VAR_spring_datasource_password=$spring_datasource_password
-export TF_VAR_aws_account_id=$aws_account_id
-export TF_VAR_google_client_id=$google_client_id
-export TF_VAR_google_client_secret=$google_client_secret
-export TF_VAR_aws_certificate_arn=$aws_certificate_arn
+export TF_VAR_ecr_repo_url=$ECR_REPO_URL
+export TF_VAR_my_sql_root_password=$MYSQL_ROOT_PASSWORD
+export TF_VAR_my_sql_database=$MYSQL_DATABASE
+export TF_VAR_spring_datasource_username=$SPRING_DATASOURCE_USERNAME
+export TF_VAR_spring_datasource_password=$SPRING_DATASOURCE_PASSWORD
+export TF_VAR_aws_account_id=$AWS_ACCOUNT_ID
+export TF_VAR_google_client_id=$GOOGLE_CLIENT_ID
+export TF_VAR_google_client_secret=$GOOGLE_CLIENT_SECRET
+export TF_VAR_aws_certificate_arn=$AWS_CERTIFICATE_ARN
+
+echo "Debug: TF_VAR_ecr_repo_url is $TF_VAR_ecr_repo_url"
+echo "Debug: TF_VAR_my_sql_root_password is $TF_VAR_my_sql_root_password"
+echo "Debug: TF_VAR_my_sql_database is $TF_VAR_my_sql_database"
+echo "Debug: TF_VAR_spring_datasource_username is $TF_VAR_spring_datasource_username"
+echo "Debug: TF_VAR_spring_datasource_password is $TF_VAR_spring_datasource_password"
+echo "Debug: TF_VAR_aws_account_id is $TF_VAR_aws_account_id"
+echo "Debug: TF_VAR_google_client_id is $TF_VAR_google_client_id"
+echo "Debug: TF_VAR_google_client_secret is $TF_VAR_google_client_secret"
+echo "Debug: TF_VAR_aws_certificate_arn is $TF_VAR_aws_certificate_arn"
 
 # Run Terraform commands
 terraform init
-terraform plan
+terraform plan > plan.txt
+terraform apply -auto-approve
 
 # Unset exported variables
 unset TF_VAR_image_version

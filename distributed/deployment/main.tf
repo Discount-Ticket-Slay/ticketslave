@@ -33,7 +33,7 @@ module "ecs" {
   # network module output
   subnet_1_id           = module.network.ticket_micro_subnet_1_id
   subnet_2_id           = module.network.ticket_micro_subnet_2_id
-  app_security_group_id = module.network.ticket_micro_vpc_security_group_id
+  app_security_group_id = module.network.ticket_micro_security_group_id
 
   # msk module output
   bootstrap_brokers = module.msk.bootstrap_brokers
@@ -47,10 +47,10 @@ module "elb" {
   aws_certificate_arn = var.aws_certificate_arn
 
   # network module output
-  ticket_micro_security_group_id = module.network.ticket_micro_vpc_security_group_id
   ticket_micro_vpc_id            = module.network.ticket_micro_vpc_id
   ticket_micro_subnet_1_id       = module.network.ticket_micro_subnet_1_id
   ticket_micro_subnet_2_id       = module.network.ticket_micro_subnet_2_id
+  ticket_micro_security_group_id = module.network.ticket_micro_security_group_id
 
 }
 
@@ -59,17 +59,20 @@ module "api_gateway" {
   source = "./api_gateway"
 
   # elb module output
-  load_balancer_dns_name = module.elb.load_balancer_dns_name
-  ticket_micro_lb_arn    = module.elb.ticket_micro_lb_arn
+  network_load_balancer_dns_name       = module.elb.network_load_balancer_dns_name
+  ticket_micro_network_lb_arn          = module.elb.network_load_balancer_arn
+  ticket_micro_network_lb_listener_arn = module.elb.ticket_micro_network_lb_listener_arn
+
+  # network module output
+  ticket_micro_vpc_id            = module.network.ticket_micro_vpc_id
+  ticket_micro_subnet_1_id       = module.network.ticket_micro_subnet_1_id
+  ticket_micro_subnet_2_id       = module.network.ticket_micro_subnet_2_id
 
 }
 
 # Network Module
 module "network" {
   source = "./network"
-
-  # elb module output
-  elb_security_group_id = module.elb.elb_security_group_id
 
 }
 
@@ -78,9 +81,9 @@ module "msk" {
   source = "./msk"
 
   # network module output
-  ticket_micro_security_group_id = module.network.ticket_micro_vpc_security_group_id
   ticket_micro_subnet_1_id       = module.network.ticket_micro_subnet_1_id
   ticket_micro_subnet_2_id       = module.network.ticket_micro_subnet_2_id
+  ticket_micro_security_group_id = module.network.ticket_micro_vpc_security_group_id
 
 }
 
@@ -92,12 +95,13 @@ module "rds" {
   my_sql_root_password = var.my_sql_root_password
 
   # network module output
-  ticket_micro_security_group_id = module.network.ticket_micro_vpc_security_group_id
   ticket_micro_vpc_id            = module.network.ticket_micro_vpc_id
+  ticket_micro_security_group_id = module.network.ticket_micro_vpc_security_group_id
 
-  ticket_micro_private_subnet_1_id = module.network.ticket_micro_private_subnet_1_id
-  ticket_micro_private_subnet_2_id = module.network.ticket_micro_private_subnet_2_id
-  ticket_micro_private_subnet_3_id = module.network.ticket_micro_private_subnet_3_id
+  ticket_micro_private_subnet_1_id          = module.network.ticket_micro_private_subnet_1_id
+  ticket_micro_private_subnet_2_id          = module.network.ticket_micro_private_subnet_2_id
+  ticket_micro_private_subnet_3_id          = module.network.ticket_micro_private_subnet_3_id
+  ticket_micro_private_db_subnet_group_name = module.network.ticket_micro_private_db_subnet_group_name
 
 }
 
@@ -106,6 +110,7 @@ module "cloudfront" {
   source = "./cloudfront"
 
   # api gateway module output
-  api_gateway_domain_name = module.api_gateway.api_gateway_domain_name
+  api_gateway_domain_name = element(split("://", module.api_gateway.api_gateway_domain_endpoint), 1)
+
 
 }

@@ -1,9 +1,3 @@
-# Define image version
-variable "image_version" {
-  description = "Docker image version from ECR"
-  default     = "latest"
-}
-
 # Define ecr repository we are going to use
 variable "ecr_repo_url" {
   description = "ECR repository URL"

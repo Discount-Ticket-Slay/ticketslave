@@ -64,3 +64,17 @@ resource "aws_lb_target_group" "buffer_target_group" {
   }
   
 }
+
+# Target group for the NLB that forwards to the ALB
+resource "aws_lb_target_group" "nlb_to_alb_target_group" {
+  name        = "nlb-to-alb-target-group"
+  port        = 80  # ALB's listening port
+  protocol    = "TCP"
+  vpc_id      = var.ticket_micro_vpc_id
+  target_type = "ip"  # Forwarding to ALB's IP
+
+  health_check {
+    protocol = "TCP"
+  }
+}
+

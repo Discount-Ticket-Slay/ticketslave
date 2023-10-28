@@ -15,9 +15,9 @@ resource "aws_apigatewayv2_integration" "feed_integration" {
   integration_type = "HTTP_PROXY"
 
   connection_type = "VPC_LINK"
-  connection_id   = aws_api_gateway_vpc_link.ticket_micro_vpc_link.id
+  connection_id   = aws_apigatewayv2_vpc_link.ticket_micro_vpc_link.id
   integration_method = "GET"
-  integration_uri  = "https://${var.load_balancer_dns_name}/feed"
+  integration_uri  = var.ticket_micro_network_lb_listener_arn
 }
 
 # queue
@@ -32,9 +32,9 @@ resource "aws_apigatewayv2_integration" "queue_integration" {
   integration_type = "HTTP_PROXY"
 
   connection_type = "VPC_LINK"
-  connection_id   = aws_api_gateway_vpc_link.ticket_micro_vpc_link.id
+  connection_id   = aws_apigatewayv2_vpc_link.ticket_micro_vpc_link.id
   integration_method = "GET"
-  integration_uri  = "https://${var.load_balancer_dns_name}/queue"
+  integration_uri  = var.ticket_micro_network_lb_listener_arn
 }
 
 # buffer
@@ -49,7 +49,7 @@ resource "aws_apigatewayv2_integration" "buffer_integration" {
   integration_type = "HTTP_PROXY"
 
   connection_type = "VPC_LINK"
-  connection_id   = aws_api_gateway_vpc_link.ticket_micro_vpc_link.id
+  connection_id   = aws_apigatewayv2_vpc_link.ticket_micro_vpc_link.id
   integration_method = "GET"
-  integration_uri  = "https://${var.load_balancer_dns_name}/buffer"
+  integration_uri  = var.ticket_micro_network_lb_listener_arn
 }

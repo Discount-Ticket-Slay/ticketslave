@@ -12,7 +12,6 @@ resource "aws_security_group" "ticket_micro_security_group" {
       from_port        = 80
       to_port          = ingress.value
       protocol         = "tcp"
-      security_groups  = [var.elb_security_group.id]
     }
   }
 
@@ -24,7 +23,6 @@ resource "aws_security_group" "ticket_micro_security_group" {
       from_port        = 443
       to_port          = ingress.value
       protocol         = "tcp"
-      security_groups  = [var.elb_security_group.id]
     }
   }
 
@@ -36,8 +34,39 @@ resource "aws_security_group" "ticket_micro_security_group" {
       from_port        = ingress.value
       to_port          = ingress.value
       protocol         = "tcp"
-      security_groups  = [var.elb_security_group.id]
     }
+  }
+
+  # Network Access
+  ingress {
+    description = "HTTP Access from VPC"
+    from_port   = 80
+    to_port     = 8080
+    protocol    = "tcp"
+  }
+
+  ingress {
+    description = "HTTPS Access from VPC"
+    from_port   = 443
+    to_port     = 8080
+    protocol    = "tcp"
+  }
+
+  # Network access from anywhere to ALB
+  ingress {
+    description = "HTTP Access from anywhere"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "HTTPS Access from anywhere"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   # Database Access
