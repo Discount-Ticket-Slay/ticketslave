@@ -27,21 +27,57 @@ jobs:
       with:
         node-version: '20.6.1'
 
-    - name: Install frontend dependencies
+    - name: Install frontend dependencies for feed
       run: |
-        cd demoapp/frontend
+        cd distributed/feed/frontend
         npm ci
 
-    - name: Build the frontend into the backend
+    - name: Build the frontend into the backend for feed
       run: |
-        cd demoapp/frontend
+        cd distributed/feed/frontend
         npm run build
 
-    - name: Cache Maven dependencies
+    - name: Install frontend dependencies for queue
+      run: |
+        cd distributed/queue/frontend
+        npm ci
+
+    - name: Build the frontend into the backend for queue
+      run: |
+        cd distributed/queue/frontend
+        npm run build
+
+    - name: Install frontend dependencies for buffer
+      run: |
+        cd distributed/buffer/frontend
+        npm ci
+
+    - name: Build the frontend into the backend for buffer
+      run: |
+        cd distributed/buffer/frontend
+        npm run build
+
+    - name: Cache Maven dependencies (feed)
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: maven-${{ hashFiles('demoapp/backend/pom.xml') }}
+        key: maven-${{ hashFiles('distributed/feed/backend/pom.xml') }}
+        restore-keys: |
+          maven-
+
+    - name: Cache Maven dependencies (queue)
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: maven-${{ hashFiles('distributed/queue/backend/pom.xml') }}
+        restore-keys: |
+          maven-
+
+    - name: Cache Maven dependencies (buffer)
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: maven-${{ hashFiles('distributed/queue/backend/pom.xml') }}
         restore-keys: |
           maven-
 
@@ -60,18 +96,18 @@ jobs:
         echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> $GITHUB_ENV
         echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> $GITHUB_ENV
 
-    - name: Build and run the Docker image
+    - name: Build and run all the services
       run: |
-        cd demoapp/backend
+        cd distributed
         docker-compose up --build -d
 
     - name: Check if the application is running
       run: |
-        cd demoapp/backend
+        cd distributed
         docker-compose ps | grep "homeapp" # check if app is running
 
     - name: Cleanup
       if: always()
       run: |
-        cd demoapp/backend
+        cd distributed
         docker-compose down
