@@ -97,7 +97,20 @@ jobs:
         echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed/backend/.env
 
     - name: Docker Compose Build
-      run: cd distributed && docker-compose up --force-recreate -d --env-file ./feed/backend/.env
+      run: cd distributed && docker-compose build
+    
+    - name: Show Docker Logs
+      run: cd distributed && docker-compose logs
+    
+    - name: Check .env file
+      run: cat ./distributed/feed/backend/.env
+    
+    - name: Check Docker Compose Config
+      run: cd distributed && docker-compose config
+    
+    - name: Docker Compose Up (Foreground)
+      run: cd distributed && docker-compose up --force-recreate
+
 
     - name: Debugging
       run: |
