@@ -112,7 +112,7 @@ jobs:
       run: cd distributed && docker-compose up --force-recreate -d
 
     - name: Wait for services to start
-      run: sleep 120
+      run: sleep 100
 
     - name: Debugging
       run: |
@@ -122,9 +122,9 @@ jobs:
     - name: Check if the application is running
       run: |
         cd distributed
-        docker-compose ps | grep "distributed-feed-1"
-        docker-compose ps | grep "distributed-queue-1"
-        docker-compose ps | grep "distributed-buffer-1"
+        docker-compose ps | grep "distributed_feed_1"
+        docker-compose ps | grep "distributed_queue_1"
+        docker-compose ps | grep "distributed_buffer_1"
 
 
     - name: Cleanup
