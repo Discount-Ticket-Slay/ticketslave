@@ -1,6 +1,0 @@
-[submodule "User-Service"]
-	path = User-Service
-	url = https://github.com/CS203-Help/User-Service.git
-[submodule "Queue"]
-	path = Queue
-	url = https://github.com/CS203-Help/Queue.git
