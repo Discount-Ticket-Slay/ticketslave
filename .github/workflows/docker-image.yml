@@ -99,6 +99,11 @@ jobs:
     - name: Docker Compose Build
       run: cd distributed && docker-compose up --force-recreate -d --env-file ./feed/backend/.env
 
+    - name: Debugging
+      run: |
+        cd distributed
+        docker-compose ps
+
     - name: Check if the application is running
       run: |
         cd distributed
