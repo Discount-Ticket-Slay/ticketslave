@@ -97,7 +97,7 @@ jobs:
         echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed/backend/.env
 
     - name: Docker Compose Build
-      run: cd distributed && docker-compose up --build -d --env-file ./feed/backend/.env
+      run: cd distributed && docker-compose up --force-recreate -d --env-file ./feed/backend/.env
 
     - name: Check if the application is running
       run: |
