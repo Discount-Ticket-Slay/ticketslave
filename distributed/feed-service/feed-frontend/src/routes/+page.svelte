@@ -1,5 +1,5 @@
 <script>
-    import PreloadLayout from '../layouts/PreloadLayout.svelte';
+    // import PreloadLayout from '../layouts/PreloadLayout.svelte';
     import "carbon-components-svelte/css/white.css";
     const loginButtonStyle = "text-decoration: none;";
     function redirectToCognito() {
