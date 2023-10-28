@@ -96,15 +96,13 @@ jobs:
         echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./distributed/feed/backend/.env
         echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed/backend/.env
 
-    - name: Build and run all the services
-      run: |
-        cd distributed
-        docker-compose up --build -d --env-file ./feed/backend/.env
+    - name: Docker Compose Build
+      run: cd distributed && docker-compose up --build -d --env-file ./feed/backend/.env
 
     - name: Check if the application is running
       run: |
         cd distributed
-        docker-compose ps | grep "homeapp" # check if app is running
+        docker-compose ps | grep "distributed-feed-1" | grep "distributed-queue-1" | grep "distributed-buffer-1"# check if app is running
 
     - name: Cleanup
       if: always()
