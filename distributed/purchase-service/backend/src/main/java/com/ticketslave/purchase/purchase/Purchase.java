@@ -29,6 +29,10 @@ public class Purchase {
     @NotNull(message = "UserEmail cannot be null")
     private String UserEmail;
 
+    public Purchase() {
+    
+    }
+
     public Purchase (String UserEmail) {
         this.UserEmail = UserEmail;
     }

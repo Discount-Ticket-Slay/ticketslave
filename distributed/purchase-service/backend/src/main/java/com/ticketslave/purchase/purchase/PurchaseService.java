@@ -86,7 +86,13 @@ public class PurchaseService {
     @Transactional
     public void addTicketId(Long id, Long ticketId) throws AbortedException{
         Purchase purchase = findPurchase(id);
+        if (purchase == null){
+            throw new AbortedException("Cannot find purchase by ID");
+        }
         Ticket ticket = TicketService.findTicket(ticketId);
+        if (ticket == null){
+            throw new AbortedException("Cannot find ticket by ID");
+        }
         List<Long> tickets = purchase.getTicketIds();
         boolean result = TicketService.reserveTicket(ticketId);
         if (!result) {

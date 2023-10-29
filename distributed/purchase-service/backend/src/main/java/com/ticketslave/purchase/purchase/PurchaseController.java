@@ -45,8 +45,8 @@ public class PurchaseController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{userEmail}")
     public Purchase createPurchase(@PathVariable String userEmail) {
-
-        //System.out.println(Purchase);
+        System.out.println("did it work");
+        System.out.println("purchase created with " + userEmail);
         timerService.startTimer();
         return PurchaseService.createPurchase(userEmail);
     }
@@ -74,6 +74,7 @@ public class PurchaseController {
             PurchaseService.deletePurchase(id);
         }
         try {
+            System.out.println("you passed the timer");
             PurchaseService.completePurchase(id);
             return new ResponseEntity<String>("Purchase completed", HttpStatus.OK); 
         } catch (AbortedException e){
