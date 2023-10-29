@@ -47,31 +47,19 @@
 							cssClass: 'standing',
 							price: 70
 						},
-						first: {
-							label: 'Cat 1',
-							cssClass: 'cat-1',
-							price: 75,
-							seatRows: [0, 1, 2]
-						},
-						reduced: {
-							label: 'Cat 2',
-							cssClass: 'cat-2',
-							price: 80,
-							seatRows: [7, 8, 9]
-						}
+						// first: {
+						// 	label: 'Cat 1',
+						// 	cssClass: 'cat-1',
+						// 	price: 75,
+						// 	seatRows: [0, 1, 2]
+						// },
+						// reduced: {
+						// 	label: 'Cat 2',
+						// 	cssClass: 'cat-2',
+						// 	price: 80,
+						// 	seatRows: [7, 8, 9]
+						// }
 					},
-					disabledSeats: [
-						{ row: 0, col: 0 },
-						{ row: 0, col: 9 }
-					],
-					reservedSeats: [
-						{ row: 0, col: 3 },
-						{ row: 0, col: 4 }
-					],
-					selectedSeats: [
-						{ row: 0, col: 5 },
-						{ row: 0, col: 6 }
-					],
 					rowSpacers: [3, 7],
 					columnSpacers: [5]
 				}

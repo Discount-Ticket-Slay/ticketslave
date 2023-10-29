@@ -25,6 +25,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"carbon-components-svelte": "^0.81.1",
 		"flowbite": "^1.8.1",
 		"flowbite-svelte": "^0.44.18"
 	}

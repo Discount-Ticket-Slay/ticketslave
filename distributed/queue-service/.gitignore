@@ -1,0 +1,75 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# Ignore Visual Studio Code settings folder
+.vscode/
+
+# Ignore macOS directory metadata files
+.DS_Store
+
+# Ignore npm debug log
+npm-debug.log*
+
+# Ignore the build folder
+public/build/*
+
+# Ignore the node modules folder
+queue-frontend/node_modules/
+queue-frontend/.svelte-kit
+
+# Ignore build files
+/bundle.js
+/bundle.js.map
+/bundle.css
+
+# Ignore for security (not pushed)
+.env
+.terraform/
+
+# for network security (not pushed)
+terraform.tfvars
+.terraform.lock.hcl
+terraform.tfstate.backup
+terraform.tfstate
+
+# ignore all compiled classes
+*.class
+
+# ignore the target file
+target/
+
+.mvn
+
+# ignore the maven compiler plugin
+inputFiles.lst

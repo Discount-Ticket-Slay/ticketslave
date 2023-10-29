@@ -1,8 +1,10 @@
 package com.ticketslave.purchase.purchase;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.*;
+import com.ticketslave.purchase.dto.PurchaseDTO;
 import com.ticketslave.purchase.dto.TicketCategoryDTO;
 import com.ticketslave.purchase.ticket.*;
 
@@ -22,9 +24,13 @@ public class Purchase {
     @OneToMany(mappedBy = "Purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Long> TicketIds = new ArrayList<>();
 
-    private double price = -1;
+    private int price = -1;
 
-    public Purchase () {
+    @NotNull(message = "UserEmail cannot be null")
+    private String UserEmail;
+
+    public Purchase (String UserEmail) {
+        this.UserEmail = UserEmail;
     }
 
     public void setTicketIds(List<Long> ticketIds) {
@@ -35,7 +41,7 @@ public class Purchase {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -56,6 +62,21 @@ public class Purchase {
         TicketIds.add(ticketId);
     }
 
+    public PurchaseDTO toDTO() {
+    PurchaseDTO dto = new PurchaseDTO();
+    dto.setPrice(price);
+    dto.setPurchaseId(PurchaseId);
+    dto.setTicketIds(TicketIds);
+    dto.setUserEmail(UserEmail);
     return dto;
+    }
+
+    public String getUserEmail() {
+        return UserEmail;
+    }
+
+
+    public void setUserEmail(String userEmail) {
+        UserEmail = userEmail;
     }
 }

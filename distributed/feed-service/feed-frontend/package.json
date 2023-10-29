@@ -1,5 +1,5 @@
 {
-	"name": "frontend",
+	"name": "feed-frontend",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -20,12 +20,12 @@
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.10.1",
 		"svelte": "^4.0.5",
-		"tailwindcss": "^3.3.3",
+		"tailwindcss": "^3.3.5",
 		"vite": "^4.4.2"
 	},
 	"type": "module",
 	"dependencies": {
-		"flowbite": "^1.8.1",
+		"carbon-components-svelte": "^0.81.2",
 		"flowbite-svelte": "^0.44.18"
 	}
 }

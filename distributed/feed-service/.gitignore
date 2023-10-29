@@ -45,7 +45,8 @@ npm-debug.log*
 public/build/*
 
 # Ignore the node modules folder
-frontend/node_modules/
+feed-frontend/node_modules/
+feed-frontend/.svelte-kit
 
 # Ignore build files
 /bundle.js
