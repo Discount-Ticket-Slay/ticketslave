@@ -18,18 +18,21 @@
 		isSeatsOverlayVisible = false;
 	};
 </script>
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="section" on:click={() => (showModal = true)}>
 	<strong>V map V nice</strong>
 </div>
 
 <Modal bind:showModal>
-	<h2 slot="header">
+	<h2 slot="header" >
 		<h2>test</h2>
 	</h2>
 
 	<!-- add ur element here -->
 	<div></div>
 </Modal>
+
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
@@ -56,3 +59,11 @@
 		</div>
 	</div>
 {/if}
+
+<style>
+	.section{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+	}
+</style>
