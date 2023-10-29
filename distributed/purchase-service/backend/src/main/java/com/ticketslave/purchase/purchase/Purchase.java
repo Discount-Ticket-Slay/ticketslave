@@ -2,6 +2,7 @@ package com.ticketslave.purchase.purchase;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.*;
 import com.ticketslave.purchase.dto.*;
@@ -36,7 +37,7 @@ public class Purchase {
         TicketIds = ticketIds;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

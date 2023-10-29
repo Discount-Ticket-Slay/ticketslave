@@ -12,6 +12,7 @@ public/build/*
 
 # Ignore the node modules folder
 frontend/node_modules/
+frontend2/node_modules/
 
 # Ignore build files
 /bundle.js
@@ -38,3 +39,5 @@ target/
 
 # ignore the maven compiler plugin
 inputFiles.lst
+
+application.properties
