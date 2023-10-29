@@ -3,6 +3,8 @@ package com.ticketslave.purchase.purchase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import com.ticketslave.purchase.dto.*;
 import com.ticketslave.purchase.ticket.*;
 import com.ticketslave.purchase.ticketcategory.*;
 
@@ -32,7 +34,7 @@ public class PurchaseService {
         return PurchaseRepository.findById(id).orElse(null);
     }
 
-    public int getPurchaseDTO(Long id) {
+    public PurchaseDTO getPurchaseDTO(Long id) {
         Purchase purchase = findPurchase(id);
         return purchase.toDTO();
     }
@@ -53,8 +55,8 @@ public class PurchaseService {
     }
 
     //create blank Purchase object and add to database
-    public Purchase createPurchase() {
-        Purchase purchase = new Purchase();
+    public Purchase createPurchase(String userEmail) {
+        Purchase purchase = new Purchase(userEmail);
         return PurchaseRepository.save(purchase);
     }
 
@@ -73,7 +75,7 @@ public class PurchaseService {
             Ticket t = TicketService.findTicket(ticketId);
             TicketCategory tCat = t.getTicketCategory();
             double price = tCat.getPrice();
-            updatedPrice += converPrice(price);
+            updatedPrice += convertPrice(price);
         }
 
         purchase.setPrice(updatedPrice);

@@ -38,8 +38,8 @@ public class Ticket {
     //@JsonIgnoreProperties("tickets")
     private TicketCategory TicketCategory;
 
-    @ManyToOne
-    @JoinColumn(name = "purchaseId")
+    //@ManyToOne
+    //@JoinColumn(name = "purchaseId")
     private Long PurchaseId;
 
     public Ticket () {

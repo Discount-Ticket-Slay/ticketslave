@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.2</version>
+		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.ticketslave</groupId>
@@ -41,6 +41,13 @@
 			<artifactId>java-dotenv</artifactId>
 			<version>5.2.0</version>
 		</dependency>
+		<!-- <dependency>
+		<groupId>com.sun</groupId>
+		<artifactId>tools</artifactId>
+		<version>1.6</version> -->
+		<!-- <scope>system</scope>
+		<systemPath>C:\Program Files\Java\jdk1.6.0_29\lib\tools.jar</systemPath> -->
+		<!-- </dependency> -->
 
 		
 		<!-- allow for automatic running of compose.yaml -->
@@ -65,6 +72,12 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<!-- <dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.20</version>
+			<scope>provided</scope>
+		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -98,12 +111,6 @@
 		<dependency>
     		<groupId>org.springframework.boot</groupId>
     		<artifactId>spring-boot-starter-amqp</artifactId>
-		</dependency>
-		
-		<dependency>
-    		<groupId>com.rabbitmq</groupId>
-    		<artifactId>amqp-client</artifactId>
-    		<version>5.9.0</version>
 		</dependency>
 
 		<dependency>

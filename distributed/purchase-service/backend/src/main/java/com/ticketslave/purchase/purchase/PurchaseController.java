@@ -43,12 +43,12 @@ public class PurchaseController {
 
     // enter data into database
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public Purchase createPurchase() {
+    @PostMapping("/{userEmail}")
+    public Purchase createPurchase(@PathVariable String userEmail) {
 
         //System.out.println(Purchase);
         timerService.startTimer();
-        return PurchaseService.createPurchase();
+        return PurchaseService.createPurchase(userEmail);
     }
     // @PutMapping("/{id}/add-purchase")
     // public Purchase addPurchase (@PathVariable Long id, @RequestParam Long ticketId) {

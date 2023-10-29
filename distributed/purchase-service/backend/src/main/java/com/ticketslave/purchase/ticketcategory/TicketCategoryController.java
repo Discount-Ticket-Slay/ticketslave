@@ -28,10 +28,10 @@ public class TicketCategoryController {
     }
 
     @GetMapping("/{ticketCategoryId}/get")
-    public TicketCategory getTicketCategory() {
+    public TicketCategory getTicketCategory(@PathVariable Long ticketCategoryId) {
 //System.out.println(TicketCategoryService.getAllTicketCategorys());
         // convert get TicketCategory object into json list
-        return TicketCategoryService.findTicketCategory();
+        return TicketCategoryService.findTicketCategory(ticketCategoryId);
     }
 
     @GetMapping("/{ticketCategoryId}/getevent")

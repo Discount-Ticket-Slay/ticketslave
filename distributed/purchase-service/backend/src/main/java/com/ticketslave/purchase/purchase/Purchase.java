@@ -1,9 +1,10 @@
 package com.ticketslave.purchase.purchase;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.*;
-import com.ticketslave.purchase.dto.TicketCategoryDTO;
+import com.ticketslave.purchase.dto.*;
 import com.ticketslave.purchase.ticket.*;
 
 import java.util.*;
@@ -19,7 +20,7 @@ public class Purchase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long PurchaseId;
 
-    @OneToMany(mappedBy = "Purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //@OneToMany(mappedBy = "Purchase", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Long> TicketIds = new ArrayList<>();
 
     private int price = -1;
@@ -65,7 +66,7 @@ public class Purchase {
     dto.setPrice(price);
     dto.setPurchaseId(PurchaseId);
     dto.setTicketIds(TicketIds);
-    dto.setUserEmail(userEmail);
+    dto.setUserEmail(UserEmail);
     return dto;
     }
 
