@@ -13,7 +13,7 @@
     let ground;
     let score = 0;
     let isPlay = false;
-    let speed = 1000;
+    let speed = 1500;
     let intervals = [];
     let mainUp, mainDown, obstacleSide;
     let button;
