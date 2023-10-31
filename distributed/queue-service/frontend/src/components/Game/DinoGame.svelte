@@ -1,4 +1,9 @@
 <script>
+    import {onMount} from 'svelte';
+    onMount(() => {
+        console.log(window.innerWidth)
+    })
+
     let svg, main, obstacle, overlay, scoreOverlay, startOverlay;
     let width = 1000,
         height = 350;
@@ -89,13 +94,16 @@
         }
     }
 
-    window.addEventListener('keydown', (event) => {
-        // Check if the key pressed is the spacebar (key code 32)
-        if (event.keyCode === 32) {
-            // Call the jump function
-            jump();
-        }
-    });
+    onMount(() => {
+        window.addEventListener('keydown', (event) => {
+            // Check if the key pressed is the spacebar (key code 32)
+            if (event.keyCode === 32) {
+                // Call the jump function
+                jump();
+            }
+        });
+    }) 
+
 
     function play() {
         d3.select(startOverlay).transition().duration(250).style("opacity", 1);
