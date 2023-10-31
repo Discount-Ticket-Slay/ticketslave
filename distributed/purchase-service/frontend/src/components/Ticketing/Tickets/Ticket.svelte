@@ -1,3 +1,10 @@
+<!--
+    Component that displays details of a single ticket
+    Takes in 2 parameters:
+    1. the single ticket
+    2. the function to select the ticket itself, which is executed in TicketList.svelte
+-->
+
 <script>
 	export let ticket;
 	export let onSelect;
