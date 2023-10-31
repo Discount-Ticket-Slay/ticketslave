@@ -25,7 +25,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"bootstrap": "^5.3.2",
 		"carbon-components-svelte": "^0.81.2",
-		"flowbite-svelte": "^0.44.18"
+		"flowbite-svelte": "^0.44.18",
+		"svelte-headlessui": "^0.0.32",
+		"svelte-transition": "^0.0.10"
 	}
 }
