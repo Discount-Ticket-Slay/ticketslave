@@ -1,5 +1,5 @@
 <script>
-	// import Search from '../icons/Search.svelte';
+	import Search from '../Icons/Search.svelte';
     import 'flowbite';
 </script>
 
