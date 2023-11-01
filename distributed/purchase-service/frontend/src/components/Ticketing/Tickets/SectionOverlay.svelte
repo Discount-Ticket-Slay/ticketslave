@@ -1,4 +1,6 @@
-<!-- SectionOverlay.svelte -->
+<!-- 
+    Overlay component when a section is selected, which will display all available tickets belonging to that section.
+-->
 
 <script>
     export let section;

@@ -7,7 +7,12 @@
     each ticket is displayed in a single Ticket.svelte
 -->
 
-<!-- TicketList.svelte -->
+<!--
+    TODO:
+    combine the ticket listing with the section logic:
+    each SectionOverlay will display the list of tickets belonging to that section.
+    those tickets can be added to the cart.
+-->
 
 <script>
     import SectionOverlay from "./SectionOverlay.svelte";
