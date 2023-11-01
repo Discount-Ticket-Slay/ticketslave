@@ -7,31 +7,54 @@
     each ticket is displayed in a single Ticket.svelte
 -->
 
-<script>
-    import TicketSection from "./TicketSection.svelte";
-	export let concertTickets;
-    export let addToCart
+<!-- TicketList.svelte -->
 
-    //tracks the section selected by the user
+<script>
+    import SectionOverlay from "./SectionOverlay.svelte";
+    export let concertTickets; // Array of concert tickets
+    export let cartItems; // Array of items in the cart
+    export let addToCart; // Function to add a ticket to the cart
+
     let selectedSection = null;
 
-    //sets selected section to the section selected by the user
-    function pickSection(section) {
+    function openOverlay(section) {
         selectedSection = section;
     }
 
-    //stores the tickets belonging to the section selected
-    let sections = []
-    let sectionTickets = []
-    $: {
-        sections = Array.from(new Set(concertTickets.map(ticket => ticket.section)))
-        sectionTickets = concertTickets.filter(ticket => ticket.section === selectedSection)
+    function closeOverlay() {
+        selectedSection = null;
+    }
+
+    // Function to get all unique sections from the concertTickets array
+    function getSections() {
+        const sections = [];
+        concertTickets.forEach(ticket => {
+            if (!sections.includes(ticket.section)) {
+                sections.push(ticket.section);
+            }
+        });
+        return sections;
+    }
+
+        // Function to handle section click
+        function sectionClicked(section) {
+        const sectionTickets = concertTickets.filter(ticket => ticket.section === section);
     }
 </script>
 
-<div class="p-4">
-	<h2 class="text-lg font-semibold mb-2">Section List</h2>
-    {#if sections.length !== 0}
-        <TicketSection {sectionTickets} on:click={pickSection}/>
-    {/if}
+<div class="bg-white p-4 rounded shadow">
+    <h2 class="text-xl font-semibold mb-4">All Sections</h2>
+    <ul>
+        {#each getSections() as section}
+            <li>
+                <button class="cursor-pointer bg-blue-400 text-white rounded-sm p-2 w-full" on:click={() => openOverlay(section)}>{section}</button>
+
+            </li>
+        {/each}
+    </ul>
 </div>
+
+{#if selectedSection !== null}
+    <SectionOverlay section={selectedSection} {closeOverlay} />
+{/if}
+
