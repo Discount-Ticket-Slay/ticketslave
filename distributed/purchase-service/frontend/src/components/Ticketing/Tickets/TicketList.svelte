@@ -8,28 +8,30 @@
 -->
 
 <script>
-    import Ticket from "./Ticket.svelte";
+    import TicketSection from "./TicketSection.svelte";
 	export let concertTickets;
     export let addToCart
 
-    const handleSelect = (ticket) => {
-        addToCart(ticket)
+    //tracks the section selected by the user
+    let selectedSection = null;
+
+    //sets selected section to the section selected by the user
+    function pickSection(section) {
+        selectedSection = section;
+    }
+
+    //stores the tickets belonging to the section selected
+    let sections = []
+    let sectionTickets = []
+    $: {
+        sections = Array.from(new Set(concertTickets.map(ticket => ticket.section)))
+        sectionTickets = concertTickets.filter(ticket => ticket.section === selectedSection)
     }
 </script>
 
 <div class="p-4">
-	<h2 class="text-lg font-semibold mb-2">Ticket List</h2>
-	<ul class="grid gap-4 grid-cols-1 sm:grid-rows-2 md:grid-rows-3 lg:grid-rows-4">
-        <!--notifies the user if there are no tickets available-->
-        {#if concertTickets.length === 0}
-            <p>No tickets available {":("}</p>
-        {/if}
-
-        <!--otherwise, display each available ticket in a Ticket.svelte-->
-		{#each concertTickets as ticket (ticket.id)}
-			<li>
-				<Ticket {ticket} onSelect={handleSelect} />
-			</li>
-		{/each}
-	</ul>
+	<h2 class="text-lg font-semibold mb-2">Section List</h2>
+    {#if sections.length !== 0}
+        <TicketSection {sectionTickets} on:click={pickSection}/>
+    {/if}
 </div>

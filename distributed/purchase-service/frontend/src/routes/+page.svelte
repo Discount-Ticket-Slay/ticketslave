@@ -6,9 +6,10 @@
 
     //dummy array to store concert tickets. will be replaced with GET request during frontend-backend merge
 	let concertTickets = [
-		{ id: 1, name: 'Concert Ticket 1', price: '$50' },
-		{ id: 2, name: 'Concert Ticket 2', price: '$40' },
-		{ id: 3, name: 'Concert Ticket 3', price: '$60' }
+		{ id: 1, name: 'Concert Ticket 1', price: '$50', section: "221" },
+		{ id: 2, name: 'Concert Ticket 2', price: '$40', section: "223"},
+		{ id: 3, name: 'Concert Ticket 3', price: '$60', section: "221" },
+        { id: 4, name: 'Concert Ticket 3', price: '$60', section: "223"}
 	];
 
     //stores the tickets that are in the cart
