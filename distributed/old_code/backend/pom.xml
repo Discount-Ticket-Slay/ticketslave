@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20230227</version>
+			<version>20231013</version>
 		</dependency>
 
 		<dependency>
@@ -134,7 +134,7 @@
 		<dependency>
     		<groupId>com.rabbitmq</groupId>
     		<artifactId>amqp-client</artifactId>
-    		<version>5.9.0</version>
+    		<version>5.18.0</version>
 		</dependency>
 
 		<dependency>
