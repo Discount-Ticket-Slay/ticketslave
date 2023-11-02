@@ -1,4 +1,4 @@
-package com.ticketslave.feed.authentication;
+package com.ticketslave.feed.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

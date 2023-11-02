@@ -9,11 +9,15 @@ import com.ticketslave.feed.model.Event;
 import com.ticketslave.feed.service.EventService;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/feed/events")
 public class EventController {
 
+    private final EventService eventService;
+
     @Autowired
-    private EventService eventService;
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
 
     /* Input: None
      * Output: List of all events

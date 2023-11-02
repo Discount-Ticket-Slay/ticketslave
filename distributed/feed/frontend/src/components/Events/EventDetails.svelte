@@ -9,6 +9,7 @@
             const userIdString = String(userId);
             console.log("Attempting to send userId:", userId);
             console.log("Type of userId:", typeof userId);
+            
             const response = await fetch('http://localhost:8080/queue', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

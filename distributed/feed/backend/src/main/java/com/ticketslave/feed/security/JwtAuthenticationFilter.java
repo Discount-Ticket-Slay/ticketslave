@@ -1,4 +1,4 @@
-package com.ticketslave.feed.authentication;
+package com.ticketslave.feed.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

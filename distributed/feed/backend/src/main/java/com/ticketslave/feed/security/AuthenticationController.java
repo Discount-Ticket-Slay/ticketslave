@@ -1,4 +1,4 @@
-package com.ticketslave.feed.authentication;
+package com.ticketslave.feed.security;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.Base64;
 
 import com.jayway.jsonpath.JsonPath;
+import com.ticketslave.feed.security.JwtService;
 
 @RestController
 @RequestMapping("/auth")
@@ -32,6 +33,9 @@ public class AuthenticationController {
     private final String REDIRECT_URI = "https://www.ticketslave.org/auth/cognito-callback";
     private final String HOME_PAGE_URL = "https://www.ticketslave.org/#/feed";
     private final String ERROR_PAGE_URL = "https://www.google.com";
+
+    @Autowired
+    private JwtService jwtService;
 
     /*
      * Constructor: Initializes the AuthenticationController with user pool client
@@ -72,6 +76,26 @@ public class AuthenticationController {
             processResponse(response, state, httpServletResponse);
         } catch (Exception e) {
             handleTokenExchangeError(e, httpServletResponse);
+        }
+    }
+
+    /*
+     * Input: jwtToken - A JWT token as a string
+     * Output: User's email address extracted from the JWT token, or null if the
+     * token is invalid or does not exist
+     * Description: This method calls the getEmailFromToken method of the JwtService
+     * to extract and return the user's email address from the provided JWT token.
+     * If the token is invalid or does not exist, the method returns null.
+     */
+    public String returnUserEmail(String jwtToken) {
+        if (jwtToken == null || jwtToken.isEmpty()) {
+            return null; // Return null if the token does not exist or is empty
+        }
+
+        try {
+            return jwtService.getEmailFromToken(jwtToken);
+        } catch (Exception e) {
+            return null; // Return null if there's an error in extracting the email (e.g., invalid token)
         }
     }
 

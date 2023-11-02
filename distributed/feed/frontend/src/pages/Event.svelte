@@ -17,8 +17,7 @@
                 const eventId = urlParams.get("id");
 
                 if (eventId) {
-                    const response = await fetch(`http://localhost:8080/events/${eventId}/get`); // for local testing
-                    // const response = await fetch(`https://www.ticketslave.org/events/${eventId}/get`); // for deployment
+                    const response = await fetch(`https://www.ticketslave.org/feed/events/${eventId}/get`); // for deployment
                     if (response.ok) {
                         const event_data = await response.json();
                         event = event_data;
