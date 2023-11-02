@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "ap-southeast-1" # specify your region
+  region = "" # specify your region
 }
 
 # ECR Module
@@ -37,6 +37,7 @@ module "ecs" {
 
   # msk module output
   bootstrap_brokers = module.msk.bootstrap_brokers
+
 }
 
 # ELB Module
@@ -73,6 +74,9 @@ module "api_gateway" {
 # Network Module
 module "network" {
   source = "./network"
+
+  # secret variables
+  local_cidr_block = var.local_cidr_block
 
 }
 

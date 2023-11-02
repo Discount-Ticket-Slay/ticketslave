@@ -49,3 +49,8 @@ variable "aws_certificate_arn" {
   description = "AWS certificate ARN"
   type        = string
 }
+
+variable "local_cidr_block" {
+  description = "CIDR block of the local network"
+  type        = string
+}

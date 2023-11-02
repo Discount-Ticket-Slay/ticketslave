@@ -10,7 +10,7 @@ resource "aws_lb_target_group" "feed_target_group" {
   health_check {
     enabled             = true
     interval            = 90
-    path                = "/health"
+    path                = "/feed/health"
     port                = "8080"
     protocol            = "HTTP"
     timeout             = 10
@@ -32,7 +32,7 @@ resource "aws_lb_target_group" "queue_target_group" {
   health_check {
     enabled             = true
     interval            = 90
-    path                = "/health"
+    path                = "/queue/health"
     port                = "8081"
     protocol            = "HTTP"
     timeout             = 10
@@ -54,7 +54,7 @@ resource "aws_lb_target_group" "buffer_target_group" {
   health_check {
     enabled             = true
     interval            = 90
-    path                = "/health"
+    path                = "/buffer/health"
     port                = "8082"
     protocol            = "HTTP"
     timeout             = 10
@@ -74,7 +74,4 @@ resource "aws_lb_target_group" "nlb_to_alb_target_group" {
   target_type = "ip"  # Forwarding to ALB's IP
 
   health_check {
-    protocol = "TCP"
-  }
-}
-
+    protoc
