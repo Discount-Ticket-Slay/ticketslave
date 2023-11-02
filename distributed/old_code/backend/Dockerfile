@@ -1,0 +1,28 @@
+# Build Stage (Maven) - import base image (latest)
+FROM maven as build
+
+# Copying the source code
+WORKDIR /workspace/app
+COPY pom.xml .
+
+# Downloading the dependencies, make use of the cache
+RUN mvn dependency:go-offline
+COPY src src
+
+# Run the application (use external tests)
+RUN mvn clean package -DskipTests
+
+# for debugging
+RUN ls -l /workspace/app/target/
+
+# Runtime Stage
+FROM eclipse-temurin:17
+
+# Create a directory to hold the application
+WORKDIR /opt/app
+
+# Copy the JAR file from the build stage
+COPY --from=build /workspace/app/target/backend-1.10.jar .
+
+# run the application
+CMD ["java", "-jar", "backend-1.10.jar"]
