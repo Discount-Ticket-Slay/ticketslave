@@ -1,10 +1,8 @@
 <!--
     TODO:
-    when a Ticket is selected, the Ticket is added to the Cart.
-    the Ticket's "Select" button in TicketList will be set to "In Cart", and become not clickable.
-    when the Ticket is removed from the Cart, the Ticket's "In Cart" button is set back to "Select"
+    -> create a ready-to-go function that stores the cart to be sent to the payment service
+    -> improve styling, fix styling errors
 -->
-
 
 <script>
     import TicketList from '../components/Ticketing/Tickets/TicketList.svelte';
