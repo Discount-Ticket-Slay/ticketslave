@@ -19,11 +19,14 @@ import com.ticketslave.feed.service.FeedService;
 @RequestMapping("/feed")
 public class FeedController {
 
-    @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final FeedService feedService;
 
     @Autowired
-    private FeedService feedService;
+    public FeedController(KafkaTemplate<String, String> kafkaTemplate, FeedService feedService) {
+        this.feedService = feedService;
+        this.kafkaTemplate = kafkaTemplate;
+    }
 
     @GetMapping("/")
     public String home() {
@@ -43,9 +46,7 @@ public class FeedController {
     // producer: endpoint to send a message to the message broker, registering the user for the queue
     @PostMapping("/queue")
     public ResponseEntity<String> queueForTickets(@RequestBody Map<String, String> payload) {
-        System.out.println("hello! inside queue!");
         String userId = payload.get("userId");
-        System.out.println("userId: " + userId);
         kafkaTemplate.send("buffered-queue", userId);
         return ResponseEntity.ok("Queued");
     }

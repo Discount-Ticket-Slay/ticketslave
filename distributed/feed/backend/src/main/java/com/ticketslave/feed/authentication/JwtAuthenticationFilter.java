@@ -30,10 +30,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.jwtService = jwtService;
     }
 
-     /* Input: request, response, filterChain
+    /*
+     * Input: request, response, filterChain
      * Output: None
-     * Description: This method filters incoming HTTP requests. It skips JWT verification for certain paths,
-     * extracts the JWT token from cookies, verifies the token, and sets the authentication context if the token is valid.
+     * Description: This method filters incoming HTTP requests. It skips JWT
+     * verification for certain paths,
+     * extracts the JWT token from cookies, verifies the token, and sets the
+     * authentication context if the token is valid.
      * Unauthorized requests are rejected.
      */
     @Override
