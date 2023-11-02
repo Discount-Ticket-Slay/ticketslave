@@ -74,4 +74,7 @@ resource "aws_lb_target_group" "nlb_to_alb_target_group" {
   target_type = "ip"  # Forwarding to ALB's IP
 
   health_check {
-    protoc
+    protocol = "TCP"
+  }
+}
+

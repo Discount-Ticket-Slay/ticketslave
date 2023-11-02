@@ -12,4 +12,6 @@ resource "aws_db_instance" "ticket_micro_db" {
   skip_final_snapshot    = true
   vpc_security_group_ids = [var.ticket_micro_security_group_id]
   publicly_accessible    = true
-  db_subnet_group_name   = var.ticket_micro_private_db_subnet_gr
+  db_subnet_group_name   = var.ticket_micro_private_db_subnet_group_name
+  multi_az               = true
+}

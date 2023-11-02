@@ -12,4 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class BufferController {
 
     // serve the buffer landing page
-    public String home(@Request
+    public String home(@RequestParam(name = "userId", required = false) String userId) {
+        return "index";
+    }
+
+}
