@@ -1,3 +1,11 @@
+<!--
+    TODO:
+    when a Ticket is selected, the Ticket is added to the Cart.
+    the Ticket's "Select" button in TicketList will be set to "In Cart", and become not clickable.
+    when the Ticket is removed from the Cart, the Ticket's "In Cart" button is set back to "Select"
+-->
+
+
 <script>
     import TicketList from '../components/Ticketing/Tickets/TicketList.svelte';
     import Cart from '../components/Ticketing/Cart/Cart.svelte';
@@ -15,20 +23,25 @@
     //stores the tickets that are in the cart
     let cartItems = []
 
-	//adds the selected ticket to the cart
-	function addToCart(ticket) {
-		cartItems = [...cartItems, ticket];
-	}
-
     //removes the ticket from the cart
     function removeFromCart(item) {
         cartItems = cartItems.filter((cartItem) => cartItem.id !== item.id);
+    }
+
+    // adds the selected ticket to the cart
+    function addToCart(ticket) {
+    // Check if the ticket is not already in the cartItems
+        if (!cartItems.some((item) => item.id === ticket.id)) {
+            cartItems = [...cartItems, ticket]; // Add the selected ticket to cartItems
+        }
     }
 </script>
 
 <div>
     <Navbar />
-    <TicketList {concertTickets} {cartItems} {addToCart}/>
-    <Cart {cartItems} {removeFromCart}/>
+    <div class="flex flex-row">
+        <TicketList {concertTickets} {addToCart} {cartItems}/>
+        <Cart {cartItems} {removeFromCart}/>
+    </div>
     <Footer/>
 </div>

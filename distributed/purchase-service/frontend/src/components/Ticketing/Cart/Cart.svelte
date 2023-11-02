@@ -5,19 +5,20 @@
     2. the function to remove the ticket from the cart, which is executed inside the main page.
 -->
 
+<!--Cart.svelte-->
 <script>
 	import CartItem from "./CartItem.svelte";
 
     export let cartItems;
-    export let removeFromCart
+    export let removeFromCart;
 </script>
 
-<div class="p-4">
+<div class="p-4 min-h-screen">
     <h2 class="text-lg font-semibold mb-2">Cart</h2>
     <ul class="grid gap-4 grid-cols-1 sm:grid-rows-2 md:grid-rows-3 lg:grid-rows-4">
         <!--notifies the user if their cart is empty-->
         {#if cartItems.length === 0}
-            <p>Your cart is empty {":("}.</p>
+            <p>Your cart is empty {":("}</p>
         {/if}
 
         <!--if there are items in the cart, display each item in a CartItem.svelte-->

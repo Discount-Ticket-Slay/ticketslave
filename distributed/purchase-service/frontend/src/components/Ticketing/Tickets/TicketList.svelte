@@ -7,18 +7,12 @@
     each ticket is displayed in a single Ticket.svelte
 -->
 
-<!--
-    TODO:
-    combine the ticket listing with the section logic:
-    each SectionOverlay will display the list of tickets belonging to that section.
-    those tickets can be added to the cart.
--->
-
+<!--TicketList.svelte-->
 <script>
     import SectionOverlay from "./SectionOverlay.svelte";
     export let concertTickets; // Array of concert tickets
     export let cartItems; // Array of items in the cart
-    export let addToCart; // Function to add a ticket to the cart
+    export let addToCart;
 
     let selectedSection = null;
 
@@ -30,7 +24,7 @@
         selectedSection = null;
     }
 
-    // Function to get all unique sections from the concertTickets array
+    // gets all unique sections from the concertTickets array
     function getSections() {
         const sections = [];
         concertTickets.forEach(ticket => {
@@ -41,25 +35,21 @@
         return sections;
     }
 
-        // Function to handle section click
-        function sectionClicked(section) {
-        const sectionTickets = concertTickets.filter(ticket => ticket.section === section);
-    }
 </script>
 
-<div class="bg-white p-4 rounded shadow">
+<div class="bg-white p-4 rounded shadow w-1/2 min-h-screen">
     <h2 class="text-xl font-semibold mb-4">All Sections</h2>
     <ul>
         {#each getSections() as section}
             <li>
-                <button class="cursor-pointer bg-blue-400 text-white rounded-sm p-2 w-full" on:click={() => openOverlay(section)}>{section}</button>
+                <button class="cursor-pointer bg-blue-400 text-white rounded-sm p-2 w-1/2 m-3" on:click={() => openOverlay(section)}>{section}</button>
 
             </li>
         {/each}
     </ul>
 </div>
 
-{#if selectedSection !== null}
-    <SectionOverlay section={selectedSection} {closeOverlay} />
+{#if selectedSection}
+    <SectionOverlay {selectedSection} {concertTickets} {cartItems} {addToCart} {closeOverlay} />
 {/if}
 

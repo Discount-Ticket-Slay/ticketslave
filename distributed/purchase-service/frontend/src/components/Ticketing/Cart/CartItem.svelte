@@ -5,6 +5,7 @@
     2. the function to remove the ticket itself fromthe cart, which is executed in Cart.svelte
 -->
 
+<!--CartItem.svelte-->
 <script>
     export let cartItem;
     export let onRemove;

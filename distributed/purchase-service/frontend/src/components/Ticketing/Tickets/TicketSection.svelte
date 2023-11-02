@@ -1,3 +1,5 @@
+
+<!--TicketSection.svelte-->
 <script>
     import Ticket from './Ticket.svelte'
     export let sectionTickets
