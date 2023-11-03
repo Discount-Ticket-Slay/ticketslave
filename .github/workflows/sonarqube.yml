@@ -36,10 +36,11 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd distributed && for dir in feed buffer queue; do
-            if [ -f "$dir-service/dir-backend/$pom.xml" ]; then
+            if [ -f "$dir-service/$dir-backend/pom.xml" ]; then  # This line should check if pom.xml exists in the specified path
               echo "Analyzing $dir"
-              (cd "distributed/$dir-service/dir-backend" && mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Discount-Ticket-Slay_ticketslave)
+              (cd "$dir-service/$dir-backend" && mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Discount-Ticket-Slay_ticketslave_$dir)
             else
               echo "Skipping $dir - no pom.xml found"
             fi
           done
+
