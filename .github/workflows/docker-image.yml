@@ -29,39 +29,39 @@ jobs:
 
     - name: Install frontend dependencies for feed
       run: |
-        cd distributed/feed/frontend
+        cd distributed/feed-service/feed-frontend
         npm ci
 
     - name: Build the frontend into the backend for feed
       run: |
-        cd distributed/feed/frontend
+        cd distributed/feed-service/feed-frontend
         npm run build
 
     - name: Install frontend dependencies for queue
       run: |
-        cd distributed/queue/frontend
+        cd distributed/queue-service/queue-frontend
         npm ci
 
     - name: Build the frontend into the backend for queue
       run: |
-        cd distributed/queue/frontend
+        cd distributed/queue-service/queue-frontend
         npm run build
 
     - name: Install frontend dependencies for buffer
       run: |
-        cd distributed/buffer/frontend
+        cd distributed/buffer-service/buffer-frontend
         npm ci
 
     - name: Build the frontend into the backend for buffer
       run: |
-        cd distributed/buffer/frontend
+        cd distributed/buffer-service/buffer-frontend
         npm run build
 
     - name: Cache Maven dependencies (feed)
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: maven-${{ hashFiles('distributed/feed/backend/pom.xml') }}
+        key: maven-${{ hashFiles('distributed/feed-service/feed-backend/pom.xml') }}
         restore-keys: |
           maven-
 
@@ -69,7 +69,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: maven-${{ hashFiles('distributed/queue/backend/pom.xml') }}
+        key: maven-${{ hashFiles('distributed/queue-service/queue-backend/pom.xml') }}
         restore-keys: |
           maven-
 
@@ -77,24 +77,24 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: maven-${{ hashFiles('distributed/queue/backend/pom.xml') }}
+        key: maven-${{ hashFiles('distributed/queue-service/queue-backend/pom.xml') }}
         restore-keys: |
           maven-
 
     - name: Set .env file from Secrets
       run: |
-        echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> ./distributed/feed/backend/.env
-        echo "RDS_HOST_URL=${{ secrets.RDS_HOST_URL }}" >> ./distributed/feed/backend/.env
-        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./distributed/feed/backend/.env
-        echo "MYSQL_DATABASE=${{ env.MYSQL_DATABASE }}" >> ./distributed/feed/backend/.env
-        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./distributed/feed/backend/.env
-        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./distributed/feed/backend/.env
-        echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}" >> ./distributed/feed/backend/.env
-        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> ./distributed/feed/backend/.env
-        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> ./distributed/feed/backend/.env
-        echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> ./distributed/feed/backend/.env
-        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./distributed/feed/backend/.env
-        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed/backend/.env
+        echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "RDS_HOST_URL=${{ secrets.RDS_HOST_URL }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "MYSQL_DATABASE=${{ env.MYSQL_DATABASE }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed-service/feed-backend/.env
 
     - name: Docker Compose Build
       run: cd distributed && docker-compose build
@@ -103,7 +103,7 @@ jobs:
       run: cd distributed && docker-compose logs
     
     - name: Check .env file
-      run: cat ./distributed/feed/backend/.env
+      run: cat ./distributed/feed-service/feed-backend/.env
     
     - name: Check Docker Compose Config
       run: cd distributed && docker-compose config
@@ -112,7 +112,7 @@ jobs:
       run: cd distributed && docker-compose up --force-recreate -d
 
     - name: Wait for services to start
-      run: sleep 100
+      run: sleep 60
 
     - name: Debugging
       run: |
@@ -122,9 +122,9 @@ jobs:
     - name: Check if the application is running
       run: |
         cd distributed
-        docker-compose ps | grep "distributed_feed_1"
-        docker-compose ps | grep "distributed_queue_1"
-        docker-compose ps | grep "distributed_buffer_1"
+        docker-compose ps | grep "distributed_feed-service_1"
+        docker-compose ps | grep "distributed_queue-service_1"
+        docker-compose ps | grep "distributed_buffer-service_1"
 
 
     - name: Cleanup

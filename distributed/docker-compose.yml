@@ -1,23 +1,23 @@
 version: '3'
 services:
   feed:
-    build: ./feed/backend
+    build: ./feed-service/feed-backend
     ports:
       - "8080:8080"
     env_file:
-      - ./feed/backend/.env
+      - ./feed-service/feed-backend/.env
     depends_on:
       - kafka
 
   queue:
-    build: ./queue/backend
+    build: ./queue-service/queue-backend
     ports:
       - "8081:8081"
     depends_on:
       - kafka
 
   buffer:
-    build: ./buffer/backend
+    build: ./buffer-service/buffer-backend
     ports:
       - "8082:8082"
     environment:
