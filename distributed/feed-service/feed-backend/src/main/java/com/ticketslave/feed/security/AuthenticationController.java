@@ -21,18 +21,17 @@ import java.io.IOException;
 import java.util.Base64;
 
 import com.jayway.jsonpath.JsonPath;
-import com.ticketslave.feed.security.JwtService;
 
 @RestController
 @RequestMapping("/feed/auth")
 public class AuthenticationController {
 
-    private final String USER_POOL_CLIENT_ID;
-    private final String USER_POOL_CLIENT_SECRET;
-    private final String COGNITO_TOKEN_URL = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/token";
-    private final String REDIRECT_URI = "https://www.ticketslave.org/feed/auth/cognito-callback";
-    private final String HOME_PAGE_URL = "https://www.ticketslave.org/feed/";
-    private final String ERROR_PAGE_URL = "https://www.google.com";
+    private final static String USER_POOL_CLIENT_ID;
+    private final static String USER_POOL_CLIENT_SECRET;
+    private final static String COGNITO_TOKEN_URL = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/token";
+    private final static String REDIRECT_URI = "https://www.ticketslave.org/feed/auth/cognito-callback";
+    private final static String HOME_PAGE_URL = "https://www.ticketslave.org/feed/";
+    private final static String ERROR_PAGE_URL = "https://www.google.com";
 
     @Autowired
     private JwtService jwtService;
@@ -156,6 +155,8 @@ public class AuthenticationController {
     private void setJwtCookie(HttpServletResponse httpServletResponse, String jwtToken) {
         Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
         jwtCookie.setPath("/");
+        jwtCookie.setHttpOnly(true); // Prevents JavaScript from accessing the cookie (XSS)
+        jwtCookie.setSecure(true); // Ensures the cookie is only sent over HTTPS
         httpServletResponse.addCookie(jwtCookie);
     }
 
