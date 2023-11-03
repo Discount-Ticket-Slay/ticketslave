@@ -38,7 +38,7 @@ jobs:
           cd distributed && for dir in feed-service buffer-service queue-service; do
             if [ -f "$dir/pom.xml" ]; then
               echo "Analyzing $dir"
-              (cd "$dir" && mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=YourProject_$dir)
+              (cd "$dir" && mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Discount-Ticket-Slay_ticketslave)
             else
               echo "Skipping $dir - no pom.xml found"
             fi
