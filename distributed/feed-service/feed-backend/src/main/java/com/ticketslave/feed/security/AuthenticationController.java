@@ -70,16 +70,10 @@ public class AuthenticationController {
         MultiValueMap<String, String> params = createRequestBodyForTokenExchange(code);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
 
-        System.out.println("headers: " + headers);
-        System.out.println("params: " + params);
-        System.out.println("request: " + request);
-        System.out.println("COGNITO_TOKEN_URL: " + COGNITO_TOKEN_URL);
-
         try {
             ResponseEntity<String> response = restTemplate.exchange(COGNITO_TOKEN_URL, HttpMethod.POST, request,
                     String.class);
 
-            System.out.println("response: " + response);
             processResponse(response, state, httpServletResponse);
         } catch (Exception e) {
             handleTokenExchangeError(e, httpServletResponse);
@@ -113,8 +107,6 @@ public class AuthenticationController {
      */
     private HttpHeaders createHeadersForTokenExchange() {
         HttpHeaders headers = new HttpHeaders();
-        System.out.println("USER_POOL_CLIENT_ID: " + USER_POOL_CLIENT_ID);
-        System.out.println("USER_POOL_CLIENT_SECRET: " + USER_POOL_CLIENT_SECRET);
         headers.add("Authorization", "Basic "
                 + Base64.getEncoder().encodeToString((USER_POOL_CLIENT_ID + ":" + USER_POOL_CLIENT_SECRET).getBytes()));
         return headers;
@@ -170,7 +162,6 @@ public class AuthenticationController {
      * Description: This method redirects the user to the home page
      */
     private void redirectToHomePage(HttpServletResponse httpServletResponse, String state) throws IOException {
-        System.out.println("state: " + state);
         httpServletResponse.sendRedirect(HOME_PAGE_URL);
     }
 
@@ -180,7 +171,6 @@ public class AuthenticationController {
      * Description: This method redirects the user to an error page
      */
     private void redirectToErrorPage(HttpServletResponse httpServletResponse, String errorMessage) throws IOException {
-        System.out.println("errorMessage: " + errorMessage);
         httpServletResponse.sendRedirect(ERROR_PAGE_URL);
     }
 
@@ -193,11 +183,6 @@ public class AuthenticationController {
 
         if (e instanceof HttpStatusCodeException) {
             HttpStatusCodeException httpException = (HttpStatusCodeException) e;
-
-            // Log the detailed error message and response body
-            System.err.println("Detailed error message: " + httpException.getMessage());
-            System.err.println("Response body: " + httpException.getResponseBodyAsString());
-            System.err.println("Status code: " + httpException.getStatusCode());
 
             // return the detailed message to the client
             redirectToErrorPage(httpServletResponse, "Failed to exchange code for tokens. Status code: "
