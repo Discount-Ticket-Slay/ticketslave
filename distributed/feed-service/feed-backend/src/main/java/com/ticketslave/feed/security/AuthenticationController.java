@@ -132,7 +132,7 @@ public class AuthenticationController {
      * Description: This method processes the response from the token exchange
      * request
      */
-    private void processResponse(ResponseEntity<String> response, String state, HttpServletResponse httpServletResponse)
+    protected void processResponse(ResponseEntity<String> response, String state, HttpServletResponse httpServletResponse)
             throws IOException {
         if (response.getStatusCode().is2xxSuccessful()) {
             String jwtToken = JsonPath.read(response.getBody(), "$.id_token");
@@ -148,7 +148,7 @@ public class AuthenticationController {
      * Output: None
      * Description: This method sets the JWT token as a cookie
      */
-    private void setJwtCookie(HttpServletResponse httpServletResponse, String jwtToken) {
+    protected void setJwtCookie(HttpServletResponse httpServletResponse, String jwtToken) {
         Cookie jwtCookie = new Cookie("jwtToken", jwtToken);
         jwtCookie.setPath("/");
         jwtCookie.setHttpOnly(true); // Prevents JavaScript from accessing the cookie (XSS)
