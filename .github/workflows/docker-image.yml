@@ -122,9 +122,9 @@ jobs:
     - name: Check if the application is running
       run: |
         cd distributed
-        docker-compose ps | grep "distributed_feed-service_1"
-        docker-compose ps | grep "distributed_queue-service_1"
-        docker-compose ps | grep "distributed_buffer-service_1"
+        docker-compose ps | grep "distributed_feed_1"
+        docker-compose ps | grep "distributed_queue_1"
+        docker-compose ps | grep "distributed_buffer_1"
 
 
     - name: Cleanup
