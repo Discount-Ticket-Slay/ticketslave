@@ -49,3 +49,18 @@ variable "aws_certificate_arn" {
   description = "AWS certificate ARN"
   type        = string
 }
+
+variable "local_cidr_block" {
+  description = "CIDR block of the local network"
+  type        = string
+}
+
+variable "user_pool_client_clientid" {
+  description = "User pool client ID"
+  type        = string
+}
+
+variable "user_pool_client_secret" {
+  description = "User pool secret"
+  type        = string
+}
