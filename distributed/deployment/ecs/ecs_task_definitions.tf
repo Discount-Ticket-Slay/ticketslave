@@ -41,7 +41,9 @@ resource "aws_ecs_task_definition" "task" {
     portMappings = [{ containerPort = each.value.port }]
     environment = concat([
       { "name" : "SPRING_KAFKA_BOOTSTRAP_SERVERS", "value" : var.bootstrap_brokers },
-      { "name" : "SPRING_KAFKA_CONSUMER_GROUP_ID", "value" : "my-group" }
+      { "name" : "SPRING_KAFKA_CONSUMER_GROUP_ID", "value" : "my-group" },
+      { "name" : "USER_POOL_CLIENT_CLIENTID", "value" : var.user_pool_client_clientid },
+      { "name" : "USER_POOL_CLIENT_SECRET", "value" : var.user_pool_client_secret }
     ], each.value.additional_env)
    
   logConfiguration = {

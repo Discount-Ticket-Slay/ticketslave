@@ -24,14 +24,14 @@ import com.jayway.jsonpath.JsonPath;
 import com.ticketslave.feed.security.JwtService;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/feed/auth")
 public class AuthenticationController {
 
     private final String USER_POOL_CLIENT_ID;
     private final String USER_POOL_CLIENT_SECRET;
-    private final String COGNITO_TOKEN_URL = "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/token";
-    private final String REDIRECT_URI = "https://www.ticketslave.org/auth/cognito-callback";
-    private final String HOME_PAGE_URL = "https://www.ticketslave.org/#/feed";
+    private final String COGNITO_TOKEN_URL = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/token";
+    private final String REDIRECT_URI = "https://www.ticketslave.org/feed/auth/cognito-callback";
+    private final String HOME_PAGE_URL = "https://www.ticketslave.org/feed/";
     private final String ERROR_PAGE_URL = "https://www.google.com";
 
     @Autowired
@@ -39,7 +39,7 @@ public class AuthenticationController {
 
     /*
      * Constructor: Initializes the AuthenticationController with user pool client
-     * ID and secret
+     * ID and secret from application.properties
      * Input: userPoolClientId, userPoolClientSecret
      * Output: None
      * Description: This constructor initializes the AuthenticationController with
@@ -69,10 +69,16 @@ public class AuthenticationController {
         HttpHeaders headers = createHeadersForTokenExchange();
         MultiValueMap<String, String> params = createRequestBodyForTokenExchange(code);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
+        
+        System.out.println("headers: " + headers);
+        System.out.println("params: " + params);
+        System.out.println("request: " + request);
 
         try {
             ResponseEntity<String> response = restTemplate.exchange(COGNITO_TOKEN_URL, HttpMethod.POST, request,
                     String.class);
+
+            System.out.println("response: " + response);
             processResponse(response, state, httpServletResponse);
         } catch (Exception e) {
             handleTokenExchangeError(e, httpServletResponse);

@@ -9,7 +9,7 @@ resource "aws_lb_target_group" "feed_target_group" {
   # Health check settings
   health_check {
     enabled             = true
-    interval            = 90
+    interval            = 120
     path                = "/feed/health"
     port                = "8080"
     protocol            = "HTTP"
@@ -31,7 +31,7 @@ resource "aws_lb_target_group" "queue_target_group" {
   # Health check settings
   health_check {
     enabled             = true
-    interval            = 90
+    interval            = 120
     path                = "/queue/health"
     port                = "8081"
     protocol            = "HTTP"
@@ -53,7 +53,7 @@ resource "aws_lb_target_group" "buffer_target_group" {
   # Health check settings
   health_check {
     enabled             = true
-    interval            = 90
+    interval            = 120
     path                = "/buffer/health"
     port                = "8082"
     protocol            = "HTTP"

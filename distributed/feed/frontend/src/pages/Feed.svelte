@@ -11,7 +11,7 @@
         try {
             // Fetch event data
             // const response = await fetch("http://localhost:8080/events"); // for local testing
-            const response = await fetch("https://www.ticketslave.org/events"); // for deployment
+            const response = await fetch("https://www.ticketslave.org/feed/events"); // for deployment
             const json_data = await response.json();
             eventList = [];
             for (let i in json_data) {

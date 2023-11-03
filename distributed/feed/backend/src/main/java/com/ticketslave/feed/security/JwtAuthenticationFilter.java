@@ -69,7 +69,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     private boolean shouldSkipJwtVerification(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return path.equals("/")
+        System.out.println("path: " + path);
+        return path.equals("/feed/")
                 || path.startsWith("/feed/#/feed")
                 || path.startsWith("/feed/#/Event")
                 || path.equals("/feed/auth/cognito-callback")

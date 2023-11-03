@@ -54,3 +54,13 @@ variable "local_cidr_block" {
   description = "CIDR block of the local network"
   type        = string
 }
+
+variable "user_pool_client_clientid" {
+  description = "User pool client ID"
+  type        = string
+}
+
+variable "user_pool_client_secret" {
+  description = "User pool secret"
+  type        = string
+}

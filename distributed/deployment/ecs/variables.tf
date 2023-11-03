@@ -40,6 +40,16 @@ variable "spring_datasource_password" {
   type        = string
 }
 
+variable "user_pool_client_clientid" {
+  description = "User pool client ID"
+  type        = string 
+}
+
+variable "user_pool_client_secret" {
+  description = "User pool secret"
+  type        = string
+}
+
 # Network related variables
 variable "subnet_1_id" {
   description = "subnet 1 ID"

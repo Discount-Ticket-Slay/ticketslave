@@ -16,6 +16,8 @@ module "ecs" {
   my_sql_database            = var.my_sql_database
   spring_datasource_username = var.spring_datasource_username
   spring_datasource_password = var.spring_datasource_password
+  user_pool_client_clientid  = var.user_pool_client_clientid
+  user_pool_client_secret    = var.user_pool_client_secret
 
   # rds module output
   rds_url = module.rds.db_instance_endpoint
@@ -65,9 +67,9 @@ module "api_gateway" {
   ticket_micro_network_lb_listener_arn = module.elb.ticket_micro_network_lb_listener_arn
 
   # network module output
-  ticket_micro_vpc_id            = module.network.ticket_micro_vpc_id
-  ticket_micro_subnet_1_id       = module.network.ticket_micro_subnet_1_id
-  ticket_micro_subnet_2_id       = module.network.ticket_micro_subnet_2_id
+  ticket_micro_vpc_id      = module.network.ticket_micro_vpc_id
+  ticket_micro_subnet_1_id = module.network.ticket_micro_subnet_1_id
+  ticket_micro_subnet_2_id = module.network.ticket_micro_subnet_2_id
 
 }
 
