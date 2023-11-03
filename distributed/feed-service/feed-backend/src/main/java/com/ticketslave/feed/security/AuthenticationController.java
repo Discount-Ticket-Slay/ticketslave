@@ -137,9 +137,9 @@ public class AuthenticationController {
         if (response.getStatusCode().is2xxSuccessful()) {
             String jwtToken = JsonPath.read(response.getBody(), "$.id_token");
             setJwtCookie(httpServletResponse, jwtToken);
-            redirectToHomePage(httpServletResponse, state);
+            redirectToHomePage(httpServletResponse);
         } else {
-            redirectToErrorPage(httpServletResponse, "Failed to exchange code for tokens: " + response.getStatusCode());
+            redirectToErrorPage(httpServletResponse);
         }
     }
 
@@ -161,7 +161,7 @@ public class AuthenticationController {
      * Output: None
      * Description: This method redirects the user to the home page
      */
-    private void redirectToHomePage(HttpServletResponse httpServletResponse, String state) throws IOException {
+    private void redirectToHomePage(HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.sendRedirect(HOME_PAGE_URL);
     }
 
@@ -170,7 +170,7 @@ public class AuthenticationController {
      * Output: None
      * Description: This method redirects the user to an error page
      */
-    private void redirectToErrorPage(HttpServletResponse httpServletResponse, String errorMessage) throws IOException {
+    private void redirectToErrorPage(HttpServletResponse httpServletResponse) throws IOException {
         httpServletResponse.sendRedirect(ERROR_PAGE_URL);
     }
 
@@ -180,17 +180,8 @@ public class AuthenticationController {
      * Description: This method handles errors from the token exchange request
      */
     private void handleTokenExchangeError(Exception e, HttpServletResponse httpServletResponse) throws IOException {
-
-        if (e instanceof HttpStatusCodeException) {
-            HttpStatusCodeException httpException = (HttpStatusCodeException) e;
-
-            // return the detailed message to the client
-            redirectToErrorPage(httpServletResponse, "Failed to exchange code for tokens. Status code: "
-                    + httpException.getStatusCode() + ". Response body: " + httpException.getResponseBodyAsString());
-        } else {
-            // For other exceptions that are not HTTP-related
-            redirectToErrorPage(httpServletResponse, "Failed to exchange code for tokens: " + e.getMessage());
-        }
+        System.out.println("Error: " + e.getMessage());
+        redirectToErrorPage(httpServletResponse);
     }
 
 }

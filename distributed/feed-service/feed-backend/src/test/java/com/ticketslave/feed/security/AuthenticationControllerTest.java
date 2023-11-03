@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import jakarta.servlet.http.Cookie;
 
 @ExtendWith(MockitoExtension.class)
-public class AuthenticationControllerTest {
+class AuthenticationControllerTest {
 
     @Mock
     private JwtService jwtService;

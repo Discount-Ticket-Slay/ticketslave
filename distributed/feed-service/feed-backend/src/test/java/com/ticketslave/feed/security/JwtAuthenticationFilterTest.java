@@ -21,7 +21,7 @@ import org.springframework.security.core.Authentication;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class JwtAuthenticationFilterTest {
+class JwtAuthenticationFilterTest {
 
     @Mock
     private JwtService jwtService;
