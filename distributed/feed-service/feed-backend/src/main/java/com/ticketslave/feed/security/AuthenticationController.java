@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.client.HttpStatusCodeException;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -68,10 +69,11 @@ public class AuthenticationController {
         HttpHeaders headers = createHeadersForTokenExchange();
         MultiValueMap<String, String> params = createRequestBodyForTokenExchange(code);
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-        
+
         System.out.println("headers: " + headers);
         System.out.println("params: " + params);
         System.out.println("request: " + request);
+        System.out.println("COGNITO_TOKEN_URL: " + COGNITO_TOKEN_URL);
 
         try {
             ResponseEntity<String> response = restTemplate.exchange(COGNITO_TOKEN_URL, HttpMethod.POST, request,
@@ -111,6 +113,8 @@ public class AuthenticationController {
      */
     private HttpHeaders createHeadersForTokenExchange() {
         HttpHeaders headers = new HttpHeaders();
+        System.out.println("USER_POOL_CLIENT_ID: " + USER_POOL_CLIENT_ID);
+        System.out.println("USER_POOL_CLIENT_SECRET: " + USER_POOL_CLIENT_SECRET);
         headers.add("Authorization", "Basic "
                 + Base64.getEncoder().encodeToString((USER_POOL_CLIENT_ID + ":" + USER_POOL_CLIENT_SECRET).getBytes()));
         return headers;
@@ -186,7 +190,22 @@ public class AuthenticationController {
      * Description: This method handles errors from the token exchange request
      */
     private void handleTokenExchangeError(Exception e, HttpServletResponse httpServletResponse) throws IOException {
-        redirectToErrorPage(httpServletResponse, "Failed to exchange code for tokens: " + e.getMessage());
+
+        if (e instanceof HttpStatusCodeException) {
+            HttpStatusCodeException httpException = (HttpStatusCodeException) e;
+
+            // Log the detailed error message and response body
+            System.err.println("Detailed error message: " + httpException.getMessage());
+            System.err.println("Response body: " + httpException.getResponseBodyAsString());
+            System.err.println("Status code: " + httpException.getStatusCode());
+
+            // return the detailed message to the client
+            redirectToErrorPage(httpServletResponse, "Failed to exchange code for tokens. Status code: "
+                    + httpException.getStatusCode() + ". Response body: " + httpException.getResponseBodyAsString());
+        } else {
+            // For other exceptions that are not HTTP-related
+            redirectToErrorPage(httpServletResponse, "Failed to exchange code for tokens: " + e.getMessage());
+        }
     }
 
 }

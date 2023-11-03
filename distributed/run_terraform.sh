@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Load environment variables from .env file
+cd deployment-code
 source .env
 
 # Map environment variables to Terraform variables
@@ -27,13 +28,13 @@ echo "Debug: TF_VAR_google_client_id is $TF_VAR_google_client_id"
 echo "Debug: TF_VAR_google_client_secret is $TF_VAR_google_client_secret"
 echo "Debug: TF_VAR_aws_certificate_arn is $TF_VAR_aws_certificate_arn"
 echo "Debug: TF_VAR_local_cidr_block is $TF_VAR_local_cidr_block"
-echo "Debug: TF_VAR_user_pool_clientid is $TF_VAR_user_pool_clientid"
+echo "Debug: TF_VAR_user_pool_client_clientid is $TF_VAR_user_pool_client_clientid"
 echo "Debug: TF_VAR_user_pool_client_secret is $TF_VAR_user_pool_client_secret"
 
 # Run Terraform commands
 terraform init
 terraform plan > plan.txt
-terraform apply -auto-approve
+# terraform apply -auto-approve
 terraform apply -auto-approve # running it twice to resolve the auto deleting bug
 # terraform destroy -auto-approve
 

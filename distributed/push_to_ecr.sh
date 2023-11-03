@@ -21,9 +21,9 @@ aws ecr describe-repositories --repository-names $QUEUE_REPO || aws ecr create-r
 aws ecr describe-repositories --repository-names $BUFFER_REPO || aws ecr create-repository --repository-name $BUFFER_REPO
 
 # Build Docker images in parallel
-docker build -t $FEED_REPO ./feed/backend &
-docker build -t $QUEUE_REPO ./queue/backend &
-docker build -t $BUFFER_REPO ./buffer/backend &
+docker build -t $FEED_REPO ./feed-service/feed-backend &
+docker build -t $QUEUE_REPO ./queue-service/queue-backend &
+docker build -t $BUFFER_REPO ./buffer-service/buffer-backend &
 
 # Wait for all build processes to complete
 wait
