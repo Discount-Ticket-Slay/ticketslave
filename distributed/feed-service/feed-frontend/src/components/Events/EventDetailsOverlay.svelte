@@ -1,4 +1,11 @@
 <!--EventDetailsOverlay.svelte-->
+
+<!--
+    * most parts of this page is styled in vanilla CSS.
+    ? this could be because some of the tailwindcss styles i tried to use are deprecated, but i'm not sure which ones
+-->
+
+
 <script>
     export let event
     import {createEventDispatcher} from 'svelte'
@@ -21,18 +28,71 @@
     }
 </script>
 
-<div class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-white p-4 rounded-lg shadow-lg h-3/4 w-3/4 relative">
-        <!--top right button, closes the overlay-->
-        <button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700 absolute top-2 right-2" on:click={closeDetails}>Close</button>
+<div class="background">
+    <div class="overlay bg-white p-4 rounded-lg shadow-lg h-3/4 w-3/4 relative">
+        <!-- Top right button, closes the overlay -->
+        <button class="close-button" on:click={closeDetails}>Close</button>
 
-        <!--displays all event information-->
+        <!-- Displays all event information -->
         <h2 class="text-xl font-bold">{event.eventName}</h2>
         <p class="text-sm text-gray-600 font-semibold">{event.eventDate}</p>
         <p class="text-sm text-gray-600 font-semibold">{event.eventLocation}</p>
         <p class="text-sm text-gray-600">{event.eventDescription}</p>
 
-        <!--bottom right button, redirects the user to the buffer/queue-->
-        <button class="absolute bottom-2 right-2 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700" on:click={moveToQueue}>Buy Tickets</button>
+        <!-- Bottom right button, redirects the user to the buffer/queue -->
+        <button class="redirect-button" on:click={moveToQueue}>Buy Tickets</button>
     </div>
 </div>
+
+<style>
+    .background {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .overlay {
+        background-color: white;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background-color: rgb(107 114 128); /*bg-gray-500*/
+        color: white;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .close-button:hover {
+        background-color: rgb(55 65 81); /*bg-gray-700*/
+    }
+
+    .redirect-button {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+        background-color: rgb(59 130 246); /*bg-blue-500*/
+        color: white;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .redirect-button:hover {
+        background-color: rgb(29 78 216); /*bg-blue-700*/
+    }
+</style>
