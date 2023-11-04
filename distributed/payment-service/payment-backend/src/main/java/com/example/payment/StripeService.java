@@ -14,6 +14,9 @@ import org.springframework.context.annotation.*;
 import org.springframework.web.reactive.function.client.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import reactor.netty.channel.*;
+
 
 @Service
 public class StripeService {
@@ -61,6 +64,15 @@ public class StripeService {
             Charge charge = Charge.create(chargeParams);
 
             chargeId = charge.getId();
+
+            //Send req back to Purchase microservice to complete purchase transaction and update database
+            ResponseEntity<String> responseEntity = RestTemplate.exchange("http://localhost:8082/purchases/" + purchaseId,
+            HttpMethod.PUT,
+            null,
+            String.class);
+            if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+                throw new AbortedException(responseEntity.getBody());
+            }
 
             //call email function from here
             List<Long> ticketList = purchase.getTicketIds();

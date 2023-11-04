@@ -34,7 +34,6 @@
         });
         return sections;
     }
-
 </script>
 
 <div class="bg-white p-4 rounded shadow w-1/2 min-h-screen">
@@ -42,8 +41,12 @@
     <ul>
         {#each getSections() as section}
             <li>
-                <button class="cursor-pointer bg-blue-400 text-white rounded-sm p-2 w-1/2 m-3" on:click={() => openOverlay(section)}>{section}</button>
-
+                <button 
+                    class="cursor-pointer bg-blue-400 text-white rounded-sm p-2 w-1/2 m-3" 
+                    on:click={() => openOverlay(section)}
+                >
+                    {section}
+                </button>
             </li>
         {/each}
     </ul>
