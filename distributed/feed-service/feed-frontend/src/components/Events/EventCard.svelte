@@ -1,13 +1,12 @@
 <!--
     TODO:
-    an EventCard should display the event name, event date, and event location.
-    the EventCard has a button that opens EventDetails as an overlay.
+    both EventCard and EventDetails should be able to display an image on the top half of each component
 -->
 
 <!--EventCard.svelte-->
 
 <script>
-	import EventDetails from "./EventDetails.svelte";
+	import EventDetailsOverlay from "./EventDetailsOverlay.svelte";
 
     export let event
 
@@ -15,10 +14,12 @@
     //if it was clicked, open the EventDetails as an overlay
     let isEventClicked = false
 
+    //opens the EventDetails overlay
     function showDetails() {
         isEventClicked = true
     }
 
+    //closes the EventDetails overlay
     function closeDetails() {
         isEventClicked = false
     }
@@ -34,6 +35,6 @@
 
 {#if isEventClicked}
     <div>
-        <EventDetails {event} on:close={closeDetails}/>
+        <EventDetailsOverlay {event} on:close={closeDetails}/>
     </div>
 {/if}
