@@ -10,6 +10,7 @@ resource "aws_lb" "ticket_micro_app_lb" {
 
   enable_cross_zone_load_balancing = true
   idle_timeout                     = 400
+  
 }
 
 # network load balancer

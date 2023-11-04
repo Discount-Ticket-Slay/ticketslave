@@ -50,7 +50,13 @@ resource "aws_lb_target_group" "buffer_target_group" {
   vpc_id      = var.ticket_micro_vpc_id
   target_type = "ip"
 
-  # Health check settings
+  # to enable sticky session for websocket
+  stickiness {
+    type            = "lb_cookie" 
+    cookie_duration = 86400 
+    enabled         = true
+  }
+
   health_check {
     enabled             = true
     interval            = 120
@@ -62,8 +68,8 @@ resource "aws_lb_target_group" "buffer_target_group" {
     unhealthy_threshold = 2
     matcher             = "200"
   }
-  
 }
+
 
 # Target group for the NLB that forwards to the ALB
 resource "aws_lb_target_group" "nlb_to_alb_target_group" {
