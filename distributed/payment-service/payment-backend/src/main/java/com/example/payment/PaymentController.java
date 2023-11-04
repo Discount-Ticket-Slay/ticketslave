@@ -49,7 +49,7 @@ public class PaymentController {
         }
         //Arbitrary amount for now, 9.99 USD
         String chargeId = stripeService.createCharge(email, token, purchaseId); 
-        
+ 
         if (chargeId == null) {
             return new Response(false, "Error occurred while trying to charge");
         }
