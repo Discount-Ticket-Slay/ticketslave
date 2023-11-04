@@ -4,28 +4,37 @@
     import { userId } from "../../store/store.js";
 
     async function queueForTickets(userId) {
-        try {
-            // Call backend to register user in the queue
-            const userIdString = String(userId);
-            console.log("Attempting to send userId:", userId);
-            console.log("Type of userId:", typeof userId);
-            
-            const response = await fetch('http://localhost:8080/queue', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: userIdString })
-            });
+    try {
+        // Call backend to register user in the queue
+        const userIdString = String(userId);
+        console.log("Attempting to send userId:", userId);
+        console.log("Type of userId:", typeof userId);
+        
+        // Send POST request to backend
+        const response = await fetch("https://www.ticketslave.org/feed/queue", {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: userIdString })
+        });
 
-            console.log("Response:", response);
+        console.log("Response:", response);
 
+        // Check the status of the response
+        if (response.status === 401) {
+            // If the user is not authorized, redirect to the Cognito login page
+            window.location.href = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=38vedjrqldlotkn6g9glq0sq9n&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Ffeed%2Fauth%2Fcognito-callback";
+        } else if (response.ok) {
             // Successful registration, redirect user to buffer service page to wait
-            if (response.ok) {
-                window.location.href = `http://localhost:8082?userId=${userId}`;  // Pass userId as URL parameter
-            }
-        } catch (error) {
-            console.error('An error occurred:', error);
+            window.location.href = `https://www.ticketslave.org/buffer`;  // Pass userId as URL parameter
+        } else {
+            // Handle other responses or errors accordingly
+            console.error('Failed to register in queue:', response.statusText);
         }
+    } catch (error) {
+        console.error('An error occurred:', error);
     }
+}
+
 </script>
 
 

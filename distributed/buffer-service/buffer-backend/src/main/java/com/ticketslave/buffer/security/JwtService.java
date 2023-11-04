@@ -40,7 +40,7 @@ public class JwtService {
             RestTemplate restTemplate = new RestTemplate();
 
             // URL to fetch the JSON Web Key Set (JWKS) as a string
-            String jwksUrl = "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_n5rc4gEk3/.well-known/jwks.json";
+            String jwksUrl = "https://cognito-idp.ap-southeast-1.amazonaws.com/ap-southeast-1_PIM1irhba/.well-known/jwks.json";
             String jwks = restTemplate.getForObject(jwksUrl, String.class);
 
             // Parse the JSON Web Key Set (JWKS) string to obtain the public key

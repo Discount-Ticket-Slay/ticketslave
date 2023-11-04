@@ -100,6 +100,16 @@ resource "aws_security_group" "ticket_micro_security_group" {
     cidr_blocks = [aws_vpc.ticket_micro_vpc.cidr_block]
   }
 
+  # Kafka Access
+  ingress {
+    description = "Kafka Access from VPC"
+    from_port   = 9092
+    to_port     = 9092
+    protocol    = "tcp"
+    cidr_blocks = [aws_vpc.ticket_micro_vpc.cidr_block]
+  }
+
+
   # Local Database Access
   ingress {
     description = "Local DB Access"

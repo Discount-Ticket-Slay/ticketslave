@@ -10,7 +10,7 @@
 <!-- Card component to display event details -->
 <div class="card text-center">
     <!-- Link to the event details page, using the event ID -->
-    <a href="/#/Event?id={event.eventId}" style="text-decoration: none;">
+    <a href="/feed/#/Event?id={event.eventId}" style="text-decoration: none;">
         <!-- Event image -->
         <img
             src="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/images/concert.jpg"

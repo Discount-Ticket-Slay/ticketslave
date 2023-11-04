@@ -20,21 +20,22 @@
                 eventList.push(json_data[i]);
             }
 
-            // Attempt to fetch userId
+            // Attempt to fetch userId as plain text
             const userIdResponse = await fetch(
                 "https://www.ticketslave.org/feed/email"
             );
             if (userIdResponse.ok) {
-                // Only process the user ID if the response is OK
-                const userIdData = await userIdResponse.json();
-                // Set userId in store if it exists
-                if (userIdData.userId) {
-                    $userId = userIdData.userId;
-                    showUserIdComponent = true; // Show the component
-                }
+                const textData = await userIdResponse.text();
+                // Set userId as text
+                $userId = textData; 
+                showUserIdComponent = true; // Show the component
             } else {
-                // If unauthorized or server error, we do not show the component
+                // Handle non-OK response
                 showUserIdComponent = false;
+                console.error(
+                    "Error fetching user ID:",
+                    userIdResponse.statusText
+                );
             }
         } catch (error) {
             console.error(error);

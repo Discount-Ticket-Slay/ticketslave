@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private JwtService jwtService;
+    private static final String COGNITO_LOGIN_PAGE = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=38vedjrqldlotkn6g9glq0sq9n&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Ffeed%2Fauth%2Fcognito-callback";
 
     @Autowired
     public JwtAuthenticationFilter(JwtService jwtService) {
@@ -37,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * verification for certain paths,
      * extracts the JWT token from cookies, verifies the token, and sets the
      * authentication context if the token is valid.
-     * Unauthorized requests are rejected.
+     * Unauthorized requests are rejected and redirected to the login page
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -48,17 +49,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        String jwtToken = jwtService.extractTokenFromCookies(request);
-        System.out.println("jwtToken: " + jwtToken);
+        try {
 
-        if (isValidToken(jwtToken)) {
-            setAuthenticationContext(jwtToken);
-        } else {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            String jwtToken = jwtService.extractTokenFromCookies(request);
+            System.out.println("jwtToken: " + jwtToken);
+
+            if (isValidToken(jwtToken)) {
+                setAuthenticationContext(jwtToken);
+            } else {
+                // If token is not valid, we also redirect to the login page
+                System.out.println("Token is not valid. Redirecting to login.");
+                response.sendRedirect(COGNITO_LOGIN_PAGE);
+                return;
+            }
+        } catch (Exception e) {
+            // Handle the exception and redirect to the login page
+            System.out.println("Exception occurred while validating token: " + e.getMessage());
+            response.sendRedirect(COGNITO_LOGIN_PAGE);
             return;
         }
 
+        // Continue with the filter chain if all is well
         filterChain.doFilter(request, response);
+
     }
 
     /*
