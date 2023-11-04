@@ -6,27 +6,39 @@
 
     //event details for every event from json file will go here
     let eventList = null;
+    let showUserIdComponent = false; // Used to control the display of the user ID component
 
     async function fetchData() {
         try {
             // Fetch event data
-            // const response = await fetch("http://localhost:8080/events"); // for local testing
-            const response = await fetch("https://www.ticketslave.org/feed/events"); // for deployment
+            const response = await fetch(
+                "https://www.ticketslave.org/feed/events"
+            );
             const json_data = await response.json();
             eventList = [];
             for (let i in json_data) {
                 eventList.push(json_data[i]);
             }
 
-            // Fetch userId
-            const userIdResponse = await fetch("http://localhost:8080/getUserId");
-            const userIdData = await userIdResponse.json();
-
-            // Set userId in store
-            $userId = userIdData.userId;
-
+            // Attempt to fetch userId
+            const userIdResponse = await fetch(
+                "http://www.ticketslave.org/feed/email"
+            );
+            if (userIdResponse.ok) {
+                // Only process the user ID if the response is OK
+                const userIdData = await userIdResponse.json();
+                // Set userId in store if it exists
+                if (userIdData.userId) {
+                    $userId = userIdData.userId;
+                    showUserIdComponent = true; // Show the component
+                }
+            } else {
+                // If unauthorized or server error, we do not show the component
+                showUserIdComponent = false;
+            }
         } catch (error) {
             console.error(error);
+            showUserIdComponent = false; // Do not show the component if any other error occurs
         }
     }
 
@@ -36,8 +48,8 @@
 <Navbar />
 <div class="events">
     <h3>Popular Events</h3>
-    {#if userId}
-        <p>Your assigned user ID is: {$userId}</p>
+    {#if showUserIdComponent}
+        <p>Your user ID is: {$userId}</p>
     {/if}
 </div>
 
