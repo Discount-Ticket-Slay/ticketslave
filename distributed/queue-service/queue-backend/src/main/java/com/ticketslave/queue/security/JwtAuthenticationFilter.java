@@ -70,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private boolean shouldSkipJwtVerification(HttpServletRequest request) {
         String path = request.getRequestURI();
         System.out.println("path: " + path);
-        return path.equals("/buffer/health");
+        return path.equals("/queue/health");
     }
 
     /*

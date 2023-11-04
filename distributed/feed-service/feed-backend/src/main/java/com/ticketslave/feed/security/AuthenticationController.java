@@ -31,7 +31,7 @@ public class AuthenticationController {
     private final String USER_POOL_CLIENT_SECRET;
     private static final String COGNITO_TOKEN_URL = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/token";
     private static final String REDIRECT_URI = "https://www.ticketslave.org/feed/auth/cognito-callback";
-    private static final String HOME_PAGE_URL = "https://www.ticketslave.org/feed/";
+    private static final String HOME_PAGE_URL = "https://www.ticketslave.org/feed/#/feed";
     private static final String ERROR_PAGE_URL = "https://www.google.com";
 
     @Autowired
