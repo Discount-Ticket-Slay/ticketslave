@@ -13,7 +13,7 @@
     <a href="/#/Event?id={event.eventId}" style="text-decoration: none;">
         <!-- Event image -->
         <img
-            src="public/images/concert.jpg"
+            src="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/images/concert.jpg"
             class="card-img-top"
             alt="No pic found"
             style="max-width: 100%;"
