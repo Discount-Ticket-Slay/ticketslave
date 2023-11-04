@@ -28,6 +28,11 @@
             cartItems = [...cartItems, ticket]; // Add the selected ticket to cartItems
         }
     }
+
+    //removes the ticket from the cart
+    function removeFromCart(item) {
+        cartItems = cartItems.filter((cartItem) => cartItem.id !== item.id);
+    }
 </script>
 
 <div>
