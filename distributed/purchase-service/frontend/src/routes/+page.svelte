@@ -18,13 +18,8 @@
         { id: 4, name: 'Concert Ticket 3', price: '$60', section: "223"}
 	];
 
-    //stores the tickets that are in the cart
+    //stores the tickets that are in the cart 
     let cartItems = []
-
-    //removes the ticket from the cart
-    function removeFromCart(item) {
-        cartItems = cartItems.filter((cartItem) => cartItem.id !== item.id);
-    }
 
     // adds the selected ticket to the cart
     function addToCart(ticket) {

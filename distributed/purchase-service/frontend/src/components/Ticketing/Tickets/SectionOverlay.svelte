@@ -11,12 +11,6 @@
 
     import Ticket from './Ticket.svelte'
 
-    function close() {
-        closeOverlay();
-    }
-
-
-
     //filter the tickets from that section
     let sectionTickets = concertTickets.filter(ticket => ticket.section === selectedSection)
 </script>
@@ -27,6 +21,6 @@
         {#each sectionTickets as ticket}
             <Ticket {ticket} onSelect={addToCart}/>
         {/each}
-        <button class="bg-blue-500 text-white rounded-sm p-2" on:click={close}>Close</button>
+        <button class="bg-blue-500 text-white rounded-sm p-2" on:click={closeOverlay}>Close</button>
     </div>
 </div>
