@@ -75,7 +75,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 || path.startsWith("/feed/#/Event")
                 || path.equals("/feed/auth/cognito-callback")
                 || path.equals("/feed/health")
-                || path.startsWith("/feed/events");
+                || path.startsWith("/feed/events")
+                || path.startsWith("/feed/public/");
     }
 
     /*

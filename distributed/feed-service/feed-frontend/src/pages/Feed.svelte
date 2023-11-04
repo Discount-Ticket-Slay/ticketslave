@@ -22,7 +22,7 @@
 
             // Attempt to fetch userId
             const userIdResponse = await fetch(
-                "http://www.ticketslave.org/feed/email"
+                "https://www.ticketslave.org/feed/email"
             );
             if (userIdResponse.ok) {
                 // Only process the user ID if the response is OK
