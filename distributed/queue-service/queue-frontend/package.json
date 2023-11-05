@@ -48,6 +48,7 @@
 		"carbon-components-svelte": "^0.81.2",
 		"d3": "^7.8.5",
 		"flowbite": "^2.0.0",
-		"flowbite-svelte": "^0.44.18"
+		"flowbite-svelte": "^0.44.18",
+		"tailwindcss": "^3.3.5"
 	}
 }
