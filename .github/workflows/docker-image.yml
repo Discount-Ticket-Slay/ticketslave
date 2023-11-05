@@ -126,10 +126,9 @@ jobs:
     - name: Check Docker Compose Config
       run: cd distributed && docker-compose config
 
-    - name: Check for port 8084 usage
+    - name: Stop conflicting Mono service on port 8084
       run: |
-        sudo lsof -i :8084 || true
-        sudo netstat -tulpn | grep :8084 || true
+        sudo kill $(sudo lsof -t -i :8084) || true
     
     - name: Docker Compose Up (Foreground)
       run: cd distributed && docker-compose up --force-recreate -d
