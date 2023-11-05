@@ -39,6 +39,7 @@
         <p class="text-sm text-gray-600">{event.eventDescription}</p>
 
         <!-- Bottom right button, redirects the user to the buffer/queue -->
+        <!-- * the click event takes in the userId and executes the queueForTickets function (not implemented) -->
         <button class="redirect-button" on:click={moveToQueue}>Buy Tickets</button>
     </div>
 </div>
