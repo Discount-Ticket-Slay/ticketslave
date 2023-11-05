@@ -14,16 +14,33 @@
      */
 	let events = []
 	onMount(async () => {
-		const response = await fetch("https://www.ticketslave.org/feed/events", {method: "GET"})
-		if (response.ok) {
-			const eventList = await response.json()
-			eventList.forEach(event => {
-				events.push(event)
-			});
-		} else {
+		await fetch("https://www.ticketslave.org/feed/events", {method: "GET", mode: "no-cors"})
+		.then(response => {
+			if(!response.ok) {
+				throw new Error("Response failed")
+			}
+			return response.json()
+		})
+		.then(data => {
+			try {
+				const eventList = data.json();
+
+				if (eventList) {
+					eventList.forEach(event => {
+						events.push(event)
+					});
+				}
+		} catch(error) {
 			console.error(error)
-		}
+		}})
+		.catch(error => {
+			console.error(error)
+		})
 	})
+	console.log(events)
+
+
+	
 </script>
 
 <Navbar />
