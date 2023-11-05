@@ -14,20 +14,20 @@ public class QueueService {
     @Autowired
     private SimpMessagingTemplate template;  // For WebSocket communication
 
-    private final Map<String, Integer> userQueueNumbers = new HashMap<>();
-
+    @Autowired
+    private TimerService timer;
+    public void dequeueAll() {
+        timer.startTimer();
+        while (true) {
+            if (timer.isTimerExpired()) {
+                dequeueOne();
+                timer.resetTimer();
+            }
+        }
+    }
     // Listen for messages from the Kafka queue (topic: randomised-queue)
     @KafkaListener(topics = "randomised-queue", groupId = "queue-group")
-    public void admitUser(String userId) {
-        
-        // Assign a queue number to the user
-        int queueNumber = userQueueNumbers.size() + 1;
-        userQueueNumbers.put(userId, queueNumber);
+    public void dequeueOne() {
 
-        // Create a QueueUpdate object to send as a WebSocket message
-        QueueUpdate queueUpdate = new QueueUpdate(userId, queueNumber);
-
-        // Send a WebSocket message to the frontend to notify the user of their queue number
-        template.convertAndSend("/topic/queue-updates", queueUpdate);
     }
 }
