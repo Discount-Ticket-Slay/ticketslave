@@ -1,7 +1,6 @@
 <!--
-    TODO:
-    when the EventCard is clicked, an overlay should open showing EventDetails
-    clicking on a Buy Tickets button in EventDetails should route the user to the buffer service
+    TODO: load actual events from database 
+	TODO: styling where necessary
 -->
 
 <script>

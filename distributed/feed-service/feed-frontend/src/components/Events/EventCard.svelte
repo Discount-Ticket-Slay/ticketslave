@@ -1,6 +1,5 @@
 <!--
-    TODO:
-    both EventCard and EventDetails should be able to display an image on the top half of each component
+    TODO: both EventCard and EventDetailsOverlay should be able to display an image on the top half of each component
 -->
 
 <!--EventCard.svelte-->

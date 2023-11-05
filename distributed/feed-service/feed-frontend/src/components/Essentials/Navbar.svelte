@@ -1,3 +1,7 @@
+<!--
+	TODO: display icon in Navbar and Footer
+-->
+
 <script>
 	function redirectToCognito() {
 		const cognitoURL =
@@ -7,9 +11,11 @@
 </script>
 
 <nav class="bg-cottage-brown p-4 flex justify-between items-center">
+	<!--logo-->
 	<div class="text-white text-xl font-serif">
 		<button class="text-white" onclick="window.location.href = '/'">ticketSlave</button>
 	</div>
+
 	<ul class="flex space-x-4">
 		<li>
 			<button class="text-gray-600 hover:underline" onclick="window.location.href = '/'"
@@ -31,6 +37,8 @@
 			>
 		</li>
 	</ul>
+
+	<!--login button-->
 	<button
 		class="bg-cottage-dark-brown text-white px-4 py-2 rounded hover:shadow-xl hover:text-white"
 		onclick={redirectToCognito}>Log In</button

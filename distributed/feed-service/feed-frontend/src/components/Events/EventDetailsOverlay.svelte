@@ -5,7 +5,6 @@
     ? this could be because some of the tailwindcss styles i tried to use are deprecated, but i'm not sure which ones
 -->
 
-
 <script>
     export let event
     import {createEventDispatcher} from 'svelte'
