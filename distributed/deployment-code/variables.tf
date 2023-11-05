@@ -20,6 +20,11 @@ variable "my_sql_database" {
   type        = string
 }
 
+variable "my_sql_purchase_database" {
+  description = "MySQL purchase database name"
+  type        = string
+}
+
 variable "spring_datasource_username" {
   description = "spring datasource username"
   type        = string
@@ -67,5 +72,15 @@ variable "user_pool_client_clientid" {
 
 variable "user_pool_client_secret" {
   description = "User pool secret"
+  type        = string
+}
+
+variable "stripe_key_public" {
+  description = "Stripe public key"
+  type        = string
+}
+
+variable "stripe_key_secret" {
+  description = "Stripe secret key"
   type        = string
 }

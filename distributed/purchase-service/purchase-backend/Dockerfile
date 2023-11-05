@@ -27,5 +27,7 @@ COPY --from=build /workspace/app/target/purchaseapp-1.0.jar .
 # Copy the .env file into the container
 COPY .env .env
 
+EXPOSE 8083
+
 # run the application
 CMD ["java", "-jar", "purchaseapp-1.0.jar"]

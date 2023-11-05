@@ -14,24 +14,32 @@ module "ecs" {
   # secret variables
   my_sql_root_password       = var.my_sql_root_password
   my_sql_database            = var.my_sql_database
+  my_sql_purchase_database   = var.my_sql_purchase_database
   spring_datasource_username = var.spring_datasource_username
   spring_datasource_password = var.spring_datasource_password
   user_pool_client_clientid  = var.user_pool_client_clientid
   user_pool_client_secret    = var.user_pool_client_secret
   admin_email                = var.admin_email
+  stripe_key_public          = var.stripe_key_public
+  stripe_key_secret          = var.stripe_key_secret
 
   # rds module output
-  rds_url = module.rds.db_instance_endpoint
+  rds_url          = module.rds.db_instance_endpoint
+  rds_purchase_url = module.rds.db_purchase_instance_endpoint
 
   # ecr module output
-  feed_service_repository_url   = module.ecr.feed_service_repository_url
-  queue_service_repository_url  = module.ecr.queue_service_repository_url
-  buffer_service_repository_url = module.ecr.buffer_service_repository_url
+  feed_service_repository_url     = module.ecr.feed_service_repository_url
+  queue_service_repository_url    = module.ecr.queue_service_repository_url
+  buffer_service_repository_url   = module.ecr.buffer_service_repository_url
+  purchase_service_repository_url = module.ecr.purchase_service_repository_url
+  payment_service_repository_url  = module.ecr.payment_service_repository_url
 
   # elb module output
-  feed_target_group_arn   = module.elb.feed_target_group_arn
-  queue_target_group_arn  = module.elb.queue_target_group_arn
-  buffer_target_group_arn = module.elb.buffer_target_group_arn
+  feed_target_group_arn     = module.elb.feed_target_group_arn
+  queue_target_group_arn    = module.elb.queue_target_group_arn
+  buffer_target_group_arn   = module.elb.buffer_target_group_arn
+  purchase_target_group_arn = module.elb.purchase_target_group_arn
+  payment_target_group_arn  = module.elb.payment_target_group_arn
 
   # network module output
   subnet_1_id           = module.network.ticket_micro_subnet_1_id
@@ -118,6 +126,5 @@ module "cloudfront" {
 
   # api gateway module output
   api_gateway_domain_name = element(split("://", module.api_gateway.api_gateway_domain_endpoint), 1)
-
 
 }

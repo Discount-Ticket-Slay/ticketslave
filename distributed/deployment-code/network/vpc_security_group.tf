@@ -4,60 +4,41 @@ resource "aws_security_group" "ticket_micro_security_group" {
   description = "Security group for the application"
   vpc_id      = aws_vpc.ticket_micro_vpc.id
 
-  # # HTTP Access from ELB
-  # dynamic "ingress" {
-  #   for_each = [8080, 8081, 8082]
-  #   content {
-  #     description      = "HTTP from ELB to port ${ingress.value}"
-  #     from_port        = 80
-  #     to_port          = ingress.value
-  #     protocol         = "tcp"
-  #   }
+  # # ELB health checks
+  # ingress {
+  #   description      = "Health check from ELB to port 8080"
+  #   from_port        = 8080
+  #   to_port          = 8080
+  #   protocol         = "tcp"
   # }
 
-  # # HTTPS Access from ELB
-  # dynamic "ingress" {
-  #   for_each = [8080, 8081, 8082]
-  #   content {
-  #     description      = "HTTPS from ELB to port ${ingress.value}"
-  #     from_port        = 443
-  #     to_port          = ingress.value
-  #     protocol         = "tcp"
-  #   }
+  # ingress {
+  #   description      = "Health check from ELB to port 8081"
+  #   from_port        = 8081
+  #   to_port          = 8081
+  #   protocol         = "tcp"
   # }
 
-  # # Health Check from ELB
-  # dynamic "ingress" {
-  #   for_each = [8080, 8081, 8082]
-  #   content {
-  #     description      = "Health check from ELB to port ${ingress.value}"
-  #     from_port        = ingress.value
-  #     to_port          = ingress.value
-  #     protocol         = "tcp"
-  #   }
+  # ingress {
+  #   description      = "Health check from ELB to port 8082"
+  #   from_port        = 8082
+  #   to_port          = 8082
+  #   protocol         = "tcp"
   # }
 
-  # ELB health checks
-  ingress {
-    description      = "Health check from ELB to port 8080"
-    from_port        = 8080
-    to_port          = 8080
-    protocol         = "tcp"
-  }
+  # ingress {
+  #   description      = "Health check from ELB to port 8083"
+  #   from_port        = 8083
+  #   to_port          = 8083
+  #   protocol         = "tcp"
+  # }
 
-  ingress {
-    description      = "Health check from ELB to port 8081"
-    from_port        = 8081
-    to_port          = 8081
-    protocol         = "tcp"
-  }
-
-  ingress {
-    description      = "Health check from ELB to port 8082"
-    from_port        = 8082
-    to_port          = 8082
-    protocol         = "tcp"
-  }
+  # ingress {
+  #   description      = "Health check from ELB to port 8084"
+  #   from_port        = 8084
+  #   to_port          = 8084
+  #   protocol         = "tcp"
+  # }
 
   # Network Access
   ingress {
@@ -173,6 +154,26 @@ resource "aws_security_group_rule" "allow_health_check_buffer" {
   type              = "ingress"
   from_port         = 8082
   to_port           = 8082
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ticket_micro_security_group.id
+}
+
+# Health check for the load balancer to application
+resource "aws_security_group_rule" "allow_health_check_purchase" {
+  type              = "ingress"
+  from_port         = 8083
+  to_port           = 8083
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ticket_micro_security_group.id
+}
+
+# Health check for the load balancer to application
+resource "aws_security_group_rule" "allow_health_check_payment" {
+  type              = "ingress"
+  from_port         = 8084
+  to_port           = 8084
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ticket_micro_security_group.id

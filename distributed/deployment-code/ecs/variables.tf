@@ -14,12 +14,17 @@ variable "buffer_service_repository_url" {
   type        = string
 }
 
-# RDS related variables (only used by feed service)
-variable "my_sql_root_password" {
-  description = "MySQL root password"
+variable "purchase_service_repository_url" {
+  description = "ECR repository URL for purchase service"
   type        = string
 }
 
+variable "payment_service_repository_url" {
+  description = "ECR repository URL for payment service"
+  type        = string
+}
+
+# RDS related variables (only used by feed service)
 variable "my_sql_database" {
   description = "MySQL database name"
   type        = string
@@ -27,6 +32,23 @@ variable "my_sql_database" {
 
 variable "rds_url" {
   description = "value of RDS URL"
+  type        = string
+}
+
+# RDS related variables (only used by purchase service)
+variable "my_sql_purchase_database" {
+  description = "MySQL purchase database name"
+  type        = string
+}
+
+variable "rds_purchase_url" {
+  description = "value of RDS purchase URL"
+  type        = string
+}
+
+# access passwords
+variable "my_sql_root_password" {
+  description = "MySQL root password"
   type        = string
 }
 
@@ -87,8 +109,29 @@ variable "buffer_target_group_arn" {
   type        = string
 }
 
+variable "purchase_target_group_arn" {
+  description = "ARN of the purchase target group"
+  type        = string
+}
+
+variable "payment_target_group_arn" {
+  description = "ARN of the payment target group"
+  type        = string
+}
+
 # MSK related variables
 variable "bootstrap_brokers" {
   description = "Bootstrap brokers"
+  type        = string
+}
+
+# Stripe related variables
+variable "stripe_key_public" {
+  description = "Stripe public key"
+  type        = string
+}
+
+variable "stripe_key_secret" {
+  description = "Stripe secret key"
   type        = string
 }

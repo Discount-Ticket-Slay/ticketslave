@@ -28,6 +28,7 @@ public class EventController {
         return eventService.getAllEvents();
     }
 
+
     /* Input: id (Event ID)
      * Output: Event object
      * Description: This method retrieves a specific event by its ID

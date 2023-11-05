@@ -21,6 +21,25 @@ locals {
       port : 8082,
       image_url : var.buffer_service_repository_url,
       additional_env : []
+    },
+    "purchase" : {
+      port : 8083,
+      image_url : var.purchase_service_repository_url,
+      additional_env : [
+        { "name" : "MYSQL_ROOT_PASSWORD", "value" : var.my_sql_root_password },
+        { "name" : "MYSQL_DATABASE", "value" : var.my_sql_purchase_database },
+        { "name" : "SPRING_DATASOURCE_URL", "value" : "jdbc:mysql://${var.rds_purchase_url}/${var.my_sql_purchase_database}" },
+        { "name" : "SPRING_DATASOURCE_USERNAME", "value" : var.spring_datasource_username },
+        { "name" : "SPRING_DATASOURCE_PASSWORD", "value" : var.spring_datasource_password }
+      ]
+    },
+    "payment" : {
+      port : 8084,
+      image_url : var.payment_service_repository_url,
+      additional_env : [
+        { "name" : "STRIPE_KEY_PUBLIC", "value" : var.stripe_key_public },
+        { "name" : "STRIPE_KEY_SECRET", "value" : var.stripe_key_secret }
+      ]
     }
   }
 }
