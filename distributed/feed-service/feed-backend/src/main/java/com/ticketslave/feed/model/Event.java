@@ -3,7 +3,6 @@ package com.ticketslave.feed.model;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-
 import jakarta.validation.constraints.*;
 
 @Entity
@@ -13,99 +12,120 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long EventId;
-
-    @NotNull(message = "eventName cannot be null")
-    private String EventName;
+    private Long eventId;
 
     @Lob
     @Column(columnDefinition = "TEXT")
-    @NotNull(message = "EventDescription cannot be null")
-    private String EventDescription;
+    @NotNull(message = "Event description cannot be null")
+    private String eventDescription;
 
-    @NotNull(message = "startDateTime cannot be null")
-    private String StartDateTime;
+    @NotNull(message = "Event name cannot be null")
+    private String eventName;
 
-    @NotNull(message = "venue cannot be null")
-    private String Venue;
+    @NotNull(message = "Start date and time cannot be null")
+    private String startDateTime;
 
-    @NotNull(message = "artist cannot be null")
-    private String Artist;
+    @NotNull(message = "Venue cannot be null")
+    private String venue;
 
-    private int Capacity = -1;
+    @NotNull(message = "Artist cannot be null")
+    private String artist;
 
-    // Getters, Setters, Constructors, etc.
+    private int capacity = -1;
+
+    /*
+     * Default Constructor: Initializes an empty Event object
+     * Input: None
+     * Output: None
+     * Description: This constructor initializes an empty Event object
+     */
     public Event() {
     }
 
+    /*
+     * Parameterized Constructor: Initializes an Event object with provided details
+     * Input: eventName, eventDescription, startDateTime, venue, artist, capacity
+     * Output: None
+     * Description: This constructor initializes an Event object with the provided
+     * details
+     */
     public Event(String eventName, String eventDescription, String startDateTime, String venue, String artist,
             int capacity) {
-        EventName = eventName;
-        EventDescription = eventDescription;
-        StartDateTime = startDateTime;
-        Venue = venue;
-        Artist = artist;
-        Capacity = capacity;
+        this.eventName = eventName;
+        this.eventDescription = eventDescription;
+        this.startDateTime = startDateTime;
+        this.venue = venue;
+        this.artist = artist;
+        this.capacity = capacity;
     }
 
+    // Getters and Setters for each field
+
     public Long getEventId() {
-        return EventId;
+        return eventId;
     }
 
     public void setEventId(Long eventId) {
-        EventId = eventId;
+        this.eventId = eventId;
     }
 
     public String getEventName() {
-        return EventName;
+        return eventName;
     }
 
     public void setEventName(String eventName) {
-        EventName = eventName;
+        this.eventName = eventName;
     }
 
     public String getEventDescription() {
-        return EventDescription;
+        return eventDescription;
     }
 
     public void setEventDescription(String eventDescription) {
-        EventDescription = eventDescription;
+        this.eventDescription = eventDescription;
     }
 
     public String getStartDateTime() {
-        return StartDateTime;
+        return startDateTime;
     }
 
     public void setStartDateTime(String startDateTime) {
-        StartDateTime = startDateTime;
+        this.startDateTime = startDateTime;
     }
 
     public String getVenue() {
-        return Venue;
+        return venue;
     }
 
     public void setVenue(String venue) {
-        Venue = venue;
+        this.venue = venue;
     }
 
     public String getArtist() {
-        return Artist;
+        return artist;
     }
 
     public void setArtist(String artist) {
-        Artist = artist;
+        this.artist = artist;
     }
 
     public int getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public void setCapacity(int capacity) {
-        Capacity = capacity;
+        this.capacity = capacity;
     }
 
+    /*
+     * toString Method: Provides a string representation of the Event object
+     * Input: None
+     * Output: String
+     * Description: This method returns the event name as the string representation
+     * of the Event object
+     */
     public String toString() {
-        return EventName;
+        return eventName;
     }
 
 }

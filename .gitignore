@@ -8,7 +8,7 @@
 npm-debug.log*
 
 # Ignore the node modules folder
-frontend/node_modules/
+/node_modules/
 
 # Ignore the build folder
 public/build/*

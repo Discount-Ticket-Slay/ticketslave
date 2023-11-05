@@ -2,6 +2,7 @@ package com.ticketslave.buffer.websockets;
 
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +27,8 @@ public class BufferWebSocketHandler extends TextWebSocketHandler {
 
             System.out.println("WebSocketHandler: Session URI: " + session.getUri());
             System.out.println("WebSocketHandler: Session URI query: " + session.getUri().getQuery());
-            System.out.println("WebSocketHandler: Session URI query split: " + session.getUri().getQuery().split("=")[1]);
+            System.out
+                    .println("WebSocketHandler: Session URI query split: " + session.getUri().getQuery().split("=")[1]);
 
             // Store the new session in the ConcurrentHashMap
             sessions.put(userId, session);
@@ -37,6 +39,37 @@ public class BufferWebSocketHandler extends TextWebSocketHandler {
             System.out.println("Error getting URI");
         }
 
+    }
+
+    // This method is called whenever a WebSocket connection is closed
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
+        // Log the close status
+        System.out.println(
+                "WebSocketHandler: Connection closed. Status: " + status.getCode() + " - " + status.getReason());
+
+        // Log whether the session is still open (should be false)
+        System.out.println("WebSocketHandler: Session is open: " + session.isOpen());
+
+        // Attempt to extract the userId from the session URI
+        try {
+            String userId = session.getUri().getQuery().split("=")[1];
+
+            // Log the user ID for the closed session
+            System.out.println("WebSocketHandler: Session closed for userId: " + userId);
+
+            // Remove the session from the ConcurrentHashMap
+            sessions.remove(userId);
+
+        } catch (Exception e) {
+            // This catches any exception, not just NullPointerException,
+            // to ensure we see errors related to other issues as well
+            System.out.println("WebSocketHandler: Error during session closure: " + e.getMessage());
+        }
+
+        // Additionally, you might want to log the entire session to check if there's
+        // more relevant info
+        System.out.println("WebSocketHandler: Closed session info: " + session.toString());
     }
 
     // Method to send a message to a specific user via WebSocket
@@ -59,7 +92,6 @@ public class BufferWebSocketHandler extends TextWebSocketHandler {
         } else {
             System.out.println("WebSocketHandler: No session found for userId: " + userId);
         }
-        
 
         // Check if the session is valid and open before sending message
         if (session != null && session.isOpen()) {
@@ -72,7 +104,7 @@ public class BufferWebSocketHandler extends TextWebSocketHandler {
             } catch (Exception e) {
                 System.out.println("WebSocketHandler: Error sending message: " + e.getMessage());
             }
-            
+
             System.out.println("WebSocketHandler: Message sent to userId: " + userId);
         }
     }

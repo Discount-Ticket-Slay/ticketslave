@@ -32,6 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-_app
-.vite
-robots.txt
+bundle.css 
+bundle.js
+bundle.js.map
+
+/public/*

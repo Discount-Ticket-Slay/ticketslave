@@ -9,7 +9,7 @@ public class TimerService {
     private boolean timerExpired = false;
 
     // Set the timer duration in milliseconds (e.g., 10 minutes)
-    private static final long TIMER_DURATION = 10000;
+    private static final long TIMER_DURATION = 600000;
 
     public void startTimer() {
         // Start the timer by setting a flag or using a timer thread

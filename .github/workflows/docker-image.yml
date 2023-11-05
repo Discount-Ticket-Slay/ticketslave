@@ -27,51 +27,109 @@ jobs:
       with:
         node-version: '20.6.1'
 
-    - name: Install frontend dependencies
+    - name: Install frontend dependencies for feed
       run: |
-        cd demoapp/frontend
+        cd distributed/feed-service/feed-frontend
         npm ci
 
-    - name: Build the frontend into the backend
+    - name: Build the frontend into the backend for feed
       run: |
-        cd demoapp/frontend
+        cd distributed/feed-service/feed-frontend
         npm run build
 
-    - name: Cache Maven dependencies
+    - name: Install frontend dependencies for queue
+      run: |
+        cd distributed/queue-service/queue-frontend
+        npm ci
+
+    - name: Build the frontend into the backend for queue
+      run: |
+        cd distributed/queue-service/queue-frontend
+        npm run build
+
+    - name: Install frontend dependencies for buffer
+      run: |
+        cd distributed/buffer-service/buffer-frontend
+        npm ci
+
+    - name: Build the frontend into the backend for buffer
+      run: |
+        cd distributed/buffer-service/buffer-frontend
+        npm run build
+
+    - name: Cache Maven dependencies (feed)
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: maven-${{ hashFiles('demoapp/backend/pom.xml') }}
+        key: maven-${{ hashFiles('distributed/feed-service/feed-backend/pom.xml') }}
         restore-keys: |
           maven-
 
-    - name: Set Environment Variables from Secrets
-      run: |
-        echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> $GITHUB_ENV
-        echo "RDS_HOST_URL=${{ secrets.RDS_HOST_URL }}" >> $GITHUB_ENV
-        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> $GITHUB_ENV
-        echo "MYSQL_DATABASE=${{ env.MYSQL_DATABASE }}" >> $GITHUB_ENV
-        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> $GITHUB_ENV
-        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> $GITHUB_ENV
-        echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}" >> $GITHUB_ENV
-        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> $GITHUB_ENV
-        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> $GITHUB_ENV
-        echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> $GITHUB_ENV
-        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> $GITHUB_ENV
-        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> $GITHUB_ENV
+    - name: Cache Maven dependencies (queue)
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: maven-${{ hashFiles('distributed/queue-service/queue-backend/pom.xml') }}
+        restore-keys: |
+          maven-
 
-    - name: Build and run the Docker image
+    - name: Cache Maven dependencies (buffer)
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: maven-${{ hashFiles('distributed/queue-service/queue-backend/pom.xml') }}
+        restore-keys: |
+          maven-
+
+    - name: Set .env file from Secrets
       run: |
-        cd demoapp/backend
-        docker-compose up --build -d
+        echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "RDS_HOST_URL=${{ secrets.RDS_HOST_URL }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "MYSQL_DATABASE=${{ env.MYSQL_DATABASE }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "ADMIN_EMAIL" >> ./distributed/buffer-service/buffer-backend/.env
+
+    - name: Docker Compose Build
+      run: cd distributed && docker-compose build
+    
+    - name: Show Docker Logs
+      run: cd distributed && docker-compose logs
+    
+    - name: Check .env file
+      run: cat ./distributed/feed-service/feed-backend/.env
+    
+    - name: Check Docker Compose Config
+      run: cd distributed && docker-compose config
+    
+    - name: Docker Compose Up (Foreground)
+      run: cd distributed && docker-compose up --force-recreate -d
+
+    - name: Wait for services to start
+      run: sleep 60
+
+    - name: Debugging
+      run: |
+        cd distributed
+        docker-compose ps
 
     - name: Check if the application is running
       run: |
-        cd demoapp/backend
-        docker-compose ps | grep "homeapp" # check if app is running
+        cd distributed
+        docker-compose ps | grep "distributed_feed_1"
+        docker-compose ps | grep "distributed_queue_1"
+        docker-compose ps | grep "distributed_buffer_1"
+
 
     - name: Cleanup
       if: always()
       run: |
-        cd demoapp/backend
+        cd distributed
         docker-compose down

@@ -9,41 +9,55 @@ import com.ticketslave.feed.model.Event;
 import com.ticketslave.feed.service.EventService;
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/feed/events")
 public class EventController {
 
-    @Autowired
-    private EventService EventService;
+    private final EventService eventService;
 
+    @Autowired
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
+    }
+
+    /* Input: None
+     * Output: List of all events
+     * Description: This method retrieves all events and returns them as a JSON list
+     */
     @GetMapping
     public List<Event> getAllEvents() {
-        
-        // convert get event object into json list
-        return EventService.getAllEvents();
-
+        return eventService.getAllEvents();
     }
 
+    /* Input: id (Event ID)
+     * Output: Event object
+     * Description: This method retrieves a specific event by its ID
+     */
     @GetMapping("/{id}/get")
     public Event getEvent(@PathVariable Long id) {
-        
-        // convert get event object into json list
-        return EventService.findEvent(id);
-
+        return eventService.findEvent(id);
     }
 
+    /* Input: Event object
+     * Output: Created Event object
+     * Description: This method creates a new event
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    public Event createEvent(@Valid @RequestBody Event Event) {
-        return EventService.createEvent(Event);
+    public Event createEvent(@Valid @RequestBody Event event) {
+        return eventService.createEvent(event);
     }
 
+    /* Input: id (Event ID)
+     * Output: Response entity with status and message
+     * Description: This method deletes an event by its ID
+     */
     @DeleteMapping("/{id}/delete")
     public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
         try {
-            EventService.deleteEvent(id);
-            return new ResponseEntity<String>("Event of ID:" + id + " deleted. ", HttpStatus.OK);
-        } catch (IllegalArgumentException e){
-            return new ResponseEntity<String>("Event does not exist", HttpStatus.NOT_FOUND);
+            eventService.deleteEvent(id);
+            return new ResponseEntity<>("Event of ID:" + id + " deleted.", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>("Event does not exist", HttpStatus.NOT_FOUND);
         }
     }
 

@@ -24,9 +24,9 @@ public class TicketService {
     }
 
     //creates a blank Ticket object
-    // public Ticket createTicket(Ticket Ticket) {
-    //     return TicketRepository.save(Ticket);
-    // }
+    public Ticket createTicket(Ticket Ticket) {
+        return TicketRepository.save(Ticket);
+    }
 
     //Searches database for Ticket object that corresponds to Id, returns it
     public Ticket findTicket(Long id) {
