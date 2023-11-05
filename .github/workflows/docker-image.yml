@@ -95,6 +95,7 @@ jobs:
         echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> ./distributed/feed-service/feed-backend/.env
         echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./distributed/feed-service/feed-backend/.env
         echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed-service/feed-backend/.env
+        echo "ADMIN_EMAIL" >> ./distributed/buffer-service/buffer-backend/.env
 
     - name: Docker Compose Build
       run: cd distributed && docker-compose build
