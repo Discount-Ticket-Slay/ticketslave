@@ -1,59 +1,84 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import { onMount } from 'svelte';
+
+	// onMount(() => {
+	// 	console.log(window);
+	// });
+
+    if(typeof window !== "undefined") {
+
+        // Temporarily get userId from query string
+        let userId = new URLSearchParams(window.location.search).get('userId');
+    
+        onMount(() => {
+            const socket = new WebSocket(`ws://localhost:8082/buffer-updates?userId=${userId}`);
+    
+            // Listen for messages from the server
+            socket.addEventListener('message', async function (event) {
+                const data = JSON.parse(event.data);
+    
+                console.log(data);
+    
+                if (data.userId === userId && data.queueNumber) {
+                    // Making a POST request to the queue service
+                    const response = await fetch('http://localhost:8081/queue', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            userId: data.userId,
+                            queueNumber: data.queueNumber
+                        })
+                    });
+    
+                    if (response.ok) {
+                        // Navigate to the next page without changing the URL.
+                        // The server should have set the necessary state to recognize this user.
+                        window.location.replace('http://localhost:8081/queuePage');
+                    } else {
+                        console.log('Failed to post data to the queue service');
+                    }
+                }
+            });
+    
+            // Listen for errors
+            socket.addEventListener('error', function (error) {
+                console.log('WebSocket Error: ', error);
+            });
+    
+            // Listen for WebSocket open event
+            socket.addEventListener('open', function (event) {
+                console.log('WebSocket is open now.');
+            });
+    
+            // Listen for WebSocket close event
+            socket.addEventListener('close', function (event) {
+                console.log('WebSocket is closed now.', event.reason);
+            });
+        });
+    }
+
 </script>
 
-<svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
-</svelte:head>
-
-<section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
+<main>
+	<h1>You are in the queue</h1>
+	<p>Please wait while we process your request.</p>
+</main>
 
 <style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
+	main {
+		text-align: center;
+		padding: 1em;
+		max-width: 240px;
+		margin: 0 auto;
 	}
 
 	h1 {
-		width: 100%;
+		color: #333;
 	}
 
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+	p {
+		color: #666;
 	}
 </style>

@@ -1,5 +1,6 @@
 <script>
     import {onMount} from 'svelte';
+    
     onMount(() => {
         console.log(window.innerWidth)
     })
@@ -139,7 +140,9 @@
         y={(height / 3) * 2 - mh / 2}
         width={mw}
         height={mh}
-    />
+        xlink:href=../static/favicon.png
+    />  
+
     <rect
         bind:this={obstacle}
         x={width}
