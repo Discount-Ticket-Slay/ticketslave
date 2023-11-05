@@ -1,108 +1,119 @@
+<!--
+    TODO: load actual events from database 
+	TODO: styling where necessary
+-->
+
 <script>
-    // import PreloadLayout from '../layouts/PreloadLayout.svelte';
-    import "carbon-components-svelte/css/white.css";
-    const loginButtonStyle = "text-decoration: none;";
-    function redirectToCognito() {
-        const cognitoURL =
-            "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=4ash60bkicla7a4tdjdkob3pqu&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+profile&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcognito-callback";
-        window.location.href = cognitoURL;
-    }
+    import Navbar from '../components/Essentials/Navbar.svelte';
+    import Footer from '../components/Essentials/Footer.svelte';
+	import EventCard from '../components/Events/EventCard.svelte';
+
+	/**
+     * array of dummy event values.
+     * *will be replaced by actual events in the HTTP GET request
+     */
+	const events = [
+		{
+			eventName: 'Event 1',
+			eventDate: 'Date: November 15, 2023',
+			eventLocation: 'Location: Venue A',
+			eventDescription: 'Join us for an exciting evening filled with music and entertainment.'
+		},
+		{
+			eventName: 'Event 2',
+			eventDate: 'Date: December 5, 2023',
+			eventLocation: 'Location: Venue B',
+			eventDescription: 'A holiday celebration with festive decorations and delicious treats.'
+		},
+		{
+			eventName: 'Event 3',
+			eventDate: 'Date: January 20, 2024',
+			eventLocation: 'Location: Venue C',
+			eventDescription: 'An educational conference featuring industry experts and workshops.'
+		},
+		{
+			eventName: 'Event 4',
+			eventDate: 'Date: February 10, 2024',
+			eventLocation: 'Location: Venue D',
+			eventDescription: 'A fundraising gala to support a local charity and make a difference.'
+		},
+		{
+			eventName: 'Event 5',
+			eventDate: 'Date: March 25, 2024',
+			eventLocation: 'Location: Venue E',
+			eventDescription: 'A food festival showcasing a variety of cuisines from around the world.'
+		},
+		{
+			eventName: 'Event 6',
+			eventDate: 'Date: April 15, 2024',
+			eventLocation: 'Location: Venue F',
+			eventDescription: 'A cultural festival celebrating diversity.'
+		},
+		{
+			eventName: 'Event 7',
+			eventDate: 'Date: May 20, 2024',
+			eventLocation: 'Location: Venue G',
+			eventDescription: 'A science and technology conference with leading experts.'
+		},
+		{
+			eventName: 'Event 8',
+			eventDate: 'Date: June 5, 2024',
+			eventLocation: 'Location: Venue H',
+			eventDescription: 'A sports tournament with teams from around the world.'
+		},
+		{
+			eventName: 'Event 9',
+			eventDate: 'Date: July 10, 2024',
+			eventLocation: 'Location: Venue I',
+			eventDescription: "An art exhibition featuring renowned artists' works."
+		},
+		{
+			eventName: 'Event 10',
+			eventDate: 'Date: August 25, 2024',
+			eventLocation: 'Location: Venue J',
+			eventDescription: 'A charity fundraiser to support a humanitarian cause.'
+		},
+		{
+			eventName: 'Event 11',
+			eventDate: 'Date: September 10, 2024',
+			eventLocation: 'Location: Venue K',
+			eventDescription: 'A culinary festival showcasing local cuisine.'
+		},
+		{
+			eventName: 'Event 12',
+			eventDate: 'Date: October 5, 2024',
+			eventLocation: 'Location: Venue L',
+			eventDescription: 'A fashion show with the latest trends and designs.'
+		},
+		{
+			eventName: 'Event 13',
+			eventDate: 'Date: November 20, 2024',
+			eventLocation: 'Location: Venue M',
+			eventDescription: 'A book fair with authors and book signings.'
+		},
+		{
+			eventName: 'Event 14',
+			eventDate: 'Date: December 10, 2024',
+			eventLocation: 'Location: Venue N',
+			eventDescription: 'A holiday market with unique gifts and decorations.'
+		},
+		{
+			eventName: 'Event 15',
+			eventDate: 'Date: January 5, 2025',
+			eventLocation: 'Location: Venue O',
+			eventDescription: 'An environmental awareness campaign and cleanup event.'
+		}
+	];
 </script>
 
-<div class="content">
-    <p class="logo">ticketSlave</p> 
-    <a href="/Feed" class="button" style="text-decoration: none;"
-        >Browse Events</a
-    >
-    <div class="login-buttons">
-        <button on:click={redirectToCognito} class="button login-button" style={loginButtonStyle}>Log In / Sign Up</button>
-        <!-- <a href="/#/signup" class="button login-button" style={loginButtonStyle}
-            >Sign up</a
-        > -->
-    </div>
+<Navbar />
+
+<div class="m-10 min-h-screen rounded-lg">
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+		{#each events as event}
+			<EventCard {event} />
+		{/each}
+	</div>
 </div>
 
-<style>
-    @import url("https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap");
-
-    .content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        background-color: beige;
-    }
-
-    .logo {
-        font-family: "GFS Didot", serif;
-        font-size: 6rem;
-
-        animation: fadeIn ease 3s;
-        animation-iteration-count: 1;
-        animation-fill-mode: forwards;
-    }
-
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    .login-buttons {
-        margin-top: 2vh;
-    }
-
-    .button {
-        display: inline-block;
-        padding: 0.75rem 1.25rem;
-        border-radius: 10rem;
-        color: #555;
-        text-transform: uppercase;
-        font-size: 1rem;
-        letter-spacing: 0.15rem;
-        transition: all 0.3s;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        cursor: pointer;
-    }
-
-    .button::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #d2b48c;
-        border-radius: 10rem;
-        z-index: -2;
-    }
-
-    .button::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0%;
-        height: 100%;
-        background-color: #b6916b;
-        transition: all 0.3s;
-        border-radius: 10rem;
-        z-index: -1;
-    }
-
-    .button:hover {
-        color: #fff;
-    }
-
-    .button:hover::before {
-        width: 100%;
-    }
-</style>
+<Footer />
