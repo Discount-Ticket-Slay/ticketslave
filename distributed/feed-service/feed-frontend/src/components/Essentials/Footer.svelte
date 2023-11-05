@@ -8,7 +8,7 @@
             <h2 class="text-xl font-serif mb-2">Contact Us</h2>
             <p class="text-sm text-gray-300">Reach out to us for any questions or inquiries.</p>
         </div>
-        <div class="w-full sm:w-1/2 lg:w-1/4">
+        <div class="w-full mt-3 sm:w-1/2 lg:w-1/4">
             <h2 class="text-xl font-serif mb-2">Links</h2>
             <ul class="text-sm text-gray-300">
                 <li><button href="/" class="hover:underline">Home</button></li>
