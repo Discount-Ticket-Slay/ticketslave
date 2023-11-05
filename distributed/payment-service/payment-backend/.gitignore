@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+bundle.css 
+bundle.js
+bundle.js.map
+
+/public/*

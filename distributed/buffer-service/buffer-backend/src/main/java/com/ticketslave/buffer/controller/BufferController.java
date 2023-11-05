@@ -1,16 +1,16 @@
 package com.ticketslave.buffer.controller;
 
-import com.ticketslave.buffer.service.RandomiserService;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/buffer")
 public class BufferController {
 
     // serve the buffer landing page
-    public String home(@RequestParam(name = "userId", required = false) String userId) {
+    @GetMapping()
+    public String home() {
         return "index";
     }
 

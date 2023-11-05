@@ -32,6 +32,5 @@
 	<span class="font-semibold">{ticket.name} - {ticket.price}</span>
 	<button class="{buttonStyle} font-bold py-2 px-4 rounded" on:click={handleSelect}>
 		{isInCart ? "In Cart" : "Select"}
-	</button
-	>
+	</button>
 </div>
