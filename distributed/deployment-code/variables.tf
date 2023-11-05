@@ -30,6 +30,11 @@ variable "spring_datasource_password" {
   type        = string
 }
 
+variable "admin_email" {
+  description = "value of admin email"
+  type        = string
+}
+
 variable "aws_account_id" {
   description = "AWS account ID"
   type        = string

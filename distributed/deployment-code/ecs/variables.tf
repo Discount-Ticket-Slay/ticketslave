@@ -50,6 +50,11 @@ variable "user_pool_client_secret" {
   type        = string
 }
 
+variable "admin_email" {
+  description = "value of admin email"
+  type        = string
+}
+
 # Network related variables
 variable "subnet_1_id" {
   description = "subnet 1 ID"

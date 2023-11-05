@@ -17,6 +17,7 @@ export TF_VAR_aws_certificate_arn=$AWS_CERTIFICATE_ARN
 export TF_VAR_local_cidr_block=$LOCAL_CIDR_BLOCK
 export TF_VAR_user_pool_client_clientid=$user_pool_client_clientid
 export TF_VAR_user_pool_client_secret=$user_pool_client_secret
+export TF_VAR_admin_email=$ADMIN_EMAIL
 
 echo "Debug: TF_VAR_ecr_repo_url is $TF_VAR_ecr_repo_url"
 echo "Debug: TF_VAR_my_sql_root_password is $TF_VAR_my_sql_root_password"
@@ -30,6 +31,7 @@ echo "Debug: TF_VAR_aws_certificate_arn is $TF_VAR_aws_certificate_arn"
 echo "Debug: TF_VAR_local_cidr_block is $TF_VAR_local_cidr_block"
 echo "Debug: TF_VAR_user_pool_client_clientid is $TF_VAR_user_pool_client_clientid"
 echo "Debug: TF_VAR_user_pool_client_secret is $TF_VAR_user_pool_client_secret"
+echo "Debug: TF_VAR_ADMIN_EMAIL is $TF_VAR_admin_email"
 
 # Run Terraform commands
 terraform init

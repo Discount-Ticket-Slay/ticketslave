@@ -18,6 +18,7 @@ module "ecs" {
   spring_datasource_password = var.spring_datasource_password
   user_pool_client_clientid  = var.user_pool_client_clientid
   user_pool_client_secret    = var.user_pool_client_secret
+  admin_email                = var.admin_email
 
   # rds module output
   rds_url = module.rds.db_instance_endpoint

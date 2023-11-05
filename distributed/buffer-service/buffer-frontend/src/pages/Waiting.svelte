@@ -1,5 +1,46 @@
 <script>
     import { onMount } from "svelte";
+    import { writable } from "svelte/store";
+
+    let isAdmin = writable(false);
+
+    async function checkAdminStatus() {
+        // Call the backend's isAdmin method to check if the user is an admin
+        const response = await fetch(
+            `https://www.ticketslave.org/buffer/isAdmin`,
+            {
+                method: "GET", // Changed to GET since we are not submitting data
+                credentials: "include", // Include cookies to ensure credentials are sent
+            }
+        );
+
+        if (response.ok) {
+            const isAdminResponse = await response.json();
+            isAdmin.set(isAdminResponse); // Update our admin status with the response (true or false)
+        } else {
+            console.error("Failed to check admin status");
+        }
+    }
+
+    // Function to trigger the randomiser
+    async function triggerRandomiser() {
+        // Here we make a POST request to the backend endpoint
+        const response = await fetch(
+            `https://www.ticketslave.org/buffer/trigger-randomiser`,
+            {
+                method: "POST", // POST request to trigger the randomiser
+                credentials: "include", // Include cookies for authentication
+            }
+        );
+
+        if (response.ok) {
+            console.log("Randomisation process triggered successfully.");
+            // Handle successful randomisation trigger if needed
+        } else {
+            console.error("Failed to trigger randomisation process.");
+            // Handle errors if the trigger was unsuccessful
+        }
+    }
 
     async function getUserId() {
         const response = await fetch(
@@ -21,14 +62,12 @@
     let userId = ""; // Initialized as empty string
 
     onMount(async () => {
-        // Make onMount hook async
-        userId = await getUserId(); // Wait until the userId is fetched
+        
+        // fetch the user's email from the backend
+        userId = await getUserId();
 
-        console.log(typeof(userId));
-        console.log(userId);
-
-        // temporarily fake it
-        userId = "test";
+        // check if the user's an admin
+        await checkAdminStatus();
 
         // Now userId is a string, and can be used to establish WebSocket connection
         const socket = new WebSocket(
@@ -90,7 +129,10 @@
     <p>Please wait while we process your request.</p>
     <p>Please do not close this page</p>
     <p>User: {userId}</p>
-    <!-- Updated to use correct Svelte syntax -->
+    <!-- Conditional rendering for admin button -->
+    {#if $isAdmin}
+        <button on:click={triggerRandomiser}>Trigger Randomiser</button>
+    {/if}
 </main>
 
 <style>

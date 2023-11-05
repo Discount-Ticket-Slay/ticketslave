@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 @Service
-public class RandomiserService {
+public class ShuffleService {
 
     @Autowired
     private BufferWebSocketHandler webSocketHandler;
