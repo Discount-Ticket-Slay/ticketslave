@@ -14,6 +14,10 @@ import org.springframework.context.annotation.*;
 import org.springframework.web.reactive.function.client.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import reactor.netty.channel.*;
+import reactor.netty.channel.AbortedException;
+
 
 @Service
 public class StripeService {
@@ -44,23 +48,38 @@ public class StripeService {
         return id;
     }
 
-    public String createCharge(String email, String token, Long purchaseId) {
+    public String createCharge(String email, String token, Long purchaseId) throws AbortedException{
         //grab PurchaseDTO microservice
         PurchaseDTO purchase = RestTemplate.getForObject("http://localhost:8082/purchases/" + purchaseId, 
         PurchaseDTO.class);
         String chargeId = null;
+
         try {
             Stripe.apiKey = API_SECRET_KEY;
 
             Map<String, Object> chargeParams = new HashMap<>();
             chargeParams.put("description", "Charge for " + email);
             chargeParams.put("currency", "usd");
+
+            if (purchase.getPrice() < 0) {
+                throw new AbortedException("No tickets in cart");
+            }
+
             chargeParams.put("amount", purchase.getPrice());
             chargeParams.put("source", token);
 
             Charge charge = Charge.create(chargeParams);
 
             chargeId = charge.getId();
+
+            //Send req back to Purchase microservice to complete purchase transaction and update database
+            ResponseEntity<String> responseEntity = RestTemplate.exchange("http://localhost:8082/purchases/" + purchaseId,
+            HttpMethod.PUT,
+            null,
+            String.class);
+            if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+                throw new AbortedException(responseEntity.getBody());
+            }
 
             //call email function from here
             List<Long> ticketList = purchase.getTicketIds();
