@@ -10,6 +10,14 @@ output "buffer_target_group_arn" {
   value = aws_lb_target_group.buffer_target_group.arn
 }
 
+output "purchase_target_group_arn" {
+  value = aws_lb_target_group.purchase_target_group.arn
+}
+
+output "payment_target_group_arn" {
+  value = aws_lb_target_group.payment_target_group.arn
+}
+
 output "ticket_micro_app_lb_arn" {
   value = aws_lb.ticket_micro_app_lb.arn
 }
