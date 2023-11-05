@@ -17,37 +17,32 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '20.6.1'
+        node-version: '16.x'
 
-    - name: Install frontend dependencies for feed
+    - name: Install frontend dependencies for feed and build
       run: |
         cd distributed/feed-service/feed-frontend
-        npm ci
+        npm ci && npm run build
 
-    - name: Build the frontend into the backend for feed
-      run: |
-        cd distributed/feed-service/feed-frontend
-        npm run build
-
-    - name: Install frontend dependencies for queue
+    - name: Install frontend dependencies for queue and build
       run: |
         cd distributed/queue-service/queue-frontend
-        npm ci
+        npm ci && npm run build
 
-    - name: Build the frontend into the backend for queue
-      run: |
-        cd distributed/queue-service/queue-frontend
-        npm run build
-
-    - name: Install frontend dependencies for buffer
+    - name: Install frontend dependencies for buffer and build
       run: |
         cd distributed/buffer-service/buffer-frontend
-        npm ci
+        npm ci && npm run build
 
-    - name: Build the frontend into the backend for buffer
+    - name: Install frontend dependencies for purchase and build
       run: |
-        cd distributed/buffer-service/buffer-frontend
-        npm run build
+        cd distributed/purchase-service/purchase-frontend
+        npm ci && npm run build
+
+    - name: Install frontend dependencies for payment and build
+      run: |
+        cd distributed/payment-service/payment-frontend
+        npm ci && npm run build
 
     - name: Cache Maven dependencies (feed)
       uses: actions/cache@v3
@@ -69,7 +64,23 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: maven-${{ hashFiles('distributed/queue-service/queue-backend/pom.xml') }}
+        key: maven-${{ hashFiles('distributed/buffer-service/buffer-backend/pom.xml') }}
+        restore-keys: |
+          maven-
+
+    - name: Cache Maven dependencies (purchase)
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: maven-${{ hashFiles('distributed/purchase-service/purchase-backend/pom.xml') }}
+        restore-keys: |
+          maven-
+
+    - name: Cache Maven dependencies (payment)
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2
+        key: maven-${{ hashFiles('distributed/payment-service/payment-backend/pom.xml') }}
         restore-keys: |
           maven-
 
@@ -87,7 +98,9 @@ jobs:
         echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> ./distributed/feed-service/feed-backend/.env
         echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./distributed/feed-service/feed-backend/.env
         echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "ADMIN_EMAIL" >> ./distributed/buffer-service/buffer-backend/.env
+        echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> ./distributed/buffer-service/buffer-backend/.env
+        echo "STRIPE_KEY_PUBLIC=${{ secrets.STRIPE_KEY_PUBLIC }}" >> ./distributed/payment-service/payment-backend/.env
+        echo "STRIPE_KEY_SECRET=${{ secrets.STRIPE_KEY_SECRET }}" >> ./distributed/payment-service/payment-backend/.env
 
     - name: Docker Compose Build
       run: cd distributed && docker-compose build
@@ -95,8 +108,14 @@ jobs:
     - name: Show Docker Logs
       run: cd distributed && docker-compose logs
     
-    - name: Check .env file
+    - name: Check .env file (feed)
       run: cat ./distributed/feed-service/feed-backend/.env
+
+    - name: Check .env file (buffer)
+      run: cat ./distributed/buffer-service/buffer-backend/.env
+
+    - name: Check .env file (payment)
+      run: cat ./distributed/payment-service/payment-backend/.env
     
     - name: Check Docker Compose Config
       run: cd distributed && docker-compose config
@@ -105,7 +124,7 @@ jobs:
       run: cd distributed && docker-compose up --force-recreate -d
 
     - name: Wait for services to start
-      run: sleep 60
+      run: sleep 30
 
     - name: Debugging
       run: |
@@ -118,7 +137,8 @@ jobs:
         docker-compose ps | grep "distributed_feed_1"
         docker-compose ps | grep "distributed_queue_1"
         docker-compose ps | grep "distributed_buffer_1"
-
+        docker-compose ps | grep "distributed_purchase_1"
+        docker-compose ps | grep "distributed_payment_1"
 
     - name: Cleanup
       if: always()

@@ -28,6 +28,20 @@ services:
     depends_on:
       - kafka
 
+  purchase:
+    build: ./purchase-service/purchase-backend
+    ports:
+      - "8083:8083"
+    env_file:
+      - ./purchase-service/purchase-backend/.env
+    
+  payment:
+    build: ./payment-service/payment-backend
+    ports:
+      - "8084:8084"
+    env_file:
+      - ./payment-service/payment-backend/.env
+
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     ports:
