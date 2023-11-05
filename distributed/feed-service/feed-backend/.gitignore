@@ -14,9 +14,9 @@ public/build/*
 frontend/node_modules/
 
 # Ignore build files
-/bundle.js
-/bundle.js.map
-/bundle.css
+bundle.js
+bundle.js.map
+bundle.css
 
 # Ignore for security (not pushed)
 .env

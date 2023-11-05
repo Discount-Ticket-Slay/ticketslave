@@ -1,12 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Your Svelte App</title>
-    <script defer src="/public/build/bundle.js"></script> <!-- Svelte compiled JS -->
-    <link rel="stylesheet" href="/public/build/bundle.css"> <!-- Svelte compiled CSS -->
-</head>
-<body>
-    <div id="app"></div>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/assets/0.f4221966.css" rel="stylesheet" />
+    <link href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/assets/2.ce2275b2.css" rel="stylesheet" />
+    <link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/entry/start.053f06ad.js" />
+    <link
+      rel="modulepreload"
+      href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/chunks/scheduler.7dbff095.js"
+    />
+    <link
+      rel="modulepreload"
+      href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/chunks/singletons.beae0986.js"
+    />
+    <link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/entry/app.0e47b52e.js" />
+    <link
+      rel="modulepreload"
+      href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/chunks/index.2846790d.js"
+    />
+    <link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/nodes/0.fc991471.js" />
+    <link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/nodes/2.4d6e7264.js" />
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">
+      <nav class="bg-cottage-brown p-4 flex justify-between items-center">
+        <div
+          class="text-white text-xl font-serif"
+          data-svelte-h="svelte-1b6l4be"
+        >
+          <button class="text-white" onclick="window.location.href = '/'">
+            ticketSlave
+          </button>
+        </div>
+        <ul class="flex space-x-4" data-svelte-h="svelte-gf1apr">
+          <li>
+            <button
+              class="text-gray-600 hover:underline"
+              onclick="window.location.href = '/'"
+            >
+              Home
+            </button>
+          </li>
+          <li>
+            <button
+              class="text-gray-600 hover:underline"
+              onclick="window.location.href = '/'"
+            >
+              About
+            </button>
+          </li>
+          <li>
+            <button
+              class="text-gray-600 hover:underline"
+              onclick="window.location.href = '/'"
+            >
+              FAQ
+            </button>
+          </li>
+          <li>
+            <button
+              class="text-gray-600 hover:underline"
+              onclick="window.location.href = '/'"
+            >
+              Contact
+            </button>
+          </li>
+        </ul>
+        <button
+          class="bg-cottage-dark-brown text-white px-4 py-2 rounded hover:shadow-xl hover:text-white"
+          onclick='function redirectToCognito() {
+  const cognitoURL = "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=4ash60bkicla7a4tdjdkob3pqu&amp;response_type=code&amp;scope=aws.cognito.signin.user.admin+email+openid+profile&amp;redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcognito-callback";
+  window.location.href = cognitoURL;
+}'
+        >
+          Log In
+        </button>
+      </nav>
+      <div class="m-10 min-h-screen rounded-lg">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 1</h2>
+            <p class="text-sm text-gray-600">Date: November 15, 2023</p>
+            <p class="text-sm text-gray-600">Location: Venue A</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 2</h2>
+            <p class="text-sm text-gray-600">Date: December 5, 2023</p>
+            <p class="text-sm text-gray-600">Location: Venue B</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 3</h2>
+            <p class="text-sm text-gray-600">Date: January 20, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue C</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 4</h2>
+            <p class="text-sm text-gray-600">Date: February 10, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue D</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 5</h2>
+            <p class="text-sm text-gray-600">Date: March 25, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue E</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 6</h2>
+            <p class="text-sm text-gray-600">Date: April 15, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue F</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 7</h2>
+            <p class="text-sm text-gray-600">Date: May 20, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue G</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 8</h2>
+            <p class="text-sm text-gray-600">Date: June 5, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue H</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 9</h2>
+            <p class="text-sm text-gray-600">Date: July 10, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue I</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 10</h2>
+            <p class="text-sm text-gray-600">Date: August 25, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue J</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 11</h2>
+            <p class="text-sm text-gray-600">Date: September 10, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue K</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 12</h2>
+            <p class="text-sm text-gray-600">Date: October 5, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue L</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 13</h2>
+            <p class="text-sm text-gray-600">Date: November 20, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue M</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 14</h2>
+            <p class="text-sm text-gray-600">Date: December 10, 2024</p>
+            <p class="text-sm text-gray-600">Location: Venue N</p>
+          </button>
+          <button
+            class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer"
+          >
+            <h2 class="text-xl font-semibold">Event 15</h2>
+            <p class="text-sm text-gray-600">Date: January 5, 2025</p>
+            <p class="text-sm text-gray-600">Location: Venue O</p>
+          </button>
+        </div>
+      </div>
+      <footer
+        class="bg-cottage-brown p-4 text-white font-sans"
+        data-svelte-h="svelte-10sheof"
+      >
+        <div
+          class="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between"
+        >
+          <div class="w-full sm:w-1/2 lg:w-1/4">
+            <h2 class="text-xl font-serif mb-2">About Us</h2>
+            <p class="text-sm text-gray-300">
+              A fair and reliable ticketing system.
+            </p>
+          </div>
+          <div class="w-full sm:w-1/2 lg:w-1/4">
+            <h2 class="text-xl font-serif mb-2">Contact Us</h2>
+            <p class="text-sm text-gray-300">
+              Reach out to us for any questions or inquiries.
+            </p>
+          </div>
+          <div class="w-full mt-3 sm:w-1/2 lg:w-1/4">
+            <h2 class="text-xl font-serif mb-2">Links</h2>
+            <ul class="text-sm text-gray-300">
+              <li><button href="/" class="hover:underline">Home</button></li>
+              <li><button href="/" class="hover:underline">About</button></li>
+              <li><button href="/" class="hover:underline">FAQ</button></li>
+              <li><button href="/" class="hover:underline">Contact</button></li>
+            </ul>
+          </div>
+          <div class="w-full sm:w-1/2 lg:w-1/4">
+            <h2 class="text-xl font-serif mb-2">Social Media</h2>
+            <ul class="text-sm text-gray-300">
+              <li>
+                <button href="/" class="hover:underline">Facebook</button>
+              </li>
+              <li>
+                <button href="/" class="hover:underline">Instagram</button>
+              </li>
+              <li><button href="/" class="hover:underline">Twitter</button></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+
+      <script>
+        {
+          __sveltekit_10ej6xm = {
+            base: new URL(".", location).pathname.slice(0, -1),
+            env: {},
+          };
+
+          const element = document.currentScript.parentElement;
+
+          const data = [
+            { type: "data", data: null, uses: {} },
+            { type: "data", data: null, uses: {} },
+          ];
+
+          Promise.all([
+            import("https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/entry/start.053f06ad.js"),
+            import("https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/_app/immutable/entry/app.0e47b52e.js"),
+          ]).then(([kit, app]) => {
+            kit.start(app, element, {
+              node_ids: [0, 2],
+              data,
+              form: null,
+              error: null,
+            });
+          });
+        }
+      </script>
+    </div>
+  </body>
 </html>

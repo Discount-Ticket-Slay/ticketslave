@@ -72,3 +72,5 @@ target/
 
 # ignore the maven compiler plugin
 inputFiles.lst
+
+node_modules/

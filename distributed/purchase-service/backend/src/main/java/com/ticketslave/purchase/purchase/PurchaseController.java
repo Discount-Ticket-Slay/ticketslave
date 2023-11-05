@@ -56,6 +56,10 @@ public class PurchaseController {
     // }
     @PostMapping("/{id}/add")
     public ResponseEntity<String> addTicket(@PathVariable Long id, @RequestParam Long ticketId) {
+        if (timerService.isTimerExpired()){
+            System.out.println("you timed out, your purchase will be deleted");
+            PurchaseService.deletePurchase(id);
+        }
         try {       
             PurchaseService.addTicketId(id, ticketId);
             return new ResponseEntity<String>("Ticket successfully added to purchase", HttpStatus.OK); 

@@ -39,7 +39,14 @@
     <Navbar />
     <div class="flex flex-row">
         <TicketList {concertTickets} {addToCart} {cartItems}/>
-        <Cart {cartItems} {removeFromCart}/>
+
+        <div class="cart">
+            <Cart {cartItems} {removeFromCart}/>
+        </div>
     </div>
     <Footer/>
 </div>
+
+<style>
+
+</style>
