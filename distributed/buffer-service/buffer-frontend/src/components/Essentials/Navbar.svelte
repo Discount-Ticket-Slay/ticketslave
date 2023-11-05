@@ -3,6 +3,7 @@
 -->
 
 <script>
+	//@ts-nocheck
 	
 	const redirectToCognito = () => {
 		if(typeof window !== "undefined") {

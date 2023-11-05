@@ -15,7 +15,9 @@
 		{ id: 1, name: 'Concert Ticket 1', price: '$50', section: "221" },
 		{ id: 2, name: 'Concert Ticket 2', price: '$40', section: "223"},
 		{ id: 3, name: 'Concert Ticket 3', price: '$60', section: "221" },
-        { id: 4, name: 'Concert Ticket 3', price: '$60', section: "223"}
+        { id: 4, name: 'Concert Ticket 4', price: '$60', section: "223"},
+        { id: 5, name: 'Concert Ticket 5', price: '$60', section: "225"},
+        { id: 6, name: 'Concert Ticket 6', price: '$60', section: "239"}
 	];
 
     //stores the tickets that are in the cart 
@@ -40,7 +42,7 @@
     <div class="flex flex-row">
         <TicketList {concertTickets} {addToCart} {cartItems}/>
 
-        <div class="cart">
+        <div class="w-1/2">
             <Cart {cartItems} {removeFromCart}/>
         </div>
     </div>

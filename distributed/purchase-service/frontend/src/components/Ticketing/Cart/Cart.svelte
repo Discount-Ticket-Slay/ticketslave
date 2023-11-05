@@ -1,8 +1,11 @@
 <!--
-    Component that displays all tickets that are currently inside the cart. 
-    Takes in 2 parameters:
-    1. the list of items currently inside the cart.
-    2. the function to remove the ticket from the cart, which is executed inside the main page.
+    TODO: the checkout button should route the user to the payment service
+
+    TODO: the In Cart status is not working properly (styling)
+    TODO: the navbar and page styling seems to conflict with each other
+    ? could be deprecated styles again
+
+    TODO: fix Cart styling
 -->
 
 <!--Cart.svelte-->
@@ -22,7 +25,7 @@
         <p>Your cart is empty {":("}</p>
     {/if}
 
-    <ul class="grid gap-4 grid-rows-1 sm:grid-rows-2 md:grid-rows-3 lg:grid-rows-4">
+    <ul class="grid grid-rows-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         <!--notifies the user if their cart is empty-->
         <div class="flex justify-between mb-5">
             <!--if there are items in the cart, display each item in a CartItem.svelte-->

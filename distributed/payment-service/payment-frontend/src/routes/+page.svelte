@@ -1,3 +1,7 @@
+<!--
+	TODO: the user should, on checkout, get a confirmation on page and through email, of their purchase
+-->
+
 <script>
 	import Navbar from '../components/Essentials/Navbar.svelte';
 	import Footer from '../components/Essentials/Footer.svelte';
@@ -56,8 +60,8 @@ console.log(cardDetails)
         cvv = '';
 
         // Clear the cart and reset the total
-        // cart = [];
-        // totalPrice = 0;
+        cart = [];
+        totalPrice = 0;
     }
 
 	let totalPrice = 0;
@@ -69,6 +73,9 @@ console.log(cardDetails)
 
 	onMount(calculateSubtotal); // Calculate totalPrice when the component mounts
 
+	/**
+	 * * this will be replaced by the cart from the purchase page, gotten through API call
+	 */
 	let cart = [
 		{
 			section: '233',
