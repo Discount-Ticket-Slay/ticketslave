@@ -101,6 +101,12 @@ jobs:
         echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> ./distributed/buffer-service/buffer-backend/.env
         echo "STRIPE_KEY_PUBLIC=${{ secrets.STRIPE_KEY_PUBLIC }}" >> ./distributed/payment-service/payment-backend/.env
         echo "STRIPE_KEY_SECRET=${{ secrets.STRIPE_KEY_SECRET }}" >> ./distributed/payment-service/payment-backend/.env
+        echo "MYSQL_PURCHASE_DATABASE=${{ env.MYSQL_PURCHASE_DATABASE }}" >> ./distributed/purchase-service/purchase-backend/.env
+        echo "RDS_PURCHASE_HOST_URL=${{ secrets.RDS_PURCHASE_HOST_URL }}" >> ./distributed/purchase-service/purchase-backend/.env
+        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./distributed/purchase-service/purchase-backend/.env
+        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./distributed/purchase-service/purchase-backend/.env
+        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./distributed/purchase-service/purchase-backend/.env
+
 
     - name: Docker Compose Build
       run: cd distributed && docker-compose build
