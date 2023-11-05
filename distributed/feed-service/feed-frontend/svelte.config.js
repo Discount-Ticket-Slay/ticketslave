@@ -12,7 +12,7 @@ const config = {
 			pages: 'build',
 			assets: 'build',
 			fallback: null,
-			strict: false,
+			// strict: false,
 		})
 	},
 	preprocess: vitePreprocess()
