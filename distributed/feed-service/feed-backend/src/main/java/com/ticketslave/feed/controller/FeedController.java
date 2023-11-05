@@ -38,15 +38,15 @@ public class FeedController {
     }
 
     /*
-     * Endpoint: /feed/
+     * Endpoint: /feed
      * Input: None
      * Output: String "index"
      * Description: This method returns the home page view using Thymeleaf
      */
-    @GetMapping("/")
+    @GetMapping()
     public String home() {
         return "index";
-    }
+    } 
 
     /*
      * Endpoint: /feed/email

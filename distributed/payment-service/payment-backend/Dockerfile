@@ -21,7 +21,7 @@ WORKDIR /app
 COPY --from=build /app/target/payment.jar /app/payment.jar
 
 # Expose the port the app runs on
-EXPOSE 8083
+EXPOSE 8084
 
 # Run the application
 CMD ["java", "-jar", "payment.jar"]

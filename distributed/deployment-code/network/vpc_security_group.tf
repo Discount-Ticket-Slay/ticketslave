@@ -4,41 +4,41 @@ resource "aws_security_group" "ticket_micro_security_group" {
   description = "Security group for the application"
   vpc_id      = aws_vpc.ticket_micro_vpc.id
 
-  # ELB health checks
-  ingress {
-    description      = "Health check from ELB to port 8080"
-    from_port        = 8080
-    to_port          = 8080
-    protocol         = "tcp"
-  }
+  # # ELB health checks
+  # ingress {
+  #   description      = "Health check from ELB to port 8080"
+  #   from_port        = 8080
+  #   to_port          = 8080
+  #   protocol         = "tcp"
+  # }
 
-  ingress {
-    description      = "Health check from ELB to port 8081"
-    from_port        = 8081
-    to_port          = 8081
-    protocol         = "tcp"
-  }
+  # ingress {
+  #   description      = "Health check from ELB to port 8081"
+  #   from_port        = 8081
+  #   to_port          = 8081
+  #   protocol         = "tcp"
+  # }
 
-  ingress {
-    description      = "Health check from ELB to port 8082"
-    from_port        = 8082
-    to_port          = 8082
-    protocol         = "tcp"
-  }
+  # ingress {
+  #   description      = "Health check from ELB to port 8082"
+  #   from_port        = 8082
+  #   to_port          = 8082
+  #   protocol         = "tcp"
+  # }
 
-  ingress {
-    description      = "Health check from ELB to port 8083"
-    from_port        = 8083
-    to_port          = 8083
-    protocol         = "tcp"
-  }
+  # ingress {
+  #   description      = "Health check from ELB to port 8083"
+  #   from_port        = 8083
+  #   to_port          = 8083
+  #   protocol         = "tcp"
+  # }
 
-  ingress {
-    description      = "Health check from ELB to port 8084"
-    from_port        = 8084
-    to_port          = 8084
-    protocol         = "tcp"
-  }
+  # ingress {
+  #   description      = "Health check from ELB to port 8084"
+  #   from_port        = 8084
+  #   to_port          = 8084
+  #   protocol         = "tcp"
+  # }
 
   # Network Access
   ingress {
