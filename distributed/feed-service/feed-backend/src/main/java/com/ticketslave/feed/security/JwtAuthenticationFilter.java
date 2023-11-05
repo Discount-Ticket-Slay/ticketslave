@@ -68,16 +68,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * should skip JWT verification
      */
     private boolean shouldSkipJwtVerification(HttpServletRequest request) {
-        String path = request.getRequestURI();
-        System.out.println("path: " + path);
-        return path.equals("/feed/")
-                || path.startsWith("/feed/#/feed")
-                || path.startsWith("/feed/#/Event")
-                || path.equals("/feed/auth/cognito-callback")
-                || path.equals("/feed/health")
-                || path.startsWith("/feed/events")
-                || path.startsWith("/feed/public/")
-                || path.startsWith("/feed/images/");
+        // String path = request.getRequestURI();
+        // System.out.println("path: " + path);
+        // return path.equals("/feed/")
+        //         || path.startsWith("/feed/#/feed")
+        //         || path.startsWith("/feed/#/Event")
+        //         || path.equals("/feed/auth/cognito-callback")
+        //         || path.equals("/feed/health")
+        //         || path.startsWith("/feed/events")
+        //         || path.startsWith("/feed/public/")
+        //         || path.startsWith("/feed/images/");
+        return true;
     }
 
     /*
