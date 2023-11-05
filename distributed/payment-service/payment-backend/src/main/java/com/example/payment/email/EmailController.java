@@ -31,7 +31,7 @@ public class EmailController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<EmailRequest> requestEntity = new HttpEntity<>(email, headers);
-        String scriptUrl = "https://script.google.com/macros/s/AKfycbzVbh_QAFIVjhvXHrc4-d2NmiTlX1UiDdC8ToJBEYxCtisx0AMkH7d4OnEoNy897MWp/exec";
+        String scriptUrl = "https://script.google.com/macros/s/AKfycbxLHNltrz_Wa6J0pk5wcEHBwpOCJK6-AMxETFVzXHG5DXV3_IEY0MyPl4GL7mTDm7YX/exec";
         restTemplate.postForObject(scriptUrl, requestEntity, String.class);
     }
 
