@@ -14,14 +14,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Cache npm dependencies
-      uses: actions/cache@v3
-      with:
-        path: demoapp/frontend/node_modules
-        key: npm-${{ hashFiles('demoapp/frontend/package-lock.json') }}
-        restore-keys: |
-          npm-
-
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:

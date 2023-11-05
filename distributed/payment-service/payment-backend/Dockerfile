@@ -1,31 +1,27 @@
-# Build Stage (Maven) - import base image (latest)
-FROM maven as build
+# Use the official Maven image for the build stage
+FROM maven:3.8.1-openjdk-17 AS build
 
-# Copying the source code
-WORKDIR /workspace/app
-COPY pom.xml .
+# Set the working directory
+WORKDIR /app
 
-# Downloading the dependencies, make use of the cache
-RUN mvn dependency:go-offline
-COPY src src
+# Copy the pom.xml and src directory into the image
+COPY pom.xml ./pom.xml
+COPY src ./src
 
-# Run the application (-DskipTests to skip database test as it would not be available yet)
+# Build the project
 RUN mvn clean package -DskipTests
 
-# for debugging
-RUN ls -l /workspace/app/target/
+# Start a new stage for running the application
+FROM eclipse-temurin:17-jre
 
-# Runtime Stage
-FROM eclipse-temurin:17
-
-# Create a directory to hold the application
-WORKDIR /opt/app
+# Set the working directory
+WORKDIR /app
 
 # Copy the JAR file from the build stage
-COPY --from=build /workspace/app/target/paymentapp-1.0.jar .
+COPY --from=build /app/target/payment.jar /app/payment.jar
 
-# Copy the .env file into the container
-COPY .env .env
+# Expose the port the app runs on
+EXPOSE 8083
 
-# run the application
-CMD ["java", "-jar", "paymentapp-1.0.jar"]
+# Run the application
+CMD ["java", "-jar", "payment.jar"]
