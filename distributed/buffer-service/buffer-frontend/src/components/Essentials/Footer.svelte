@@ -28,6 +28,10 @@
     </div>
 </footer>
 
+<script>
+    //@ts-nocheck
+</script>
+
 
 
 
