@@ -1,9 +1,16 @@
 <script>
 	import { onMount } from 'svelte';
+    import Navbar from '../components/Essentials/Navbar.svelte';
+	import Footer from '../components/Essentials/Footer.svelte';
 
 	// onMount(() => {
 	// 	console.log(window);
 	// });
+
+    /**
+	 * @type {any}
+	 */
+    let userId;
 
     if(typeof window !== "undefined") {
 
@@ -61,17 +68,26 @@
 
 </script>
 
+
+    <Navbar />
 <main>
-	<h1>You are in the queue</h1>
-	<p>Please wait while we process your request.</p>
+	<p style="font-size: {80 + 'px'}">You are in the queue</p>
+	<p style="font-size: {40 + 'px'}">Please wait while we process your request.</p>
+    <div>{userId}</div>
 </main>
+    <Footer />
 
 <style>
 	main {
 		text-align: center;
 		padding: 1em;
-		max-width: 240px;
 		margin: 0 auto;
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
 	}
 
 	h1 {

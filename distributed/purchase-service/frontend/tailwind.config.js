@@ -10,6 +10,10 @@ export default {
         '500': '500px',
       },
     },
+    colors: {
+      'cottage-brown': '#b6916b',
+      'cottage-dark-brown': '#7b592d',
+    }
   },
   plugins: [],
 }
