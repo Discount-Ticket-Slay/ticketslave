@@ -15,7 +15,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,38 +28,45 @@ public class SecurityConfiguration {
 	public SecurityFilterChain securityFilterChain(final JwtAuthenticationFilter jwtAuthFilter, HttpSecurity http)
 			throws Exception {
 		http
-			.cors(customizer -> customizer.configurationSource(corsConfigurationSource()))
-			.csrf(csrf -> csrf.disable()) // Disable CSRF (Cross-Site Request Forgery) protection
+				.cors(customizer -> customizer.configurationSource(corsConfigurationSource()))
+				.csrf(csrf -> csrf.disable()) // Disable CSRF (Cross-Site Request Forgery) protection
 
-			// Configure authorization rules
-			.authorizeHttpRequests(auth -> auth
-					.anyRequest().permitAll())
+				// Configure authorization rules
+				.authorizeHttpRequests(auth -> auth
+						.anyRequest().permitAll())
 
-			// Configure session management
-			.sessionManagement(session -> session
-					.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				// Configure session management
+				.sessionManagement(session -> session
+						.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-			// Add custom JWT authentication filter before the default
-			// UsernamePasswordAuthenticationFilter
-			.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+				// Add custom JWT authentication filter before the default
+				// UsernamePasswordAuthenticationFilter
+				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 		// Build the HttpSecurity object
 		return http.build();
 	}
 
 	@Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("*")); // Specify the allowed origins
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        
-		// This allow us to expose the headers
-        configuration.setAllowCredentials(true);
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+		// allowed origins
+		configuration.setAllowedOriginPatterns(Arrays.asList(
+				"https://*.ticketslave.org", // Allows all subdomains of ticketslave.org including www
+				"http://localhost:*", // Allows all ports on localhost
+				"http://127.0.0.1:*" // Also for localhost IP with any port
+		));
+
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		configuration.setAllowedHeaders(Arrays.asList("*"));
+
+		// This allow us to expose the headers
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 
 }
