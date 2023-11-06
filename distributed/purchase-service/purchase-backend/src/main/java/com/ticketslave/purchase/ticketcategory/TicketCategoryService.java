@@ -114,8 +114,8 @@ public class TicketCategoryService {
     public TicketCategory makeTickets (Long id, int count) throws IllegalArgumentException {
         
             TicketCategory ticketCategory = findTicketCategory(id);
-            Long eventId = ticketCategory.getEventId();
-            EventDTO event = getEvent(eventId);
+//Long eventId = ticketCategory.getEventId();
+            EventDTO event = getEvent(id);
             int capacity = event.getCapacity();
             if (capacity < count) {
                 throw new IllegalArgumentException("Count exceeds capacity");
