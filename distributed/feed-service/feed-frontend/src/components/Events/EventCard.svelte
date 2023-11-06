@@ -1,50 +1,35 @@
+<!--EventCard.svelte-->
+
 <script>
-    // Importing Bootstrap CSS for styling
-    import "bootstrap/dist/css/bootstrap.min.css";
-    
-    // Exporting 'event' as a prop to be passed to this component
-    export let event;
+	import EventDetailsOverlay from "./EventDetailsOverlay.svelte";
+
+    export let event
+
+    //checks whether any EventCard is clicked on by the user.
+    //if it was clicked, open the EventDetails as an overlay
+    let isEventClicked = false
+
+    //opens the EventDetails overlay
+    function showDetails() {
+        isEventClicked = true
+    }
+
+    //closes the EventDetails overlay
+    function closeDetails() {
+        isEventClicked = false
+    }
 
 </script>
 
-<!-- Card component to display event details -->
-<div class="card text-center">
-    <!-- Link to the event details page, using the event ID -->
-    <a href="/feed/#/Event?id={event.eventId}" style="text-decoration: none;">
-        <!-- Event image -->
-        <img
-            src="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/feed/images/concert.jpg"
-            class="card-img-top"
-            alt="No pic found"
-            style="max-width: 100%;"
-        />
-        <!-- Card body containing the event title -->
-        <div class="card-body">
-            <h5 class="card-title">{event.eventName}</h5>
-        </div>
-    </a>
-</div>
 
-<style>
-    /* Styling for the card */
-    .card {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        width: 12rem;
-        height: auto;
-        cursor: pointer;
-        display: inline-block;
-        margin: 5vh;
-    }
+<button class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer" on:click={showDetails}>
+    <h2 class="text-xl font-semibold">{event.eventName}</h2>
+    <p class="text-sm text-gray-600">{event.eventDate}</p>
+    <p class="text-sm text-gray-600">{event.eventLocation}</p>
+</button>
 
-    /* Styling for the card body */
-    .card-body {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        width: full;
-        height: auto;
-    }
-
-    /* Styling for the card title */
-    .card-title {
-        width: full;
-    }
-</style>
+{#if isEventClicked}
+    <div>
+        <EventDetailsOverlay {event} on:close={closeDetails}/>
+    </div>
+{/if}
