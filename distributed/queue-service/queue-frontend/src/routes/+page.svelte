@@ -3,46 +3,19 @@
     import Footer from "../components/Essentials/Footer.svelte";
     import DinoGame from "../components/Game/DinoGame.svelte";
     import { Button } from "carbon-components-svelte";
-    import {onMount} from 'svelte'
+    import { onMount } from 'svelte'
+    import { page } from '$app/stores';
 
-    // security measure to prevent unauthorized access (authenticate when page loads)
-    let authenticated = false;
-//    import { changeRoute } from '../utils/routeUtils.js'; 
-
-    // onMount(() => {
-    //     changeRoute('/#/queue', window.location.href);
-    //     authenticated = true;
-    // });
-
-    // const waitTime = () => {
-    //     alert("clicked");
-    // };
-
-    let QueueNo = 100;
-
-    // let event = null
-    // async function fetchQueueNo() {
-    //     try {
-    //     const hash = window.location.hash;
-    //     const paramsStart = hash.indexOf('?');
-
-    //     if (paramsStart >= 0) {
-    //         const paramString = hash.slice(paramsStart + 1);
-    //         const urlParams = new URLSearchParams(paramString);
-
-    //         let receivedId = urlParams.get("id");
-    //         console.log(receivedId);
-
-    //         if (receivedId) {
-    //             QueueNo = Number(receivedId);
-    //         }
-    //     }
-    // } catch {
-    //         QueueNo = -1;
-    //     }
-    // }
-    // onMount(fetchQueueNo)
-
+    let QueueNo;
+    let authenticated = false; // security measure to prevent unauthorized access (authenticate when page loads)
+    
+    onMount(async () => {
+        const unsubscribe = page.subscribe(($page) => {
+        const urlParams = new URLSearchParams($page.url.search);
+        QueueNo = urlParams.get('queueNumber') || 'Not Available'; // Fallback if queueNumber is not in the URL
+    });
+        return unsubscribe; // Unsubscribe when the component is destroyed
+    });
 
     let fontSize = 55; // initial font size
 </script>

@@ -14,8 +14,6 @@
 	 * * USE THE EXACT WEBSOCKET, IF NOT THE FUNCTION WILL FAIL
 	*/
 
-
-
     let isAdmin = writable(false);
 
     async function checkAdminStatus() {
@@ -98,35 +96,20 @@
             console.log("Message from server ", event.data)
             console.log(data);
 
+            
+            // given the correct userID and that we have our queue number, redirect to the queue page
             if (data.userId === userId && data.queueNumber) {
-                // Making a POST request to the queue service with the correct domain and protocol
 
-                console.log("making post request")
-                const response = await fetch(
-                    "https://www.ticketslave.org/queue/queue",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            userId: data.userId,
-                            queueNumber: data.queueNumber,
-                        }),
-                    }
-                );
-
-                console.log("response", response)
-
-                if (response.ok) {
-                    // Navigate to the next page using a secure protocol
-                    window.location.replace(
-                        "https://www.ticketslave.org/queue"
-                    );
-                } else {
-                    console.log("Failed to post data to the queue service");
-                }
-            }
+                // Redirect to queue service with the queue number in the query string
+                const queueUrl = new URL("https://www.ticketslave.org/queue");
+                queueUrl.searchParams.append("queueNumber", data.queueNumber);
+                
+                console.log(`Redirecting to: ${queueUrl.toString()}`);
+                
+                // Navigate to the queue page with the queue number as a query parameter
+                window.location.replace(queueUrl.toString());
+            } 
+            
         });
 
         // Listen for errors
