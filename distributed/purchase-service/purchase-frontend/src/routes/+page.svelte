@@ -21,6 +21,8 @@
 
 	let isLoading = true;
 
+	let purchaseId;
+
 	async function fetchData() {
 		try {
 			// Attempt to fetch userId as plain text
@@ -38,13 +40,13 @@
             //     );
             // }
 
-			let userId = "cock@gmail.com"
+			let userId = "COCKAAA@gmail.com"
             let purchase = await fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`, {
                 method: 'POST'
             })
             const purchaseData = await purchase.json()
-			let purchaseId = purchaseData.PurchaseId
-//console.log(purchaseData)
+			purchaseId = Number(purchaseData.purchaseId)
+console.log(purchaseData)
     
             const purchaseResponse = await fetch("https://www.ticketslave.org/payment", {
                 method: 'POST',
@@ -81,27 +83,27 @@
 	let cartItems = [];
 
 	// adds the selected ticket to the cart
-	function addToCart(ticket) {
+	async function addToCart(ticket) {
 		// Check if the ticket is not already in the cartItems
 		if (!cartItems.some((item) => item.ticketId === ticket.ticketId)) {
 			cartItems = [...cartItems, ticket]; // Add the selected ticket to cartItems
 		}
-
+console.log(purchaseId)
 		//updates the database when a ticket is added to/removed from cart
-		fetch(`https://www.ticketslave.org/purchase/purchases/${PurchaseId}/add?ticketId=${ticket.ticketId}`, {
-			method: 'POST'
-		})
-		.then(response => {
-			if(!response.ok) {
-				throw new Error("response was not ok")
+		try {
+			const response = await fetch(`https://www.ticketslave.org/purchase/purchases/${purchaseId}/add?ticketId=${ticket.ticketId}`, {
+				method: 'POST'
+			});
+
+			if (!response.ok) {
+				throw new Error("Response was not ok");
 			}
-		})
-		.then(purchase => {
-			console.log(purchase + " sent to database")
-		})
-		.catch(error => {
-			console.error("something went wrong ", error)
-		})
+
+			const purchase = await response.json();
+			console.log(purchase + " sent to database");
+			} catch (error) {
+			console.error("Something went wrong", error);
+}
 	}
 
 	//removes the ticket from the cart
