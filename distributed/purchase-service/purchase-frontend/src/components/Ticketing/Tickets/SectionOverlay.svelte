@@ -16,12 +16,12 @@
 </script>
 
 <div class="backdrop">
-    <div class="overlay">
+    <div class="overlay relative">
         <h2 class="text-xl font-semibold mb-4">Section: {selectedSection}</h2>
         {#each sectionTickets as ticket}
             <Ticket {ticket} onSelect={addToCart}/>
         {/each}
-        <button class="close-button" on:click={closeOverlay}>Close</button>
+        <button class="close-button absolute top-0 right-0" on:click={closeOverlay}>Close</button>
     </div>
 </div>
 
@@ -35,7 +35,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: rgb(0 0 0 0.5);
+        background-color: rgba(0, 0, 0, 0.5);
     }
 
     .overlay {
