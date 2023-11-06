@@ -1,30 +1,29 @@
 package com.ticketslave.queue.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import com.ticketslave.queue.websockets.QueueWebSocketHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Configuration
-@EnableWebSocketMessageBroker
-public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+@EnableWebSocket
+public class WebSocketConfig implements WebSocketConfigurer {
+
+    @Autowired
+    QueueWebSocketHandler queueWebSocketHandler;
 
     @Override
-    public void configureMessageBroker(MessageBrokerRegistry config) {
-        // Prefix for message destinations
-        config.enableSimpleBroker("/topic");
-        
-        // Prefix for message mappings
-        config.setApplicationDestinationPrefixes("/app");
-    }
+    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
-    @Override
-    public void registerStompEndpoints(StompEndpointRegistry registry) {
-        // Register WebSocket endpoint
-        registry.addEndpoint("/websocket-endpoint")
-                .setAllowedOrigins("*")  // Allow all origins
-                .withSockJS();  // Enable SockJS fallback options
+        System.out.println("Registering WebSocket handlers");
+        System.out.println("queueWebSocketHandler: " + queueWebSocketHandler);
+
+        registry.addHandler(queueWebSocketHandler, "/queue/queue-updates")
+                .setAllowedOrigins("*");
+
+        System.out.println("WebSocket handlers registered");
+        System.out.println("Registry: " + registry);
     }
 }
-

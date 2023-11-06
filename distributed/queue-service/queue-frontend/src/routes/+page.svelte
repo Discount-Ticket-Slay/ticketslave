@@ -2,23 +2,81 @@
     import Navbar from "../components/Essentials/Navbar.svelte";
     import Footer from "../components/Essentials/Footer.svelte";
     import DinoGame from "../components/Game/DinoGame.svelte";
-    import { Button } from "carbon-components-svelte";
-    import { onMount } from 'svelte'
+    import { onMount } from 'svelte';
     import { page } from '$app/stores';
 
     let QueueNo;
-    let authenticated = false; // security measure to prevent unauthorized access (authenticate when page loads)
-    
+    let userId = ""; // Initialized as empty string
+    let fontSize = 155;
+
     onMount(async () => {
+        // Unsubscribe when the component is destroyed
         const unsubscribe = page.subscribe(($page) => {
-        const urlParams = new URLSearchParams($page.url.search);
-        QueueNo = urlParams.get('queueNumber') || 'Not Available'; // Fallback if queueNumber is not in the URL
-    });
-        return unsubscribe; // Unsubscribe when the component is destroyed
+            const urlParams = new URLSearchParams($page.url.search);
+            QueueNo = urlParams.get('queueNumber') || 'Not Available';
+        });
+        
+        // Fetch the user's unique identifier from the backend
+        userId = await getUserId();
+        
+        // Establish the WebSocket connection
+        const socket = establishWebSocketConnection(userId);
+
+        // Handle WebSocket events
+        setupWebSocketListeners(socket);
+        
+        return unsubscribe;
     });
 
-    let fontSize = 55; // initial font size
+    async function getUserId() {
+        const response = await fetch(
+            "https://www.ticketslave.org/queue/user/email",
+            {
+                credentials: "include", // Important to include cookies in the request
+            }
+        );
+        if (response.ok) {
+            const email = await response.text();
+            return email;
+        } else {
+            console.log("Failed to get user email, redirecting to login");
+            redirectToLogin();
+        }
+    }
+
+    function redirectToLogin() {
+        window.location.href = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=38vedjrqldlotkn6g9glq0sq9n&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Ffeed%2Fauth%2Fcognito-callback";
+    }
+
+    function establishWebSocketConnection(userId) {
+        return new WebSocket(`wss://www.ticketslave.org/queue/queue-updates?userId=${userId}`);
+    }
+
+    function setupWebSocketListeners(socket) {
+        socket.addEventListener("message", function (event) {
+            const data = JSON.parse(event.data);
+            console.log("Message from server: ", data);
+
+            // Redirect to the purchase page if the correct data is received
+            if (data.userId === userId) {
+                window.location.replace("https://www.ticketslave.org/purchase");
+            }
+        });
+
+        socket.addEventListener("error", function (error) {
+            console.error("WebSocket Error: ", error);
+        });
+
+        socket.addEventListener("open", function () {
+            console.log("WebSocket is open now.");
+        });
+
+        socket.addEventListener("close", function (event) {
+            console.log("WebSocket is closed now.", event.reason);
+        });
+    }
 </script>
+
 
 <Navbar />
 <div class="min-h-screen flex flex-col">
