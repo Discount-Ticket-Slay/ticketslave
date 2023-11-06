@@ -15,11 +15,30 @@
     export let cartItems;
     export let removeFromCart;
 
-    function checkoutOrder() {
+    async function checkoutOrder() {
         /**
          * this method will contain the logic to send the cart as a purchase object to the backend
         */
-        alert("checkout")
+        try {
+            let purchase = fetch(`https://www.ticketslave.org/purchase/purchases/${userEmail}`)
+            const purchaseId = purchase.PurchaseId
+    
+            const response = await fetch("https://www.ticketslave.org/payment", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({purchaseId})
+            })
+
+            if(response.status === 401) {
+                window.location.href = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=38vedjrqldlotkn6g9glq0sq9n&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Ffeed%2Fauth%2Fcognito-callback";
+            } else if(response.ok) {
+                window.location.href = `https://www.ticketslave.org/payment`;
+            } else {
+                throw new Error("failed to connect to backend", response.statusText)
+            }
+        } catch(error) {
+            console.error("something went wrong: ", error)
+        }
     }
 </script>
 
