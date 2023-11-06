@@ -29,8 +29,8 @@ console.log("hello")
     function getSections() {
         const sections = [];
         concertTickets.forEach(ticket => {
-            if (!sections.includes(ticket.section)) {
-                sections.push(ticket.section);
+            if (!sections.includes(ticket.name)) {
+                sections.push(ticket.name);
             }
         });
         return sections;
