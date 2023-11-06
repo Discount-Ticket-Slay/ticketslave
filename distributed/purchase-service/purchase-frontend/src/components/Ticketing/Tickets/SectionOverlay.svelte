@@ -15,7 +15,7 @@
     let sectionTickets = concertTickets.filter(ticket => ticket.name === selectedSection)
 </script>
 
-<div class="backdrop">
+<div class="backdrop z-50">
     <div class="overlay relative">
         <h2 class="text-xl font-semibold mb-4">Section: {selectedSection}</h2>
         {#each sectionTickets as ticket}
