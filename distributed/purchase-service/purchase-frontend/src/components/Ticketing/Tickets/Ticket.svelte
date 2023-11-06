@@ -22,7 +22,7 @@
 	}
 
 	//changes the button color and text to denote in cart status
-	let buttonStyle = "bg-blue-500 hover:bg-blue-700 text-white"
+	let buttonStyle = "bg-cyan-600 hover:bg-cyan-800 text-white"
 	function updateButton() {
 		buttonStyle = "bg-gray-300 text-black"
 	}

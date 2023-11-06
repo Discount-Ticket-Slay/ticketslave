@@ -16,7 +16,7 @@
 </script>
 
 <div class="backdrop z-50">
-    <div class="overlay relative">
+    <div class="overlay relative overflow-y-auto">
         <h2 class="text-xl font-semibold mb-4">Section: {selectedSection}</h2>
         {#each sectionTickets as ticket}
             <Ticket {ticket} onSelect={addToCart}/>
