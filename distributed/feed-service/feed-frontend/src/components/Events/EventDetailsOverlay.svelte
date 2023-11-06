@@ -58,29 +58,6 @@
     let error = null
     let isLoading = true; // Initialize with loading state
 
-//     onMount(
-//         fetch(`https://www.ticketslave.org/purchase/ticketcategory`)
-//         .then(response => {
-//             if(!response.ok) {
-//                 throw new Error("response is not ok")
-//             }
-//             return response.json()
-//         })
-//         .then(data => {
-//             //ticketcategory of an event takes in the eventId as an attribute
-//             for (let i in data) {
-//                 if(data[i].eventId === event.eventId)
-//                 ticketCategories.push(data[i]);
-//             }
-// console.log(ticketCategories)
-//         })
-//         .catch(err => {
-//             error = err
-//             console.error(err)
-
-//         })
-//     )
-
 async function fetchData() {
         try {
             // Fetch event data
@@ -92,6 +69,7 @@ async function fetchData() {
                 if (json_data[i].eventId === event.eventId)
                 ticketCategories.push(json_data[i]);
             }
+
             isLoading = false; // Data is loaded, set loading state to false
 
         } catch (error) {
@@ -126,16 +104,22 @@ async function fetchData() {
         {/if}
          <div class="text-sm text-gray-600">  {#if isLoading}
             <!-- Display a loading message while data is being fetched -->
-            <p>Loading...</p>
+            <div class= "loading">
+                <p>Loading...</p>
+              </div>
           {:else if ticketCategories.length !== 0}
             <!-- Display the data once it's available -->
             {#each ticketCategories as category, index}
             <div class= "category">
-              <p>Category {index+1} </p>
-              <p>Name: {category.name}</p>
+              <p>Category {index+1}: </p>
+              <p>{category.name}</p>
               <p>Price: ${category.price}</p>
             </div>
             {/each}
+          {:else }
+            <div class= "category">
+                <p>No Categories Available Right Now. Check Back Soon!</p>
+            </div>
           {/if}</div>
 
         <!-- Bottom right button, redirects the user to the buffer/queue -->
@@ -206,4 +190,15 @@ async function fetchData() {
     .category p {
         margin-right: 1rem; /* Adjust the value as needed to control the horizontal space */
         }
+
+    .loading {
+        flex-direction: row;
+        display: flex;
+        font-size: 1.5rem;
+        line-height: 2rem;
+        display: flex;
+        padding: 0.5rem; 
+        align-items: center;
+        justify-content: center;
+    }
 </style>
