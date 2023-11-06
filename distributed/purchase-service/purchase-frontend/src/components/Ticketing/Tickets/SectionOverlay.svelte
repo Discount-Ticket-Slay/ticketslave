@@ -12,7 +12,7 @@
     import Ticket from './Ticket.svelte'
 
     //filter the tickets from that section
-    let sectionTickets = concertTickets.filter(ticket => ticket.section === selectedSection)
+    let sectionTickets = concertTickets.filter(ticket => ticket.name === selectedSection)
 </script>
 
 <div class="backdrop">
