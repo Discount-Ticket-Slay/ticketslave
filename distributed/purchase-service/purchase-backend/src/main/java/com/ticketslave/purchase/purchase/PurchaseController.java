@@ -16,7 +16,7 @@ import reactor.netty.channel.AbortedException;
 
 
 @RestController
-@RequestMapping("/purchases")
+@RequestMapping("/purchase/purchases")
 public class PurchaseController {
     
     @Autowired

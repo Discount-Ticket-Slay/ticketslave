@@ -21,16 +21,11 @@ public class ShuffleService {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     private final ArrayList<String> buffer = new ArrayList<>();
-    private static final int MAX_BUFFER_SIZE = 5;
 
     // consumer: listens to userid sent to buffered-queue topic
     @KafkaListener(topics = "buffered-queue", groupId = "randomiser-group")
     public void consume(String userId) {
         buffer.add(userId);
-
-        if (buffer.size() >= MAX_BUFFER_SIZE) {
-            processAndSendUserId();
-        }
     }
 
     // algorithm + producer: randomise and send the userid with their queue to another topic (to be consumed by queue service)
