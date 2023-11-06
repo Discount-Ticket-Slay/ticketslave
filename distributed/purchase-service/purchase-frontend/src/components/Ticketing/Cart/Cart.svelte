@@ -36,7 +36,7 @@
                 );
             }
 
-            let purchase = fetch(`https://www.ticketslave.org/purchase/purchases/${userEmail}`)
+            let purchase = fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`)
             const purchaseId = purchase.PurchaseId
     
             const response = await fetch("https://www.ticketslave.org/payment", {
