@@ -2,7 +2,6 @@
     TODO: the checkout button should route the user to the payment service
 
     TODO: the In Cart status is not working properly (styling)
-    TODO: the navbar and page styling seems to conflict with each other
     ? could be deprecated styles again
 
     TODO: fix Cart styling
@@ -14,37 +13,13 @@
 
     export let cartItems;
     export let removeFromCart;
-    import { userId } from "../../routes/store/store.js";
+
 
     async function checkoutOrder() {
         /**
          * this method will contain the logic to send the cart as a purchase object to the backend
         */
         try {
-            // Attempt to fetch userId as plain text
-            const userIdResponse = await fetch(
-                "https://www.ticketslave.org/feed/email"
-            );
-            if (userIdResponse.ok) {
-                const textData = await userIdResponse.text();
-                // Set userId as text
-                $userId = textData; 
-            } else {
-                console.error(
-                    "Error fetching user ID:",
-                    userIdResponse.statusText
-                );
-            }
-
-            let purchase = fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`)
-            const purchaseId = purchase.PurchaseId
-    
-            const response = await fetch("https://www.ticketslave.org/payment", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({purchaseId})
-            })
-
             if(response.status === 401) {
                 window.location.href = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=38vedjrqldlotkn6g9glq0sq9n&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Ffeed%2Fauth%2Fcognito-callback";
             } else if(response.ok) {

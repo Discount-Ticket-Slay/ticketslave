@@ -10,7 +10,7 @@
 	import Navbar from '../components/Essentials/Navbar.svelte';
 	import Footer from '../components/Essentials/Footer.svelte';
 	import { onMount } from 'svelte';
-	import { userId } from "../store/store.js";
+	import { userId } from "./store/store.js";
 
 	//dummy array to store concert tickets. will be replaced with GET request during frontend-backend merge
 	let concertTickets = [];
@@ -24,19 +24,29 @@
 	async function fetchData() {
 		try {
 			// Attempt to fetch userId as plain text
-            const userIdResponse = await fetch(
-                "https://www.ticketslave.org/feed/email"
-            );
-            if (userIdResponse.ok) {
-                const textData = await userIdResponse.text();
-                // Set userId as text
-                $userId = textData; 
-            } else {
-                console.error(
-                    "Error fetching user ID:",
-                    userIdResponse.statusText
-                );
-            }
+            // const userIdResponse = await fetch(
+            //     "https://www.ticketslave.org/feed/email"
+            // );
+            // if (userIdResponse.ok) {
+            //     const textData = await userIdResponse.text();
+            //     // Set userId as text
+            //     $userId = textData; 
+            // } else {
+            //     console.error(
+            //         "Error fetching user ID:",
+            //         userIdResponse.statusText
+            //     );
+            // }
+
+			userId = "123@gmail.com"
+            let purchase = fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`)
+            const purchaseId = purchase.PurchaseId
+    
+            const purchaseResponse = await fetch("https://www.ticketslave.org/payment", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({purchaseId})
+            })
 
 			const response = await fetch(`https://www.ticketslave.org/purchase/ticketcategory`);
 			const json_data = await response.json();
