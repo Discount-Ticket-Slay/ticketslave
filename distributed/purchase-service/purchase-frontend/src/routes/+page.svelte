@@ -38,10 +38,12 @@
             //     );
             // }
 
-			let userId = "123@gmail.com"
-            let purchase = await fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`,{method: 'POST'})
-            const purchaseId = purchase.PurchaseId  
-	           
+			let userId = "jackass@gmail.com"
+            let purchase = await fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`, {
+                method: 'POST'
+            })
+            const purchaseId = purchase.PurchaseId
+    
             const purchaseResponse = await fetch("https://www.ticketslave.org/payment", {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
