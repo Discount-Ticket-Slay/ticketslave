@@ -40,7 +40,7 @@
             //     );
             // }
 
-			let userId = "COCKAAA@gmail.com"
+			let userId = "KILLMENOWeAA@gmail.com"
             let purchase = await fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`, {
                 method: 'POST'
             })
@@ -91,6 +91,8 @@ console.log(purchaseData)
 console.log(purchaseId)
 		//updates the database when a ticket is added to/removed from cart
 		try {
+			console.log("PURCHASE ID: " + purchaseId)
+			console.log("TICKET ID: " + ticket.ticketId)
 			const response = await fetch(`https://www.ticketslave.org/purchase/purchases/${purchaseId}/add?ticketId=${ticket.ticketId}`, {
 				method: 'POST'
 			});
