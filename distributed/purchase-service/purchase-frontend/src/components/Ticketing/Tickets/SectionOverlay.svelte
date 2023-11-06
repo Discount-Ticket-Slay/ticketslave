@@ -15,18 +15,44 @@
     let sectionTickets = concertTickets.filter(ticket => ticket.section === selectedSection)
 </script>
 
-<div class="backdrop fixed top-0 left-0 w-full h-full flex items-center justify-center">
-    <div class="bg-white p-4 rounded shadow w-3/5 h-3/5">
+<div class="backdrop">
+    <div class="overlay">
         <h2 class="text-xl font-semibold mb-4">Section: {selectedSection}</h2>
         {#each sectionTickets as ticket}
             <Ticket {ticket} onSelect={addToCart}/>
         {/each}
-        <button class="bg-blue-500 text-white rounded-sm p-2" on:click={closeOverlay}>Close</button>
+        <button class="close-button" on:click={closeOverlay}>Close</button>
     </div>
 </div>
 
 <style>
     .backdrop {
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         background-color: rgb(0 0 0 0.5);
+    }
+
+    .overlay {
+        background-color: white;
+        padding: 1rem;
+        border-radius: 0.25rem;
+        --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+        --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+        width: 60%;
+        height: 60%;
+    }
+
+    .close-button {
+        background-color: cornflowerblue;
+        color: white;
+        border-radius: 0.125rem;
+        padding: 0.5rem;
     }
 </style>
