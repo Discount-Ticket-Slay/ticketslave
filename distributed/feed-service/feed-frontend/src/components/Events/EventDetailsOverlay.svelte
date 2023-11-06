@@ -55,26 +55,53 @@
     }
 
     const ticketCategories = []
+    let error = null
+    let isLoading = true; // Initialize with loading state
 
-    // onMount(
-    //     fetch(`https://www.ticketslave.org/purchase/ticketcategory`)
-    //     .then(response => {
-    //         if(!response.ok) {
-    //             throw new Error("response is not ok")
-    //         }
-    //         return response.json()
-    //     })
-    //     .then(data => {
-    //         //ticketcategory of an event takes in the eventId as an attribute
-    //         for (let i in data) {
-    //             if(data[i].eventId === event.eventId)
-    //             ticketCategories.push(data[i]);
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.error(error)
-    //     })
-    // )
+//     onMount(
+//         fetch(`https://www.ticketslave.org/purchase/ticketcategory`)
+//         .then(response => {
+//             if(!response.ok) {
+//                 throw new Error("response is not ok")
+//             }
+//             return response.json()
+//         })
+//         .then(data => {
+//             //ticketcategory of an event takes in the eventId as an attribute
+//             for (let i in data) {
+//                 if(data[i].eventId === event.eventId)
+//                 ticketCategories.push(data[i]);
+//             }
+// console.log(ticketCategories)
+//         })
+//         .catch(err => {
+//             error = err
+//             console.error(err)
+
+//         })
+//     )
+
+async function fetchData() {
+        try {
+            // Fetch event data
+            const response = await fetch(
+                `https://www.ticketslave.org/purchase/ticketcategory`
+            );
+            const json_data = await response.json();
+            for (let i in json_data) {
+                //if (json_data[i].eventId === event.eventId)
+                ticketCategories.push(json_data[i]);
+            }
+            isLoading = false; // Data is loaded, set loading state to false
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    onMount(fetchData);
+    // console.log(ticketCategories.length)
+    // console.log(ticketCategories)
+
 </script>
 
 <div class="background">
@@ -90,10 +117,26 @@
         <br>
 
         <!--Displays all ticket information-->
-        <!-- <h2>Ticket Categories</h2> -->
-        <!-- <div class="text-sm text-gray-600">{#each ticketCategories as category}
-            <p>{category}</p>
-        {/each}</div> -->
+        <h2>Ticket Categories</h2>
+        {#if error}
+        <div class="error-message">
+            <p>Error: {error.message}</p>
+            <p>Please try again later.</p>
+        </div>
+        {/if}
+         <div class="text-sm text-gray-600">  {#if isLoading}
+            <!-- Display a loading message while data is being fetched -->
+            <p>Loading...</p>
+          {:else if ticketCategories.length !== 0}
+            <!-- Display the data once it's available -->
+            {#each ticketCategories as category, index}
+            <div class= "category">
+              <p>Category {index+1} </p>
+              <p>Name: {category.name}</p>
+              <p>Price: ${category.price}</p>
+            </div>
+            {/each}
+          {/if}</div>
 
         <!-- Bottom right button, redirects the user to the buffer/queue -->
         <!-- * the click event takes in the userId and executes the queueForTickets function (not implemented) -->
@@ -152,4 +195,15 @@
     .redirect-button:hover {
         background-color: rgb(29 78 216); /*bg-blue-700*/
     }
+
+    .category {
+        display: flex;
+        flex-direction: row;
+        padding: 0.5rem; 
+        align-items: center;
+        justify-content: center;
+    }
+    .category p {
+        margin-right: 1rem; /* Adjust the value as needed to control the horizontal space */
+        }
 </style>
