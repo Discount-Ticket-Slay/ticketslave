@@ -15,7 +15,7 @@ import java.util.*;
 @RequestMapping("/queue")
 public class QueueController {
 
-    @GetMapping("/")
+    @GetMapping()
     public String home() {
         return "index";
     }

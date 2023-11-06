@@ -28,6 +28,10 @@ public class JwtService {
 
     private RSAPublicKey publicKey;
 
+    public void setSigningKey(RSAPublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+
     /*
      * Input: None
      * Output: None
