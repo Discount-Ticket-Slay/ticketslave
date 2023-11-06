@@ -51,14 +51,12 @@
                 Checkout
             </button>
         {:else}
-            <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white w-full col-span-full h-10 rounded" style="line-height: 12px;"
+            <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 cursor-pointer py-3 text-sm text-white w-full col-span-full h-10 rounded" style="line-height: 12px;"
             on:click={checkoutOrder}>
                 Checkout
             </button>
         {/if}
     </div>
-
-    
 </div>
 
 <style>
