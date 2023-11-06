@@ -19,8 +19,7 @@
         /**
          * this method will contain the logic to send the cart as a purchase object to the backend
         */
-        alert("move to checkout/payment")
-        console.log(cartItems)
+        alert("checkout")
     }
 </script>
 

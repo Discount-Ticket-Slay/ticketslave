@@ -31,10 +31,7 @@
                 const textData = await userIdResponse.text();
                 // Set userId as text
                 $userId = textData; 
-                showUserIdComponent = true; // Show the component
             } else {
-                // Handle non-OK response
-                showUserIdComponent = false;
                 console.error(
                     "Error fetching user ID:",
                     userIdResponse.statusText
@@ -75,6 +72,22 @@
 		if (!cartItems.some((item) => item.ticketId === ticket.ticketId)) {
 			cartItems = [...cartItems, ticket]; // Add the selected ticket to cartItems
 		}
+
+		//updates the database when a ticket is added to/removed from cart
+		fetch(`https://www.ticketslave.org/purchase/purchases/${PurchaseId}/add?ticketId=${ticketId}`, {
+			method: 'POST'
+		})
+		.then(response => {
+			if(!response.ok) {
+				throw new Error("response was not ok")
+			}
+		})
+		.then(purchase => {
+			console.log(purchase + " sent to database")
+		})
+		.catch(error => {
+			console.error("something went wrong ", error)
+		})
 	}
 
 	//removes the ticket from the cart
