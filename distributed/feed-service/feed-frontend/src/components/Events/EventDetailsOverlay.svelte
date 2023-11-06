@@ -55,7 +55,7 @@
     }
 
     const ticketCategories = []
-    
+
     // onMount(
     //     fetch(`https://www.ticketslave.org/purchase/ticketcategory`)
     //     .then(response => {
