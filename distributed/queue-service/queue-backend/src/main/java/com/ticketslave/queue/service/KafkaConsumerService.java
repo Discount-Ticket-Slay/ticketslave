@@ -33,9 +33,15 @@ public class KafkaConsumerService {
     // Method to start processing emails. Can be called via an admin-triggered action.
     public void startEmailProcessing() {
 
+        System.out.println("Starting email processing.");
+
         if (!processingEnabled) {
             processingEnabled = true;
+
+            System.out.println("Scheduling email processing.");
             scheduler.scheduleAtFixedRate(this::processNextEmail, 0, DELAY, TimeUnit.SECONDS);
+
+            System.out.println("all done?");
         }
     }
 
