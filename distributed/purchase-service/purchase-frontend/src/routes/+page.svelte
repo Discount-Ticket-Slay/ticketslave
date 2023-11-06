@@ -10,16 +10,10 @@
 	import Navbar from '../components/Essentials/Navbar.svelte';
 	import Footer from '../components/Essentials/Footer.svelte';
 	import { onMount } from 'svelte';
+	import { userId } from "../store/store.js";
 
 	//dummy array to store concert tickets. will be replaced with GET request during frontend-backend merge
-	let concertTickets = [
-		// { id: 1, section: "221", row: "DON" },
-		// { id: 2, section: "223", row: "DON" },
-		// { id: 3, section: "221", row: "DON" },
-		// { id: 4, section: "223", row: "DON" },
-		// { id: 5, section: "225", row: "DON" },
-		// { id: 6, section: "239", row: "DON" }
-	];
+	let concertTickets = [];
 
 	let buyingEvent = []; // MAKE PURCHASE POST REQUEST TO DB HERE
 
@@ -29,20 +23,24 @@
 
 	async function fetchData() {
 		try {
-			// // Fetch event data
-			// const hash = window.location.hash;
-			// const paramsStart = hash.indexOf("?");
+			// Attempt to fetch userId as plain text
+            const userIdResponse = await fetch(
+                "https://www.ticketslave.org/feed/email"
+            );
+            if (userIdResponse.ok) {
+                const textData = await userIdResponse.text();
+                // Set userId as text
+                $userId = textData; 
+                showUserIdComponent = true; // Show the component
+            } else {
+                // Handle non-OK response
+                showUserIdComponent = false;
+                console.error(
+                    "Error fetching user ID:",
+                    userIdResponse.statusText
+                );
+            }
 
-			// if (paramsStart >= 0) {
-			//     const paramString = hash.slice(paramsStart + 1);
-			//     const urlParams = new URLSearchParams(paramString);
-
-			//     let receivedId = urlParams.get("id");
-			//     console.log(receivedId);
-
-			//     if (receivedId) {
-			//         eventId = Number(receivedId);
-			//     }
 			const response = await fetch(`https://www.ticketslave.org/purchase/ticketcategory`);
 			const json_data = await response.json();
 			for (let i in json_data) {
