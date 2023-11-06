@@ -35,6 +35,7 @@ public class ShuffleController {
      */
     @GetMapping("/trigger-randomiser")
     public ResponseEntity<String> triggerRandomiser(HttpServletRequest request) {
+        System.out.println("Backend: Triggering randomiser");
         return processRequest(request, () -> {
             shuffleService.processAndSendUserId();
             return "Randomisation process triggered.";
