@@ -56,10 +56,10 @@ public class PurchaseController {
     // }
     @PostMapping("/{id}/add")
     public ResponseEntity<String> addTicket(@PathVariable Long id, @RequestParam Long ticketId) {
-        if (timerService.isTimerExpired()){
-            System.out.println("you timed out, your purchase will be deleted");
-            PurchaseService.deletePurchase(id);
-        }
+        // if (timerService.isTimerExpired()){
+        //     System.out.println("you timed out, your purchase will be deleted");
+        //     PurchaseService.deletePurchase(id);
+        // }
         try {       
             PurchaseService.addTicketId(id, ticketId);
             return new ResponseEntity<String>("Ticket successfully added to purchase", HttpStatus.OK); 
@@ -73,10 +73,10 @@ public class PurchaseController {
 
     @PutMapping("/{id}/complete")
     public ResponseEntity<String> completePurchase(@PathVariable Long id) {
-        if (timerService.isTimerExpired()){
-            System.out.println("you timed out, purchase unable to be completed");
-            PurchaseService.deletePurchase(id);
-        }
+        // if (timerService.isTimerExpired()){
+        //     System.out.println("you timed out, purchase unable to be completed");
+        //     PurchaseService.deletePurchase(id);
+        // }
         try {
             System.out.println("you passed the timer");
             PurchaseService.completePurchase(id);
