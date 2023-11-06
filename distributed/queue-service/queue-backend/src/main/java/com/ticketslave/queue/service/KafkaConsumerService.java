@@ -3,8 +3,13 @@ package com.ticketslave.queue.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+
+import com.ticketslave.queue.websockets.QueueWebSocketHandler;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+
+import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -14,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class KafkaConsumerService {
 
-    private final WebSocketNotificationService webSocketNotificationService;
+    private final QueueWebSocketHandler queueWebSocketHandler;
 
     // A thread-safe queue to hold the emails to be processed.
     private final BlockingQueue<String> emailQueue = new LinkedBlockingQueue<>();
@@ -26,8 +31,8 @@ public class KafkaConsumerService {
     private static final int DELAY = 10;
 
     @Autowired
-    public KafkaConsumerService(WebSocketNotificationService webSocketNotificationService) {
-        this.webSocketNotificationService = webSocketNotificationService;
+    public KafkaConsumerService(QueueWebSocketHandler queueWebSocketHandler) {
+        this.queueWebSocketHandler = queueWebSocketHandler;
     }
 
     /*
@@ -78,7 +83,11 @@ public class KafkaConsumerService {
      * associated with the given email.
      */
     private void redirectUser(String email) {
-        webSocketNotificationService.notifyFrontend(email);
+        try {
+            queueWebSocketHandler.sendMessageToUser(email, "redirect");
+        } catch (IOException e) {
+            System.err.println("Failed to send redirect message to user: " + email);
+        }
     }
 
     /*
