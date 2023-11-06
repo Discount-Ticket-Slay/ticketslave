@@ -36,7 +36,7 @@ public class TicketCategoryController {
 
     @GetMapping("/{ticketCategoryId}/getevent")
     public EventDTO getEvent(@PathVariable Long ticketCategoryId) {
-//System.out.println("Let's go!");
+// //System.out.println("Let's go!");
         return TicketCategoryService.getEvent(ticketCategoryId);
     }
 

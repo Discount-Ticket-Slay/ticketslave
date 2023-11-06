@@ -28,6 +28,7 @@ public class TicketCategoryService {
     private WebClient.Builder WebClientBuilder;
     @Autowired
     private RestTemplate RestTemplate;
+    private final String BASE_URL = "https://www.ticketslave.org";
     // @Autowired
     // private EventService EventService;
     // @Autowired
@@ -42,7 +43,7 @@ public class TicketCategoryService {
         TicketCategory ticketCategory = findTicketCategory(ticketCategoryId);
         Long eventId = ticketCategory.getEventId();
         //WebClient webClient = WebClientBuilder.baseUrl("http://localhost:8080").build();
-        EventDTO eventDTO = RestTemplate.getForObject("http://localhost:8080/events/" + eventId + "/eventDTO", 
+        EventDTO eventDTO = RestTemplate.getForObject(BASE_URL + "/events/" + eventId + "/eventDTO", 
                                                         EventDTO.class);
 
             return eventDTO;
@@ -73,34 +74,37 @@ public class TicketCategoryService {
 // System.out.println(ticketCategory);
 //         return TicketCategoryRepository.save(ticketCategory);
 //     }
-
-    public TicketCategory createTicketCategory(TicketCategory TicketCategory) {
-        //loadTickets(TicketCategory);
-        //TicketCategory.setEventId(eventId);
-        Long eventId = TicketCategory.getEventId();
-        TicketCategoryRepository.save(TicketCategory);
-//System.out.println(TicketCategory.getEventId());
-//System.out.println(TicketCategory.getTicketCategoryId());
-        // TicketCategory ticketCategory = findTicketCategory(eventId);
-        String eventUpdateUrl = "http://localhost:8080/events/" + eventId + "/update";
-        WebClient webCLient = WebClientBuilder.baseUrl(eventUpdateUrl).build();
-        Long ticketCategoryId = TicketCategory.getTicketCategoryId();
-        if (ticketCategoryId == null || eventId == null) {
-//System.out.println("bye");
-            return null;
-        }
-        ResponseEntity<String> response = webCLient
-            .put()
-            .uri(uriBuilder -> uriBuilder
-            .queryParam("ticketCategoryId", ticketCategoryId)
-            .build())
-            .retrieve()
-            .toEntity(String.class)
-            .block();
-
-//System.out.println("lmao");
+    public TicketCategory createTicketCategory (TicketCategory TicketCategory) {
         return TicketCategoryRepository.save(TicketCategory);
     }
+
+//     public TicketCategory createTicketCategory(TicketCategory TicketCategory) {
+//         //loadTickets(TicketCategory);
+//         //TicketCategory.setEventId(eventId);
+//         Long eventId = TicketCategory.getEventId();
+//         TicketCategoryRepository.save(TicketCategory);
+// //System.out.println(TicketCategory.getEventId());
+// //System.out.println(TicketCategory.getTicketCategoryId());
+//         // TicketCategory ticketCategory = findTicketCategory(eventId);
+//         String eventUpdateUrl = BASE_URL + "/feed/events" + eventId + "/update";
+//         WebClient webCLient = WebClientBuilder.baseUrl(eventUpdateUrl).build();
+//         Long ticketCategoryId = TicketCategory.getTicketCategoryId();
+//         if (ticketCategoryId == null || eventId == null) {
+// //System.out.println("bye");
+//             return null;
+//         }
+//         ResponseEntity<String> response = webCLient
+//             .put()
+//             .uri(uriBuilder -> uriBuilder
+//             .queryParam("ticketCategoryId", ticketCategoryId)
+//             .build())
+//             .retrieve()
+//             .toEntity(String.class)
+//             .block();
+
+//System.out.println("lmao");
+    //     return TicketCategoryRepository.save(TicketCategory);
+    // }
 
 
     @Transactional
