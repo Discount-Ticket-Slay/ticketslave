@@ -42,6 +42,9 @@ public class TicketCategoryService {
     public EventDTO getEvent(Long ticketCategoryId) {
         TicketCategory ticketCategory = findTicketCategory(ticketCategoryId);
         Long eventId = ticketCategory.getEventId();
+        if (eventId == null) {
+            return null;
+        }
         //WebClient webClient = WebClientBuilder.baseUrl("http://localhost:8080").build();
         EventDTO eventDTO = RestTemplate.getForObject(BASE_URL + "/feed/events/" + eventId + "/eventDTO", 
                                                         EventDTO.class);
