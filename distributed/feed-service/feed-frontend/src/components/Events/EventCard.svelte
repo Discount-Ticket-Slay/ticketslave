@@ -28,7 +28,7 @@
     <p class="text-sm text-gray-600">{event.venue}</p>
 </button>
 
-{#if isEventClicked}
+{#if isEventClicked === true}
     <div>
         <EventDetailsOverlay {event} on:close={closeDetails}/>
     </div>

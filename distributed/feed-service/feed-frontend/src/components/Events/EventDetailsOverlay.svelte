@@ -52,6 +52,7 @@
         } catch (error) {
             console.error('An error occurred:', error);
         }
+
     }
 
     const ticketCategories = []
@@ -62,6 +63,12 @@
                 throw new Error("response is not ok")
             }
             return response.json()
+        })
+        .then(data => {
+console.log(data)
+            ticketCategories.push(...data)
+
+console.log(ticketCategories)
         })
         .catch(error => {
             console.error(error)
@@ -85,9 +92,9 @@
         <h2>Ticket Categories</h2>
         <div class="text-sm text-gray-600">{#each ticketCategories as category}
             <p>category</p>
-        {/each}</div>
+        {/each}</div> -->
 
-        <!-- Bottom right button, redirects the user to the buffer/queue -->
+        <!-- Bottom right button, redirects the user to the buffer/queue
         <!-- * the click event takes in the userId and executes the queueForTickets function (not implemented) -->
         <button class="redirect-button" on:click={queueForTickets}>Buy Tickets</button>
     </div>
