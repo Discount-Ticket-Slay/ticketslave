@@ -41,19 +41,19 @@ resource "aws_security_group" "ticket_micro_security_group" {
   # }
 
   # Network Access
-  ingress {
-    description = "HTTP Access from VPC"
-    from_port   = 80
-    to_port     = 8080
-    protocol    = "tcp"
-  }
+  # ingress {
+  #   description = "HTTP Access from VPC"
+  #   from_port   = 80
+  #   to_port     = 8080
+  #   protocol    = "tcp"
+  # }
 
-  ingress {
-    description = "HTTPS Access from VPC"
-    from_port   = 443
-    to_port     = 8080
-    protocol    = "tcp"
-  }
+  # ingress {
+  #   description = "HTTPS Access from VPC"
+  #   from_port   = 443
+  #   to_port     = 8080
+  #   protocol    = "tcp"
+  # }
 
   # Network access from anywhere to ALB
   ingress {

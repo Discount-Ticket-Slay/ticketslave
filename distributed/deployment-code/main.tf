@@ -125,6 +125,7 @@ module "cloudfront" {
   source = "./cloudfront"
 
   # api gateway module output
-  api_gateway_domain_name = element(split("://", module.api_gateway.api_gateway_domain_endpoint), 1)
+  api_gateway_domain_name        = element(split("://", module.api_gateway.api_gateway_domain_endpoint), 1)
+  ticket_application_lb_dns_name = module.elb.app_load_balancer_dns_name
 
 }
