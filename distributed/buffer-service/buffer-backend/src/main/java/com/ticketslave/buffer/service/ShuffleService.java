@@ -10,6 +10,7 @@ import com.ticketslave.buffer.websockets.BufferWebSocketHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 @Service
 public class ShuffleService {
@@ -25,15 +26,38 @@ public class ShuffleService {
     // consumer: listens to userid sent to buffered-queue topic
     @KafkaListener(topics = "buffered-queue", groupId = "randomiser-group")
     public void consume(String userId) {
+
+        System.out.println("Consumed user id: " + userId);
         buffer.add(userId);
+
+        // Converting ArrayList of objects to String
+        String listString = buffer.stream()
+                                .map(Object::toString)
+                                .collect(Collectors.joining(", "));
+
+        // Print the String
+        System.out.println(listString);
     }
 
     // algorithm + producer: randomise and send the userid with their queue to another topic (to be consumed by queue service)
     public void processAndSendUserId() {
 
+        System.out.println("Processing and sending user id called");
+
         Collections.shuffle(buffer);
         int currentQueueNumber = 1;
+
+        // Converting ArrayList of objects to String
+        String listString = buffer.stream()
+                                .map(Object::toString)
+                                .collect(Collectors.joining(", "));
+
+        // Print the String
+        System.out.println(listString);
+        
         for (String randomisedUserId : buffer) {
+
+            System.out.println("Sending randomised user id: " + randomisedUserId);
             
             kafkaTemplate.send("randomised-queue", randomisedUserId);
 
