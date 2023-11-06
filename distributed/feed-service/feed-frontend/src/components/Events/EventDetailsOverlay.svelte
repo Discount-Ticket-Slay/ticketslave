@@ -89,7 +89,7 @@ async function fetchData() {
             );
             const json_data = await response.json();
             for (let i in json_data) {
-                //if (json_data[i].eventId === event.eventId)
+                if (json_data[i].eventId === event.eventId)
                 ticketCategories.push(json_data[i]);
             }
             isLoading = false; // Data is loaded, set loading state to false
