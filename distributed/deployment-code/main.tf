@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "" # specify your region
+  region = "ap-southeast-1"
 }
 
 # ECR Module

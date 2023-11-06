@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ticketslave.queue.websockets.QueueWebSocketHandler;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
@@ -20,68 +18,58 @@ import java.util.concurrent.TimeUnit;
 public class KafkaConsumerService {
 
     private final QueueWebSocketHandler queueWebSocketHandler;
-
-    // A thread-safe queue to hold the emails to be processed.
     private final BlockingQueue<String> emailQueue = new LinkedBlockingQueue<>();
-
-    // Executor service to handle scheduled tasks.
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-
-    // Delay between each task.
     private static final int DELAY = 10;
+
+    // Flag to control the execution of the scheduled task.
+    private volatile boolean processingEnabled = false;
 
     @Autowired
     public KafkaConsumerService(QueueWebSocketHandler queueWebSocketHandler) {
         this.queueWebSocketHandler = queueWebSocketHandler;
     }
 
-    /*
-     * Input: None
-     * Output: None
-     * Description: Initializes the consumer service by starting a scheduled task that
-     * will process the emails at fixed intervals (every 10 seconds).
-     */
-    @PostConstruct
-    public void init() {
-        scheduler.scheduleAtFixedRate(this::processNextEmail, 0, DELAY, TimeUnit.SECONDS);
+    // Method to start processing emails. Can be called via an admin-triggered action.
+    public void startEmailProcessing() {
+
+        if (!processingEnabled) {
+            processingEnabled = true;
+            scheduler.scheduleAtFixedRate(this::processNextEmail, 0, DELAY, TimeUnit.SECONDS);
+        }
     }
 
-    /*
-     * Input: email - A string representing the user's email address.
-     * Output: None
-     * Description: Consumes a message from the Kafka topic and attempts to add it to
-     * the blocking queue for later processing.
-     */
+    // Method to stop processing emails. Can also be triggered by an admin if needed.
+    public void stopEmailProcessing() {
+        processingEnabled = false;
+    }
+
     @KafkaListener(topics = "randomised-queue", groupId = "queue-group")
     public void consume(String email) {
+        if (!processingEnabled) {
+            System.err.println("Email processing not started. Email not queued: " + email);
+            return;
+        }
+
         boolean offered = emailQueue.offer(email);
         if (!offered) {
             System.err.println("Failed to add email to queue: " + email);
         }
     }
 
-    /*
-     * Input: None
-     * Output: None
-     * Description: Processes the next email in the queue by taking it from the queue
-     * and redirecting the user associated with that email.
-     */
     private void processNextEmail() {
+        if (!processingEnabled) {
+            return;
+        }
         try {
             String email = emailQueue.take(); // Blocks until an email is available
             redirectUser(email);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); // Restore the interrupted status
+            Thread.currentThread().interrupt();
             System.err.println("Interrupted while processing email queue.");
         }
     }
 
-    /*
-     * Input: email - A string representing the user's email address.
-     * Output: None
-     * Description: Notifies the frontend via WebSocket to redirect the user
-     * associated with the given email.
-     */
     private void redirectUser(String email) {
         try {
             queueWebSocketHandler.sendMessageToUser(email, "redirect");
@@ -90,21 +78,16 @@ public class KafkaConsumerService {
         }
     }
 
-    /*
-     * Input: None
-     * Output: None
-     * Description: Cleans up resources by shutting down the scheduler service
-     * when the bean is being destroyed.
-     */
     @PreDestroy
     public void destroy() {
+        stopEmailProcessing(); // Ensure processing is stopped
         scheduler.shutdownNow();
         try {
             if (!scheduler.awaitTermination(800, TimeUnit.MILLISECONDS)) {
                 scheduler.shutdownNow();
             }
         } catch (InterruptedException e) {
-            scheduler.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 }
