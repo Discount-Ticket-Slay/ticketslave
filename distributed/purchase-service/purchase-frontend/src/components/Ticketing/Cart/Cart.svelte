@@ -14,12 +14,28 @@
 
     export let cartItems;
     export let removeFromCart;
+    import { userId } from "../../routes/store/store.js";
 
     async function checkoutOrder() {
         /**
          * this method will contain the logic to send the cart as a purchase object to the backend
         */
         try {
+            // Attempt to fetch userId as plain text
+            const userIdResponse = await fetch(
+                "https://www.ticketslave.org/feed/email"
+            );
+            if (userIdResponse.ok) {
+                const textData = await userIdResponse.text();
+                // Set userId as text
+                $userId = textData; 
+            } else {
+                console.error(
+                    "Error fetching user ID:",
+                    userIdResponse.statusText
+                );
+            }
+
             let purchase = fetch(`https://www.ticketslave.org/purchase/purchases/${userEmail}`)
             const purchaseId = purchase.PurchaseId
     
