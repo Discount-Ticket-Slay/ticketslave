@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.persistence.OptimisticLockException;
 
 @RestController
-@RequestMapping("/tickets")
+@RequestMapping("/purchase/tickets")
 public class TicketController {
 
     @Autowired

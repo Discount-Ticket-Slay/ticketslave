@@ -14,7 +14,7 @@ import com.ticketslave.purchase.dto.*;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/ticketcategory")
+@RequestMapping("/purchase/ticketcategory")
 public class TicketCategoryController {
 
     @Autowired

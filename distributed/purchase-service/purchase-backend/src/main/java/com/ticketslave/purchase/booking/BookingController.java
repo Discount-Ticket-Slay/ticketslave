@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 
 @Controller
-@RequestMapping("booking")
+@RequestMapping("/purchase/booking")
 public class BookingController {
 
     private final BookingService bookingService;
