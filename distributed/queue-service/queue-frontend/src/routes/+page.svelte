@@ -7,7 +7,7 @@
 
     let QueueNo;
     let userId = ""; // Initialized as empty string
-    let fontSize = 155;
+    let fontSize = 55;
 
     onMount(async () => {
         // Unsubscribe when the component is destroyed
@@ -57,10 +57,19 @@
             const data = JSON.parse(event.data);
             console.log("Message from server: ", data);
 
-            // Redirect to the purchase page if the correct data is received
-            if (data.userId === userId) {
-                window.location.replace("https://www.ticketslave.org/purchase");
+            if (data.userId == userId) {
+                
+                // Redirect to queue service with the queue number in the query string
+                const queueUrl = new URL("https://www.ticketslave.org/purchase");
+                queueUrl.searchParams.append("queueNumber", data.queueNumber);
+                
+                console.log(`Redirecting to: ${queueUrl.toString()}`);
+                
+                // Navigate to the queue page with the queue number as a query parameter
+                window.location.replace(queueUrl.toString());
+                
             }
+
         });
 
         socket.addEventListener("error", function (error) {
