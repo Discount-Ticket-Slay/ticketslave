@@ -74,7 +74,7 @@
 		}
 
 		//updates the database when a ticket is added to/removed from cart
-		fetch(`https://www.ticketslave.org/purchase/purchases/${PurchaseId}/add?ticketId=${ticketId}`, {
+		fetch(`https://www.ticketslave.org/purchase/purchases/${PurchaseId}/add?ticketId=${ticket.ticketId}`, {
 			method: 'POST'
 		})
 		.then(response => {
