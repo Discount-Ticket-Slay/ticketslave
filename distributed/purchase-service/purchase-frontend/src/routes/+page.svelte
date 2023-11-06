@@ -38,8 +38,10 @@
             //     );
             // }
 
-			let userId = "123@gmail.com"
-            let purchase = fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`)
+			let userId = "jackass@gmail.com"
+            let purchase = await fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`, {
+                method: 'POST'
+            })
             const purchaseId = purchase.PurchaseId
     
             const purchaseResponse = await fetch("https://www.ticketslave.org/payment", {
