@@ -1,6 +1,7 @@
 package com.ticketslave.feed.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.http.*;
 import com.ticketslave.feed.model.Event;
 import com.ticketslave.feed.service.EventService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/feed/events")
 public class EventController {
