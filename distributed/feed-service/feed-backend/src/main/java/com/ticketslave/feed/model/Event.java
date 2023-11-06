@@ -2,6 +2,10 @@ package com.ticketslave.feed.model;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.ticketslave.dto.EventDTO;
+
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import jakarta.validation.constraints.*;
 
@@ -58,6 +62,20 @@ public class Event {
         this.artist = artist;
         this.capacity = capacity;
     }
+
+    public EventDTO toDTO() {
+        EventDTO dto = new EventDTO();
+        dto.setEventId(eventId);
+        dto.setEventName(eventName);
+        dto.setEventDescription(eventDescription);
+        dto.setStartDateTime(startDateTime);
+        dto.setVenue(venue);
+        dto.setArtist(artist);
+        dto.setCapacity(capacity);
+
+        return dto;
+    }
+
 
     // Getters and Setters for each field
 

@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.*;
 import com.ticketslave.feed.model.Event;
 import com.ticketslave.feed.service.EventService;
+import com.ticketslave.dto.*;
 
 @CrossOrigin
 @RestController
@@ -39,6 +40,12 @@ public class EventController {
     public Event getEvent(@PathVariable Long id) {
         return eventService.findEvent(id);
     }
+
+    @GetMapping("/{id}/eventDTO")
+    public EventDTO getEventDTO(@PathVariable Long id) {
+        return eventService.getEventDTO(id);
+    }
+
 
     /* Input: Event object
      * Output: Created Event object

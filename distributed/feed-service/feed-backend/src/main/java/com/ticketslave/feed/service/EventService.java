@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import com.ticketslave.feed.model.Event;
 import com.ticketslave.feed.repository.EventRepository;
+import com.ticketslave.dto.*;
 
 @Service
 public class EventService {
@@ -50,6 +51,15 @@ public class EventService {
      */
     public Event findEvent(Long eventId) {
         return eventRepository.findById(eventId).orElse(null);
+    }
+
+    public EventDTO getEventDTO(Long eventId) {
+        Event event = eventRepository.findById(eventId).orElse(null);
+
+        if (event != null) {
+            return event.toDTO();
+        }
+        return null;
     }
 
 }
