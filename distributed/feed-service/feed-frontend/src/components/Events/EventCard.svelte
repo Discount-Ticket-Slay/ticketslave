@@ -24,8 +24,8 @@
 
 <button class="p-4 rounded-lg border border-gray-300 shadow-lg h-32 md:h-40 lg:h-48 xl:h-64 cursor-pointer" on:click={showDetails}>
     <h2 class="text-xl font-semibold">{event.eventName}</h2>
-    <p class="text-sm text-gray-600">{event.eventDate}</p>
-    <p class="text-sm text-gray-600">{event.eventLocation}</p>
+    <p class="text-sm text-gray-600">{(event.startDateTime).slice(0,10)}</p>
+    <p class="text-sm text-gray-600">{event.venue}</p>
 </button>
 
 {#if isEventClicked}

@@ -6,7 +6,7 @@
     import { userId } from "../store/store.js";
 
     //event details for every event from json file will go here
-    let eventList = null;
+    let events = [];
     let showUserIdComponent = false; // Used to control the display of the user ID component
 
     async function fetchData() {
@@ -16,9 +16,9 @@
                 "https://www.ticketslave.org/feed/events"
             );
             const json_data = await response.json();
-            eventList = [];
+            events = [];
             for (let i in json_data) {
-                eventList.push(json_data[i]);
+                events.push(json_data[i]);
             }
 
             // Attempt to fetch userId as plain text
@@ -48,50 +48,13 @@
 </script>
 
 <Navbar />
-<div class="events">
-    <h3>Popular Events</h3>
-    {#if showUserIdComponent}
-        <p>Your user ID is: {$userId}</p>
-    {/if}
+
+<div class="m-10 min-h-screen rounded-lg">
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+		{#each events as event}
+			<EventCard {event} />
+		{/each}
+	</div>
 </div>
 
-<!--this will eventually become the area where backend json_data is displayed-->
-
-<div class="main">
-    {#if eventList}
-        {#each eventList as event}
-            {#if event}
-                <EventCard {event} />
-            {/if}
-        {/each}
-    {/if}
-</div>
-
-<!--this will eventually become the area where backend json_data is displayed-->
-<style>
-    .main {
-        margin: 5vh;
-        max-width: 52rem; /**12(3rem) + 4(5vh)*/
-        max-height: 80vh;
-        overflow-y: auto;
-        background-color: #ccc;
-        border-radius: 0.5rem;
-    }
-
-    .top-menu {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        max-width: 52rem;
-        margin: 5vh;
-    }
-
-    /* .search-bar {
-        max-width: 50%;
-    } */
-
-    h3 {
-        font-family: "Advent Pro", sans-serif;
-    }
-</style>
-
+<Footer />

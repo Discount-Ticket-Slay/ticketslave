@@ -8,6 +8,7 @@
 <script>
     export let event
     import {createEventDispatcher} from 'svelte'
+    import {onMount} from "svelte"
 
     //the event dispatcher procs the event in the dispatch() function.
     //in this case, dispatching CLOSE here to EventCard.svelte, procs the event CLOSE in
@@ -20,11 +21,52 @@
 
     /**
      * reditects the user to the queue
-     * *will be replaced by the function to move the user to the buffer service
      */
-    function moveToQueue() {
-        alert('redirect user to queue')
+    async function queueForTickets() {
+        try {
+            // Call backend to register user in the queue
+            const userIdString = String(userId);
+            console.log("Attempting to send userId:", userId);
+            console.log("Type of userId:", typeof userId);
+            
+            // Send POST request to backend
+            const response = await fetch("https://www.ticketslave.org/feed/queue", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: userIdString })
+            });
+
+            console.log("Response:", response);
+
+            // Check the status of the response
+            if (response.status === 401) {
+                // If the user is not authorized, redirect to the Cognito login page
+                window.location.href = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=38vedjrqldlotkn6g9glq0sq9n&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Ffeed%2Fauth%2Fcognito-callback";
+            } else if (response.ok) {
+                // Successful registration, redirect user to buffer service page to wait
+                window.location.href = `https://www.ticketslave.org/buffer`;  // Pass userId as URL parameter
+            } else {
+                // Handle other responses or errors accordingly
+                console.error('Failed to register in queue:', response.statusText);
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
     }
+
+    const ticketCategories = []
+    onMount(
+        fetch(`https://www.ticketslave.org/purchase/ticketcategory/${event.eventId}/getcategories`)
+        .then(response => {
+            if(!response.ok) {
+                throw new Error("response is not ok")
+            }
+            return response.json()
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    )
 </script>
 
 <div class="background">
@@ -34,13 +76,20 @@
 
         <!-- Displays all event information -->
         <h2 class="text-xl font-bold">{event.eventName}</h2>
-        <p class="text-sm text-gray-600 font-semibold">{event.eventDate}</p>
-        <p class="text-sm text-gray-600 font-semibold">{event.eventLocation}</p>
+        <p class="text-sm text-gray-600 font-semibold">{(event.startDateTime).slice(0,10)}</p>
+        <p class="text-sm text-gray-600 font-semibold">{event.venue}</p>
         <p class="text-sm text-gray-600">{event.eventDescription}</p>
+        <br>
+
+        <!--Displays all ticket information-->
+        <h2>Ticket Categories</h2>
+        <div class="text-sm text-gray-600">{#each ticketCategories as category}
+            <p>category</p>
+        {/each}</div>
 
         <!-- Bottom right button, redirects the user to the buffer/queue -->
         <!-- * the click event takes in the userId and executes the queueForTickets function (not implemented) -->
-        <button class="redirect-button" on:click={moveToQueue}>Buy Tickets</button>
+        <button class="redirect-button" on:click={queueForTickets}>Buy Tickets</button>
     </div>
 </div>
 
