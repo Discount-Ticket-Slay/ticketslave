@@ -158,6 +158,11 @@
 		<!--displays the user ID-->
 		<p class="text-lg">Your User ID: {userId}</p>
 	</div>
+
+    <!-- Conditional rendering for admin button -->
+    {#if $isAdmin}
+        <button on:click={triggerRandomiser}>Trigger Randomiser</button>
+    {/if}
 </div>
 
 <Footer />
