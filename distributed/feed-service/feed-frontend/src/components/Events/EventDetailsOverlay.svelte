@@ -55,18 +55,26 @@
     }
 
     const ticketCategories = []
-    onMount(
-        fetch(`https://www.ticketslave.org/purchase/ticketcategory/${event.eventId}/getcategories`)
-        .then(response => {
-            if(!response.ok) {
-                throw new Error("response is not ok")
-            }
-            return response.json()
-        })
-        .catch(error => {
-            console.error(error)
-        })
-    )
+    
+    // onMount(
+    //     fetch(`https://www.ticketslave.org/purchase/ticketcategory`)
+    //     .then(response => {
+    //         if(!response.ok) {
+    //             throw new Error("response is not ok")
+    //         }
+    //         return response.json()
+    //     })
+    //     .then(data => {
+    //         //ticketcategory of an event takes in the eventId as an attribute
+    //         for (let i in data) {
+    //             if(data[i].eventId === event.eventId)
+    //             ticketCategories.push(data[i]);
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error(error)
+    //     })
+    // )
 </script>
 
 <div class="background">
@@ -82,10 +90,10 @@
         <br>
 
         <!--Displays all ticket information-->
-        <h2>Ticket Categories</h2>
-        <div class="text-sm text-gray-600">{#each ticketCategories as category}
-            <p>category</p>
-        {/each}</div>
+        <!-- <h2>Ticket Categories</h2> -->
+        <!-- <div class="text-sm text-gray-600">{#each ticketCategories as category}
+            <p>{category}</p>
+        {/each}</div> -->
 
         <!-- Bottom right button, redirects the user to the buffer/queue -->
         <!-- * the click event takes in the userId and executes the queueForTickets function (not implemented) -->
