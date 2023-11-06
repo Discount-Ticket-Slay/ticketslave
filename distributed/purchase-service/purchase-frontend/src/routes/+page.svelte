@@ -74,14 +74,14 @@
 	// adds the selected ticket to the cart
 	function addToCart(ticket) {
 		// Check if the ticket is not already in the cartItems
-		if (!cartItems.some((item) => item.id === ticket.id)) {
+		if (!cartItems.some((item) => item.ticketId === ticket.ticketId)) {
 			cartItems = [...cartItems, ticket]; // Add the selected ticket to cartItems
 		}
 	}
 
 	//removes the ticket from the cart
 	function removeFromCart(item) {
-		cartItems = cartItems.filter((cartItem) => cartItem.id !== item.id);
+		cartItems = cartItems.filter((cartItem) => cartItem.ticketId !== item.ticketId);
 	}
 </script>
 

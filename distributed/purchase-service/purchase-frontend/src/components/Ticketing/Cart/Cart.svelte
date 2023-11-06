@@ -29,7 +29,7 @@
         <!--notifies the user if their cart is empty-->
         <div class="flex justify-between mb-5">
             <!--if there are items in the cart, display each item in a CartItem.svelte-->
-            {#each cartItems as cartItem (cartItem.id)}
+            {#each cartItems as cartItem (cartItem.ticketId)}
                 <li>
                     <CartItem {cartItem} onRemove={removeFromCart}/>
                 </li>

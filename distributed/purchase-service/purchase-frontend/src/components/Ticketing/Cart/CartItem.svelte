@@ -17,6 +17,6 @@
 
 <div class="border p-2 m-2 flex items-center justify-between space-x-4">
     <span class="font-semibold">{cartItem.name}</span>
-    <span class="font-semibold">{cartItem.price}</span>
+    <span class="font-semibold">${cartItem.price}</span>
     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded h-10" on:click={handleRemove}>Remove</button>
 </div>

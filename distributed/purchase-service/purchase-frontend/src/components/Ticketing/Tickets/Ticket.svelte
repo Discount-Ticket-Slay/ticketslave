@@ -29,7 +29,7 @@
 </script>
 
 <div class="border p-2 m-2 w-1/4 flex justify-between bg-slate-400">
-	<span class="font-semibold">{ticket.name} - {ticket.price}</span>
+	<span class="font-semibold">{ticket.name}<br>{ticket.rowChar}{ticket.seatNo} - ${ticket.price}</span>
 	<button class="{buttonStyle} font-bold py-2 px-4 rounded" on:click={handleSelect}>
 		{isInCart ? "In Cart" : "Select"}
 	</button>
