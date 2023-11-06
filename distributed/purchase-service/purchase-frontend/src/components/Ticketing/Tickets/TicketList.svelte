@@ -17,6 +17,7 @@
     let selectedSection = null;
 
     function openOverlay(section) {
+console.log("hello")
         selectedSection = section;
     }
 
@@ -42,7 +43,7 @@
         {#each getSections() as section}
             <li>
                 <button 
-                    class="cursor-pointer bg-blue-400 text-white rounded-sm p-2 w-1/2 m-3" 
+                    class="section-chip cursor-pointer rounded-sm p-2 w-1/2 m-3" 
                     on:click={() => openOverlay(section)}
                 >
                     {section}
@@ -56,3 +57,9 @@
     <SectionOverlay {selectedSection} {concertTickets} {cartItems} {addToCart} {closeOverlay} />
 {/if}
 
+<style>
+    .section-chip {
+        background-color: rgb(21 94 117);
+        color: gray;
+    }
+</style>

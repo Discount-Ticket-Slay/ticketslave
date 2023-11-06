@@ -15,7 +15,7 @@
     let sectionTickets = concertTickets.filter(ticket => ticket.section === selectedSection)
 </script>
 
-<div class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+<div class="backdrop fixed top-0 left-0 w-full h-full flex items-center justify-center">
     <div class="bg-white p-4 rounded shadow w-3/5 h-3/5">
         <h2 class="text-xl font-semibold mb-4">Section: {selectedSection}</h2>
         {#each sectionTickets as ticket}
@@ -24,3 +24,9 @@
         <button class="bg-blue-500 text-white rounded-sm p-2" on:click={closeOverlay}>Close</button>
     </div>
 </div>
+
+<style>
+    .backdrop {
+        background-color: rgb(0 0 0 0.5);
+    }
+</style>
