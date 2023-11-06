@@ -38,7 +38,7 @@
             //     );
             // }
 
-			userId = "123@gmail.com"
+			let userId = "123@gmail.com"
             let purchase = fetch(`https://www.ticketslave.org/purchase/purchases/${userId}`)
             const purchaseId = purchase.PurchaseId
     
