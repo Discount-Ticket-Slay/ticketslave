@@ -29,6 +29,7 @@
 		"bootstrap": "^5.3.2",
 		"carbon-components-svelte": "^0.81.2",
 		"flowbite-svelte": "^0.44.18",
+		"store": "^2.0.12",
 		"svelte-headlessui": "^0.0.32",
 		"svelte-transition": "^0.0.10"
 	}
