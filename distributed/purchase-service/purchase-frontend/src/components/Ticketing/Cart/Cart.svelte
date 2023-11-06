@@ -14,6 +14,14 @@
 
     export let cartItems;
     export let removeFromCart;
+
+    function checkoutOrder() {
+        /**
+         * this method will contain the logic to send the cart as a purchase object to the backend
+        */
+        alert("move to checkout/payment")
+        console.log(cartItems)
+    }
 </script>
 
 <div class="min-h-screen px-8 py-10 w-full ">
@@ -43,13 +51,12 @@
                 Checkout
             </button>
         {:else}
-            <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white w-full col-span-full h-10 rounded" style="line-height: 12px;">
+            <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 cursor-pointer py-3 text-sm text-white w-full col-span-full h-10 rounded" style="line-height: 12px;"
+            on:click={checkoutOrder}>
                 Checkout
             </button>
         {/if}
     </div>
-
-    
 </div>
 
 <style>
