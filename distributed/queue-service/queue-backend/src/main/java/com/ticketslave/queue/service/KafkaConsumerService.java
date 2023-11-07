@@ -1,5 +1,6 @@
 package com.ticketslave.queue.service;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,9 @@ import com.ticketslave.queue.websockets.QueueWebSocketHandler;
 
 import javax.annotation.PreDestroy;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -18,9 +22,10 @@ import java.util.concurrent.TimeUnit;
 public class KafkaConsumerService {
 
     private final QueueWebSocketHandler queueWebSocketHandler;
+    private final List<String> emailBuffer = Collections.synchronizedList(new ArrayList<>());
     private final BlockingQueue<String> emailQueue = new LinkedBlockingQueue<>();
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-    private static final int DELAY = 10;
+    private static final int DELAY = 10; // 10 second delay between processing each email
 
     // Flag to control the execution of the scheduled task.
     private volatile boolean processingEnabled = false;
@@ -32,16 +37,16 @@ public class KafkaConsumerService {
 
     // Method to start processing emails. Can be called via an admin-triggered action.
     public void startEmailProcessing() {
-
         System.out.println("Starting email processing.");
-
-        if (!processingEnabled) {
-            processingEnabled = true;
-
-            System.out.println("Scheduling email processing.");
-            scheduler.scheduleAtFixedRate(this::processNextEmail, 0, DELAY, TimeUnit.SECONDS);
-
-            System.out.println("all done?");
+        synchronized (emailBuffer) {
+            if (!processingEnabled) {
+                processingEnabled = true;
+                emailQueue.addAll(emailBuffer); // Transfer buffered emails to the processing queue
+                emailBuffer.clear(); // Clear the buffer
+                System.out.println("Scheduling email processing.");
+                scheduler.scheduleAtFixedRate(this::processNextEmail, 0, DELAY, TimeUnit.SECONDS);
+                System.out.println("Email processing scheduled.");
+            }
         }
     }
 
@@ -50,35 +55,51 @@ public class KafkaConsumerService {
         processingEnabled = false;
     }
 
-    @KafkaListener(topics = "randomised-queue", groupId = "queue-group")
+    @KafkaListener(topics = "randomised-queue", groupId = "randomiser-group")
     public void consume(String email) {
-        if (!processingEnabled) {
-            System.err.println("Email processing not started. Email not queued: " + email);
-            return;
+        System.out.println("Consumed email: " + email);
+        synchronized (emailBuffer) {
+            if (!processingEnabled) {
+                System.out.println("Buffering email: " + email);
+                emailBuffer.add(email);
+            } else {
+                emailQueue.offer(email);
+            }
         }
+    }
 
-        boolean offered = emailQueue.offer(email);
-        if (!offered) {
-            System.err.println("Failed to add email to queue: " + email);
+    // for debugging
+    private void printAllEmails() {
+        synchronized (emailBuffer) {
+            for (String email : emailBuffer) {
+                System.out.println(email);
+            }
         }
     }
 
     private void processNextEmail() {
-        if (!processingEnabled) {
+        if (!processingEnabled || emailBuffer.isEmpty()) {
             return;
         }
-        try {
-            String email = emailQueue.take(); // Blocks until an email is available
-            redirectUser(email);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.err.println("Interrupted while processing email queue.");
+        String email;
+        synchronized (emailBuffer) {
+            if (emailBuffer.isEmpty()) {
+                return; // Double-check in case the buffer became empty while waiting for the lock
+            }
+            email = emailBuffer.remove(0); // Removes the first element in the list (FIFO)
         }
+        System.out.println("Processing email + Redirect: " + email);
+        redirectUser(email);
     }
+    
 
     private void redirectUser(String email) {
         try {
-            queueWebSocketHandler.sendMessageToUser(email, "redirect");
+            System.out.println("Attempting to redirect user: " + email);
+            JSONObject message = new JSONObject();
+            message.put("userId", email); // Use the correct key for the userId expected by the frontend
+
+            queueWebSocketHandler.sendMessageToUser(email, message.toString());
         } catch (IOException e) {
             System.err.println("Failed to send redirect message to user: " + email);
         }
@@ -86,6 +107,7 @@ public class KafkaConsumerService {
 
     @PreDestroy
     public void destroy() {
+        System.out.println("Shutting down the email processing.");
         stopEmailProcessing(); // Ensure processing is stopped
         scheduler.shutdownNow();
         try {
