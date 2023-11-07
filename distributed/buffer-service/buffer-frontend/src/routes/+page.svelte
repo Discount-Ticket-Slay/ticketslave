@@ -81,6 +81,8 @@
         // fetch the user's email from the backend
         userId = await getUserId();
 
+        console.log("User ID:", userId);
+
         // check if the user's an admin
         await checkAdminStatus();
 

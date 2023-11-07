@@ -25,10 +25,15 @@
      */
     async function queueForTickets() {
         try {
-            // Call backend to register user in the queue
-            const userIdString = String(userId);
-            console.log("Attempting to send userId:", userId);
-            console.log("Type of userId:", typeof userId);
+            // // Call backend to register user in the queue
+            // const userIdString = String(userId);
+            // console.log("Attempting to send userId:", userId);
+            // console.log("Type of userId:", typeof userId);
+
+            // console.log("Attempting to send userIdString:", userIdString);
+
+            // Send API call to get user email
+            const emailResponse = await fetch("https://www.ticketslave.org/feed/email");
             
             // Send POST request to backend
             const response = await fetch("https://www.ticketslave.org/feed/queue", {

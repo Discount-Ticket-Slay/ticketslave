@@ -9,8 +9,6 @@
     let events = [];
     let showUserIdComponent = false; // Used to control the display of the user ID component
     
-
-
     async function fetchData() {
         try {
             // Fetch event data
@@ -32,6 +30,9 @@ console.log(userIdResponse);
                 const textData = await userIdResponse.text();
                 // Set userId as text
                 $userId = textData; 
+
+                console.log("storing userId: " + $userId);
+
                 showUserIdComponent = true; // Show the component
             } else {
                 // Handle non-OK response
