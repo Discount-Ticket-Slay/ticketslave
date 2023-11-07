@@ -3,9 +3,10 @@ package com.ticketslave.feed.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.*;
+
+import com.ticketslave.feed.dto.*;
 import com.ticketslave.feed.model.Event;
 import com.ticketslave.feed.repository.EventRepository;
-import com.ticketslave.dto.*;
 
 @Service
 public class EventService {

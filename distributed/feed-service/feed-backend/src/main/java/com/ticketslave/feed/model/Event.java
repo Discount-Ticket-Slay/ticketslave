@@ -2,7 +2,7 @@ package com.ticketslave.feed.model;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.ticketslave.dto.EventDTO;
+import com.ticketslave.feed.dto.EventDTO;
 
 import java.util.ArrayList;
 

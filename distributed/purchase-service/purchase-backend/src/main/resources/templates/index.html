@@ -1,20 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/assets/0.3150c0c2.css" rel="stylesheet">
+		<link href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/assets/2.d5e8cbd8.css" rel="stylesheet">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/entry/start.4c3adfd6.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/chunks/scheduler.e108d1fd.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/chunks/singletons.70edec3b.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/entry/app.f80e071c.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/chunks/index.619e54fb.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/nodes/0.6af5db5a.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/nodes/2.cf21e7ca.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">      <nav class="bg-cottage-brown p-4 flex justify-between items-center"> <div class="text-white text-xl font-serif" data-svelte-h="svelte-1b6l4be"><button class="text-white" onclick="window.location.href = '/'">ticketSlave</button></div> <ul class="flex space-x-4" data-svelte-h="svelte-gf1apr"><li><button class="text-gray-600 hover:underline" onclick="window.location.href = '/'">Home</button></li> <li><button class="text-gray-600 hover:underline" onclick="window.location.href = '/'">About</button></li> <li><button class="text-gray-600 hover:underline" onclick="window.location.href = '/'">FAQ</button></li> <li><button class="text-gray-600 hover:underline" onclick="window.location.href = '/'">Contact</button></li></ul>  <button class="bg-cottage-dark-brown text-white px-4 py-2 rounded hover:shadow-xl hover:text-white" onclick="function redirectToCognito() {
+  const cognitoURL = &quot;https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=4ash60bkicla7a4tdjdkob3pqu&amp;response_type=code&amp;scope=aws.cognito.signin.user.admin+email+openid+profile&amp;redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcognito-callback&quot;;
+  window.location.href = cognitoURL;
+}">Log In</button></nav>  <div class="loading" data-svelte-h="svelte-8qkwf"><p>Loading...</p></div> <footer class="bg-cottage-brown p-4 text-white font-sans" data-svelte-h="svelte-10sheof"><div class="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between"><div class="w-full sm:w-1/2 lg:w-1/4"><h2 class="text-xl font-serif mb-2">About Us</h2> <p class="text-sm text-gray-300">A fair and reliable ticketing system.</p></div> <div class="w-full sm:w-1/2 lg:w-1/4"><h2 class="text-xl font-serif mb-2">Contact Us</h2> <p class="text-sm text-gray-300">Reach out to us for any questions or inquiries.</p></div> <div class="w-full mt-3 sm:w-1/2 lg:w-1/4"><h2 class="text-xl font-serif mb-2">Links</h2> <ul class="text-sm text-gray-300"><li><button href="/" class="hover:underline">Home</button></li> <li><button href="/" class="hover:underline">About</button></li> <li><button href="/" class="hover:underline">FAQ</button></li> <li><button href="/" class="hover:underline">Contact</button></li></ul></div> <div class="w-full sm:w-1/2 lg:w-1/4"><h2 class="text-xl font-serif mb-2">Social Media</h2> <ul class="text-sm text-gray-300"><li><button href="/" class="hover:underline">Facebook</button></li> <li><button href="/" class="hover:underline">Instagram</button></li> <li><button href="/" class="hover:underline">Twitter</button></li></ul></div></div></footer> 
+			
+			<script>
+				{
+					__sveltekit_10luqhj = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						env: {}
+					};
 
-<head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
+					const element = document.currentScript.parentElement;
 
-	<title>ticketSlave</title>
+					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
 
-	<link rel='icon' type='image/png' href='public/images/logo.png'>
-	<link rel='stylesheet' href='public/global.css'>
-	<link rel='stylesheet' href='public/build/bundle.css'>
-
-	<script defer src='public/build/bundle.js'></script>
-</head>
-
-<body>
-</body>
-
+					Promise.all([
+						import("https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/entry/start.4c3adfd6.js"),
+						import("https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/purchase/_app/immutable/entry/app.f80e071c.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
 </html>

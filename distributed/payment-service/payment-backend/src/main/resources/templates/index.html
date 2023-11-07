@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="./favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/assets/0.79a0ec14.css" rel="stylesheet">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/entry/start.c2ced3f9.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/chunks/scheduler.e108d1fd.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/chunks/singletons.75273ef7.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/entry/app.d0ae15a6.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/chunks/index.02f7c4c9.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/nodes/0.e55cd2dc.js">
+		<link rel="modulepreload" href="https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/nodes/2.547e57fc.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents">        <nav class="bg-cottage-brown p-4 flex justify-between items-center"> <div class="text-white text-xl font-serif" data-svelte-h="svelte-1b6l4be"><button class="text-white" onclick="window.location.href = '/'">ticketSlave</button></div> <ul class="flex space-x-4" data-svelte-h="svelte-gf1apr"><li><button class="text-gray-600 hover:underline" onclick="window.location.href = '/'">Home</button></li> <li><button class="text-gray-600 hover:underline" onclick="window.location.href = '/'">About</button></li> <li><button class="text-gray-600 hover:underline" onclick="window.location.href = '/'">FAQ</button></li> <li><button class="text-gray-600 hover:underline" onclick="window.location.href = '/'">Contact</button></li></ul>  <button class="bg-cottage-dark-brown text-white px-4 py-2 rounded hover:shadow-xl hover:text-white" onclick="function redirectToCognito() {
+  const cognitoURL = &quot;https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=4ash60bkicla7a4tdjdkob3pqu&amp;response_type=code&amp;scope=aws.cognito.signin.user.admin+email+openid+profile&amp;redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcognito-callback&quot;;
+  window.location.href = cognitoURL;
+}">Log In</button></nav> <strong class="flex w-full justify-center mt-10" data-svelte-h="svelte-1scgcmk">Event title goes here</strong> <div class="flex flex-row justify-center mt-10 p-5"> <div class="flex flex-col w-2/4 bg-gray-200 p-2 rounded-md"><h2 class="text-lg font-semibold mb-3" data-svelte-h="svelte-117tvgt">Credit Card Details</h2> <div class="flex flex-col mb-5" data-svelte-h="svelte-1rdbu99"><div class="flex items-center mb-2"><input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> <label for="default-radio-1" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-500">PayPal</label></div> <div class="flex items-center mb-2"><input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-500">Apple Pay</label></div> <div class="flex items-center"><input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"> <label for="default-radio-2" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-500">Google Pay</label></div></div> <form><div class="mb-4 sm:mb-6"><label class="font-semibold" for="name" data-svelte-h="svelte-1t0havl">Name on Card</label> <input type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Name on card" required value=""></div> <div class="mb-4 sm:mb-6"><label class="font-semibold" for="number" data-svelte-h="svelte-17ox3w">Card Number</label> <input id="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Card number" required value=""></div> <div class="grid md:grid-cols-2 md:gap-6 gap-y-4"><div class="relative z-0 w-full mb-4 md:mb-6 group"><label class="font-semibold" for="exp" data-svelte-h="svelte-ndrptw">Expiry Date</label> <input id="exp" maxlength="5" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="MM/YY" required value=""></div> <div class="relative z-0 w-full mb-4 md:mb-6 group"><label class="font-semibold" for="cvc" data-svelte-h="svelte-ry6r1i">CVC/CVV</label> <input id="cvc" maxlength="3" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="CVC" required value=""></div></div> <p class="font-light mt-1" data-svelte-h="svelte-sga1ql">By completing your purchase, you agree to the Terms of Service.</p> <button type="submit" class="bg-gray-600 text-white font-semibold rounded-lg py-2 px-4 mt-4" data-svelte-h="svelte-3lv0ez">Complete Checkout</button></form></div>  <div class="flex flex-col w-1/2"> <div class="bg-gray-200 ml-3 rounded-md p-3"><h2 class="text-lg font-semibold mb-3" data-svelte-h="svelte-16j4r0k">Order Details</h2> <div class="flex flex-row justify-between mb-2"><div class="flex flex-row space-x-4"><div>Section: 233</div> <div>Seat: D12</div></div> <strong class="text-green-600">$208</strong> </div><div class="flex flex-row justify-between mb-2"><div class="flex flex-row space-x-4"><div>Section: 233</div> <div>Seat: G32</div></div> <strong class="text-green-600">$208</strong> </div><div class="flex flex-row justify-between mb-2"><div class="flex flex-row space-x-4"><div>Section: 324</div> <div>Seat: Q99</div></div> <strong class="text-green-600">$268</strong> </div> <hr class="my-2 border-2 border-black">  <div class="flex flex-row justify-between">Total: <strong>$0</strong></div></div></div></div> <footer class="bg-cottage-brown p-4 text-white font-sans" data-svelte-h="svelte-10sheof"><div class="max-w-screen-xl mx-auto flex flex-wrap items-center justify-between"><div class="w-full sm:w-1/2 lg:w-1/4"><h2 class="text-xl font-serif mb-2">About Us</h2> <p class="text-sm text-gray-300">A fair and reliable ticketing system.</p></div> <div class="w-full sm:w-1/2 lg:w-1/4"><h2 class="text-xl font-serif mb-2">Contact Us</h2> <p class="text-sm text-gray-300">Reach out to us for any questions or inquiries.</p></div> <div class="w-full mt-3 sm:w-1/2 lg:w-1/4"><h2 class="text-xl font-serif mb-2">Links</h2> <ul class="text-sm text-gray-300"><li><button href="/" class="hover:underline">Home</button></li> <li><button href="/" class="hover:underline">About</button></li> <li><button href="/" class="hover:underline">FAQ</button></li> <li><button href="/" class="hover:underline">Contact</button></li></ul></div> <div class="w-full sm:w-1/2 lg:w-1/4"><h2 class="text-xl font-serif mb-2">Social Media</h2> <ul class="text-sm text-gray-300"><li><button href="/" class="hover:underline">Facebook</button></li> <li><button href="/" class="hover:underline">Instagram</button></li> <li><button href="/" class="hover:underline">Twitter</button></li></ul></div></div></footer> 
+			
+			<script>
+				{
+					__sveltekit_wngo1o = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						env: {}
+					};
+
+					const element = document.currentScript.parentElement;
+
+					const data = [{"type":"data","data":null,"uses":{}},{"type":"data","data":null,"uses":{}}];
+
+					Promise.all([
+						import("https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/entry/start.c2ced3f9.js"),
+						import("https://ticketslavestore.s3.ap-southeast-1.amazonaws.com/payment/_app/immutable/entry/app.d0ae15a6.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 2],
+							data,
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>

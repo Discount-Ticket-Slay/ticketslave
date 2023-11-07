@@ -6,9 +6,10 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.http.*;
+
+import com.ticketslave.feed.dto.*;
 import com.ticketslave.feed.model.Event;
 import com.ticketslave.feed.service.EventService;
-import com.ticketslave.dto.*;
 
 @CrossOrigin
 @RestController
