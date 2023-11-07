@@ -9,6 +9,7 @@
     export let event
     import {createEventDispatcher} from 'svelte'
     import {onMount} from "svelte"
+    import { userId } from "../../store/store.js";
 
     //the event dispatcher procs the event in the dispatch() function.
     //in this case, dispatching CLOSE here to EventCard.svelte, procs the event CLOSE in

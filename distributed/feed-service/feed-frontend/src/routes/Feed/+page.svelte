@@ -3,7 +3,7 @@
     import Footer from '../../components/Essentials/Footer.svelte';
 	import EventCard from '../../components/Events/EventCard.svelte';
     import { onMount } from "svelte";
-    import { userId } from "../store/store.js";
+    import { userId } from "../../store/store.js";
 
     //event details for every event from json file will go here
     let events = [];

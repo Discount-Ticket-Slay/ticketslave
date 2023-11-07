@@ -1,108 +1,72 @@
 <script>
-    // import PreloadLayout from '../layouts/PreloadLayout.svelte';
-    import "carbon-components-svelte/css/white.css";
-    const loginButtonStyle = "text-decoration: none;";
-    function redirectToCognito() {
-        const cognitoURL =
-            "https://ticketslave.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=4ash60bkicla7a4tdjdkob3pqu&response_type=code&scope=aws.cognito.signin.user.admin+email+openid+profile&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth%2Fcognito-callback";
-        window.location.href = cognitoURL;
+    import Navbar from '../components/Essentials/Navbar.svelte';
+    import Footer from '../components/Essentials/Footer.svelte';
+	import EventCard from '../components/Events/EventCard.svelte';
+    import { onMount } from "svelte";
+    import { userId } from "../store/store.js";
+
+    //event details for every event from json file will go here
+    let events = [];
+    let showUserIdComponent = false; // Used to control the display of the user ID component
+    
+
+
+    async function fetchData() {
+        try {
+            // Fetch event data
+            const response = await fetch(
+                "https://www.ticketslave.org/feed/events"
+            );
+            const json_data = await response.json();
+            events = [];
+            for (let i in json_data) {
+                events.push(json_data[i]);
+            }
+
+            // Attempt to fetch userId as plain text
+            const userIdResponse = await fetch(
+                "https://www.ticketslave.org/feed/email"
+            );
+console.log(userIdResponse);
+            if (userIdResponse.ok) {
+                const textData = await userIdResponse.text();
+                // Set userId as text
+                $userId = textData; 
+                showUserIdComponent = true; // Show the component
+            } else {
+                // Handle non-OK response
+                showUserIdComponent = false;
+                console.error(
+                    "Error fetching user ID:",
+                    userIdResponse.statusText
+                );
+            }
+        } catch (error) {
+            console.error(error);
+            showUserIdComponent = false; // Do not show the component if any other error occurs
+        }
     }
+
+    onMount(fetchData);
 </script>
 
-<div class="content">
-    <p class="logo">ticketSlave</p> 
-    <a href="/Feed" class="button" style="text-decoration: none;"
-        >Browse Events</a
-    >
-    <div class="login-buttons">
-        <button on:click={redirectToCognito} class="button login-button" style={loginButtonStyle}>Log In / Sign Up</button>
-        <!-- <a href="/#/signup" class="button login-button" style={loginButtonStyle}
-            >Sign up</a
-        > -->
-    </div>
+<Navbar />
+
+<div class="m-10 min-h-screen rounded-lg">
+    
+    <div class="email">{userId.userId}</div>
+
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+		{#each events as event}
+			<EventCard {event} />
+		{/each}
+	</div>
 </div>
 
+<Footer />
+
 <style>
-    @import url("https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap");
-
-    .content {
-        display: flex;
-        flex-direction: column;
+    .email{
         justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        padding: 0;
-        background-color: beige;
-    }
-
-    .logo {
-        font-family: "GFS Didot", serif;
-        font-size: 6rem;
-
-        animation: fadeIn ease 3s;
-        animation-iteration-count: 1;
-        animation-fill-mode: forwards;
-    }
-
-    @keyframes fadeIn {
-        0% {
-            opacity: 0;
-        }
-        100% {
-            opacity: 1;
-        }
-    }
-
-    .login-buttons {
-        margin-top: 2vh;
-    }
-
-    .button {
-        display: inline-block;
-        padding: 0.75rem 1.25rem;
-        border-radius: 10rem;
-        color: #555;
-        text-transform: uppercase;
-        font-size: 1rem;
-        letter-spacing: 0.15rem;
-        transition: all 0.3s;
-        position: relative;
-        overflow: hidden;
-        z-index: 1;
-        cursor: pointer;
-    }
-
-    .button::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: #d2b48c;
-        border-radius: 10rem;
-        z-index: -2;
-    }
-
-    .button::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0%;
-        height: 100%;
-        background-color: #b6916b;
-        transition: all 0.3s;
-        border-radius: 10rem;
-        z-index: -1;
-    }
-
-    .button:hover {
-        color: #fff;
-    }
-
-    .button:hover::before {
-        width: 100%;
     }
 </style>
