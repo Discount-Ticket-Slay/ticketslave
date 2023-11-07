@@ -1,16 +1,13 @@
-package com.ticketslave.purchase.ticketcategory;
+package com.ticketslave.purchase.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-
+import com.ticketslave.purchase.model.*;
+import com.ticketslave.purchase.service.*;
 import java.util.List;
-
 import org.springframework.web.bind.annotation.*;
-
 import com.ticketslave.purchase.dto.*;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -29,14 +26,12 @@ public class TicketCategoryController {
 
     @GetMapping("/{ticketCategoryId}/get")
     public TicketCategory getTicketCategory(@PathVariable Long ticketCategoryId) {
-//System.out.println(TicketCategoryService.getAllTicketCategorys());
         // convert get TicketCategory object into json list
         return TicketCategoryService.findTicketCategory(ticketCategoryId);
     }
 
     @GetMapping("/{ticketCategoryId}/getevent")
     public EventDTO getEvent(@PathVariable Long ticketCategoryId) {
-// //System.out.println("Let's go!");
         return TicketCategoryService.getEvent(ticketCategoryId);
     }
 
@@ -51,23 +46,7 @@ public class TicketCategoryController {
         return TicketCategoryService.createTicketCategory(ticketCategory);
     }
 
-
-    // enter data into database
-    //@ResponseStatus(HttpStatus.CREATED)
-    // @PostMapping
-    // public ResponseEntity<TicketCategory> createTicketCategory(@Valid @RequestBody CreateTicketCategoryDTO createTicketCategoryDTO) {
-    //     TicketCategory createdTicketCategory = TicketCategoryService.createTicketCategory(createTicketCategoryDTO);
-    //     if (createdTicketCategory != null) {
-    //         return ResponseEntity.status(HttpStatus.CREATED).body(createdTicketCategory);
-    //     } else {
-    //         return ResponseEntity.badRequest().build();
- 
-    //     }
-    //     // System.out.println(TicketCategory);
-    //     // return TicketCategoryService.createTicketCategory(TicketCategory, null);
-    // }
-
-    // Other controller methods...
+    //populates database with tickets for a specific TicketCategory
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{id}/make-tickets")
     public ResponseEntity<String> makeTickets (@PathVariable Long id, @RequestParam int count) {

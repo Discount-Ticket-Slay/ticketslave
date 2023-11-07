@@ -1,4 +1,4 @@
-package com.ticketslave.purchase.purchase;
+package com.ticketslave.purchase.service;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

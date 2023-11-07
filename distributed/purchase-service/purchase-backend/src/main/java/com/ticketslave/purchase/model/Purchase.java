@@ -1,12 +1,11 @@
-package com.ticketslave.purchase.purchase;
+package com.ticketslave.purchase.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.*;
 import com.ticketslave.purchase.dto.*;
-import com.ticketslave.purchase.ticket.*;
+import com.ticketslave.purchase.model.*;
 
 import java.util.*;
 

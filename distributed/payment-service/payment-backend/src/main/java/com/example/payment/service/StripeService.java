@@ -1,21 +1,19 @@
-package com.example.payment;
+package com.example.payment.service;
 import com.example.payment.config.*;
+import com.example.payment.controller.EmailController;
 import com.example.payment.dto.*;
-import com.example.payment.email.*;
-
+import com.example.payment.model.*;
 
 import java.util.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
 import com.stripe.model.Customer;
-import org.springframework.context.annotation.*;
-import org.springframework.web.reactive.function.client.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
-import reactor.netty.channel.*;
 import reactor.netty.channel.AbortedException;
 
 
@@ -29,6 +27,8 @@ public class StripeService {
 
     @Autowired
     private EmailController EmailController;
+
+    private final String BASE_URL = "https://www.ticketslave.org/purchase/purchases/";
 
     public String createCustomer(String email, String token) {
         String id = null;
@@ -48,9 +48,10 @@ public class StripeService {
         return id;
     }
 
+    //completes payment transaction
     public String createCharge(String email, String token, Long purchaseId) throws AbortedException{
         //grab PurchaseDTO microservice
-        PurchaseDTO purchase = RestTemplate.getForObject("http://localhost:8082/purchases/" + purchaseId, 
+        PurchaseDTO purchase = RestTemplate.getForObject(BASE_URL + purchaseId, 
         PurchaseDTO.class);
         String chargeId = null;
 
@@ -73,7 +74,7 @@ public class StripeService {
             chargeId = charge.getId();
 
             //Send req back to Purchase microservice to complete purchase transaction and update database
-            ResponseEntity<String> responseEntity = RestTemplate.exchange("http://localhost:8082/purchases/" + purchaseId,
+            ResponseEntity<String> responseEntity = RestTemplate.exchange(BASE_URL + purchaseId,
             HttpMethod.PUT,
             null,
             String.class);

@@ -1,4 +1,4 @@
-package com.example.payment.email;
+package com.example.payment.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 import com.example.payment.config.*;
+import com.example.payment.model.EmailRequest;
 
 @RestController
 @RequestMapping("/email")

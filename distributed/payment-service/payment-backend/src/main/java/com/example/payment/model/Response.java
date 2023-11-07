@@ -1,4 +1,4 @@
-package com.example.payment;
+package com.example.payment.model;
 
 public class Response {
     private boolean status;

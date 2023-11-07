@@ -1,4 +1,4 @@
-package com.ticketslave.purchase.ticket;
+package com.ticketslave.purchase.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
@@ -8,8 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import com.fasterxml.jackson.annotation.*;
-import com.ticketslave.purchase.purchase.*;
-import com.ticketslave.purchase.ticketcategory.*;
+import com.ticketslave.purchase.model.*;
 
 @Entity
 @Table(name = "Ticket")

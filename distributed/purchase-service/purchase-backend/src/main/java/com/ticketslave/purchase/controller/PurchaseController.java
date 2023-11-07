@@ -1,16 +1,17 @@
-package com.ticketslave.purchase.purchase;
+package com.ticketslave.purchase.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.ticketslave.purchase.dto.*;
+import com.ticketslave.purchase.model.*;
 
 import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
-
-import com.ticketslave.purchase.ticket.*;
+import com.ticketslave.purchase.service.*;
+import com.ticketslave.purchase.model.*;
 
 import reactor.netty.channel.AbortedException;
 
@@ -50,10 +51,7 @@ public class PurchaseController {
         timerService.startTimer();
         return PurchaseService.createPurchase(userEmail);
     }
-    // @PutMapping("/{id}/add-purchase")
-    // public Purchase addPurchase (@PathVariable Long id, @RequestParam Long ticketId) {
-    //     return PurchaseService.addPurchase(id, ticketId);
-    // }
+
     @PostMapping("/{id}/add")
     public ResponseEntity<String> addTicket(@PathVariable Long id, @RequestParam Long ticketId) {
         // if (timerService.isTimerExpired()){
@@ -62,6 +60,7 @@ public class PurchaseController {
         // }
         try {       
             PurchaseService.addTicketId(id, ticketId);
+            PurchaseService.updatePrice(id);
             return new ResponseEntity<String>("Ticket successfully added to purchase", HttpStatus.OK); 
         } catch (NullPointerException e) {
             return new ResponseEntity<String>("Ticket does not exist", HttpStatus.BAD_REQUEST);

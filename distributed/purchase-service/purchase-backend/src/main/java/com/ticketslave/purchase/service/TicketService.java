@@ -1,11 +1,11 @@
-package com.ticketslave.purchase.ticket;
+package com.ticketslave.purchase.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.ticketslave.purchase.repository.*;
 import com.ticketslave.purchase.booking.*;
-import com.ticketslave.purchase.ticketcategory.*;
-
+import com.ticketslave.purchase.model.*;
+import com.ticketslave.purchase.controller.*;
 import java.util.*;
 
 import jakarta.persistence.OptimisticLockException;
@@ -41,29 +41,6 @@ public class TicketService {
     public Ticket findBySeatNoAndRowChar(int seatNo, char rowChar, Long ticketCategoryId) {
         return TicketRepository.findBySeatNoAndRowChar(seatNo, (rowChar), ticketCategoryId).get(0);
     }
-
-    // public Ticket updateTicketCategory (Long id, Long ticketCategoryId) {
-    //     TicketCategory ticketCategory = TicketCategoryService.findTicketCategory(ticketCategoryId);
-    //     Ticket ticket = findTicket(id);
-    //     if (ticket == null || ticketCategory == null) {
-    //         return null;
-    //     }
-    //     ticket.setTicketCategory(ticketCategory);
-    //     return TicketRepository.save(ticket);
-    // }
-    // @Transactional
-    // public Ticket updatePurchase (Long id, Long purchaseId) {
-    //     Purchase purchase = PurchaseService.findPurchase(purchaseId);
-    //     Ticket ticket = findTicket(id);
-
-    //     //function aborts if ticket does not exist, purchase does not exist, or if ticket is already reserved by someone else
-    //     if (ticket == null || purchase == null || ticket.getStatus() == true) {
-    //         return null;
-    //     }
-    //     ticket.setStatus(true);
-    //     ticket.setPurchase(purchase);
-    //     return TicketRepository.save(ticket);
-    // }
 
     //switches Ticket object's status to true
     @Transactional

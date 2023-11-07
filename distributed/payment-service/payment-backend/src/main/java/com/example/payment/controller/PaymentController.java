@@ -1,21 +1,18 @@
-package com.example.payment;
+package com.example.payment.controller;
 import com.example.payment.dto.*;
+import com.example.payment.model.Response;
+import com.example.payment.service.StripeService;
 import com.example.payment.config.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.example.payment.StripeService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-//@RequestMapping("/payments")
+@RequestMapping("/payments")
 public class PaymentController {
 
     @Value("${stripe.key.public}")
@@ -24,20 +21,21 @@ public class PaymentController {
     //@Autowired
     private StripeService stripeService;
 
+    //@Autowired
     public PaymentController (StripeService stripeService) {
         this.stripeService = stripeService;
     }
 
 	@GetMapping("/")
-	public String homepage() {
-		return "homepage";
+	public String index() {
+		return "index";
 	}
 
-	@GetMapping("/charge")
-	public String chargePage(Model model) {
-		model.addAttribute("stripePublicKey", API_PUBLIC_KEY);
-		return "charge";
-	}
+	// @GetMapping("/charge")
+	// public String chargePage(Model model) {
+	// 	model.addAttribute("stripePublicKey", API_PUBLIC_KEY);
+	// 	return "charge";
+	// }
 
     //INCOMPLETE: Need to configure so it can accept new input amount 
     @PostMapping("/create-charge") 

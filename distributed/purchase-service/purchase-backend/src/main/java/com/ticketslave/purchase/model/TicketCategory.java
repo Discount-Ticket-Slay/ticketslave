@@ -1,4 +1,4 @@
-package com.ticketslave.purchase.ticketcategory;
+package com.ticketslave.purchase.model;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
@@ -11,8 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.CascadeType;
 import java.util.*;
 import com.fasterxml.jackson.annotation.*;
-import com.ticketslave.purchase.dto.TicketCategoryDTO;
-import com.ticketslave.purchase.ticket.*;
+import com.ticketslave.purchase.dto.*;
+import com.ticketslave.purchase.model.*;
 
 import jakarta.validation.constraints.*;
 
@@ -34,11 +34,6 @@ public class TicketCategory {
 
     @OneToMany(mappedBy = "TicketCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ticket> tickets = new ArrayList<>();
-
-    // @ManyToOne
-    // @JoinColumn(name = "eventId")
-    // private Event Event;
-    
 
     // Getters, Setters, Constructors, etc.
     public TicketCategory() {
@@ -99,15 +94,6 @@ public class TicketCategory {
     public void addTicket(Ticket ticket) {
         tickets.add(ticket);
     }
-
-    //@JsonBackReference
-    // public Event getEvent() {
-    //     return Event;
-    // }
-
-    // public void setEvent(Event event) {
-    //     Event = event;
-    // }
 
     public void setPrice(double price) {
         Price = price;

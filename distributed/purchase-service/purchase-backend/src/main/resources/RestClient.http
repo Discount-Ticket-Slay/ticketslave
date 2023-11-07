@@ -16,11 +16,11 @@ POST http://localhost:8080/events
 Content-Type: application/json
 
 {
-    "eventName" : "fuck",
+    "eventName" : "name1",
     "eventDescription": "me",
     "startDateTime": "09/11/2001",
-    "venue": "world trade centre",
-    "artist": "obama bin laden",
+    "venue": "world centre",
+    "artist": "obama",
     "capacity": 100
 }
 ###
@@ -28,7 +28,7 @@ POST http://localhost:8081/ticketcategory
 Content-Type: application/json
 
 {
-    "name": "Faucker",
+    "name": "Faust",
     "price": 6.99,
     "eventId": 1
 }

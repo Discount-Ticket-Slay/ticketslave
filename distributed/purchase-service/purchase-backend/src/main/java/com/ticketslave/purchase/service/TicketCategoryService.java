@@ -1,22 +1,19 @@
-package com.ticketslave.purchase.ticketcategory;
+package com.ticketslave.purchase.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import com.ticketslave.purchase.dto.*;
-import com.ticketslave.purchase.ticket.*;
-
+import com.ticketslave.purchase.model.*;
 import org.springframework.web.reactive.function.*;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 import org.springframework.web.client.RestTemplate;
-
-
 import java.util.*;
 import org.springframework.context.annotation.Lazy;
-
 import jakarta.transaction.Transactional;
+import com.ticketslave.purchase.repository.*;
+import com.ticketslave.purchase.controller.*;
 
 @Service
 @Lazy
@@ -29,10 +26,6 @@ public class TicketCategoryService {
     @Autowired
     private RestTemplate RestTemplate;
     private final String BASE_URL = "https://www.ticketslave.org";
-    // @Autowired
-    // private EventService EventService;
-    // @Autowired
-    // private TicketService TicketService;
 
     public List<TicketCategory> getAllTicketCategorys() {
         return TicketCategoryRepository.findAll();
@@ -45,7 +38,6 @@ public class TicketCategoryService {
         if (eventId == null) {
             return null;
         }
-        //WebClient webClient = WebClientBuilder.baseUrl("http://localhost:8080").build();
         EventDTO eventDTO = RestTemplate.getForObject(BASE_URL + "/feed/events/" + eventId + "/eventDTO", 
                                                         EventDTO.class);
 
@@ -66,65 +58,24 @@ public class TicketCategoryService {
         return TicketCategoryRepository.findById(ticketCategoryId).orElse(null);
     }
 
-    // public TicketCategory updateEvent (Long ticketCategoryId, Long eventId) {
-    //     Event event = EventService.findEvent(eventId);
-    //     TicketCategory ticketCategory = findTicketCategory(ticketCategoryId);
-    //     if (event == null || ticketCategory == null) {
-    //         return null;
-    //     }
-        
-//         ticketCategory.setEvent(event);
-// System.out.println(ticketCategory);
-//         return TicketCategoryRepository.save(ticketCategory);
-//     }
     public TicketCategory createTicketCategory (TicketCategory TicketCategory) {
         return TicketCategoryRepository.save(TicketCategory);
     }
 
-//     public TicketCategory createTicketCategory(TicketCategory TicketCategory) {
-//         //loadTickets(TicketCategory);
-//         //TicketCategory.setEventId(eventId);
-//         Long eventId = TicketCategory.getEventId();
-//         TicketCategoryRepository.save(TicketCategory);
-// //System.out.println(TicketCategory.getEventId());
-// //System.out.println(TicketCategory.getTicketCategoryId());
-//         // TicketCategory ticketCategory = findTicketCategory(eventId);
-//         String eventUpdateUrl = BASE_URL + "/feed/events" + eventId + "/update";
-//         WebClient webCLient = WebClientBuilder.baseUrl(eventUpdateUrl).build();
-//         Long ticketCategoryId = TicketCategory.getTicketCategoryId();
-//         if (ticketCategoryId == null || eventId == null) {
-// //System.out.println("bye");
-//             return null;
-//         }
-//         ResponseEntity<String> response = webCLient
-//             .put()
-//             .uri(uriBuilder -> uriBuilder
-//             .queryParam("ticketCategoryId", ticketCategoryId)
-//             .build())
-//             .retrieve()
-//             .toEntity(String.class)
-//             .block();
-
-//System.out.println("lmao");
-    //     return TicketCategoryRepository.save(TicketCategory);
-    // }
-
-
     @Transactional
     public TicketCategory makeTickets (Long id, int count) throws IllegalArgumentException {
-        
+        final char FIRST_ROW_CHAR = 'A';
+        final char LAST_ROW_CHAR = 'Z';
             TicketCategory ticketCategory = findTicketCategory(id);
-//Long eventId = ticketCategory.getEventId();
             EventDTO event = getEvent(id);
             int capacity = event.getCapacity();
             if (capacity < count) {
                 throw new IllegalArgumentException("Count exceeds capacity");
             }
-    //System.out.println(event.getName());
             List<Ticket> tickets = new ArrayList<>();
             int counter = 0;
             int seatNo = 1;
-            char rowChar = 'A';
+            char rowChar = FIRST_ROW_CHAR;
             for (int i = 0; i < count; i++) {
                 Ticket ticket = new Ticket(seatNo, rowChar);
                 counter++;
@@ -136,8 +87,8 @@ public class TicketCategoryService {
                 if (seatNo > 10) {
                     seatNo = 1;
                 }
-                if (rowChar >= 'Z') {
-                    rowChar = 'A';
+                if (rowChar >= LAST_ROW_CHAR) {
+                    rowChar = FIRST_ROW_CHAR;
                 }
                 tickets.add(ticket);
                 ticket.setTicketCategory(ticketCategory);

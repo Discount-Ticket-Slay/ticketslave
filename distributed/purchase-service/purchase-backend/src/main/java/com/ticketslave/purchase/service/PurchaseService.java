@@ -1,13 +1,11 @@
-package com.ticketslave.purchase.purchase;
+package com.ticketslave.purchase.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
+import com.ticketslave.purchase.model.*;
+import com.ticketslave.purchase.repository.*;
+import com.ticketslave.purchase.controller.*;
 import com.ticketslave.purchase.dto.*;
-import com.ticketslave.purchase.ticket.*;
-import com.ticketslave.purchase.ticketcategory.*;
-
 import java.util.*;
 
 import jakarta.transaction.Transactional;
@@ -123,13 +121,4 @@ public class PurchaseService {
 
     }
 
-    // public Purchase addPurchase ( Long id, Long ticketId) {
-    //     Purchase purchase = findPurchase(id);
-    //     Ticket ticket = TicketService.findTicket(ticketId);
-    //     if (purchase == null || ticket == null || ticket.getStatus() == true) {
-    //         return null;
-    //     }
-    //     purchase.addTicket(ticket);
-    //     return PurchaseRepository.save(purchase);
-    // }
 }

@@ -1,4 +1,4 @@
-package com.example.payment.email;
+package com.example.payment.model;
 import java.util.*;
 
 public class EmailRequest {

@@ -1,4 +1,4 @@
-package com.ticketslave.purchase.ticket;
+package com.ticketslave.purchase.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -6,11 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
+import com.ticketslave.purchase.model.*;
+import com.ticketslave.purchase.service.*;
 import org.springframework.web.bind.annotation.*;
-
 import jakarta.persistence.OptimisticLockException;
 
 @RestController
@@ -31,12 +30,6 @@ public class TicketController {
     public Ticket findBySeatNoAndRowChar(@PathVariable Long ticketCategoryId, @RequestParam int seatNo, @RequestParam char rowChar) {
         return TicketService.findBySeatNoAndRowChar(seatNo, rowChar, ticketCategoryId);
     }
-
-    // @PutMapping("/{id}/update-ticketcategory")
-    // public Ticket updateTicketCategory(@PathVariable Long id, @RequestParam Long ticketCategoryId){
-    //     return TicketService.updateTicketCategory(id, ticketCategoryId);
-    // };
-    
 
     //enter new Ticket into database
     @ResponseStatus(HttpStatus.CREATED)
