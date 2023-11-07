@@ -6,35 +6,23 @@
 -->
 
 <script>
-    export let event
-    import {createEventDispatcher} from 'svelte'
-    import {onMount} from "svelte"
+    export let event;
+    import { createEventDispatcher } from 'svelte';
+    import { onMount } from "svelte";
     import { userId } from "../../store/store.js";
 
-    //the event dispatcher procs the event in the dispatch() function.
-    //in this case, dispatching CLOSE here to EventCard.svelte, procs the event CLOSE in
-    //<EventDetails {event} on:CLOSE={closeDetails}/>
-    const dispatch = createEventDispatcher()
+    const dispatch = createEventDispatcher();
 
     function closeDetails() {
-        dispatch("close")
+        dispatch("close");
     }
 
-    /**
-     * reditects the user to the queue
-     */
     async function queueForTickets() {
         try {
-            // // Call backend to register user in the queue
-            // const userIdString = String(userId);
-            // console.log("Attempting to send userId:", userId);
-            // console.log("Type of userId:", typeof userId);
+            // Use $userId to access the store's value directly
+            const userIdString = $userId;
+            console.log("Attempting to send userId:", userIdString);
 
-            // console.log("Attempting to send userIdString:", userIdString);
-
-            // Send API call to get user email
-            const emailResponse = await fetch("https://www.ticketslave.org/feed/email");
-            
             // Send POST request to backend
             const response = await fetch("https://www.ticketslave.org/feed/queue", {
                 method: 'POST',
@@ -42,17 +30,14 @@
                 body: JSON.stringify({ userId: userIdString })
             });
 
-            console.log("Response:", response);
-
-            // Check the status of the response
+            // Handle response
             if (response.status === 401) {
-                // If the user is not authorized, redirect to the Cognito login page
+                // If the user is not authorized, redirect to the login page
                 window.location.href = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/authorize?client_id=38vedjrqldlotkn6g9glq0sq9n&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fwww.ticketslave.org%2Ffeed%2Fauth%2Fcognito-callback";
             } else if (response.ok) {
-                // Successful registration, redirect user to buffer service page to wait
-                window.location.href = `https://www.ticketslave.org/buffer`;  // Pass userId as URL parameter
+                // Successful registration, redirect user to buffer service page
+                window.location.href = `https://www.ticketslave.org/buffer`;
             } else {
-                // Handle other responses or errors accordingly
                 console.error('Failed to register in queue:', response.statusText);
             }
         } catch (error) {
@@ -60,33 +45,26 @@
         }
     }
 
-    const ticketCategories = []
-    let error = null
-    let isLoading = true; // Initialize with loading state
+    let ticketCategories = [];
+    let error = null;
+    let isLoading = true;
 
-async function fetchData() {
+    async function fetchData() {
         try {
-            // Fetch event data
-            const response = await fetch(
-                `https://www.ticketslave.org/purchase/ticketcategory`
-            );
+            const response = await fetch(`https://www.ticketslave.org/purchase/ticketcategory`);
             const json_data = await response.json();
-            for (let i in json_data) {
-                if (json_data[i].eventId === event.eventId)
-                ticketCategories.push(json_data[i]);
-            }
 
-            isLoading = false; // Data is loaded, set loading state to false
-
-        } catch (error) {
-            console.error(error);
+            ticketCategories = json_data.filter(category => category.eventId === event.eventId);
+            isLoading = false;
+        } catch (e) {
+            error = e;
+            isLoading = false;
         }
     }
-    onMount(fetchData);
-    // console.log(ticketCategories.length)
-    // console.log(ticketCategories)
 
+    onMount(fetchData);
 </script>
+
 
 <div class="background">
     <div class="overlay bg-white p-4 rounded-lg shadow-lg h-3/4 w-3/4 relative">

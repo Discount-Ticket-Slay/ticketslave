@@ -22,40 +22,40 @@
             }
 
             // Attempt to fetch userId as plain text
-            const userIdResponse = await fetch(
-                "https://www.ticketslave.org/feed/email"
-            );
-console.log(userIdResponse);
+            const userIdResponse = await fetch("https://www.ticketslave.org/feed/email");
+            console.log(userIdResponse);
+
             if (userIdResponse.ok) {
                 const textData = await userIdResponse.text();
-                // Set userId as text
-                $userId = textData; 
+                console.log("textData: " + textData);
 
-                console.log("storing userId: " + $userId);
+                // Set userId as text using set method on the store, not on $userId
+                userId.set(textData);
 
-                showUserIdComponent = true; // Show the component
+                // The userId value is now set and can be used in the markup
+                showUserIdComponent = true;
             } else {
-                // Handle non-OK response
                 showUserIdComponent = false;
-                console.error(
-                    "Error fetching user ID:",
-                    userIdResponse.statusText
-                );
+                console.error("Error fetching user ID:", userIdResponse.statusText);
             }
-        } catch (error) {
+        }
+        catch (error) {
             console.error(error);
             showUserIdComponent = false; // Do not show the component if any other error occurs
         }
     }
 
     onMount(fetchData);
+    
 </script>
 
 <Navbar />
 
 <div class="m-10 min-h-screen rounded-lg">
     
-    <div class="email">{userId.userId}</div>
+    {#if showUserIdComponent}
+        <div class="email">{$userId}</div>
+    {/if}
 
 	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 		{#each events as event}
