@@ -10,6 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    # matrix strategy for testing multiple services
+    strategy:
+      matrix:
+        service: [feed, queue, buffer, purchase, payment]
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -19,139 +24,82 @@ jobs:
       with:
         node-version: '16.x'
 
-    - name: Install frontend dependencies for feed and build
+    - name: Install and build frontends
       run: |
-        cd distributed/feed-service/feed-frontend
-        npm ci && npm run build
-
-    - name: Install frontend dependencies for queue and build
-      run: |
-        cd distributed/queue-service/queue-frontend
-        npm ci && npm run build
-
-    - name: Install frontend dependencies for buffer and build
-      run: |
-        cd distributed/buffer-service/buffer-frontend
-        npm ci && npm run build
-
-    - name: Install frontend dependencies for purchase and build
-      run: |
-        cd distributed/purchase-service/purchase-frontend
-        npm ci && npm run build
-
-    - name: Install frontend dependencies for payment and build
-      run: |
-        cd distributed/payment-service/payment-frontend
-        npm ci && npm run build
-
-    - name: Cache Maven dependencies (feed)
+        for service in feed queue buffer purchase payment; do
+          cd $service-service/$service-frontend
+          npm ci && npm run build
+          cd ../../
+        done
+      
+    - name: Cache Maven dependencies
       uses: actions/cache@v3
       with:
         path: ~/.m2
-        key: maven-${{ hashFiles('distributed/feed-service/feed-backend/pom.xml') }}
+        key: maven-${{ hashFiles(format('{0}-service/{0}-backend/pom.xml', matrix.service)) }}
         restore-keys: |
           maven-
-
-    - name: Cache Maven dependencies (queue)
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: maven-${{ hashFiles('distributed/queue-service/queue-backend/pom.xml') }}
-        restore-keys: |
-          maven-
-
-    - name: Cache Maven dependencies (buffer)
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: maven-${{ hashFiles('distributed/buffer-service/buffer-backend/pom.xml') }}
-        restore-keys: |
-          maven-
-
-    - name: Cache Maven dependencies (purchase)
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: maven-${{ hashFiles('distributed/purchase-service/purchase-backend/pom.xml') }}
-        restore-keys: |
-          maven-
-
-    - name: Cache Maven dependencies (payment)
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2
-        key: maven-${{ hashFiles('distributed/payment-service/payment-backend/pom.xml') }}
-        restore-keys: |
-          maven-
+      env:
+        MATRIX_SERVICE: ${{ toJson(matrix.service) }}
 
     - name: Set .env file from Secrets
       run: |
-        echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "RDS_HOST_URL=${{ secrets.RDS_HOST_URL }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "MYSQL_DATABASE=${{ env.MYSQL_DATABASE }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./distributed/feed-service/feed-backend/.env
-        echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> ./distributed/buffer-service/buffer-backend/.env
-        echo "STRIPE_KEY_PUBLIC=${{ secrets.STRIPE_KEY_PUBLIC }}" >> ./distributed/payment-service/payment-backend/.env
-        echo "STRIPE_KEY_SECRET=${{ secrets.STRIPE_KEY_SECRET }}" >> ./distributed/payment-service/payment-backend/.env
-        echo "MYSQL_PURCHASE_DATABASE=${{ env.MYSQL_PURCHASE_DATABASE }}" >> ./distributed/purchase-service/purchase-backend/.env
-        echo "RDS_PURCHASE_HOST_URL=${{ secrets.RDS_PURCHASE_HOST_URL }}" >> ./distributed/purchase-service/purchase-backend/.env
-        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./distributed/purchase-service/purchase-backend/.env
-        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./distributed/purchase-service/purchase-backend/.env
-        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./distributed/purchase-service/purchase-backend/.env
-
+        echo "ECR_REPO_URL=${{ secrets.ECR_REPO_URL }}" >> ./feed-service/feed-backend/.env
+        echo "RDS_HOST_URL=${{ secrets.RDS_HOST_URL }}" >> ./feed-service/feed-backend/.env
+        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./feed-service/feed-backend/.env
+        echo "MYSQL_DATABASE=${{ env.MYSQL_DATABASE }}" >> ./feed-service/feed-backend/.env
+        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./feed-service/feed-backend/.env
+        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./feed-service/feed-backend/.env
+        echo "AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}" >> ./feed-service/feed-backend/.env
+        echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> ./feed-service/feed-backend/.env
+        echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> ./feed-service/feed-backend/.env
+        echo "AWS_CERTIFICATE_ARN=${{ secrets.AWS_CERTIFICATE_ARN }}" >> ./feed-service/feed-backend/.env
+        echo "user_pool_client_clientid=${{ secrets.USER_POOL_CLIENTID }}" >> ./feed-service/feed-backend/.env
+        echo "user_pool_client_secret=${{ secrets.USER_POOL_CLIENT_SECRET }}" >> ./feed-service/feed-backend/.env
+        echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> ./buffer-service/buffer-backend/.env
+        echo "STRIPE_KEY_PUBLIC=${{ secrets.STRIPE_KEY_PUBLIC }}" >> ./payment-service/payment-backend/.env
+        echo "STRIPE_KEY_SECRET=${{ secrets.STRIPE_KEY_SECRET }}" >> ./payment-service/payment-backend/.env
+        echo "MYSQL_PURCHASE_DATABASE=${{ env.MYSQL_PURCHASE_DATABASE }}" >> ./purchase-service/purchase-backend/.env
+        echo "RDS_PURCHASE_HOST_URL=${{ secrets.RDS_PURCHASE_HOST_URL }}" >> ./purchase-service/purchase-backend/.env
+        echo "MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> ./purchase-service/purchase-backend/.env
+        echo "SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }}" >> ./purchase-service/purchase-backend/.env
+        echo "SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }}" >> ./purchase-service/purchase-backend/.env
 
     - name: Docker Compose Build
-      run: cd distributed && docker-compose build
+      run: docker-compose build
     
     - name: Show Docker Logs
-      run: cd distributed && docker-compose logs
+      run: docker-compose logs
     
-    - name: Check .env file (feed)
-      run: cat ./distributed/feed-service/feed-backend/.env
-
-    - name: Check .env file (buffer)
-      run: cat ./distributed/buffer-service/buffer-backend/.env
-
-    - name: Check .env file (payment)
-      run: cat ./distributed/payment-service/payment-backend/.env
-    
-    - name: Check Docker Compose Config
-      run: cd distributed && docker-compose config
+    - name: Check .env files
+      run: |
+        for service in feed buffer payment; do
+          echo "Checking .env for $service service:"
+          cat ./$service-service/$service-backend/.env || echo "No .env file found for $service"
+        done
 
     - name: Stop conflicting Mono service on port 8084
       run: |
         sudo kill $(sudo lsof -t -i :8084) || true
     
     - name: Docker Compose Up (Foreground)
-      run: cd distributed && docker-compose up --force-recreate -d
+      run: docker-compose up --force-recreate -d
 
     - name: Wait for services to start
-      run: sleep 30
+      run: sleep 15
 
-    - name: Debugging
+    - name: Debugging (show entire docker-compose)
       run: |
-        cd distributed
         docker-compose ps
 
-    - name: Check if the application is running
+    - name: Check if the application containers are running
       run: |
-        cd distributed
-        docker-compose ps | grep "distributed_feed_1"
-        docker-compose ps | grep "distributed_queue_1"
-        docker-compose ps | grep "distributed_buffer_1"
-        docker-compose ps | grep "distributed_purchase_1"
-        docker-compose ps | grep "distributed_payment_1"
-
+        if ! docker-compose ps | grep -E "feed_1|queue_1|buffer_1|purchase_1|payment_1"; then
+          echo "One or more containers are not running."
+          exit 1
+        fi
+      
     - name: Cleanup
       if: always()
       run: |
-        cd distributed
         docker-compose down
