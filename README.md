@@ -82,7 +82,8 @@ The queuing algorithm operates in two distinct phases:
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
 ### Backend Setup
-1. From the root directory, start all services:
+1. Ensure .env file is present with all the relevant environment variables. (not committed for security reasons)
+2. From the root directory, start all services:
     ```bash
     docker-compose up
     ```
@@ -114,7 +115,7 @@ The queuing algorithm operates in two distinct phases:
     ```
 ### Deploy AWS Infrastructure
 1. Ensure you have the AWS CLI installed and configured with the correct credentials.
-2. Ensure .env file is present with all the relevant environment variables.
+2. Ensure .env file is present with all the relevant environment variables. (not committed for security reasons)
 3. From the root directory, run the following command:
      ```bash
     sh deploy.sh
