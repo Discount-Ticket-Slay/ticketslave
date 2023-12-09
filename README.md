@@ -90,7 +90,7 @@ The queuing algorithm operates in two distinct phases:
 ### Frontend Setup
 1. For each service, navigate to the frontend folder:
     ```bash
-    cd [ServiceName]/frontend
+    cd [ServiceName]-service/[ServiceName]-frontend
     ```
 
 2. Install dependencies and build the project:
