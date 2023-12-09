@@ -1,7 +1,7 @@
 # Fair Ticketing System Web Application (TicketSlave)
 
 ## Introduction
-A web application that implements a fair ticketing system for concert events. The application allows users to buy and sell tickets for events. The application also allows event organizers to create events and sell tickets for their events but with limited support.
+A web application that implements a fair ticketing system for concert events. The application allows users to buy tickets for events. The application also allows event organisers to create events and sell tickets for their events but with limited support.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -14,9 +14,9 @@ A web application that implements a fair ticketing system for concert events. Th
 - [Members](#contact)
 
 ## Features
-- **User Account Creation and Authentication**: Secure user registration and login processes.
-- **Event Creation and Management**: Intuitive tools for organizers to create and manage event details.
-- **Queueing System for Ticket Sales**: Fair and transparent ticket allocation system to prevent scalping.
+- **User Account Creation and Authentication**: Secure user registration and login processes. Supports Google login
+- **Event Creation and Management**: Intuitive tools for organisers to create and manage event details.
+- **Queueing System for Ticket Sales**: Fair and transparent ticket allocation system to prevent scalping and bots.
 
 ## Technologies
 ### Backend
@@ -74,8 +74,8 @@ A web application that implements a fair ticketing system for concert events. Th
 ## Queuing Process
 ![Queuing Process](https://github.com/Discount-Ticket-Slay/ticketslave/assets/74541329/1200728c-c950-4877-89ce-ece347295a67)
 The queuing algorithm operates in two distinct phases:
-1. **Buffering and Shuffling**: Initially, all incoming user requests are collected in a buffer. This collection phase is followed by a shuffling process where each user is assigned a random queue number.
-2. **Sequential Processing**: After shuffling, users are redirected to the queue service. Here, they are processed in a first-come, first-served manner, determined by their randomly assigned queue numbers. This approach ensures fairness by randomizing the order of service, rather than strictly processing requests in the order they were received.
+1. **Buffering and Shuffling**: Initially, all incoming user requests are collected in a buffer. This collection phase is followed by a shuffling process where each user within the buffer is assigned a random queue number.
+2. **Sequential Processing**: After shuffling, users are redirected to the queue service. Here, they are processed in a first-come, first-served manner, determined by their randomly assigned queue numbers. For users that join after the buffer is triggered, they will join from the back of the queue. This approach ensures fairness by randomising the order of service, rather than strictly processing requests in the order they were received.
 
 ## Setup and Installation
 ### Prerequisites
@@ -99,9 +99,9 @@ The queuing algorithm operates in two distinct phases:
     npm install && npm run build
     ```
 
-3. After building, copy the `index.html` file generated into the corresponding backend service to point to the correct JavaScript file. (e.g. `index.html` generated in `feed-service/feed-frontend/build/_app` should be copied to `feed-service/feed-backend/src/main/resources/templates`)
+3. After building, copy the `index.html` file generated in build directory into the corresponding backend service under resources/templates (e.g. `index.html` generated in `feed-service/feed-frontend/build/_app` should be copied to `feed-service/feed-backend/src/main/resources/templates`)
 
-4. Uploaded the folder named `_app` to AWS S3. This will be the version served by the application.
+4. Upload the folder named `_app` to AWS S3. This will be the version served by the application.
 
 5. Modify the source links in index.html to point to the correct S3 bucket and folder.
 
