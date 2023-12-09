@@ -38,38 +38,46 @@ A web application that implements a fair ticketing system for concert events. Th
 - Stripe API
 
 ## Architecture
-### Directory Structure
+## Directory Structure
+
+```plaintext
 .
-├── Buffer
+├── buffer-service
+│   ├── buffer-backend
+│   └── buffer-frontend
+├── Deployment (organised using Terraform Modules)
+│   ├── api_gateway
+│   ├── cloudfront
+│   ├── ecr
+│   ├── ecs
+│   ├── elb
+│   ├── msk
+│   ├── network
+│   └── rds
+├── feed-service
 │   ├── feed-backend
 │   └── feed-frontend
-├── Deployment (organised using Terraform Modules)
-│   └── api_gateway
-|   └── cloudfront
-|   └── ecr
-|   └── ecs
-|   └── elb
-|   └── msk
-|   └── network
-|   └── rds
-├── Feed
-│   ├── backend
-│   └── frontend
-├── Payment
-│   ├── backend
-│   └── frontend
-├── Purchase
-│   ├── backend
-│   └── frontend
-└── Queue
-    ├── backend
-    └── frontend
+├── payment-service
+│   ├── payment-backend
+│   └── payment-frontend
+├── purchase-service
+│   ├── purchase-backend
+│   └── purchase-frontend
+└── queue-service
+    ├── queue-backend
+    └── queue-frontend
+```
 
 ### Architecture Diagram
-![Architecture Diagram]()
+![Architecture Diagram](![Final Diagram](https://github.com/Discount-Ticket-Slay/ticketslave/assets/74541329/70612180-1083-476d-aee4-bfab7a48e9ff)
+)
 
 ## Queuing Process
-![Queuing Process]()
+![Queuing Process](![Final Diagram](https://github.com/Discount-Ticket-Slay/ticketslave/assets/74541329/1200728c-c950-4877-89ce-ece347295a67")
+)
+The queuing algorithm operates in two distinct phases:
+1. **Buffering and Shuffling**: Initially, all incoming user requests are collected in a buffer. This collection phase is followed by a shuffling process where each user is assigned a random queue number.
+2. **Sequential Processing**: After shuffling, users are redirected to the queue service. Here, they are processed in a first-come, first-served manner, determined by their randomly assigned queue numbers. This approach ensures fairness by randomizing the order of service, rather than strictly processing requests in the order they were received.
 
 ## Setup and Installation
 ### Prerequisites
@@ -80,7 +88,7 @@ A web application that implements a fair ticketing system for concert events. Th
     ```bash
     docker-compose up
     ```
-
+    
 ### Frontend Setup
 1. For each service, navigate to the frontend folder:
     ```bash
