@@ -8,7 +8,7 @@ public class EventDTO {
     private Long eventId;
     private String eventName;
     private String eventDescription;
-    private String StartDateTime;
+    private String startDateTime;
     private String venue;
     private String artist;
     private int capacity;

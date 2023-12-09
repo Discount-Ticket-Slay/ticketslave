@@ -34,8 +34,6 @@ class AuthenticationControllerTest {
 
     private MockHttpServletResponse response;
     private String code = "code";
-    private static final String COGNITO_TOKEN_URL = "https://cs203cry.auth.ap-southeast-1.amazoncognito.com/oauth2/token";
-    private static final String REDIRECT_URI = "https://www.ticketslave.org/feed/auth/cognito-callback";
     private static final String HOME_PAGE_URL = "https://www.ticketslave.org/feed#/feed";
     private static final String ERROR_PAGE_URL = "https://www.google.com";
 
@@ -107,7 +105,7 @@ class AuthenticationControllerTest {
     void processResponse_SuccessfulResponse_ShouldRedirectToHomePage() throws Exception {
         String jwtToken = "jwtToken";
         ResponseEntity<String> responseEntity = ResponseEntity.ok("{\"id_token\":\"" + jwtToken + "\"}");
-        authenticationController.processResponse(responseEntity, null, response);
+        authenticationController.processResponse(responseEntity, response);
         assertEquals(HOME_PAGE_URL, response.getRedirectedUrl());
         Cookie jwtCookie = response.getCookie("jwtToken");
         assertNotNull(jwtCookie);
@@ -123,7 +121,7 @@ class AuthenticationControllerTest {
     @Test
     void processResponse_ErrorResponse_ShouldRedirectToErrorPage() throws Exception {
         ResponseEntity<String> responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        authenticationController.processResponse(responseEntity, null, response);
+        authenticationController.processResponse(responseEntity, response);
         assertEquals(ERROR_PAGE_URL, response.getRedirectedUrl());
     }
 

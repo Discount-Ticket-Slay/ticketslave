@@ -49,7 +49,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         String jwtToken = jwtService.extractTokenFromCookies(request);
-        System.out.println("jwtToken: " + jwtToken);
 
         if (isValidToken(jwtToken)) {
             setAuthenticationContext(jwtToken);
@@ -69,7 +68,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     private boolean shouldSkipJwtVerification(HttpServletRequest request) {
         String path = request.getRequestURI();
-        System.out.println("path: " + path);
         return path.equals("/feed")
                 || path.startsWith("/Feed")
                 || path.startsWith("/feed/Feed")
@@ -98,9 +96,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private void setAuthenticationContext(String jwtToken) {
         String username = jwtService.getUsernameFromToken(jwtToken);
         List<String> roles = jwtService.getRolesFromToken(jwtToken);
-
-        System.out.println("username: " + username);
-        System.out.println("roles: " + roles);
 
         List<GrantedAuthority> authorities = roles.stream()
                 .map(SimpleGrantedAuthority::new)

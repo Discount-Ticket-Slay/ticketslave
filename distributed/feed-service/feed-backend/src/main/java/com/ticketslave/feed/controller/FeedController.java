@@ -70,8 +70,7 @@ public class FeedController {
             // If the token is found and valid, extract the email
             if (jwtToken != null && jwtService.verifyToken(jwtToken)) {
                 String email = jwtService.getEmailFromToken(jwtToken);
-
-                System.out.println("Sending back email to frontend: " + email);
+    
                 return ResponseEntity.ok(email);
             } else {
                 // If the token is not found or not valid, return an unauthorized error
@@ -94,11 +93,7 @@ public class FeedController {
     @PostMapping("/queue")
     public ResponseEntity<String> queueForTickets(@RequestBody Map<String, String> payload) {
 
-        System.out.println("queue payload: " + payload);
-
         String userId = payload.get("userId");
-
-        System.out.println("sending userId into kafka: " + userId);
 
         kafkaTemplate.send("buffered-queue", userId);
         return ResponseEntity.ok("Queued");

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.client.HttpStatusCodeException;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -74,7 +73,7 @@ public class AuthenticationController {
             ResponseEntity<String> response = restTemplate.exchange(COGNITO_TOKEN_URL, HttpMethod.POST, request,
                     String.class);
 
-            processResponse(response, state, httpServletResponse);
+            processResponse(response, httpServletResponse);
         } catch (Exception e) {
             handleTokenExchangeError(e, httpServletResponse);
         }
@@ -132,7 +131,7 @@ public class AuthenticationController {
      * Description: This method processes the response from the token exchange
      * request
      */
-    protected void processResponse(ResponseEntity<String> response, String state, HttpServletResponse httpServletResponse)
+    protected void processResponse(ResponseEntity<String> response, HttpServletResponse httpServletResponse)
             throws IOException {
         if (response.getStatusCode().is2xxSuccessful()) {
             String jwtToken = JsonPath.read(response.getBody(), "$.id_token");

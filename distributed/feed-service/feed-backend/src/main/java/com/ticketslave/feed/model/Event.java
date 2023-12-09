@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.ticketslave.feed.dto.EventDTO;
 
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import jakarta.validation.constraints.*;
 
