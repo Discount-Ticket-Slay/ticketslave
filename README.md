@@ -1,20 +1,123 @@
-# Organisation
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=Discount-Ticket-Slay_ticketslave)
-[![Test Docker Image Build](https://github.com/Discount-Ticket-Slay/ticketslave/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/Discount-Ticket-Slay/ticketslave/actions/workflows/docker-image.yml)
-[![SonarCloud](https://github.com/Discount-Ticket-Slay/ticketslave/actions/workflows/sonarqube.yml/badge.svg)](https://github.com/Discount-Ticket-Slay/ticketslave/actions/workflows/sonarqube.yml)
+# Fair Ticketing System Web Application (TicketSlave)
 
-## Team Members
-- Yue Zhen
-- Teng Wee
-- Ryan
-- Melanie
-- Linus
-- Mikhail
+## Introduction
+A web application that implements a fair ticketing system for concert events. The application allows users to buy and sell tickets for events. The application also allows event organizers to create events and sell tickets for their events but with limited support.
 
-### Organisation
-1. microservices (still in active development)
-2. demoapp (demo-ed application)
-3. temporaryfiles (for temporary files)
+## Table of Contents
+- [Introduction](#introduction)
+- [Features](#features)
+- [Technologies](#technologies)
+- [Architecture](#architecture)
+- [Queuing Process](#queuing-process)
+- [Setup and Installation](#setup-and-installation)
+- [Usage](#usage)
+- [Members](#contact)
 
-### Website
-www.ticketslave.org
+## Features
+- **User Account Creation and Authentication**: Secure user registration and login processes.
+- **Event Creation and Management**: Intuitive tools for organizers to create and manage event details.
+- **Queueing System for Ticket Sales**: Fair and transparent ticket allocation system to prevent scalping.
+
+## Technologies
+### Backend
+- Java Maven Spring Boot (Spring Security, Spring Data JPA, Spring Web)
+- JUnit 5 (Mockito)
+- Docker
+- Apache Kafka
+- Websockets
+
+### Frontend
+- Svelte
+- Tailwind CSS
+
+### Others
+- AWS (S3, ECS, RDS, MSK, Cognito)
+- Terraform
+- Github Actions
+- SonarCloud
+- Stripe API
+
+## Architecture
+### Directory Structure
+.
+├── Buffer
+│   ├── feed-backend
+│   └── feed-frontend
+├── Deployment (organised using Terraform Modules)
+│   └── api_gateway
+|   └── cloudfront
+|   └── ecr
+|   └── ecs
+|   └── elb
+|   └── msk
+|   └── network
+|   └── rds
+├── Feed
+│   ├── backend
+│   └── frontend
+├── Payment
+│   ├── backend
+│   └── frontend
+├── Purchase
+│   ├── backend
+│   └── frontend
+└── Queue
+    ├── backend
+    └── frontend
+
+### Architecture Diagram
+![Architecture Diagram]()
+
+## Queuing Process
+![Queuing Process]()
+
+## Setup and Installation
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+
+### Backend Setup
+1. From the root directory, start all services:
+    ```bash
+    docker-compose up
+    ```
+
+### Frontend Setup
+1. For each service, navigate to the frontend folder:
+    ```bash
+    cd [ServiceName]/frontend
+    ```
+
+2. Install dependencies and build the project:
+    ```bash
+    npm install && npm run build
+    ```
+
+3. After building, copy the `index.html` file generated into the corresponding backend service to point to the correct JavaScript file. (e.g. `index.html` generated in `feed-service/feed-frontend/build/_app` should be copied to `feed-service/feed-backend/src/main/resources/templates`)
+
+4. Uploaded the folder named `_app` to AWS S3. This will be the version served by the application.
+
+5. Modify the source links in index.html to point to the correct S3 bucket and folder.
+
+## Usage
+### Upload newly built image to AWS ECR
+1. Ensure you have the AWS CLI installed and configured with the correct credentials.
+2. Ensure you have Docker installed and running.
+3. From the root directory, run the following command:
+     ```bash
+    sh push_to_ecr.sh
+    ```
+### Deploy AWS Infrastructure
+1. Ensure you have the AWS CLI installed and configured with the correct credentials.
+2. Ensure .env file is present with all the relevant environment variables.
+3. From the root directory, run the following command:
+     ```bash
+    sh deploy.sh
+    ```
+
+## Members
+- [Yue Zhen](https://github.com/smithquaz)
+- [Mikhail](https://github.com/mikmik01)
+- [Ryan Lim](https://github.com/Ryanljk)
+- [Teng Wee](https://github.com/tengwee12)
+- [Linus](https://github.com/Innumii)
+- [Melanie](https://github.com/melly19)

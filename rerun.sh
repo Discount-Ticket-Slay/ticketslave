@@ -22,5 +22,4 @@ docker rmi distributed-payment:latest || true
 docker-compose pull || true
 
 # Step 8: Build and start the Docker Compose services in detached mode
-# If you have Docker Compose version 1.25.0+ you can use COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 to enable buildkit which has --no-cache functionality.
 COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose up -d --build --force-recreate

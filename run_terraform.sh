@@ -42,8 +42,7 @@ echo "Debug: TF_VAR_stripe_key_secret is $TF_VAR_stripe_key_secret"
 # Run Terraform commands
 terraform init
 terraform plan > plan.txt
-# terraform apply -auto-approve
-terraform apply -auto-approve # running it twice to resolve the auto deleting bug
+terraform apply -auto-approve
 # terraform destroy -auto-approve
 
 # Unset exported variables
