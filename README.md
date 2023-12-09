@@ -69,12 +69,10 @@ A web application that implements a fair ticketing system for concert events. Th
 ```
 
 ### Architecture Diagram
-(![Architecture Diagram]https://github.com/Discount-Ticket-Slay/ticketslave/assets/74541329/70612180-1083-476d-aee4-bfab7a48e9ff
-)
+![Architecture Diagram](https://github.com/Discount-Ticket-Slay/ticketslave/assets/74541329/70612180-1083-476d-aee4-bfab7a48e9ff)
 
 ## Queuing Process
-(![Queuing Process]https://github.com/Discount-Ticket-Slay/ticketslave/assets/74541329/1200728c-c950-4877-89ce-ece347295a67"
-)
+![Queuing Process](https://github.com/Discount-Ticket-Slay/ticketslave/assets/74541329/1200728c-c950-4877-89ce-ece347295a67)
 The queuing algorithm operates in two distinct phases:
 1. **Buffering and Shuffling**: Initially, all incoming user requests are collected in a buffer. This collection phase is followed by a shuffling process where each user is assigned a random queue number.
 2. **Sequential Processing**: After shuffling, users are redirected to the queue service. Here, they are processed in a first-come, first-served manner, determined by their randomly assigned queue numbers. This approach ensures fairness by randomizing the order of service, rather than strictly processing requests in the order they were received.
